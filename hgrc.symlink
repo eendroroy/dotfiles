@@ -1,0 +1,39 @@
+%include .hgauth
+
+[ui]
+username=indrajit
+
+[alias]
+dlog = log --style=/usr/share/mercurial/templates/mercurial-cli-templates/map-cmdline.dlog
+nlog = log --style=/usr/share/mercurial/templates/mercurial-cli-templates/map-cmdline.nlog
+slog = log --style=/usr/share/mercurial/templates/mercurial-cli-templates/map-cmdline.slog
+sglog = log -G --style=/usr/share/mercurial/templates/mercurial-cli-templates/map-cmdline.sglog
+dglog = dlog -G
+nglog = nlog -G
+
+[extensions]
+purge =
+hgk =
+rebase=
+shelve =
+progress =
+graphlog =
+transplant =
+mercurial_keyring =
+hgext.mercurial_keyring = /usr/local/lib/python2.7/dist-packages/mercurial_keyring.py
+mq =
+color =
+pager=
+
+[pager]
+pager = LESS='FRX' less
+attend = log, nlog, dlog, slog, nglog, dglog, sglog
+ignore = help
+
+[color]
+status.modified = magenta
+status.added = green
+status.removed = red
+status.deleted = cyan
+status.unknown = blue
+status.ignored = black
