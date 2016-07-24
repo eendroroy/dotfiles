@@ -13,6 +13,7 @@ Plug 'tpope/vim-endwise'              " auto insert end tag
 Plug 'neomake/neomake'                " style checker
 " Plug 'davidhalter/jedi-vim'           " autocomplete
 
+Plug 'digitaltoad/vim-jade'           " jade template
 " Plug 'rust-lang/rust.vim'             " rust
 Plug 'mattn/webapi-vim'               " 
 
