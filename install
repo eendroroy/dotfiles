@@ -6,8 +6,9 @@ echo "Initializing submodule(s)"
 git submodule update --init --recursive
 git submodule foreach pull origin master
 
-source recipes/link.sh
-source recipes/zsh.sh
-source recipes/antigen.sh
-source recipes/nvim.sh
-source recipes/hg-color.sh
+bash recipes/link.sh
+bash recipes/zsh.sh
+bash recipes/antigen.sh
+bash recipes/nvim.sh
+bash recipes/hg-color.sh
+bash recipes/vim-plug.sh
