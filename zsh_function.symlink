@@ -1,0 +1,20 @@
+## function
+
+# open git remote in browser
+openrem() {
+  if [[ -d .git ]]; then
+    remote=`git remote -v | head -1 | awk '{print $2}'`
+	host=`echo $remote | tr ':@' ' ' | awk '{print $2}'`
+	repo=`echo $remote | tr ':' ' ' | awk '{print $2}'`
+    sensible-browser "http://$host/$repo"
+  else
+    echo "Not a git working copy !"
+  fi
+}
+
+# dnext/dprev -- go to next/prev directory at same level
+dnext() {
+  local d; d=( ../*(/) )
+  cd ${d[d[(i)../$PWD:t]${1:-+1}]:?no such dir}
+}
+alias dprev='dnext -1'

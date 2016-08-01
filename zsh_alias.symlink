@@ -1,0 +1,29 @@
+# aliases
+if which youtube-dl > /dev/null; then
+  alias ydl='youtube-dl'
+  alias ymp3='youtube-dl --extract-audio --audio-format mp3'
+fi
+alias history='history -DE'
+alias pd='popd'
+alias ..='popd'
+if which docker-compose > /dev/null; then alias dcompose='docker-compose'; fi
+if which mvn > /dev/null; then
+  alias mvnc='mvn clean';
+  alias mvni='mvn install';
+  alias mvnci='mvn clean install';
+  alias mvnst='mvn -Dmaven.test.skip=true';
+  alias mvncst='mvn clean -Dmaven.test.skip=true';
+  alias mvnist='mvn install -Dmaven.test.skip=true';
+  alias mvncist='mvn clean install -Dmaven.test.skip=true';
+fi
+alias ll='ls -lFha --color=auto'
+alias l='ls -lFh --color=auto'
+alias zshrc='$EDITOR ~/.zshrc'
+alias c='clear'
+alias r='reset'
+alias q='exit'
+alias d='dirs -v'
+for c in cp rm chmod chown rename; do
+  alias $c="$c -v"
+done
+alias evince='evince > /dev/null &'
