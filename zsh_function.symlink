@@ -1,16 +1,34 @@
 ## function
 
 # open git remote in browser
-openrem() {
+open-remote() {
   if [[ -d .git ]]; then
-    remote=`git remote -v | head -1 | awk '{print $2}'`
-	host=`echo $remote | tr ':@' ' ' | awk '{print $2}'`
-	repo=`echo $remote | tr ':' ' ' | awk '{print $2}'`
-    sensible-browser "http://$host/$repo"
+    if git remote -v | grep git@ > /dev/null; then
+      remote=`git remote -v | head -1 | awk '{print $2}'`
+	  host=`echo $remote | tr ':@' ' ' | awk '{print $2}'`
+	  repo=`echo $remote | tr ':' ' ' | awk '{print $2}'`
+	  echo "http://$host/$repo"
+      sensible-browser "http://$host/$repo"
+    elif git remote -v | grep http > /dev/null; then
+      repo=`git remote -v | head -1 | awk '{print $2}'`
+	  echo "$repo"
+	  sensible-browser "$repo"
+    else
+      echo "Remote url not found."
+    fi
+  elif [[ -d .svn ]]; then
+    repo=`svn info | grep URL | head -1 | awk '{print $2}'`
+	echo "$repo"
+	sensible-browser "$repo"
+  elif [[ -d .hg ]]; then
+    repo=`hg paths | grep default | awk '{print $3}'`
+	echo "$repo"
+	sensible-browser "$repo"
   else
-    echo "Not a git working copy !"
+    echo "Not a working copy !"
   fi
 }
+alias rr='open-remote'
 
 # dnext/dprev -- go to next/prev directory at same level
 dnext() {
@@ -18,3 +36,4 @@ dnext() {
   cd ${d[d[(i)../$PWD:t]${1:-+1}]:?no such dir}
 }
 alias dprev='dnext -1'
+
