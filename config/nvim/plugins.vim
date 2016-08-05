@@ -16,6 +16,7 @@ Plug 'neomake/neomake'                " style checker
 Plug 'digitaltoad/vim-jade'           " jade template
 " Plug 'rust-lang/rust.vim'             " rust
 Plug 'mattn/webapi-vim'               " 
+Plug 'tkztmk/vim-vala'                " vala syntax
 
 Plug 'bling/vim-bufferline'           " bufferline
 Plug 'vim-airline/vim-airline'        " airlne
