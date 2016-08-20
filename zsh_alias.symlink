@@ -30,3 +30,4 @@ alias evince='evince > /dev/null &'
 if which python > /dev/null; then
   alias prettyjson='python -m json.tool'
 fi
+alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
