@@ -27,3 +27,4 @@ for c in cp rm chmod chown rename; do
   alias $c="$c -v"
 done
 alias evince='evince > /dev/null &'
+alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
