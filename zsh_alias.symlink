@@ -27,7 +27,6 @@ for c in cp rm chmod chown rename; do
   alias $c="$c -v"
 done
 alias evince='evince > /dev/null &'
-<<<<<<< HEAD
 if which python > /dev/null; then
   alias prettyjson='python -m json.tool'
 fi
