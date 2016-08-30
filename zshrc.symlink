@@ -38,6 +38,7 @@ antigen bundles <<EOBUNDLES
   zsh-users/zsh-completions
   zsh-users/zsh-autosuggestions
   zsh-users/zaw
+  horosgrisa/autoenv
 EOBUNDLES
 
 # THEMES
