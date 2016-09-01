@@ -23,7 +23,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if which pyenv > /dev/null; then eval "$(pyenv init - $0)"; fi
 
-# rbenv
+# nenv
 export PATH="$HOME/.nenv/shims:$HOME/.nenv/bin:$PATH"
 if which nenv > /dev/null; then eval "$(nenv init - $0)"; fi
 
