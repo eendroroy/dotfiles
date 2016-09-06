@@ -31,3 +31,6 @@ if which python > /dev/null; then
   alias prettyjson='python -m json.tool'
 fi
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
+if which thefuck > /dev/null; then
+  eval $(thefuck --alias)
+fi
