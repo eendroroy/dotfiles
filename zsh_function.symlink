@@ -37,3 +37,9 @@ dnext() {
 }
 alias dprev='dnext -1'
 
+#mkdir and cd $1
+mkcdir() {
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+
