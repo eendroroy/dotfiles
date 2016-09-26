@@ -27,6 +27,10 @@ which pyenv > /dev/null && eval "$(pyenv init - $0)"
 export PATH="$HOME/.nenv/shims:$HOME/.nenv/bin:$PATH"
 which nenv > /dev/null && eval "$(nenv init - $0)"
 
+# jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+which jenv > /dev/null && eval "$(jenv init - $0)"
+
 #thefuck
 which thefuck > /dev/null && eval $(thefuck --alias)
 
