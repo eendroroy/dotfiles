@@ -2,7 +2,10 @@
 
 # open git remote in browser
 open-remote() {
-  if git remote -v > /dev/null; then
+  is_git="$(git remote -v 2> /dev/null)"
+  is_hg="$(hg branch 2> /dev/null)"
+  is_svn="$(svn info 2> /dev/null)"
+  if [ "$is_git" ]; then
     if git remote -v | grep git@ > /dev/null; then
       remote=`git remote -v | head -1 | awk '{print $2}'`
 	  host=`echo $remote | tr ':@' ' ' | awk '{print $2}'`
@@ -16,11 +19,11 @@ open-remote() {
     else
       echo "Remote url not found."
     fi
-  elif svn info > /dev/null; then
+  elif [ "$is_svn" ]; then
     repo=`svn info | grep URL | head -1 | awk '{print $2}'`
 	echo "$repo"
 	sensible-browser "$repo"
-  elif hg branch > /dev/null; then
+  elif [ "$is_hg" ]; then
     repo=`hg paths | grep default | awk '{print $3}'`
 	echo "$repo"
 	sensible-browser "$repo"
