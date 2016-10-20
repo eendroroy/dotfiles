@@ -48,3 +48,4 @@ let g:airline#extensions#tabline#enabled       = 1
 
 let g:ctrlp_dotfiles = 1
 
+autocmd vimenter * NERDTreeToggle   " open NERDTree by default
