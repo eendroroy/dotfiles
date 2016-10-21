@@ -73,3 +73,7 @@ setopt aliases
 setopt printexitvalue
 setopt notify
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/indrajit/.sdkman"
+[[ -s "/home/indrajit/.sdkman/bin/sdkman-init.sh" ]] && source "/home/indrajit/.sdkman/bin/sdkman-init.sh"
