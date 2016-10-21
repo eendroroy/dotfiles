@@ -10,3 +10,4 @@ bash recipes/link.sh
 bash recipes/antigen.sh
 bash recipes/hg-color.sh
 bash recipes/vim-plug.sh
+bash recipes/sdkman.sh
