@@ -1,9 +1,5 @@
 [ -d ~/.antigen ] && source ~/.antigen/antigen.zsh
 
-[ -f ~/.zsh_keybinds ] && source ~/.zsh_keybinds
-[ -f ~/.zsh_alias ] && source ~/.zsh_alias
-[ -f ~/.zsh_function ] && source ~/.zsh_function
-
 # export TERM=xterm-256color
 export HISTFILE=~/.zsh_history
 export SAVEHIST=1000
@@ -77,3 +73,8 @@ setopt notify
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/indrajit/.sdkman"
 [[ -s "/home/indrajit/.sdkman/bin/sdkman-init.sh" ]] && source "/home/indrajit/.sdkman/bin/sdkman-init.sh"
+
+[ -f ~/.zsh_keybinds ] && source ~/.zsh_keybinds
+[ -f ~/.zsh_alias ] && source ~/.zsh_alias
+[ -f ~/.zsh_function ] && source ~/.zsh_function
+
