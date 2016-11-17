@@ -1,6 +1,7 @@
 [user]
 	name = indrajit
 	email = eendroroy@gmail.com
+	signingkey = 7D65308546343630
 [github]
 	user = eendroroy
 [alias]
@@ -13,3 +14,14 @@
 	co = checkout
 [push]
 	default = simple
+[core]
+	excludesfile = /Users/indrajit/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/indrajit/.stCommitMsg
+	gpgsign = true
