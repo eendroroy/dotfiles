@@ -1,0 +1,33 @@
+# aliases
+which youtube-dl > /dev/null && \
+  alias ydl='youtube-dl' && \
+  alias ymp3='youtube-dl --extract-audio --audio-format mp3'
+
+alias history='history -DE'
+alias pd='popd'
+alias ..='popd'
+which docker-compose > /dev/null && alias dcompose='docker-compose'
+which mvn > /dev/null && \
+  alias mvnc='mvn clean' && \
+  alias mvni='mvn install' && \
+  alias mvnci='mvn clean install' && \
+  alias mvnst='mvn -Dmaven.test.skip=true' && \
+  alias mvncst='mvn clean -Dmaven.test.skip=true' && \
+  alias mvnist='mvn install -Dmaven.test.skip=true' && \
+  alias mvncist='mvn clean install -Dmaven.test.skip=true'
+
+alias ll='ls -lFhaG'
+alias l='ls -lFhG'
+alias zshrc='$EDITOR ~/.zshrc'
+alias c='clear'
+alias r='reset'
+alias q='exit'
+alias d='dirs -v'
+for c in cp rm chmod chown rename; do
+  alias $c="$c -v"
+done
+alias evince='evince > /dev/null &'
+which python > /dev/null && alias prettyjson='python -m json.tool'
+alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
+which mpsyt > /dev/null && alias mpsyt='pyenv shell 3.5.2 && mpsyt && pyenv shell --unset'
+
