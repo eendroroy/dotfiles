@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DOTFILES="`pwd`"
+DOTFILES="`pwd`/`uname`"
 
 echo -e "\nCreating symlinks"
 echo "=============================="
