@@ -7,7 +7,7 @@ git submodule update --init --recursive
 git submodule foreach pull origin master
 
 bash link.sh
-bash recipes/antigen.sh
-bash recipes/hg-color.sh
-bash recipes/vim-plug.sh
-bash recipes/sdkman.sh
+bash `uname`/recipes/antigen.sh
+bash `uname`/recipes/hg-color.sh
+bash `uname`/recipes/vim-plug.sh
+bash `uname`/recipes/sdkman.sh
