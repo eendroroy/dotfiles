@@ -1,6 +1,14 @@
 ## function
 
 # open git remote in browser
+open-remote-url(){
+  os=`uname`
+  if [[ "${os}" == "Linux" ]]; then
+    sensible-browser $1
+  elif [[ "${os}" == "Darwin" ]]; then
+    open $1
+  fi
+}
 open-remote() {
   is_git="$(git remote -v 2> /dev/null)"
   is_hg="$(hg branch 2> /dev/null)"
@@ -11,22 +19,22 @@ open-remote() {
 	  host=`echo $remote | tr ':@' ' ' | awk '{print $2}'`
 	  repo=`echo $remote | tr ':' ' ' | awk '{print $2}'`
 	  echo "http://$host/$repo"
-      sensible-browser "http://$host/$repo"
+      open-remote-url "http://$host/$repo"
     elif git remote -v | grep http > /dev/null; then
       repo=`git remote -v | head -1 | awk '{print $2}'`
 	  echo "$repo"
-	  sensible-browser "$repo"
+	  open-remote-url "$repo"
     else
       echo "Remote url not found."
     fi
   elif [ "$is_svn" ]; then
     repo=`svn info | grep URL | head -1 | awk '{print $2}'`
 	echo "$repo"
-	sensible-browser "$repo"
+	open-remote-url "$repo"
   elif [ "$is_hg" ]; then
     repo=`hg paths | grep default | awk '{print $3}'`
 	echo "$repo"
-	sensible-browser "$repo"
+	open-remote-url "$repo"
   else
     echo "Not a working copy !"
   fi
@@ -45,4 +53,3 @@ mkcdir() {
     mkdir -p -- "$1" &&
       cd -P -- "$1"
 }
-
