@@ -26,7 +26,7 @@ which nenv > /dev/null && eval "$(nenv init - $0)"
 # jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 which jenv > /dev/null && eval "$(jenv init - $0)"
-jenv_home > /dev/null
+export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
 
 #thefuck
 which thefuck > /dev/null && eval $(thefuck --alias)
