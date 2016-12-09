@@ -3,10 +3,6 @@
 # export TERM=xterm-256color
 export HISTFILE=~/.zsh_history
 export SAVEHIST=1000
-
-# alien prompt
-export ALIEN_THEME='blue'
-
 export EDITOR='nvim'
 
 # rbenv
@@ -45,7 +41,7 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # THEMES
-antigen theme eendroroy/alien alien
+antigen theme eendroroy/alien-minimal
 
 antigen apply
 
