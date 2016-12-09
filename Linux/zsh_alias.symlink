@@ -31,3 +31,6 @@ if which python > /dev/null; then
   alias prettyjson='python -m json.tool'
 fi
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
+
+# jenv java home
+which jenv > /dev/null && alias jenv_home='export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`" && echo $JAVA_HOME'
