@@ -22,9 +22,6 @@ transplant =
 mq =
 color =
 pager=
-hgext.gpg=
-
-%include .hg_gpg
 
 [pager]
 pager = LESS='FRX' less
