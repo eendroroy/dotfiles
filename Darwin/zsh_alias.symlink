@@ -16,6 +16,7 @@ which mvn > /dev/null && \
   alias mvnist='mvn install -Dmaven.test.skip=true' && \
   alias mvncist='mvn clean install -Dmaven.test.skip=true'
 
+which ccat > /dev/null && alias cat='ccat'
 alias ll='ls -lFhaG'
 alias l='ls -lFhG'
 alias zshrc='$EDITOR ~/.zshrc'
