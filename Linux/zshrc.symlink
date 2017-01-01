@@ -50,10 +50,6 @@ antigen theme eendroroy/alien-minimal alien-minimal
 
 antigen apply
 
-if which __color_man_page > /dev/null; then
-  __color_man_page
-fi
-
 setopt sharehistory
 setopt extendedhistory
 setopt histreduceblanks
