@@ -67,10 +67,12 @@ setopt aliases
 setopt printexitvalue
 setopt notify
 
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# sdkman
 export SDKMAN_DIR="/home/indrajit/.sdkman"
 [[ -s "/home/indrajit/.sdkman/bin/sdkman-init.sh" ]] && source "/home/indrajit/.sdkman/bin/sdkman-init.sh"
+
+# linuxbrew
+[ -d ~/.linuxbrew ] && export PATH="$HOME/.linuxbrew/bin:$PATH"
 
 [ -f ~/.zsh_keybinds ] && source ~/.zsh_keybinds
 [ -f ~/.zsh_alias ] && source ~/.zsh_alias
