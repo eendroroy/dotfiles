@@ -6,27 +6,24 @@ export SAVEHIST=1000
 export EDITOR='nvim'
 
 # rbenv
-export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 which rbenv > /dev/null && eval "$(rbenv init - $0)"
-# source ~/.rbenv/completions/rbenv.bash
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH"
 which pyenv > /dev/null && eval "$(pyenv init - $0)"
 
 # nenv
-export PATH="$HOME/.nenv/shims:$HOME/.nenv/bin:$PATH"
+export PATH="$HOME/.nenv/bin:$HOME/.nenv/shims:$PATH"
 which nenv > /dev/null && eval "$(nenv init - $0)"
 
 # jenv
-export PATH="$HOME/.jenv/bin:$PATH"
+export PATH="$HOME/.jenv/bin:$HOME/.jenv/shims:$PATH"
 which jenv > /dev/null && eval "$(jenv init - $0)"
 which jenv > /dev/null && export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
 
 # goenv
-export GOENV_ROOT=/usr/local/var/goenv
-export PATH="$GOENV_ROOT/bin:$PATH"
+export PATH="$HOME/.goenv/bin:$HOME/.goenv/shims:$PATH"
 which goenv > /dev/null && eval "$(goenv init -)"
 
 #thefuck
@@ -68,8 +65,8 @@ setopt printexitvalue
 setopt notify
 
 # sdkman
-export SDKMAN_DIR="/home/indrajit/.sdkman"
-[[ -s "/home/indrajit/.sdkman/bin/sdkman-init.sh" ]] && source "/home/indrajit/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # linuxbrew
 [ -d ~/.linuxbrew ] && export PATH="$HOME/.linuxbrew/bin:$PATH"
