@@ -73,6 +73,8 @@ export SDKMAN_DIR="/home/indrajit/.sdkman"
 
 # linuxbrew
 [ -d ~/.linuxbrew ] && export PATH="$HOME/.linuxbrew/bin:$PATH"
+[ -d ~/.linuxbrew ] && export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+[ -d ~/.linuxbrew ] && export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 [ -f ~/.zsh_keybinds ] && source ~/.zsh_keybinds
 [ -f ~/.zsh_alias ] && source ~/.zsh_alias
