@@ -11,8 +11,8 @@
 	ls = log --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	st = status
 	br = branch -v
-    co = checkout
-    cs = commit -S
+	co = checkout
+	cs = commit -S
 [push]
 	default = simple
 [core]
