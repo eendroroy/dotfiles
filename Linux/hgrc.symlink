@@ -35,3 +35,6 @@ status.removed = red
 status.deleted = cyan
 status.unknown = blue
 status.ignored = black
+
+[diff]
+git = True
