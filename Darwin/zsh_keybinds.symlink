@@ -7,22 +7,3 @@ function prepend-sudo {
 zle -N prepend-sudo
 bindkey "^[s" prepend-sudo
 
-# reset
-function reset-window {
-  tput civis -- invisible;
-  echo -n "";
-  echo -n "\rresetting current window ►\r";
-  sleep .5;
-  echo -n "\rresetting current window  ►\r";
-  sleep .5;
-  echo -n "\rresetting current window   ►\r";
-  sleep .5;
-  echo -n "\rresetting current window    ►\r";
-  sleep .5;
-  reset;
-  zle reset-prompt;
-  tput cnorm -- normal;
-}
-zle -N reset-window
-bindkey "^[r" reset-window
-
