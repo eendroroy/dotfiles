@@ -21,7 +21,6 @@ alias ll='ls -lFhaG'
 alias l='ls -lFhG'
 alias zshrc='$EDITOR ~/.zshrc'
 alias c='clear'
-alias r='reset'
 alias q='exit'
 alias d='dirs -v'
 for c in cp rm chmod chown rename; do
