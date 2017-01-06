@@ -37,7 +37,6 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 
 # PLUGINS
 antigen bundles <<EOBUNDLES
-  chrissicool/zsh-256color
   eendroroy/zshPlugins
   zsh-users/zsh-syntax-highlighting
   zsh-users/zsh-completions
