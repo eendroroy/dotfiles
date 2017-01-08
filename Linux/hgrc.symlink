@@ -21,7 +21,8 @@ graphlog =
 transplant =
 mq =
 color =
-pager=
+pager =
+churn = 
 
 [pager]
 pager = LESS='FRX' less
