@@ -53,3 +53,8 @@ mkcdir() {
     mkdir -p -- "$1" &&
       cd -P -- "$1"
 }
+
+# update dotfolders
+dot-update() {
+    [[ -d ~/.dotfiles ]] && pushd ~/.dotfiles && git pull && popd
+}
