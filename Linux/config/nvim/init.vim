@@ -29,14 +29,16 @@ augroup configgroup
 	autocmd!
 	autocmd FileType xml setlocal ts=2 sts=2 sw=2 expandtab
 	autocmd FileType gradle.build setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType python setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab
 augroup END
 
 set textwidth=120
 set showbreak=↪
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 
-nmap <silent> <leader>k :NERDTreeToggle<cr> " Toggle NERDTree
-nmap <silent> <leader>l :NERDTreeFind<cr>   " Toggle NERDTree
 nmap <silent> <leader>e :bnext<cr>          " switch to nex buffer
 nmap <silent> <leader>w :bprevious<cr>      " switch to previous buffer
 
