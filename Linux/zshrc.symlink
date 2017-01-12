@@ -7,28 +7,28 @@ export EDITOR='nvim'
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
-which rbenv > /dev/null && eval "$(rbenv init - $0)"
+which rbenv > /dev/null && eval "$(rbenv init -)"
 
 # pyenv
 export PATH="$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH"
-which pyenv > /dev/null && eval "$(pyenv init - $0)"
+which pyenv > /dev/null && eval "$(pyenv init -)"
 
 # nenv
 export PATH="$HOME/.nenv/bin:$HOME/.nenv/shims:$PATH"
-which nenv > /dev/null && eval "$(nenv init - $0)"
+which nenv > /dev/null && eval "$(nenv init -)"
 
 # jenv
 export PATH="$HOME/.jenv/bin:$HOME/.jenv/shims:$PATH"
-which jenv > /dev/null && eval "$(jenv init - $0)"
+which jenv > /dev/null && eval "$(jenv init -)"
 which jenv > /dev/null && export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
 
 # goenv
 export PATH="$HOME/.goenv/bin:$HOME/.goenv/shims:$PATH"
-which goenv > /dev/null && eval "$(goenv init - $0)"
+which goenv > /dev/null && eval "$(goenv init -)"
 
 # exenv
 export PATH="$HOME/.exenv/bin:$HOME/.exenv/shims:$PATH"
-which exenv > /dev/null && eval "$(exenv init - $0)"
+which exenv > /dev/null && eval "$(exenv init -)"
 
 #thefuck
 which thefuck > /dev/null && eval $(thefuck --alias)
