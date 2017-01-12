@@ -68,6 +68,6 @@ dot-update() {
     if [[ -d ~/.goenv/plugins/go-build/.git ]]; then; echo "-> go-build" && pushd ~/.goenv/plugins/go-build && git pull && popd; fi
 
     if [[ -d ~/.exenv/.git ]]; then; echo "-> exenv" &&  pushd ~/.exenv && git pull && popd; fi
-    if [[ -d ~/.exenv/plugins/ruby-build/.git ]]; then; echo "-> elixir-build" && pushd ~/.exenv/plugins/elixir-build && git pull && popd; fi
+    if [[ -d ~/.exenv/plugins/elixir-build/.git ]]; then; echo "-> elixir-build" && pushd ~/.exenv/plugins/elixir-build && git pull && popd; fi
 }
 
