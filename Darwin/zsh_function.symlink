@@ -56,5 +56,10 @@ mkcdir() {
 
 # update dotfolders
 dot-update() {
-    [[ -d ~/.dotfiles ]] && pushd ~/.dotfiles && git pull && popd
+    [[ -d ~/.dotfiles/.git ]] && pushd ~/.dotfiles && git pull && popd
+    [[ -d ~/.pyenv/.git ]] && pushd ~/.pyenv && git pull && popd
+    [[ -d ~/.pyenv/plugins/python-build/.git ]] && pushd ~/.pyenv/plugins/python-build && git pull && popd
+    [[ -d ~/.rbenv/.git ]] && pushd ~/.rbenv && git pull && popd
+    [[ -d ~/.rbenv/plugins/ruby-build/.git ]] && pushd ~/.rbenv/plugins/ruby-build && git pull && popd
 }
+
