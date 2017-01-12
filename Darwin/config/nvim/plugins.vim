@@ -1,11 +1,11 @@
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
 Plug 'ervandew/supertab'                " tab completion
 Plug 'yggdroot/indentline'              " show verticl line at each indent
-Plug 'ctrlpvim/ctrlp.vim'               " search for file
 
 Plug 'tpope/vim-commentary'             " comment out target line
 Plug 'tpope/vim-endwise'                " auto insert end tag
@@ -58,3 +58,7 @@ let g:ctrlp_dotfiles = 1
 " open NERDTree by default
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTreeToggle | NERDTreeToggle endif
+
+nmap <silent> <leader>k :NERDTreeToggle<cr> " Toggle NERDTree
+nmap <silent> <leader>l :NERDTreeFind<cr>   " Toggle NERDTree
+nmap <silent> <C-p> :FZF<cr>

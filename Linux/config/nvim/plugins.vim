@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
 Plug 'ervandew/supertab'                " tab completion
@@ -27,7 +28,7 @@ Plug 'vim-airline/vim-airline-themes'   " airline themes
 Plug 'airblade/vim-gitgutter'           " git
 Plug 'tpope/vim-fugitive'               " git
 Plug 'phleet/vim-mercenary'             " mercurial
-Plug 'ludovicchabant/vim-lawrencium'    " mercurial
+" Plug 'ludovicchabant/vim-lawrencium'    " mercurial
 Plug 'mhinz/vim-signify'                " mercurial sunversion
 
 Plug 'mileszs/ack.vim'                  " search enhance
@@ -58,3 +59,7 @@ let g:ctrlp_dotfiles = 1
 " open NERDTree by default
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTreeToggle | endif
+
+nmap <silent> <leader>k :NERDTreeToggle<cr> " Toggle NERDTree
+nmap <silent> <leader>l :NERDTreeFind<cr>   " Toggle NERDTree
+nmap <silent> <C-p> :FZF<cr>
