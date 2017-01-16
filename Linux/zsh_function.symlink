@@ -55,15 +55,15 @@ mkcdir() {
 }
 
 # update dotfolders
-dot-update() {
-  COLOR='\033[1;34m'
-  NC='\033[0m'
-  echo "${COLOR}"
-  paths=`find ~ -maxdepth 4 -name ".git" | sed "s|.git||g" | grep "/\." | grep -v "\.antigen/repos/"`
-  for path in ${paths}; do
-    echo "    --> ${path}"
-    bash -c "pushd ${path} && git pull && popd" > /dev/null
-  done
-  echo "${NC}"
-}
+# dot-update() {
+#   COLOR='\033[1;34m'
+#   NC='\033[0m'
+#   echo "${COLOR}"
+#   paths=`find ~ -maxdepth 4 -name ".git" | sed "s|.git||g" | grep "/\." | grep -v "\.antigen/repos/"`
+#   for path in ${paths}; do
+#     echo "    --> ${path}"
+#     bash -c "pushd ${path} && git pull && popd" > /dev/null
+#   done
+#   echo "${NC}"
+# }
 
