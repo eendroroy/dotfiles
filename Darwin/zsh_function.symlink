@@ -56,18 +56,14 @@ mkcdir() {
 
 # update dotfolders
 dot-update() {
-    if [[ -d ~/.dotfiles/.git ]]; then; echo "-> dotfiles" && pushd ~/.dotfiles && git pull && popd; fi
-    
-    if [[ -d ~/.pyenv/.git ]]; then; echo "-> pyenv" && pushd ~/.pyenv && git pull && popd; fi
-    if [[ -d ~/.pyenv/plugins/python-build/.git ]]; then; echo "-> python-build" && pushd ~/.pyenv/plugins/python-build && git pull && popd; fi
-    
-    if [[ -d ~/.rbenv/.git ]]; then; echo "-> rbenv" &&  pushd ~/.rbenv && git pull && popd; fi
-    if [[ -d ~/.rbenv/plugins/ruby-build/.git ]]; then; echo "-> ruby-build" && pushd ~/.rbenv/plugins/ruby-build && git pull && popd; fi
-
-    if [[ -d ~/.goenv/.git ]]; then; echo "-> goenv" &&  pushd ~/.goenv && git pull && popd; fi
-    if [[ -d ~/.goenv/plugins/go-build/.git ]]; then; echo "-> go-build" && pushd ~/.goenv/plugins/go-build && git pull && popd; fi
-
-    if [[ -d ~/.exenv/.git ]]; then; echo "-> exenv" &&  pushd ~/.exenv && git pull && popd; fi
-    if [[ -d ~/.exenv/plugins/elixir-build/.git ]]; then; echo "-> elixir-build" && pushd ~/.exenv/plugins/elixir-build && git pull && popd; fi
+  COLOR='\033[1;34m'
+  NC='\033[0m'
+  echo "${COLOR}"
+  paths=`find ~ -maxdepth 4 -name ".git" | sed "s|.git||g" | grep "/\." | grep -v "\.antigen/repos/"`
+  for path in ${paths}; do
+    echo "    --> ${path}"
+    bash -c "pushd ${path} && git pull && popd" > /dev/null
+  done
+  echo "${NC}"
 }
 
