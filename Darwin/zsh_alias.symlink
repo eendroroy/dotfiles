@@ -32,7 +32,8 @@ alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
 which mpsyt > /dev/null && alias mpsyt='pyenv shell 3.5.2 && mpsyt && pyenv shell --unset'
 
 # vi, vim map to nvim
-which nvim > /dev/null && alias vi='nvim' && vim='nvim'
+which nvim > /dev/null && alias vi='nvim'
+which nvim > /dev/null && alias vim='nvim'
 
 # jenv java home
 which jenv > /dev/null && alias jenv_home='export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`" && echo $JAVA_HOME'
