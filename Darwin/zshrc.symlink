@@ -1,7 +1,8 @@
 [ -d ~/.antigen ] && source ~/.antigen/antigen.zsh
 
 export HISTFILE=~/.zsh_history
-export SAVEHIST=1000
+export HISTSIZE=10000000
+export SAVEHIST=10000000
 export EDITOR='nvim'
 
 # rbenv
@@ -56,6 +57,7 @@ setopt sharehistory
 setopt extendedhistory
 setopt histreduceblanks
 setopt histsavebycopy
+setopt hist_ignore_all_dups
 setopt appendhistory
 # setopt login
 setopt beep
