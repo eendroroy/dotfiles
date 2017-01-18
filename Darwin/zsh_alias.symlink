@@ -4,8 +4,9 @@ which youtube-dl > /dev/null && \
   alias ymp3='youtube-dl --extract-audio --audio-format mp3'
 
 alias history='history -DE'
-alias pd='popd'
-alias ..='popd'
+alias pd='pushd'
+alias ...='popd'
+alias ..='cd ..'
 which docker-compose > /dev/null && alias dcompose='docker-compose'
 which mvn > /dev/null && \
   alias mvnc='mvn clean' && \
@@ -20,20 +21,17 @@ which ccat > /dev/null && alias cat='ccat'
 alias ll='ls -lFhaG'
 alias l='ls -lFhG'
 alias zshrc='$EDITOR ~/.zshrc'
-alias c='clear'
-alias q='exit'
 alias d='dirs -v'
 for c in cp rm chmod chown rename; do
   alias $c="$c -v"
 done
-alias evince='evince > /dev/null &'
 which python > /dev/null && alias prettyjson='python -m json.tool'
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
 which mpsyt > /dev/null && alias mpsyt='pyenv shell 3.5.2 && mpsyt && pyenv shell --unset'
 
 # vi, vim map to nvim
-which nvim > /dev/null && alias vi='nvim'
-which nvim > /dev/null && alias vim='nvim'
+which nvim > /dev/null && alias vi='nvim' && alias vim='nvim'
 
 # jenv java home
 which jenv > /dev/null && alias jenv_home='export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`" && echo $JAVA_HOME'
+
