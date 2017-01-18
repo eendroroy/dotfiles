@@ -4,8 +4,9 @@ if which youtube-dl > /dev/null; then
   alias ymp3='youtube-dl --extract-audio --audio-format mp3'
 fi
 alias history='history -DE'
-alias pd='popd'
-alias ..='popd'
+alias pd='pushd'
+alias ...='popd'
+alias ..='cd ..'
 if which docker-compose > /dev/null; then alias dcompose='docker-compose'; fi
 if which mvn > /dev/null; then
   alias mvnc='mvn clean';
@@ -21,17 +22,11 @@ which pygmentize > /dev/null && alias cat='pygmentize -g'
 alias ll='ls -lFha --color=auto'
 alias l='ls -lFh --color=auto'
 alias zshrc='$EDITOR ~/.zshrc'
-alias c='clear'
-alias r='reset'
-alias q='exit'
 alias d='dirs -v'
 for c in cp rm chmod chown rename; do
   alias $c="$c -v"
 done
-alias evince='evince > /dev/null &'
-if which python > /dev/null; then
-  alias prettyjson='python -m json.tool'
-fi
+which python > /dev/null && alias prettyjson='python -m json.tool'
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
 
 # jenv java home
