@@ -68,7 +68,7 @@ setopt pushdignoredups
 setopt pushdsilent
 setopt autolist
 setopt aliases
-setopt printexitvalue
+# setopt printexitvalue
 setopt notify
 
 # SDKMAN
