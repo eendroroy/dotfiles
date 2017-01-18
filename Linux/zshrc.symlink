@@ -63,9 +63,9 @@ setopt appendhistory
 # setopt login
 setopt beep
 setopt autocd
-setopt autopushd
-setopt pushdtohome
-# setopt pushdignoredups
+# setopt autopushd
+# setopt pushdtohome
+setopt pushdignoredups
 setopt pushdsilent
 setopt autolist
 setopt aliases
