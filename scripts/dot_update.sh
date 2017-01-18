@@ -2,7 +2,7 @@
 
 COLOR='\033[1;34m'
 NC='\033[0m'
-paths=`find ~ -maxdepth 4 -name ".git" | sed "s|.git||g" | grep "/\." | grep -v "\.antigen/repos/"`
+paths=`find ~ -maxdepth 4 -name ".git" 2>/dev/null | sed "s|.git||g" | grep "/\." | grep -v "\.antigen/repos/\|\.gvfs\|\.cache/dconf"`
 for path in ${paths}; do
   echo -e "${COLOR}    --> ${path}${NC}"
   pushd ${path} > /dev/null
