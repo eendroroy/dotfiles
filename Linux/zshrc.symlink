@@ -37,6 +37,7 @@ which thefuck > /dev/null && eval $(thefuck --alias)
 #fzf
 export FZF_DEFAULT_OPTS='--reverse --preview="head {}" --preview-window=up:30%'
 export FZF_CTRL_R_OPTS='--reverse --preview="head {}" --preview-window=up:30%'
+export FZF_CTRL_T_OPTS='--reverse --preview="head {}" --preview-window=up:30%'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Make zsh know about hosts already accessed by SSH
