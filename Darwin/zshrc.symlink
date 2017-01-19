@@ -34,6 +34,7 @@ which exenv > /dev/null && eval "$(exenv init -)"
 which thefuck > /dev/null && eval $(thefuck --alias)
 
 # fzf
+export FZF_DEFAULT_OPTS='--height 50% --reverse'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Make zsh know about hosts already accessed by SSH
