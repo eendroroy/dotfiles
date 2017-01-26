@@ -19,9 +19,9 @@ export PATH="$HOME/.nenv/bin:$HOME/.nenv/shims:$PATH"
 which nenv > /dev/null && eval "$(nenv init -)"
 
 # jenv
-export PATH="$HOME/.jenv/bin:$HOME/.jenv/shims:$PATH"
-which jenv > /dev/null && eval "$(jenv init -)"
-which jenv > /dev/null && export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
+# export PATH="$HOME/.jenv/bin:$HOME/.jenv/shims:$PATH"
+# which jenv > /dev/null && eval "$(jenv init -)"
+# which jenv > /dev/null && export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
 
 # goenv
 export PATH="$HOME/.goenv/bin:$HOME/.goenv/shims:$PATH"
