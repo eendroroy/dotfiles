@@ -14,9 +14,9 @@ which rbenv > /dev/null && eval "$(rbenv init -)"
 export PATH="$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH"
 which pyenv > /dev/null && eval "$(pyenv init -)"
 
-# nenv
-export PATH="$HOME/.nenv/bin:$HOME/.nenv/shims:$PATH"
-which nenv > /dev/null && eval "$(nenv init -)"
+# nodenv
+export PATH="$HOME/.nodenv/bin:$HOME/.nodenv/shims:$PATH"
+which nodenv > /dev/null && eval "$(nodenv init -)"
 
 # jenv
 # export PATH="$HOME/.jenv/bin:$HOME/.jenv/shims:$PATH"
