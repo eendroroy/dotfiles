@@ -24,7 +24,7 @@ which nodenv > /dev/null && eval "$(nodenv init -)"
 # which jenv > /dev/null && export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
 
 # goenv
-export GOPATH="$HOME/.goenv/gopath"
+export GOPATH="$HOME/.goenv"
 export PATH="$GOPATH/bin:$GOPATH/shims:$PATH"
 which goenv > /dev/null && eval "$(goenv init -)"
 
