@@ -6,7 +6,6 @@ echo -e "\nCreating symlinks"
 echo "=============================="
 
 linkables=$( find $DOTFILES -name "*.symlink" )
-echo "$linkables"
 for file in $linkables; do
     target="$HOME/.$( basename $file '.symlink')"
     if [ -e $target ]; then
@@ -24,7 +23,7 @@ if [ ! -d $HOME/.config ]; then
 	mkdir -p $HOME/.config
 fi
 
-for config in $DOTFILES/config/*; do
+for config in `pwd`/`uname`/config/*; do
 	target=$HOME/.config/$( basename $config )
 	if [ -e $target ]; then
         	echo "~{$target#$HOME} already exists... Skipping."
