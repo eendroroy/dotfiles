@@ -19,13 +19,6 @@ if which mvn > /dev/null; then
 fi
 
 which pygmentize > /dev/null && alias cat='pygmentize -g'
-if [ "`uname`" = "Linux" ]; then
-  alias ll='ls -lFha --color=auto'
-  alias l='ls -lFh --color=auto'
-elif [ "`uname`" = "Darwin" ]; then
-  alias ll='ls -lFhaG'
-  alias l='ls -lFhG'
-fi
 alias zshrc='$EDITOR ~/.zshrc'
 alias d='dirs -v'
 for c in cp rm chmod chown rename; do
@@ -34,5 +27,13 @@ done
 which python > /dev/null && alias prettyjson='python -m json.tool'
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
 
-# jenv java home
-which jenv > /dev/null && alias jenv_home='export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`" && echo $JAVA_HOME'
+# os specific aliases
+if [ "`uname`" = "Linux" ]; then
+  alias ll='ls -lFha --color=auto'
+  alias l='ls -lFh --color=auto'
+elif [ "`uname`" = "Darwin" ]; then
+  alias ll='ls -lFhaG'
+  alias l='ls -lFhG'
+  alias vi='nvim'
+  alias vim='nvim'
+fi
