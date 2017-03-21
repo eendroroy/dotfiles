@@ -17,11 +17,6 @@ which pyenv > /dev/null && eval "$(pyenv init -)"
 export PATH="$HOME/.nodenv/bin:$HOME/.nodenv/shims:$PATH"
 which nodenv > /dev/null && eval "$(nodenv init -)"
 
-# jenv
-# export PATH="$HOME/.jenv/bin:$HOME/.jenv/shims:$PATH"
-# which jenv > /dev/null && eval "$(jenv init -)"
-# which jenv > /dev/null && export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
-
 # goenv
 export GOPATH="$HOME/.goenv"
 export PATH="$GOPATH/bin:$GOPATH/shims:$PATH"
@@ -37,7 +32,7 @@ which thefuck > /dev/null && eval $(thefuck --alias)
 # fzf
 export FZF_DEFAULT_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
 export FZF_CTRL_R_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
-export FZF_CTRL_T_OPTS='--reverse --preview="head {}" --preview-window=up:30%'
+export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Make zsh know about hosts already accessed by SSH
@@ -75,7 +70,7 @@ setopt aliases
 # setopt printexitvalue
 setopt notify
 
-# SDKMAN
+# sdkman
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
@@ -84,5 +79,4 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [ -f ~/.zsh_function ] && source ~/.zsh_function
 
 export PATH="/usr/local/sbin:$PATH"
-
 
