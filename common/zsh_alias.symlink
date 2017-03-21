@@ -19,8 +19,13 @@ if which mvn > /dev/null; then
 fi
 
 which pygmentize > /dev/null && alias cat='pygmentize -g'
-alias ll='ls -lFha --color=auto'
-alias l='ls -lFh --color=auto'
+if [ "`uname`" = "Linux" ]; then
+  alias ll='ls -lFha --color=auto'
+  alias l='ls -lFh --color=auto'
+elif [ "`uname`" = "Darwin" ]; then
+  alias ll='ls -lFhaG'
+  alias l='ls -lFhG'
+fi
 alias zshrc='$EDITOR ~/.zshrc'
 alias d='dirs -v'
 for c in cp rm chmod chown rename; do
