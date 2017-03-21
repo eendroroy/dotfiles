@@ -1,6 +1,5 @@
 [ -d ~/.antigen ] && source ~/.antigen/antigen.zsh
 
-# export TERM=xterm-256color
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=10000000
@@ -18,13 +17,8 @@ which pyenv > /dev/null && eval "$(pyenv init -)"
 export PATH="$HOME/.nodenv/bin:$HOME/.nodenv/shims:$PATH"
 which nodenv > /dev/null && eval "$(nodenv init -)"
 
-# jenv
-# export PATH="$HOME/.jenv/bin:$HOME/.jenv/shims:$PATH"
-# which jenv > /dev/null && eval "$(jenv init -)"
-# which jenv > /dev/null && export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
-
 # goenv
-export GOPATH="$HOME/.goenv/gopath"
+export GOPATH="$HOME/.goenv"
 export PATH="$GOPATH/bin:$GOPATH/shims:$PATH"
 which goenv > /dev/null && eval "$(goenv init -)"
 
@@ -32,13 +26,13 @@ which goenv > /dev/null && eval "$(goenv init -)"
 export PATH="$HOME/.exenv/bin:$HOME/.exenv/shims:$PATH"
 which exenv > /dev/null && eval "$(exenv init -)"
 
-#thefuck
+# thefuck
 which thefuck > /dev/null && eval $(thefuck --alias)
 
-#fzf
-export FZF_DEFAULT_OPTS='--reverse --preview="head {}" --preview-window=up:30%'
-export FZF_CTRL_R_OPTS='--reverse --preview="head {}" --preview-window=up:30%'
-export FZF_CTRL_T_OPTS='--reverse --preview="head {}" --preview-window=up:30%'
+# fzf
+export FZF_DEFAULT_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
+export FZF_CTRL_R_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
+export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Make zsh know about hosts already accessed by SSH
@@ -80,12 +74,9 @@ setopt notify
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# linuxbrew
-[ -d ~/.linuxbrew ] && export PATH="$HOME/.linuxbrew/bin:$PATH"
-[ -d ~/.linuxbrew ] && export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-[ -d ~/.linuxbrew ] && export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-
 [ -f ~/.zsh_keybinds ] && source ~/.zsh_keybinds
 [ -f ~/.zsh_alias ] && source ~/.zsh_alias
 [ -f ~/.zsh_function ] && source ~/.zsh_function
+
+export PATH="/usr/local/sbin:$PATH"
 

@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-DOTFILES="`pwd`/`uname`"
+DOTFILES="`pwd`/`uname` `pwd`/common"
 
 echo -e "\nCreating symlinks"
 echo "=============================="
 
-linkables=$( find "$DOTFILES" -name "*.symlink" )
+linkables=$( find $DOTFILES -name "*.symlink" )
+echo "$linkables"
 for file in $linkables; do
     target="$HOME/.$( basename $file '.symlink')"
     if [ -e $target ]; then
