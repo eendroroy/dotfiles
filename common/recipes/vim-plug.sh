@@ -5,5 +5,6 @@ if [[ -d ~/.config/nvim/autoload/plug.vim ]]; then
 else
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  which nvim > /dev/null && nvim +PlugUpgrade +PlugUpdate +PlugClean +qa
 fi
 echo "########################################"
