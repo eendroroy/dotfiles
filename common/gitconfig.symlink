@@ -17,7 +17,6 @@
 	default = simple
 [core]
 	excludesfile = ~/.gitignore_global
-	autocrlf = true
 [commit]
 	template = ~/.stCommitMsg
 	gpgsign = true
