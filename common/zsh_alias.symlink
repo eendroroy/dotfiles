@@ -26,7 +26,7 @@ for c in cp rm chmod chown rename; do
 done
 which python > /dev/null && alias prettyjson='python -m json.tool'
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
-which assh > /dev/null && alias ssh='assh wrapper ssh'
+# which assh > /dev/null && alias ssh='assh wrapper ssh'
 
 # os specific aliases
 if [ "`uname`" = "Linux" ]; then
