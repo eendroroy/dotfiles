@@ -82,4 +82,3 @@ export PATH="/usr/local/sbin:$PATH"
 
 # zsh-completion
 fpath=(/usr/local/share/zsh-completions $fpath)
-
