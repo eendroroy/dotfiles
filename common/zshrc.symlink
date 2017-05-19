@@ -52,7 +52,7 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # THEMES
-antigen theme eendroroy/theta theta
+antigen theme eendroroy/alien-minimal alien-minimal
 
 antigen apply
 
