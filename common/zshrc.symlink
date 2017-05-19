@@ -6,15 +6,18 @@ export SAVEHIST=10000000
 export EDITOR='nvim'
 
 # rbenv
-export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+export RBENV_ROOT="$HOME/.rbenv"
+export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
 which rbenv > /dev/null && eval "$(rbenv init -)"
 
 # pyenv
-export PATH="$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 which pyenv > /dev/null && eval "$(pyenv init -)"
 
 # nodenv
-export PATH="$HOME/.nodenv/bin:$HOME/.nodenv/shims:$PATH"
+export NODENV_ROOT="$HOME/.nodenv"
+export PATH="$NODENV_ROOT/bin:$NODENV_ROOT/shims:$PATH"
 which nodenv > /dev/null && eval "$(nodenv init -)"
 
 # goenv
@@ -23,7 +26,8 @@ export PATH="$GOPATH/bin:$GOPATH/shims:$PATH"
 which goenv > /dev/null && eval "$(goenv init -)"
 
 # exenv
-export PATH="$HOME/.exenv/bin:$HOME/.exenv/shims:$PATH"
+export EXENV_ROOT="$HOME/.exenv"
+export PATH="$EXENV_ROOT/bin:$EXENV_ROOT/shims:$PATH"
 which exenv > /dev/null && eval "$(exenv init -)"
 
 # thefuck
@@ -48,7 +52,7 @@ antigen bundles <<EOBUNDLES
 EOBUNDLES
 
 # THEMES
-antigen theme eendroroy/alien-minimal alien-minimal
+antigen theme eendroroy/theta theta
 
 antigen apply
 
