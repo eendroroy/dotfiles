@@ -28,6 +28,9 @@ which python > /dev/null && alias prettyjson='python -m json.tool'
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
 # which assh > /dev/null && alias ssh='assh wrapper ssh'
 
+# hub alias
+which hub > /dev/null && eval "$(hub alias -s)"
+
 # os specific aliases
 if [ "`uname`" = "Linux" ]; then
   alias ll='ls -lFha --color=auto'
