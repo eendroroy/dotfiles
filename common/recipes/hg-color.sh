@@ -6,6 +6,6 @@ if [[ -d $templateDir ]]; then
   echo "Mercurial cmdline maps already exists. Skipping ..."
 else
   sudo mkdir -p /usr/local/share/mercurial/templates
-  sudo sh -c 'cd /usr/local/share/mercurial/templates/ && git clone https://github.com/eendroroy/mercurial-cli-templates.git'
+  sudo sh -c 'cd /usr/local/share/mercurial/templates/ && git clone https://github.com/hyphenize/mercurial-cli-templates.git'
 fi
 echo "##############################################"
