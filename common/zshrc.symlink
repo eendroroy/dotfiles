@@ -1,4 +1,5 @@
 [ -d ~/.antigen ] && source ~/.antigen/antigen.zsh
+which antibody > /dev/null && source <(antibody init)
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
@@ -42,6 +43,7 @@ export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-win
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
+if [ -d ~/.antigen ]; then
 # PLUGINS
 antigen bundles <<EOBUNDLES
   eendroroy/zshPlugins
@@ -50,11 +52,22 @@ antigen bundles <<EOBUNDLES
   zsh-users/zsh-autosuggestions
   horosgrisa/autoenv
 EOBUNDLES
-
 # THEMES
 antigen theme eendroroy/alien-minimal alien-minimal
-
 antigen apply
+elif which antibody > /dev/null; then
+# PLUGINS
+antibody bundle eendroroy/zshPlugins
+antibody bundle zsh-users/zsh-syntax-highlighting
+antibody bundle zsh-users/zsh-completions
+antibody bundle zsh-users/zsh-autosuggestions
+antibody bundle horosgrisa/autoenv
+
+# THEME
+antibody bundle eendroroy/alien-minimal
+fi
+
+
 
 setopt sharehistory
 setopt extendedhistory
