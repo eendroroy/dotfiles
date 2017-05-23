@@ -1,5 +1,8 @@
-[ -d ~/.antigen ] && source ~/.antigen/antigen.zsh
-which antibody > /dev/null && source <(antibody init)
+if [ -d ~/.antigen ]; then
+  source ~/.antigen/antigen.zsh
+elif which antibody > /dev/null; then
+  source <(antibody init)
+fi
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
