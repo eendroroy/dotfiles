@@ -5,8 +5,8 @@ if which youtube-dl > /dev/null; then
 fi
 alias history='history -DE'
 alias pd='pushd'
-alias ...='popd'
-alias ..='cd ..'
+alias ..='popd'
+alias ...='cd ..'
 if which docker-compose > /dev/null; then alias dcompose='docker-compose'; fi
 if which mvn > /dev/null; then
   alias mvnc='mvn clean';
