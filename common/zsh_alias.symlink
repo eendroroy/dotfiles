@@ -28,6 +28,16 @@ which python > /dev/null && alias prettyjson='python -m json.tool'
 alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
 # which assh > /dev/null && alias ssh='assh wrapper ssh'
 
+if which k > /dev/null; then
+  alias k='k -h'
+  alias ka='k -Ah'
+  alias kk='k -ah'
+  alias kd='k -dh'
+  alias kn='k -nh'
+  alias kad='k -adh'
+  alias kan='k -anh'
+fi
+
 # hub alias
 which hub > /dev/null && eval "$(hub alias -s)"
 
