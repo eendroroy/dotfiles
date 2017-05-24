@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
@@ -50,15 +51,19 @@ let g:airline#extensions#syntastic#enabled     = 1
 let g:airline#extensions#whitespace#checks     = ['indent', 'trailing', 'long', 'mixed-indent-file']
 let g:airline#extensions#tabline#enabled       = 1
 
-let g:syntastic_java_checkers                  =['javac']
+
 let g:syntastic_java_javac_config_file_enabled = 1
 
 let g:ctrlp_dotfiles = 1
 
-" open NERDTree by default
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTreeToggle | NERDTreeToggle endif
+" vinegar settings
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
-nmap <silent> <leader>k :NERDTreeToggle<cr> " Toggle NERDTree
-nmap <silent> <leader>l :NERDTreeFind<cr>   " Toggle NERDTree
+" open NERDTree by default
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTreeToggle | NERDTreeToggle endif
+
+" nmap <silent> <leader>k :NERDTreeToggle<cr> " Toggle NERDTree
+" nmap <silent> <leader>l :NERDTreeFind<cr>   " Toggle NERDTree
+
 nmap <silent> <C-p> :FZF<cr>
