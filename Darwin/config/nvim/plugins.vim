@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
