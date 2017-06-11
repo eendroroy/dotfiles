@@ -19,7 +19,12 @@ if which mvn > /dev/null; then
   alias mvncist='mvn clean install -Dmaven.test.skip=true';
 fi
 
-which pygmentize > /dev/null && alias cat='pygmentize -g'
+if which ccat > /dev/null; then
+  alias cat='ccat'
+else
+  which pygmentize > /dev/null && alias cat='pygmentize -g'
+fi
+
 alias zshrc='$EDITOR ~/.zshrc'
 alias d='dirs -v'
 for c in cp rm chmod chown rename; do
