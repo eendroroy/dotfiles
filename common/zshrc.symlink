@@ -104,3 +104,10 @@ export PATH="/usr/local/sbin:$PATH"
 
 # zsh-completion
 fpath=(/usr/local/share/zsh-completions $fpath)
+
+if [[ "`uname`" == "Linux" ]]; then
+  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+  export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+fi
+
