@@ -7,7 +7,7 @@ fi
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=10000000
-export EDITOR='nvim'
+which nvim > /dev/null && export EDITOR='nvim'
 
 # rbenv
 export RBENV_ROOT="$HOME/.rbenv"
