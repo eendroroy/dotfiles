@@ -15,6 +15,7 @@
     cs = commit -S
     rb = rebase
     di = "!di(){ git log --author=$1 --shortstat $2 | awk '/^ [0-9]/ { f += $1; i += $4; d += $6 } END { printf(\"%d files changed, %d insertions(+), %d deletions(-)\\n\", f, i, d) }';};di"
+    cc = "!git shortlog | grep '):' | awk '{printf(\"%s\t\"),$NF; $NF=\"\"; print $0}' | tr -d '():'"
 [push]
 	default = simple
 [core]
