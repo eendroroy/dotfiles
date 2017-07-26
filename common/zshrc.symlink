@@ -25,7 +25,7 @@ export PATH="$NODENV_ROOT/bin:$PATH"
 which nodenv > /dev/null && eval "$(nodenv init -)"
 
 # goenv
-export GOPATH="$HOME/gopath"
+export GOPATH="$HOME/.gopath"
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 which goenv > /dev/null && eval "$(goenv init -)"
