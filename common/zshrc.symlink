@@ -4,6 +4,10 @@ elif which antibody > /dev/null; then
   source <(antibody init)
 fi
 
+if [ -d ~/bin ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=10000000
@@ -75,8 +79,6 @@ antibody bundle supercrabtree/k
 # THEME
 antibody bundle eendroroy/alien-minimal
 fi
-
-
 
 setopt sharehistory
 setopt extendedhistory
