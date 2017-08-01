@@ -7,7 +7,7 @@
 [alias]
 	# list all aliases
 	la = "!git config -l | grep alias | cut -c 7-"
-	lg = log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	lg = log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [5ae]- %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     ls = log --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	st = status -s
 	br = branch -v
