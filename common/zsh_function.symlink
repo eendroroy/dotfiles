@@ -54,8 +54,3 @@ mkcdir() {
       cd -P -- "$1"
 }
 
-# update dotfolders
-dot-update() {
-  bash "${HOME}/.dotfiles/scripts/dot_update.sh"
-}
-
