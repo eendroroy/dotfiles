@@ -62,7 +62,6 @@ antigen bundles <<EOBUNDLES
   zsh-users/zsh-completions
   zsh-users/zsh-autosuggestions
   horosgrisa/autoenv
-  supercrabtree/k
 EOBUNDLES
 # THEMES
 antigen theme eendroroy/alien-minimal alien-minimal
