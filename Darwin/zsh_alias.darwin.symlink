@@ -1,7 +1,5 @@
 # os specific aliases
 if which exa > /dev/null; then
-  alias ll='exa -la'
-  alias l='exa -l'
 else
   alias ll='ls -lFhaG'
   alias l='ls -lFhG'

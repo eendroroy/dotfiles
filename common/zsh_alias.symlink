@@ -47,6 +47,12 @@ fi
 # hub alias
 which hub > /dev/null && eval "$(hub alias -s)"
 
+if which exa > /dev/null; then
+  alias ll='exa -la --git'
+  alias l='exa -l --git'
+  alias lt='exa -lT --git'
+fi
+
 # os specific aliases
 if [ "`uname`" = "Linux" ]; then
   [ -f ~/.zsh_alias.linux ] && source ~/.zsh_alias.linux
