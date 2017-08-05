@@ -49,11 +49,7 @@ which hub > /dev/null && eval "$(hub alias -s)"
 
 # os specific aliases
 if [ "`uname`" = "Linux" ]; then
-  alias ll='ls -lFha --color=auto'
-  alias l='ls -lFh --color=auto'
+  [ -f ~/.zsh_alias.linux ] && source ~/.zsh_alias.linux
 elif [ "`uname`" = "Darwin" ]; then
-  alias ll='ls -lFhaG'
-  alias l='ls -lFhG'
-  alias vi='nvim'
-  alias vim='nvim'
+  [ -f ~/.zsh_alias.darwin ] && source ~/.zsh_alias.darwin
 fi
