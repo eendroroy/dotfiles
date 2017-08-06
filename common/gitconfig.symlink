@@ -23,3 +23,5 @@
 [commit]
 	template = ~/.stCommitMsg
 	gpgsign = true
+[rerere]
+	enabled = true
