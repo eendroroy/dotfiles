@@ -48,9 +48,9 @@ fi
 which hub > /dev/null && eval "$(hub alias -s)"
 
 if which exa > /dev/null; then
-  alias ll='exa -la --git'
-  alias l='exa -l --git'
-  alias lt='exa -lT --git'
+  alias ll='exa -la --git --color-scale'
+  alias l='exa -l --git --color-scale'
+  alias lt='exa -lT --git --color-scale'
 fi
 
 # os specific aliases
