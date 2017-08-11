@@ -1,33 +1,36 @@
 [user]
-	name = indrajit
-	email = eendroroy@gmail.com
-	signingkey = 7D65308546343630
+    name = indrajit
+    email = eendroroy@gmail.com
+    signingkey = 7D65308546343630
 [github]
-	user = eendroroy
+    user = eendroroy
 [alias]
-	# list all aliases
-	la = "!git config -l | grep alias | cut -c 7-"
-	lg = log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae]- %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    # list all aliases
+    la = "!git config -l | grep alias | cut -c 7-"
+    lg = log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae]- %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     ls = log --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	st = status -s
-	br = branch -v
+    st = status -s
+    br = branch -v
     co = checkout
     cs = commit -S
     rb = rebase
+    con = "!git shortlog | grep '):' | awk '{$NF=\"\"; print $0}' | tr -d '():'"
     cc = "!git shortlog | grep '):' | \
-		   awk '{printf(\"\\033[34m%s\\033[m\t\"),$NF; $NF=\"\"; print $0}' | tr -d '():'"
+       awk '{printf(\"\\033[32m%s\\033[m \"),$NF; $NF=\"\"; printf(\"\\033[37m%s\\033[m\\n\",$0)}' \
+       | tr -d '():' | column -s' ' -t"
     di = "!di(){\
-			 git log --author=$1 --shortstat $2 | \
-			 awk -v a=\"$1\" -v b=\"$2\" '/^ [0-9]/ { f += $1; i += $4; d += $6} END \
-			 {printf(\"\\033[37m%s\\033[m %s  f:\\033[34m%d\\033[m +:\\033[32m%d\\033[m -:\\033[31m%d\\033[m\\n\", a, b, f, i, d) }' | column -s' ' -t;\
-			 };di"
-		dia = "!git cc | awk '{print $2}' | xargs -L1 -I{} git di "{}" | column -s' ' -t"
+       git log --author=$1 --shortstat $2 | \
+       awk -v a=\"$1\" -v b=\"$2\" '/^ [0-9]/ { f += $1; i += $4; d += $6} END \
+       {printf(\"\\033[37m%s\\033[m %s  f:\\033[34m%d\\033[m +:\\033[32m%d\\033[m -:\\033[31m%d\\033[m\\n\", a, b, f, i, d) }' \
+       | column -s' ' -t;\
+       };di"
+    dia = "!git con | awk '{print $1}' | xargs -L1 -I{} git di "{}" | column -s' ' -t"
 [push]
-	default = simple
+    default = simple
 [core]
-	excludesfile = ~/.gitignore_global
+    excludesfile = ~/.gitignore_global
 [commit]
-	template = ~/.stCommitMsg
-	gpgsign = true
+    template = ~/.stCommitMsg
+    gpgsign = true
 [rerere]
-	enabled = true
+    enabled = true
