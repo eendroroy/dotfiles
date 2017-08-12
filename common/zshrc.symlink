@@ -1,5 +1,23 @@
-if [ -d ~/.antigen ]; then
-  source ~/.antigen/antigen.zsh
+if [ -d ~/.zplug ]; then
+  source ~/.zplug/init.zsh
+  
+  zplug "zplug/zplug"
+
+  zplug "zsh-users/zsh-syntax-highlighting"
+  zplug "zsh-users/zsh-completions"
+  zplug "zsh-users/zsh-autosuggestions"
+
+  zplug "horosgrisa/autoenv"
+
+  zplug "eendroroy/zshPlugins"
+  zplug "eendroroy/zed-zsh"
+  zplug "eendroroy/alien-minimal"
+
+  # Install plugins if there are plugins that have not been installed
+  if ! zplug check --verbose; then
+    zplug install
+  fi
+  zplug load
 fi
 
 if [ -d ~/bin ]; then
@@ -51,19 +69,6 @@ export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-win
 
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-
-# PLUGINS
-antigen bundles <<EOBUNDLES
-  eendroroy/zshPlugins
-  zsh-users/zsh-syntax-highlighting
-  zsh-users/zsh-completions
-  zsh-users/zsh-autosuggestions
-  horosgrisa/autoenv
-  eendroroy/zed-zsh
-EOBUNDLES
-# THEMES
-antigen theme eendroroy/alien-minimal alien-minimal
-antigen apply
 
 setopt sharehistory
 setopt extendedhistory
