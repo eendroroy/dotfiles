@@ -17,10 +17,10 @@
     con = "!cc(){ git shortlog -s -n $@ | awk '{$1=\"\";printf(\"\\033[37m%s\\033[m\\n\",$0)}' | column -s':' -t; };cc"
     cc = "!cc(){ git shortlog -s -n $@ | awk '{printf(\"\\033[37m%10s\\033[m:\",$1);$1=\"\";printf(\"\\033[32m%s\\033[m\\n\",$0)}' | column -s':' -t; };cc"
     di = "!di(){\
-       git log --author=$1 --shortstat $2 | \
+       git log --author=\"$1\" --shortstat $2 | \
        awk -v a=\"$1\" -v b=\"$2\" '/^ [0-9]/ { f += $1; i += $4; d += $6} END \
-       {printf(\"\\033[37m%s\\033[m %s  f:\\033[34m%d\\033[m +:\\033[32m%d\\033[m -:\\033[31m%d\\033[m\\n\", a, b, f, i, d) }' \
-       | column -s' ' -t;\
+       {printf(\"\\033[37m%s;\\033[m%s;f:\\033[34m%d\\033[m;+:\\033[32m%d\\033[m;-:\\033[31m%d\\033[m\\n\", a, b, f, i, d) }' \
+       | column -s';' -t; \
        };di"
     dia = "!git shortlog | grep '):' | awk '{$NF=\"\"; print $0}' | tr -d '():' | awk '{print $1}' | xargs -L1 -I{} git di "{}" | column -s' ' -t"
 [push]
