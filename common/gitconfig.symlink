@@ -24,7 +24,7 @@
        {printf(\"\\033[37m%s\\033[m %s  f:\\033[34m%d\\033[m +:\\033[32m%d\\033[m -:\\033[31m%d\\033[m\\n\", a, b, f, i, d) }' \
        | column -s' ' -t;\
        };di"
-    dia = "!git con | awk '{print $1}' | xargs -L1 -I{} git di "{}" | column -s' ' -t"
+    dia = "!git shortlog | grep '):' | awk '{$NF=\"\"; print $0}' | tr -d '():' | awk '{print $1}' | xargs -L1 -I{} git di "{}" | column -s' ' -t"
 [push]
     default = simple
 [core]
