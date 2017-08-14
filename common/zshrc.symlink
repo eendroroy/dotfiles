@@ -5,7 +5,7 @@ if [ -d ~/.zplug ]; then
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
 
-  zplug "horosgrisa/autoenv"
+  zplug "zpm-zsh/autoenv"
 
   zplug "eendroroy/zshPlugins"
   zplug "eendroroy/zed-zsh"
