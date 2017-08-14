@@ -18,6 +18,9 @@ if [ -d ~/.zplug ]; then
   zplug load
 fi
 
+export AUTOENV_IN_FILE='.env.in'
+export AUTOENV_OUT_FILE='.env.out'
+
 if [ -d ~/bin ]; then
   export PATH="$HOME/bin:$PATH"
 fi
