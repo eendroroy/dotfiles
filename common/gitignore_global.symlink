@@ -1,0 +1,10 @@
+*~
+.DS_Store
+*.pyc
+.idea
+.bundle
+/vendor/ruby
+/vendor/bundle
+.env.in
+.env.out
+
