@@ -4,6 +4,8 @@ if which youtube-dl > /dev/null; then
   alias ymp3='youtube-dl --extract-audio --audio-format mp3'
 fi
 # alias history='history -DE'
+alias hh="hst"
+alias hhh="hst 0"
 alias pd='pushd'
 alias pa='cd && dirs -c'
 alias ..='popd'
