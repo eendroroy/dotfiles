@@ -22,6 +22,7 @@ fi
 
 export AUTOENV_IN_FILE='.env.in'
 export AUTOENV_OUT_FILE='.env.out'
+export AM_SHOW_PROCESS_TIME=1
 
 if [ -d ~/bin ]; then
   export PATH="$HOME/bin:$PATH"
