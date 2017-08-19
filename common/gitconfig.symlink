@@ -9,7 +9,7 @@
     la = "!git config -l | grep alias | cut -c 7-"
     lg = log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae]- %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     ls = log --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-    lr = "!git log --oneline --no-merges --pretty=\"#%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae],\" --stat | grep -v \\| | tr \"\\n\" \" \" | tr \"#\" \"\\n\" | column -s',' -t | less -R"
+    lr = "!gitlr"
     st = status -s
     br = branch -v
     co = checkout
