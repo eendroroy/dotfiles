@@ -9,6 +9,8 @@ if [ -d ~/.zplug ]; then
 
   zplug "eendroroy/zshPlugins"
   zplug "eendroroy/zed-zsh"
+  zplug "eendroroy/awesome-git"
+  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/awesome-git", from:local
   zplug "eendroroy/alien-minimal"
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien-minimal", from:local
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
