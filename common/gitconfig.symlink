@@ -18,7 +18,7 @@
     cn = "!gitcn"
     cc = "!gitcc"
     di = "!gitdi"
-    da = "!gitdi"
+    da = "!gitda"
     de = "!gitde"
     su = "submodule foreach git pull origin master"
 [push]
