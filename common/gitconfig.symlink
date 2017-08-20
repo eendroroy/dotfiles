@@ -9,17 +9,11 @@
     la = "!git config -l | grep alias | cut -c 7-"
     lg = log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae]- %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     ls = log --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-    lr = "!gitlr"
     st = status -s
     br = branch -v
     co = checkout
     cs = commit -S
     rb = rebase
-    cn = "!gitcn"
-    cc = "!gitcc"
-    di = "!gitdi"
-    da = "!gitda"
-    de = "!gitde"
     su = "submodule foreach git pull origin master"
 [push]
     default = simple
