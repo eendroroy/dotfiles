@@ -36,33 +36,50 @@ export SAVEHIST=10000000
 which nvim > /dev/null && export EDITOR='nvim'
 
 # rbenv
-export RBENV_ROOT="$HOME/.rbenv"
-export PATH="$RBENV_ROOT/bin:$PATH"
-which rbenv > /dev/null && eval "$(rbenv init -)"
+if [ -d $HOME/.rbenv ]; then
+  export RBENV_ROOT="$HOME/.rbenv"
+  export PATH="$RBENV_ROOT/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-which pyenv > /dev/null && eval "$(pyenv init -)"
+if [ -d $HOME/.pyenv ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
 
 # nodenv
-export NODENV_ROOT="$HOME/.nodenv"
-export PATH="$NODENV_ROOT/bin:$PATH"
-which nodenv > /dev/null && eval "$(nodenv init -)"
+if [ -d $HOME/.nodenv ]; then
+  export NODENV_ROOT="$HOME/.nodenv"
+  export PATH="$NODENV_ROOT/bin:$PATH"
+  eval "$(nodenv init -)"
+fi
 
 # goenv
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-which goenv > /dev/null && eval "$(goenv init -)"
+if [ -d $HOME/.goenv ]; then
+  export GOENV_ROOT="$HOME/.goenv"
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  eval "$(goenv init -)"
+fi
 
 # go
 export GOPATH="$HOME/.gopath"
 export PATH="$GOPATH/bin:$PATH"
 
 # exenv
-export EXENV_ROOT="$HOME/.exenv"
-export PATH="$EXENV_ROOT/bin:$PATH"
-which exenv > /dev/null && eval "$(exenv init -)"
+if [ -d $HOME/.exenv ]; then
+  export EXENV_ROOT="$HOME/.exenv"
+  export PATH="$EXENV_ROOT/bin:$PATH"
+  eval "$(exenv init -)"
+fi
+
+# crenv
+if [ -d $HOME/.crenv ]; then
+  export CRENV_ROOT="$HOME/.crenv"
+  export PATH="$CRENV_ROOT/bin:$PATH"
+  eval "$(crenv init -)"
+fi
 
 # thefuck
 which thefuck > /dev/null && eval $(thefuck --alias)
