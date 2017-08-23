@@ -14,6 +14,7 @@ if [ -d ~/.zplug ]; then
   zplug "eendroroy/alien-minimal"
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien-minimal", from:local
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
+  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/theta", from:local
 
   # Install plugins if there are plugins that have not been installed
   if ! zplug check --verbose; then
