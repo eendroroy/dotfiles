@@ -27,7 +27,7 @@ Plug 'vim-airline/vim-airline'          " airlne
 Plug 'vim-airline/vim-airline-themes'   " airline themes
 
 Plug 'airblade/vim-gitgutter'           " git
-Plug 'tpope/vim-fugitive'               " git
+" Plug 'tpope/vim-fugitive'               " git
 Plug 'phleet/vim-mercenary'             " mercurial
 " Plug 'ludovicchabant/vim-lawrencium'    " mercurial
 Plug 'mhinz/vim-signify'                " mercurial sunversion
