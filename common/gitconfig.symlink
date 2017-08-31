@@ -13,6 +13,8 @@
     co = checkout
     cs = commit -S
     rb = rebase
+    rbc = rebase --continue
+    rba = rebase --abort
     su = submodule foreach git pull origin master
 [push]
     default = simple
