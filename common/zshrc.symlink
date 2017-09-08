@@ -25,7 +25,7 @@ fi
 
 export AUTOENV_IN_FILE='.env.in'
 export AUTOENV_OUT_FILE='.env.out'
-export AM_SHOW_PROCESS_TIME=1
+export AM_SHOW_PROCESS_TIME=2
 export AM_UPDATE_L_PROMPT=1
 
 if [ -d ~/bin ]; then
