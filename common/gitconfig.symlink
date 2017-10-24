@@ -23,7 +23,8 @@
     rs1 = reset HEAD~1
     bd = branch -D
     cob = checkout -b
-    su = submodule foreach git pull origin master
+    subu = submodule foreach git pull origin master
+    subi = submodule update --init --recursive
 [push]
     default = simple
 [core]
