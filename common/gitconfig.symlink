@@ -34,3 +34,6 @@
     gpgsign = true
 [rerere]
     enabled = true
+[credential]
+    helper = store
+
