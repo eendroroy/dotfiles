@@ -4,7 +4,6 @@ if [ -d ~/.zplug ]; then
   zplug "zsh-users/zsh-syntax-highlighting"
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
-  zplug 'voronkovich/gitignore.plugin.zsh'
   zplug "zpm-zsh/autoenv"
 
   zplug "eendroroy/zshPlugins"
