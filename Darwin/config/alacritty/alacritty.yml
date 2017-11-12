@@ -16,26 +16,26 @@ draw_bold_text_with_bright_colors: true
 font:
   antialias: true
   normal:
-    family: "Roboto Mono" # should be "Menlo" or something on macOS.
+    family: Menlo
     style: Regular
   bold:
-    family: "Roboto Mono" # should be "Menlo" or something on macOS.
+    family: Menlo
     style: Bold
   italic:
-    family: "Roboto Mono" # should be "Menlo" or something on macOS.
+    family: Menlo
     style: Italic
 
   size: 10.0
 
   offset:
-    x: -9.00
-    y: -0.00
+    x: 0.0
+    y: 0.0
 
   glyph_offset:
     x: 0.0
     y: 0.0
 
-  use_thin_strokes: false
+  use_thin_strokes: true
 
 render_timer: false
 
@@ -104,8 +104,8 @@ colors:
 # To completely disable the visual bell, set its duration to 0.
 #
 visual_bell:
-  animation: Linear
-  duration: 200
+  animation: EaseOutExpo
+  duration: 0
 
 # Background opacity
 background_opacity: 1.0
@@ -144,11 +144,11 @@ live_config_reload: true
 #
 # You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
 # Entries in shell.args are passed unmodified as arguments to the shell.
+#
 # shell:
 #   program: /bin/bash
 #   args:
 #     - --login
-
 
 # Key bindings
 #
@@ -182,23 +182,18 @@ live_config_reload: true
 #   `command` must be a map containing a `program` string, and `args` array of
 #     strings. For example:
 #     - { ... , command: { program: "alacritty", args: ["-e", "vttest"] } }
-#
-# Want to add a binding (e.g. "PageUp") but are unsure what the X sequence
-# (e.g. "\x1b[5~") is? Open another terminal (like xterm) without tmux,
-# then run `showkey -a` to get the sequence associated to a key combination.
 key_bindings:
-  - { key: V,        mods: Control|Shift,    action: Paste               }
-  - { key: C,        mods: Control|Shift,    action: Copy                }
+  - { key: V,        mods: Command, action: Paste                        }
+  - { key: C,        mods: Command, action: Copy                         }
   - { key: Q,        mods: Command, action: Quit                         }
   - { key: W,        mods: Command, action: Quit                         }
-  - { key: Insert,   mods: Shift,   action: PasteSelection               }
-  - { key: Key0,     mods: Control, action: ResetFontSize                }
-  - { key: Equals,   mods: Control, action: IncreaseFontSize             }
-  - { key: Subtract, mods: Control, action: DecreaseFontSize             }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
   - { key: End,                     chars: "\x1b[F",   mode: ~AppCursor  }
+  - { key: Key0,     mods: Command, action: ResetFontSize                }
+  - { key: Equals,   mods: Command, action: IncreaseFontSize             }
+  - { key: Minus,    mods: Command, action: DecreaseFontSize             }
   - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~"                   }
   - { key: PageUp,   mods: Control, chars: "\x1b[5;5~"                   }
   - { key: PageUp,                  chars: "\x1b[5~"                     }
@@ -278,15 +273,15 @@ key_bindings:
   - { key: F10,      mods: Alt,     chars: "\x1b[21;6~"                  }
   - { key: F11,      mods: Alt,     chars: "\x1b[23;6~"                  }
   - { key: F12,      mods: Alt,     chars: "\x1b[24;6~"                  }
-  - { key: F1,       mods: Super,   chars: "\x1b[1;3P"                   }
-  - { key: F2,       mods: Super,   chars: "\x1b[1;3Q"                   }
-  - { key: F3,       mods: Super,   chars: "\x1b[1;3R"                   }
-  - { key: F4,       mods: Super,   chars: "\x1b[1;3S"                   }
-  - { key: F5,       mods: Super,   chars: "\x1b[15;3~"                  }
-  - { key: F6,       mods: Super,   chars: "\x1b[17;3~"                  }
-  - { key: F7,       mods: Super,   chars: "\x1b[18;3~"                  }
-  - { key: F8,       mods: Super,   chars: "\x1b[19;3~"                  }
-  - { key: F9,       mods: Super,   chars: "\x1b[20;3~"                  }
-  - { key: F10,      mods: Super,   chars: "\x1b[21;3~"                  }
-  - { key: F11,      mods: Super,   chars: "\x1b[23;3~"                  }
-  - { key: F12,      mods: Super,   chars: "\x1b[24;3~"                  }
+  - { key: F1,       mods: Command, chars: "\x1b[1;3P"                   }
+  - { key: F2,       mods: Command, chars: "\x1b[1;3Q"                   }
+  - { key: F3,       mods: Command, chars: "\x1b[1;3R"                   }
+  - { key: F4,       mods: Command, chars: "\x1b[1;3S"                   }
+  - { key: F5,       mods: Command, chars: "\x1b[15;3~"                  }
+  - { key: F6,       mods: Command, chars: "\x1b[17;3~"                  }
+  - { key: F7,       mods: Command, chars: "\x1b[18;3~"                  }
+  - { key: F8,       mods: Command, chars: "\x1b[19;3~"                  }
+  - { key: F9,       mods: Command, chars: "\x1b[20;3~"                  }
+  - { key: F10,      mods: Command, chars: "\x1b[21;3~"                  }
+  - { key: F11,      mods: Command, chars: "\x1b[23;3~"                  }
+  - { key: F12,      mods: Command, chars: "\x1b[24;3~"                  }
