@@ -5,4 +5,4 @@
  - mercurial
  - zsh
  - neovim
-
+ - alacritty
