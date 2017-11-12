@@ -2,8 +2,8 @@ env:
   TERM: xterm-256color
 
 dimensions:
-  columns: 160
-  lines: 60
+  columns: 180
+  lines: 90
 
 padding:
   x: 0
@@ -25,10 +25,10 @@ font:
     family: "Roboto Mono" # should be "Menlo" or something on macOS.
     style: Italic
 
-  size: 12.0
+  size: 11.0
 
   offset:
-    x: -9.00
+    x: -9.025
     y: -0.00
 
   glyph_offset:
@@ -144,10 +144,10 @@ live_config_reload: true
 #
 # You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
 # Entries in shell.args are passed unmodified as arguments to the shell.
-# shell:
-#   program: /bin/bash
-#   args:
-#     - --login
+shell:
+  program: /usr/bin/tmux
+  # args:
+    # - --login
 
 
 # Key bindings
