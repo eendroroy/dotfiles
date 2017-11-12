@@ -25,7 +25,7 @@ font:
     family: "Roboto Mono" # should be "Menlo" or something on macOS.
     style: Italic
 
-  size: 10.0
+  size: 12.0
 
   offset:
     x: -9.00
