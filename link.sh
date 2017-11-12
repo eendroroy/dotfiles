@@ -23,7 +23,7 @@ if [ ! -d $HOME/.config ]; then
 	mkdir -p $HOME/.config
 fi
 
-for config in `pwd`/`uname`/config/*; do
+for config in `pwd`/`uname`/config/* `pwd`/common/config/*; do
 	target=$HOME/.config/$( basename $config )
 	if [ -e $target ]; then
         	echo "~{$target#$HOME} already exists... Skipping."
@@ -31,3 +31,4 @@ for config in `pwd`/`uname`/config/*; do
 		ln -s $config $target
 	fi
 done
+
