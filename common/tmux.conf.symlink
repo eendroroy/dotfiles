@@ -12,7 +12,7 @@ set -g history-limit 900000
 
 # set Ctrl-a as the default prefix key combination
 # and unbind C-b to free it up
-set -g prefix C-a
+set -g prefix C-q
 unbind C-b
 
 # set window and pane index to 1 (0 by default)
@@ -43,3 +43,4 @@ set-option -g message-fg brightred #orange
 
 # mouse on
 set -g mouse off
+
