@@ -1,4 +1,4 @@
-source /usr/local/lib/python3.5/dist-packages/powerline/bindings/tmux/powerline.conf
+source ~/Library/Python/3.6/lib/python/site-packages/powerline/bindings/tmux/powerline.conf
 
 # Plugins
 
