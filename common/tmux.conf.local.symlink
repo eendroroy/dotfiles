@@ -1,15 +1,14 @@
 # ~/.tmux.conf.local
 
-# Plugins
+# plugins
 set -g @plugin 'tmux-plugins/tmux-sidebar'
 set -g @plugin 'jooize/tmux-powerline-theme'
 
-run '~/.tmux/plugins/tpm/tpm'
-# end plugin
+# end plugins
 
 # Enable Powerline symbols (unless already specified otherwise in environment)
 if-shell ': ${TMUX_POWERLINE_SYMBOLS?}' '' 'set-environment -g TMUX_POWERLINE_SYMBOLS "powerline"'
 
+run '~/.tmux/plugins/tpm/tpm'
 
 set -g status-left ' #{?client_prefix,#[fg=white]↻ , }'
-
