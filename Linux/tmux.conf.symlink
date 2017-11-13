@@ -45,3 +45,4 @@ set-option -g message-fg brightred #orange
 
 # mouse on
 set -g mouse off
+
