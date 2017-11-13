@@ -30,7 +30,7 @@ export TMUX_POWERLINE_COMPACT_OTHER=on
 
 export AUTOENV_IN_FILE='.env.in'
 export AUTOENV_OUT_FILE='.env.out'
-export AM_SHOW_PROCESS_TIME=2
+export AM_SHOW_PROCESS_TIME=0
 export AM_UPDATE_L_PROMPT=1
 
 if [ -d ~/bin ]; then
