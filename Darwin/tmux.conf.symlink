@@ -10,7 +10,7 @@ set -g default-terminal "screen-256color"
 # set scrollback history to 900000 (900k)
 set -g history-limit 900000
 
-# set Ctrl-a as the default prefix key combination
+# set Ctrl-q as the default prefix key combination
 # and unbind C-b to free it up
 set -g prefix C-q
 unbind C-b
