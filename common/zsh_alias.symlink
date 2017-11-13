@@ -61,3 +61,16 @@ if [ "`uname`" = "Linux" ]; then
 elif [ "`uname`" = "Darwin" ]; then
   [ -f ~/.zsh_alias.darwin ] && source ~/.zsh_alias.darwin
 fi
+
+if which tmux > /dev/null; then
+  alias tkill='tmux kill-session'
+  alias tkillall='tmux kill-session -a'
+  alias tls='tmux la'
+fi
+
+if which tmuxinator > /dev/null; then
+  alias txo='tmuxinator open'
+  alias txs='tmuxinator start'
+  alias txc='tmuxinator stop'
+fi
+
