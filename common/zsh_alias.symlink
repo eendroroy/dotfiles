@@ -65,12 +65,13 @@ fi
 if which tmux > /dev/null; then
   alias tkill='tmux kill-session'
   alias tkillall='tmux kill-session -a'
-  alias tls='tmux la'
+  alias tls='tmux ls'
 fi
 
 if which tmuxinator > /dev/null; then
   alias txo='tmuxinator open'
   alias txs='tmuxinator start'
   alias txc='tmuxinator stop'
+  alias txl='tmuxinator list'
 fi
 
