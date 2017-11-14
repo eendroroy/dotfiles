@@ -11,4 +11,4 @@ if-shell ': ${TMUX_POWERLINE_SYMBOLS?}' '' 'set-environment -g TMUX_POWERLINE_SY
 
 run '~/.tmux/plugins/tpm/tpm'
 
-set -g status-left ' #{?client_prefix,#[fg=white]↻ , }'
+set -g status-left ' #{?client_prefix,#[fg=white]↻ ,  }'
