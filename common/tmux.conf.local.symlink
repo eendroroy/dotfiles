@@ -2,7 +2,7 @@
 
 # plugins
 set -g @plugin 'tmux-plugins/tmux-sidebar'
-set -g @plugin 'jooize/tmux-powerline-theme'
+set -g @plugin 'eendroroy/tmux-simple-theme'
 
 # end plugins
 
@@ -11,4 +11,3 @@ if-shell ': ${TMUX_POWERLINE_SYMBOLS?}' '' 'set-environment -g TMUX_POWERLINE_SY
 
 run '~/.tmux/plugins/tpm/tpm'
 
-set -g status-left ' #{?client_prefix,#[fg=white]↻ ,  }'
