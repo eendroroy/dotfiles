@@ -41,45 +41,36 @@ render_timer: false
 
 custom_cursor_colors: false
 
-# Colors (Tomorrow Night Bright)
+# Colors (Tomorrow Night)
 colors:
+  # Default colors
   primary:
-    background: '0x202020'
-    foreground: '0xE9E9E9'
-
+    background: '0x1d1f21'
+    foreground: '0xc5c8c6'
+  # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xE9E9E9'
-
+    text: '0x1d1f21'
+    cursor: '0xffffff'
+  # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xD54E53'
-    green:   '0xB9CA49'
-    yellow:  '0xE7C547'
-    blue:    '0x79A6DA'
-    magenta: '0xC397D8'
-    cyan:    '0x70C0B1'
-    white:   '0xFFFEFE'
-
+    black:   '0x1d1f21'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xe6c547'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x70c0ba'
+    white:   '0x373b41'
+  # Bright colors
   bright:
-    black:   '0x000000'
-    red:     '0xD44D53'
-    green:   '0xB9C949'
-    yellow:  '0xE6C446'
-    blue:    '0x79A6DA'
-    magenta: '0xC396D7'
-    cyan:    '0x70C0B1'
-    white:   '0xFFFEFE'
-
-  dim:
-    black:   '0x333333'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xdddddd'
+    black:   '0x666666'
+    red:     '0xff3334'
+    green:   '0x9ec400'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb77ee0'
+    cyan:    '0x54ced6'
+    white:   '0x282a2e'
 
 # Visual Bell
 #
