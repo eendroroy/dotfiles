@@ -1,5 +1,4 @@
 tap "buo/cask-upgrade"
-o
 tap "caskroom/cask"
 tap "caskroom/fonts"
 tap "caskroom/versions"
@@ -25,6 +24,7 @@ brew "rbenv-default-gems"
 brew "rustup-init"
 brew "zsh"
 cask "firefox"
+cask "gpg-suite"
 cask "istat-menus"
 cask "iterm2"
 cask "jetbrains-toolbox"
