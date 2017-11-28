@@ -1,5 +1,9 @@
 export PATH="/usr/local/bin:$PATH"
 
+export USE_NERD_FONT=1
+export AM_SHOW_PROCESS_TIME=0
+export AM_UPDATE_L_PROMPT=1
+
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
   
@@ -13,6 +17,7 @@ if [ -d ~/.zplug ]; then
   zplug "eendroroy/awesome-git"
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/awesome-git", from:local
   zplug "eendroroy/alien-minimal"
+  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien-minimal", from:local
   # zplug "/home/indrajit/_WORKSPACE/alien-minimal", from:local
   # zplug "/home/indrajit/_WORKSPACE/nothing", from:local
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
@@ -30,8 +35,7 @@ export TMUX_POWERLINE_COMPACT_OTHER=on
 
 export AUTOENV_IN_FILE='.env.in'
 export AUTOENV_OUT_FILE='.env.out'
-export AM_SHOW_PROCESS_TIME=0
-export AM_UPDATE_L_PROMPT=1
+
 
 if [ -d ~/bin ]; then
   export PATH="$HOME/bin:$PATH"
