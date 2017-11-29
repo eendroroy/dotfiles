@@ -14,5 +14,3 @@ bash common/recipes/tpm.sh
 bash common/recipes/hg-color.sh
 bash common/recipes/vim-plug.sh
 bash common/recipes/sdkman.sh
-compinit
-
