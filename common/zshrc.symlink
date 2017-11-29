@@ -134,6 +134,7 @@ export PATH="/usr/local/sbin:$PATH"
 
 # zsh-completion
 fpath=(/usr/local/share/zsh-completions $fpath)
+[[ -d ~/.cnfig/zsh/completions ]] && fpath=(~/.config/zsh/completions $fpath)
 
 if [[ "`uname`" == "Linux" ]]; then
   export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
