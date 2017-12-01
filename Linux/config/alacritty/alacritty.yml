@@ -2,8 +2,8 @@ env:
   TERM: xterm-256color
 
 dimensions:
-  columns: 180
-  lines: 90
+  columns: 300
+  lines: 300
 
 padding:
   x: 0
@@ -25,10 +25,10 @@ font:
     family: "MesloLGMDZ Nerd Font"
     style: RegularForPowerline
 
-  size: 11.0
+  size: 12.0
 
   offset:
-    x: -11.0
+    x: -11.5
     y: -0.25
 
   glyph_offset:
