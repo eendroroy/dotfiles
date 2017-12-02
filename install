@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-echo "Installing dotfiles"
+echo
+echo -e "  \033[94m ==> \033[39m"
+echo -e "  \033[94m ==> \033[32mInstalling dotfiles \033[39m"
 
-echo "Initializing submodule(s)"
+echo -e "  \033[94m ==> \033[39m"
+echo -e "  \033[94m ==> \033[32mInitializing submodule(s) \033[39m"
 git submodule update --init --recursive
 git submodule foreach pull origin master
 
@@ -14,3 +17,8 @@ bash common/recipes/tpm.sh
 bash common/recipes/hg-color.sh
 bash common/recipes/vim-plug.sh
 bash common/recipes/sdkman.sh
+
+echo -e "  \033[94m ==> \033[39m"
+echo -e "  \033[94m ==> \033[32mInstallation of dotfiles completed. \033[39m"
+echo -e "  \033[94m ==> \033[39m"
+echo
