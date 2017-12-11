@@ -21,6 +21,7 @@ if [ -d ~/.zplug ]; then
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
   # zplug "/home/indrajit/_WORKSPACE/alien-minimal", from:local
   # zplug "/home/indrajit/_WORKSPACE/nothing", from:local
+  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/nothing", from:local
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/theta", from:local
 
