@@ -4,3 +4,6 @@ else
   alias ll='ls -lFha --color=auto'
   alias l='ls -lFh --color=auto'
 fi
+
+pbcopy='DISPLAY=:0 xclip -selection clipboard'
+pbpaste='DISPLAY=:0 xclip -selection clipboard -o'
