@@ -1,3 +1,10 @@
+# os specific aliases
+if [ "`uname`" = "Linux" ]; then
+  [ -f ~/.zsh_alias.linux ] && source ~/.zsh_alias.linux
+elif [ "`uname`" = "Darwin" ]; then
+  [ -f ~/.zsh_alias.darwin ] && source ~/.zsh_alias.darwin
+fi
+
 # aliases
 if which youtube-dl > /dev/null; then
   alias ydl='youtube-dl'
@@ -53,13 +60,6 @@ if which exa > /dev/null; then
   alias ll='exa -la --git --color-scale'
   alias l='exa -l --git --color-scale'
   alias lt='exa -lT --git --color-scale'
-fi
-
-# os specific aliases
-if [ "`uname`" = "Linux" ]; then
-  [ -f ~/.zsh_alias.linux ] && source ~/.zsh_alias.linux
-elif [ "`uname`" = "Darwin" ]; then
-  [ -f ~/.zsh_alias.darwin ] && source ~/.zsh_alias.darwin
 fi
 
 if which tmux > /dev/null; then
