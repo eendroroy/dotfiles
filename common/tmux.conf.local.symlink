@@ -3,6 +3,8 @@
 # plugins
 set -g @plugin 'tmux-plugins/tmux-sidebar'
 set -g @plugin 'eendroroy/tmux-simple-theme'
+set -g @plugin 'tmux-plugins/tmux-battery'
+set -g @plugin 'tmux-plugins/tmux-cpu'
 
 # end plugins
 
