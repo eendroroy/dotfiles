@@ -29,9 +29,9 @@ Plug 'vim-airline/vim-airline-themes'   " airline themes
 
 Plug 'airblade/vim-gitgutter'           " git
 " Plug 'tpope/vim-fugitive'               " git
-Plug 'phleet/vim-mercenary'             " mercurial
+" Plug 'phleet/vim-mercenary'             " mercurial
 " Plug 'ludovicchabant/vim-lawrencium'    " mercurial
-Plug 'mhinz/vim-signify'                " mercurial sunversion
+" Plug 'mhinz/vim-signify'                " mercurial sunversion
 
 Plug 'mileszs/ack.vim'                  " search enhance
 
@@ -48,7 +48,6 @@ let g:airline_detect_crypt    = 1
 let g:airline#extensions#branch#use_vcscommand = 1
 let g:airline#extensions#branch#enabled        = 1
 let g:airline#extensions#bufferline#enabled    = 1
-" let g:airline#extensions#branch#vcs_priority   = ["mercurial", "git"]
 let g:airline#extensions#branch#vcs_priority   = ["git"]
 let g:airline#extensions#syntastic#enabled     = 1
 let g:airline#extensions#whitespace#checks     = ['indent', 'trailing', 'long', 'mixed-indent-file']
@@ -70,3 +69,4 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 " nmap <silent> <leader>l :NERDTreeFind<cr>   " Toggle NERDTree
 
 nmap <silent> <C-p> :FZF<cr>
+
