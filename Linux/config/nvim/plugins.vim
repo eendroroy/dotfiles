@@ -7,7 +7,7 @@ Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
 Plug 'ervandew/supertab'                " tab completion
 Plug 'yggdroot/indentline'              " show verticl line at each indent
-Plug 'ctrlpvim/ctrlp.vim'               " search for file
+" Plug 'ctrlpvim/ctrlp.vim'               " search for file
 
 Plug 'tpope/vim-commentary'             " comment out target line
 Plug 'tpope/vim-endwise'                " auto insert end tag
@@ -15,12 +15,12 @@ Plug 'tpope/vim-endwise'                " auto insert end tag
 Plug 'neomake/neomake'                  " style checker
 Plug 'davidhalter/jedi-vim'             " autocomplete
 
-Plug 'digitaltoad/vim-jade'             " jade template
-Plug 'rust-lang/rust.vim'               " rust
+" Plug 'digitaltoad/vim-jade'             " jade template
+" Plug 'rust-lang/rust.vim'               " rust
 Plug 'mattn/webapi-vim'                 " 
-Plug 'tkztmk/vim-vala'                  " vala syntax
-Plug 'elixir-lang/vim-elixir'           " elixir
-Plug 'andreshazard/vim-freemarker'      " freemarker
+" Plug 'tkztmk/vim-vala'                  " vala syntax
+" Plug 'elixir-lang/vim-elixir'           " elixir
+" Plug 'andreshazard/vim-freemarker'      " freemarker
 
 Plug 'bling/vim-bufferline'             " bufferline
 Plug 'vim-airline/vim-airline'          " airlne
@@ -28,9 +28,9 @@ Plug 'vim-airline/vim-airline-themes'   " airline themes
 
 Plug 'airblade/vim-gitgutter'           " git
 Plug 'tpope/vim-fugitive'               " git
-Plug 'phleet/vim-mercenary'             " mercurial
+" Plug 'phleet/vim-mercenary'             " mercurial
 " Plug 'ludovicchabant/vim-lawrencium'    " mercurial
-Plug 'mhinz/vim-signify'                " mercurial sunversion
+" Plug 'mhinz/vim-signify'                " mercurial sunversion
 
 Plug 'mileszs/ack.vim'                  " search enhance
 
@@ -67,3 +67,4 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 " nmap <silent> <leader>k :NERDTreeToggle<cr> " Toggle NERDTree
 " nmap <silent> <leader>l :NERDTreeFind<cr>   " Toggle NERDTree
 nmap <silent> <C-p> :FZF<cr>
+
