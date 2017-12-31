@@ -34,7 +34,7 @@ fi
 
 if [[ -d `pwd`/`uname`/config ]]; then
     for config in $( ls -1 `pwd`/`uname`/config ); do
-        create_link `pwd`/common/config/$config "${HOME}/.config/$( basename $config )"
+        create_link `pwd`/`uname`/config/$config "${HOME}/.config/$( basename $config )"
     done
 fi
 
