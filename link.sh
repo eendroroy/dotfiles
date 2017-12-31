@@ -28,13 +28,13 @@ fi
 
 if [[ -d `pwd`/common/config ]]; then
     for config in $( ls -1 `pwd`/common/config ); do
-        create_link $config "${HOME}/.config/$( basename $config )"
+        create_link `pwd`/common/config/$config "${HOME}/.config/$( basename $config )"
     done
 fi
 
 if [[ -d `pwd`/`uname`/config ]]; then
     for config in $( ls -1 `pwd`/`uname`/config ); do
-        create_link $config "${HOME}/.config/$( basename $config )"
+        create_link `pwd`/common/config/$config "${HOME}/.config/$( basename $config )"
     done
 fi
 
