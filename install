@@ -11,7 +11,7 @@ git submodule foreach pull origin master
 
 bash link.sh
 bash copy.sh
-bash common/recipes/antigen.sh
+# bash common/recipes/antigen.sh
 bash common/recipes/zplug.sh
 bash common/recipes/tpm.sh
 bash common/recipes/hg-color.sh
