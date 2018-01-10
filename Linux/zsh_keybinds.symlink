@@ -1,3 +1,5 @@
+[ -f ~/.zsh_keybinds_local ] && source ~/.zsh_keybinds_local
+
 # Insert "sudo " at the beginning of the line
 function prepend-sudo {
   if [[ $BUFFER != "sudo "* ]]; then
