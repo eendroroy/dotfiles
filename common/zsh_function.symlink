@@ -1,46 +1,5 @@
 ## function
 
-# open git remote in browser
-open-remote-url(){
-  os=`uname`
-  if [[ "${os}" == "Linux" ]]; then
-    sensible-browser $1
-  elif [[ "${os}" == "Darwin" ]]; then
-    open $1
-  fi
-}
-open-remote() {
-  is_git="$(git remote -v 2> /dev/null)"
-  is_hg="$(hg branch 2> /dev/null)"
-  is_svn="$(svn info 2> /dev/null)"
-  if [ "$is_git" ]; then
-    if git remote -v | grep git@ > /dev/null; then
-      remote=`git remote -v | head -1 | awk '{print $2}'`
-	  host=`echo $remote | tr ':@' ' ' | awk '{print $2}'`
-	  repo=`echo $remote | tr ':' ' ' | awk '{print $2}'`
-	  echo "http://$host/$repo"
-      open-remote-url "http://$host/$repo"
-    elif git remote -v | grep http > /dev/null; then
-      repo=`git remote -v | head -1 | awk '{print $2}'`
-	  echo "$repo"
-	  open-remote-url "$repo"
-    else
-      echo "Remote url not found."
-    fi
-  elif [ "$is_svn" ]; then
-    repo=`svn info | grep URL | head -1 | awk '{print $2}'`
-	echo "$repo"
-	open-remote-url "$repo"
-  elif [ "$is_hg" ]; then
-    repo=`hg paths | grep default | awk '{print $3}'`
-	echo "$repo"
-	open-remote-url "$repo"
-  else
-    echo "Not a working copy !"
-  fi
-}
-alias rr='open-remote'
-
 # dnext/dprev -- go to next/prev directory at same level
 dnext() {
   local d; d=( ../*(/) )
