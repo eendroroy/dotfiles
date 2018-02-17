@@ -18,15 +18,6 @@ alias pa='cd && dirs -c'
 alias ..='popd'
 alias ...='cd ..'
 if which docker-compose > /dev/null; then alias dcompose='docker-compose'; fi
-if which mvn > /dev/null; then
-  alias mvnc='mvn clean';
-  alias mvni='mvn install';
-  alias mvnci='mvn clean install';
-  alias mvnst='mvn -Dmaven.test.skip=true';
-  alias mvncst='mvn clean -Dmaven.test.skip=true';
-  alias mvnist='mvn install -Dmaven.test.skip=true';
-  alias mvncist='mvn clean install -Dmaven.test.skip=true';
-fi
 
 if which ccat > /dev/null; then
   alias cat='ccat'
