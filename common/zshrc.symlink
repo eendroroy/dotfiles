@@ -12,8 +12,9 @@ if [ -d ~/.zplug ]; then
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
   zplug "zpm-zsh/autoenv"
-  zplug "eendroroy/zsh-autoenv-templates-installer"
+  zplug "popstas/zsh-command-time"
 
+  zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
   zplug "eendroroy/zed-zsh"
   zplug "eendroroy/awesome-git"
