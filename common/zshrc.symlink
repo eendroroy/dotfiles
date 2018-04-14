@@ -5,6 +5,9 @@ export USE_NERD_FONT=1
 export AM_SHOW_PROCESS_TIME=0
 export AM_UPDATE_L_PROMPT=1
 
+export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
+export ZSH_COMMAND_TIME_COLOR="117"
+
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
   
@@ -12,7 +15,8 @@ if [ -d ~/.zplug ]; then
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
   zplug "zpm-zsh/autoenv"
-  zplug "popstas/zsh-command-time"
+  zplug "eendroroy/zsh-command-time", at:update-1
+  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/zsh-command-time", from:local
 
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
