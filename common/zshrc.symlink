@@ -32,6 +32,11 @@ if [ -d ~/.zplug ]; then
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/theta", from:local
 
+  # Plugins for mac only
+  if [ "`uname`" = "Darwin" ]; then
+    zplug "zsh-users/zsh-apple-touchbar"
+  fi
+
   # Install plugins if there are plugins that have not been installed
   if ! zplug check --verbose; then
     zplug install
