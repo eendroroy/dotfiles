@@ -6,7 +6,7 @@ export AM_SHOW_PROCESS_TIME=0
 export AM_UPDATE_L_PROMPT=1
 
 export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
-export ZSH_COMMAND_TIME_COLOR="117"
+export ZSH_COMMAND_TIME_COLOR="229"
 
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
