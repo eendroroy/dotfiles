@@ -15,8 +15,7 @@ if [ -d ~/.zplug ]; then
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
   zplug "zpm-zsh/autoenv"
-  zplug "eendroroy/zsh-command-time", at:update-1
-  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/zsh-command-time", from:local
+  zplug "popstas/zsh-command-time"
 
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
@@ -104,6 +103,13 @@ if [ -d $HOME/.crenv ]; then
   export CRENV_ROOT="$HOME/.crenv"
   export PATH="$CRENV_ROOT/bin:$PATH"
   eval "$(crenv init -)"
+fi
+
+# swiftenv
+if [ -d $HOME/.swiftenv ]; then
+    export SWIFTENV_ROOT="$HOME/.swiftenv"
+    export PATH="$SWIFTENV_ROOT/bin:$PATH"
+    eval "$(swiftenv init -)"
 fi
 
 # thefuck
