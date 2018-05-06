@@ -1,6 +1,6 @@
 env:
   TERM: xterm-256color
-
+  
 dimensions:
   columns: 300
   lines: 300
@@ -8,6 +8,15 @@ dimensions:
 padding:
   x: 0
   y: 0
+
+window:
+  dimensions:
+    columns: 300
+    lines: 300
+
+  padding:
+    x: 0
+    y: 0
 
 tabspaces: 4
 
@@ -30,12 +39,12 @@ font:
   size: 11.0
 
   offset:
-    x: -11.0
-    y: -0.250
+    x: -1
+    y: 0
 
   glyph_offset:
-    x: 0.0
-    y: 0.0
+    x: 0
+    y: 0
 
   use_thin_strokes: false
 
