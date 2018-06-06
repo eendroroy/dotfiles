@@ -113,6 +113,9 @@ if [ -d $HOME/.swiftenv ]; then
     eval "$(swiftenv init -)"
 fi
 
+# fasd
+which fasd > /dev/null && eval $(fasd --init auto)
+
 # thefuck
 which thefuck > /dev/null && eval $(thefuck --alias)
 
