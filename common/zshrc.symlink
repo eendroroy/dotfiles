@@ -16,10 +16,11 @@ if [ -d ~/.zplug ]; then
   zplug "zsh-users/zsh-autosuggestions"
   zplug "zpm-zsh/autoenv"
   zplug "popstas/zsh-command-time"
+  zplug 'wfxr/forgit', defer:1
 
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
-  zplug "eendroroy/zed-zsh"
+  # zplug "eendroroy/zed-zsh"
   zplug "eendroroy/awesome-git"
   # zplug "/Users/indrajit/_WORKSPACE/eendroroy/awesome-git", from:local
   zplug "eendroroy/alien-minimal"
