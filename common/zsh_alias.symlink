@@ -26,7 +26,7 @@ else
 fi
 
 alias zshrc='$EDITOR ~/.zshrc'
-alias d='dirs -v'
+alias ds='dirs -v'
 for c in cp rm chmod chown rename; do
   alias $c="$c -v"
 done
@@ -66,4 +66,3 @@ if which tmuxinator > /dev/null; then
   alias txc='tmuxinator stop'
   alias txl='tmuxinator list'
 fi
-
