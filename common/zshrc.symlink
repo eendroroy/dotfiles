@@ -114,7 +114,7 @@ if [ -d $HOME/.swiftenv ]; then
 fi
 
 # fasd
-which fasd > /dev/null && eval $(fasd --init auto)
+which fasd > /dev/null && eval "$(fasd --init auto)"
 
 # thefuck
 which thefuck > /dev/null && eval $(thefuck --alias)
