@@ -20,17 +20,8 @@ if [ -d ~/.zplug ]; then
 
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
-  # zplug "eendroroy/zed-zsh"
   zplug "eendroroy/awesome-git"
-  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/awesome-git", from:local
   zplug "eendroroy/alien-minimal"
-  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien-minimal", from:local
-  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
-  # zplug "/home/indrajit/_WORKSPACE/alien-minimal", from:local
-  # zplug "/home/indrajit/_WORKSPACE/nothing", from:local
-  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/nothing", from:local
-  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/alien", from:local
-  # zplug "/Users/indrajit/_WORKSPACE/eendroroy/theta", from:local
 
   # Plugins for mac only
   if [ "`uname`" = "Darwin" ]; then
