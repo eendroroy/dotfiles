@@ -66,6 +66,7 @@ brew "rustup-init"
 brew "the_silver_searcher"
 brew "thefuck"
 brew "trash"
+brew "vala"
 brew "vnstat", restart_service: true
 brew "watch"
 brew "wget"
