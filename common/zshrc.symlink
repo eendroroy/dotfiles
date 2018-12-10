@@ -12,7 +12,8 @@ export ZSH_COMMAND_TIME_COLOR="229"
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
   
-  zplug "zsh-users/zsh-syntax-highlighting"
+  zplug "zdharma/fast-syntax-highlighting"
+  # zplug "zsh-users/zsh-syntax-highlighting"
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
   zplug "zpm-zsh/autoenv"
