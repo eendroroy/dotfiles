@@ -16,6 +16,7 @@ if [ -d ~/.zplug ]; then
   # zplug "zsh-users/zsh-syntax-highlighting"
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
+  zplug "changyuheng/zsh-interactive-cd"
   zplug "zpm-zsh/autoenv"
   zplug "popstas/zsh-command-time"
   zplug 'wfxr/forgit', defer:1
