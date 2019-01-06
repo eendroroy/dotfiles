@@ -14,7 +14,7 @@ DOTFILES="$(pwd)/$(uname) $(pwd)/common"
 echo -e "  \033[94m ==> \033[39m"
 echo -e "  \033[94m ==> \033[32mCreating symlinks \033[39m"
 
-linkables=$( find "${DOTFILES}" -name "*.symlink" )
+linkables=$( find ${DOTFILES} -name "*.symlink" )
 for file in ${linkables}; do
     create_link "${file}" "${HOME}/.$( basename "${file}" '.symlink')"
 done
