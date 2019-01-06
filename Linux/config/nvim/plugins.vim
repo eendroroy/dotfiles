@@ -38,6 +38,7 @@ Plug 'mileszs/ack.vim'                  " search enhance
 Plug 'Raimondi/delimitMate'             " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'tfnico/vim-gradle'                " vim gradle support
 Plug 'Scuilion/gradle-syntastic-plugin' " vim syntactic
+Plug 'https://gitlab.com/code-stats/code-stats-vim.git' " Code::Stats
 
 call plug#end()
 
