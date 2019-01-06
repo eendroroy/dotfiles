@@ -42,3 +42,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
     create_link "$(pwd)/$(uname)/Brewfile" "${HOME}/Brewfile"
 fi
 
+echo -e "  \033[94m ==> \033[32mCreating local config files \033[39m"
+echo -e "  \033[94m ==> \033[32m~/.config/nvim/config.local.vim \033[39m"
+touch ~/.config/nvim/config.local.vim
