@@ -39,6 +39,7 @@ Plug 'Raimondi/delimitMate'             " automatic closing of quotes, parenthes
 Plug 'tfnico/vim-gradle'                " vim gradle support
 Plug 'Scuilion/gradle-syntastic-plugin' " vim syntactic
 Plug 'https://gitlab.com/code-stats/code-stats-vim.git' " Code::Stats
+Plug 'wakatime/vim-wakatime'            " WakaTime
 
 call plug#end()
 

@@ -9,6 +9,15 @@ function create_link() {
     fi
 }
 
+function touch_file() {
+    if [[ -e ${1} ]]; then
+        echo -e "  \033[94m ==> \033[33m~{${1}} already exists... Skipping. \033[39m"
+    else
+        echo -e "  \033[94m ==> \033[32mCreating file ${1} \033[39m"
+        touch ${1}
+    fi
+}
+
 DOTFILES="$(pwd)/$(uname) $(pwd)/common"
 
 echo -e "  \033[94m ==> \033[39m"
@@ -43,5 +52,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 echo -e "  \033[94m ==> \033[32mCreating local config files \033[39m"
-echo -e "  \033[94m ==> \033[32m~/.config/nvim/config.local.vim \033[39m"
-touch ~/.config/nvim/config.local.vim
+for file in ~/.config/nvim/config.local.vim ~/.wakatime.cfg; do
+  touch_file ${file}
+done
