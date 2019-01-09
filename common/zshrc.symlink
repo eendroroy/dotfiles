@@ -1,5 +1,7 @@
 export PATH="/usr/local/bin:$PATH"
 
+[ -f ~/.zsh_code_stats ] && source ~/.zsh_code_stats
+
 export AM_THEME=soft
 export USE_NERD_FONT=1
 export AM_SHOW_PROCESS_TIME=0
@@ -11,7 +13,8 @@ export ZSH_COMMAND_TIME_COLOR="229"
 
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
-  
+
+  zplug "code-stats/code-stats-zsh", from:gitlab
   zplug "zdharma/fast-syntax-highlighting"
   # zplug "zsh-users/zsh-syntax-highlighting"
   zplug "zsh-users/zsh-completions"
@@ -19,7 +22,7 @@ if [ -d ~/.zplug ]; then
   zplug "changyuheng/zsh-interactive-cd"
   zplug "zpm-zsh/autoenv"
   zplug "popstas/zsh-command-time"
-  zplug 'wfxr/forgit', defer:1
+  zplug "wfxr/forgit", defer:1
 
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"

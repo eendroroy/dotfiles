@@ -52,6 +52,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 echo -e "  \033[94m ==> \033[32mCreating local config files \033[39m"
-for file in ~/.config/nvim/config.local.vim; do
+for file in ~/.config/nvim/config.local.vim ~/.zsh_code_stats; do
   touch_file ${file}
 done
