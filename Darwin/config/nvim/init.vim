@@ -39,7 +39,7 @@ set textwidth=120
 set showbreak=↪
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 
-let g:codestats_api_key = 'SFMyNTY.WldWdVpISnZjbTk1IyNOREEyTnc9PQ.IlvinxKa6-qfvTWbxuTBeiUZI086v86oj8Ac8g1QGtc'
+source ~/.config/nvim/config.local.vim
 
 nmap <silent> <leader>e :bnext<cr>          " switch to nex buffer
 nmap <silent> <leader>w :bprevious<cr>      " switch to previous buffer

@@ -20,7 +20,6 @@ if [ -d ~/.zplug ]; then
   zplug "zpm-zsh/autoenv"
   zplug "popstas/zsh-command-time"
   zplug 'wfxr/forgit', defer:1
-  zplug "sobolevn/wakatime-zsh-plugin"
 
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
