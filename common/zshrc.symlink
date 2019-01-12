@@ -14,7 +14,6 @@ export ZSH_COMMAND_TIME_COLOR="229"
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
 
-  zplug "code-stats/code-stats-zsh", from:gitlab
   zplug "zdharma/fast-syntax-highlighting"
   # zplug "zsh-users/zsh-syntax-highlighting"
   zplug "zsh-users/zsh-completions"
@@ -24,6 +23,7 @@ if [ -d ~/.zplug ]; then
   zplug "popstas/zsh-command-time"
   zplug "wfxr/forgit", defer:1
 
+  zplug "eendroroy/zsh-codestats"
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
   zplug "eendroroy/awesome-git"
