@@ -1,10 +1,6 @@
-source /usr/local/lib/python3.5/dist-packages/powerline/bindings/tmux/powerline.conf
+source /usr/local/lib/python3.6/dist-packages/powerline/bindings/tmux/powerline.conf
 
-source .tmux.conf.local
-
-# use UTF8
-set -g utf8
-set-window-option -g utf8 on
+source ${HOME}/.tmux.conf.local
 
 # make tmux display things in 256 colors
 set -g default-terminal "screen-256color"
