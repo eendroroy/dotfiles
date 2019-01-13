@@ -37,12 +37,12 @@ font:
   size: 15.0
 
   offset:
-    x: -11.0
-    y: -0.250
+    x: -2
+    y: -2
 
   glyph_offset:
-    x: 0.0
-    y: 0.0
+    x: 0
+    y: 0
 
   use_thin_strokes: false
 
