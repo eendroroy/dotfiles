@@ -1,4 +1,4 @@
-# ~/.tmux.conf.local
+# ~/.tmux.conf.common
 
 # plugins
 set -g @plugin 'tmux-plugins/tmux-sidebar'

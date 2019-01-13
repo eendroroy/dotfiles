@@ -1,6 +1,6 @@
 source /usr/local/lib/python3.7/site-packages/powerline/bindings/tmux/powerline.conf
 
-source .tmux.conf.local
+source ${HOME}/.tmux.conf.common
 
 # make tmux display things in 256 colors
 set -g default-terminal "screen-256color"
