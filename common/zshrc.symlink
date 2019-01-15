@@ -7,6 +7,7 @@ export USE_NERD_FONT=1
 export AM_SHOW_PROCESS_TIME=0
 export AM_UPDATE_L_PROMPT=1
 # export AM_INITIAL_LINE_FEED=2
+export AM_KEEP_PROMPT=1
 
 export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
 export ZSH_COMMAND_TIME_COLOR="229"
@@ -157,4 +158,3 @@ export PATH="/usr/local/sbin:$PATH"
 # zsh-completion
 export fpath=(/usr/local/share/zsh-completions $fpath)
 export fpath=($HOME/.config/zsh/completions $fpath)
-compinit
