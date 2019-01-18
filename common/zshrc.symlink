@@ -1,7 +1,5 @@
 export PATH="/usr/local/bin:$PATH"
 
-[ -f ~/.zsh_code_stats ] && source ~/.zsh_code_stats
-
 export AM_THEME=soft
 export USE_NERD_FONT=1
 export AM_SHOW_PROCESS_TIME=0
@@ -23,11 +21,13 @@ if [ -d ~/.zplug ]; then
   zplug "zpm-zsh/autoenv"
   zplug "popstas/zsh-command-time"
   zplug "wfxr/forgit", defer:1
+  zplug 'mfaerevaag/wd', as:command, use:"wd.sh", hook-load:"wd() { . $ZPLUG_REPOS/mfaerevaag/wd/wd.sh }"
 
-  zplug "eendroroy/zsh-codestats"
   zplug "eendroroy/zsh-autoenv-templates-installer"
   zplug "eendroroy/zshPlugins"
   zplug "eendroroy/awesome-git"
+
+  # THEME
   zplug "eendroroy/alien-minimal"
 
   # Plugins for mac only
