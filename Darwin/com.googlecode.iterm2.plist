@@ -2898,11 +2898,13 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>774 50 707 297 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>554 476 620 392 0 0 1680 1027 </string>
+	<string>509 476 620 392 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>694 437 796 486 0 0 1680 1027 </string>
+	<string>694 528 770 429 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 221 1225 806 0 0 1680 1027 </string>
+	<string>275 486 730 502 0 0 1680 1050 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>212 95 1090 787 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -3170,7 +3172,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>80</integer>
+			<integer>120</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Color</key>
@@ -3565,7 +3567,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>25</integer>
+			<integer>40</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -3638,6 +3640,8 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>D3A1A65A-0000-4C2E-81CC-656E753F2DA7</string>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>574943676.74756896</real>
 	<key>OpenArrangementAtStartup</key>
@@ -3690,7 +3694,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-03-22T11:16:17Z</date>
+	<date>2019-03-27T12:48:24Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>TabStyle</key>
@@ -3700,6 +3704,6 @@
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
-	<string>3.2.7</string>
+	<string>3.2.8</string>
 </dict>
 </plist>
