@@ -22,6 +22,7 @@ Plug 'tkztmk/vim-vala'                  " vala syntax
 Plug 'elixir-lang/vim-elixir'           " elixir
 Plug 'andreshazard/vim-freemarker'      " freemarker
 Plug 'rhysd/vim-crystal'                " crystal
+Plug 'avdgaag/vim-phoenix'              " phoenix support
 
 Plug 'bling/vim-bufferline'             " bufferline
 Plug 'vim-airline/vim-airline'          " airlne
