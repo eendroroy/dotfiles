@@ -23,7 +23,6 @@ mq =
 color =
 pager =
 churn = 
-hggit = 
 
 [pager]
 pager = LESS='FRX' less
