@@ -2,10 +2,8 @@ export PATH="/usr/local/bin:$PATH"
 
 export AM_THEME=soft
 export AM_USE_NERD_FONT=1
-export AM_SHOW_PROCESS_TIME=0
-export AM_UPDATE_L_PROMPT=1
-# export AM_INITIAL_LINE_FEED=2
 export AM_KEEP_PROMPT=1
+export AM_ASYNC_L_PROMPT=1
 
 export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
 export ZSH_COMMAND_TIME_COLOR="229"
