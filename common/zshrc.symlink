@@ -3,7 +3,7 @@ export PATH="/usr/local/bin:$PATH"
 export AM_THEME=soft
 export AM_USE_NERD_FONT=1
 export AM_KEEP_PROMPT=1
-export AM_ASYNC_L_PROMPT=1
+export AM_ENABLE_VI_PROMPT=1
 
 export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
 export ZSH_COMMAND_TIME_COLOR="229"
@@ -26,7 +26,7 @@ if [ -d ~/.zplug ]; then
   zplug "eendroroy/awesome-git"
 
   # THEME
-  zplug "eendroroy/alien-minimal"
+  zplug "eendroroy/alien-minimal", at:development
 
   # Plugins for mac only
   if [ "`uname`" = "Darwin" ]; then
@@ -123,6 +123,8 @@ export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-win
 
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+bindkey -v
 
 setopt sharehistory
 setopt extendedhistory
