@@ -3,7 +3,9 @@ export PATH="/usr/local/bin:$PATH"
 export AM_THEME=soft
 export AM_USE_NERD_FONT=1
 export AM_KEEP_PROMPT=1
+export AM_ASYNC_L_PROMPT=1
 export AM_ENABLE_VI_PROMPT=1
+export AM_VI_PROMPT_POS=left_end
 
 export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
 export ZSH_COMMAND_TIME_COLOR="229"
@@ -27,6 +29,7 @@ if [ -d ~/.zplug ]; then
 
   # THEME
   zplug "eendroroy/alien-minimal", at:development
+  # zplug "/Users/indrajit/Documents/Projects/eendroroy/alien-minimal", from:local, at:development
 
   # Plugins for mac only
   if [ "`uname`" = "Darwin" ]; then
