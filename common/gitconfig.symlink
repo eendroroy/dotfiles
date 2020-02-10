@@ -1,6 +1,6 @@
 [user]
-	name = indrajit
-	email = eendroroy@gmail.com
+    name = indrajit
+    email = eendroroy@gmail.com
     signingkey = 7D65308546343630
 [github]
     user = eendroroy
@@ -28,7 +28,7 @@
 [push]
     default = simple
 [core]
-	excludesfile = ~/.gitignore_global
+    excludesfile = ~/.gitignore_global
 [commit]
     template = ~/.stCommitMsg
     gpgsign = true
