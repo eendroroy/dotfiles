@@ -10,6 +10,7 @@ git submodule update --init --recursive
 git submodule foreach pull origin master
 
 bash link.sh
+bash common/recipes/spacevim.sh
 bash common/recipes/zplug.sh
 bash common/recipes/hg-color.sh
 bash common/recipes/sdkman.sh
