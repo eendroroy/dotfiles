@@ -66,7 +66,6 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 export SDKMAN_DIR="$HOME/.sdkman"
 [ -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; and source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-[ -f ~/.zsh_keybinds ] && source ~/.zsh_keybinds
 [ -f ~/.zsh_alias ] && source ~/.zsh_alias
 [ -f ~/.zsh_function ] && source ~/.zsh_function
 

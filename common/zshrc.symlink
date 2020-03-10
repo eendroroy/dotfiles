@@ -153,8 +153,6 @@ setopt notify
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-[ -f ~/.zshrc_local ] && source ~/.zshrc_local
-[ -f ~/.zsh_keybinds ] && source ~/.zsh_keybinds
 [ -f ~/.zsh_alias ] && source ~/.zsh_alias
 [ -f ~/.zsh_function ] && source ~/.zsh_function
 
