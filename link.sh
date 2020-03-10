@@ -50,8 +50,3 @@ fi
 if [[ "$(uname)" == "Darwin" ]]; then
     create_link "$(pwd)/$(uname)/Brewfile" "${HOME}/Brewfile"
 fi
-
-echo -e "  \033[94m ==> \033[32mCreating local config files \033[39m"
-for file in ~/.config/nvim/config.local.vim; do
-  touch_file ${file}
-done
