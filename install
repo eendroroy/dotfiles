@@ -12,6 +12,7 @@ git submodule foreach pull origin master
 bash link.sh
 bash common/recipes/zplug.sh
 bash common/recipes/hg-color.sh
+bash common/recipes/vim-plug.sh
 bash common/recipes/sdkman.sh
 
 echo -e "  \033[94m ==> \033[39m"
