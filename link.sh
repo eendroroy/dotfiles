@@ -14,16 +14,16 @@ function touch_file() {
         echo -e "  \033[94m ==> \033[33m~{${1}} already exists... Skipping. \033[39m"
     else
         echo -e "  \033[94m ==> \033[32mCreating file ${1} \033[39m"
-        touch ${1}
+        touch "${1}"
     fi
 }
 
-DOTFILES="$(pwd)/$(uname) $(pwd)/common"
+DOT_FILES="$(pwd)/$(uname) $(pwd)/common"
 
 echo -e "  \033[94m ==> \033[39m"
 echo -e "  \033[94m ==> \033[32mCreating symlinks \033[39m"
 
-linkables=$( find ${DOTFILES} -name "*.symlink" )
+linkables=$( find "${DOT_FILES}" -name "*.symlink" )
 for file in ${linkables}; do
     create_link "${file}" "${HOME}/.$( basename "${file}" '.symlink')"
 done
@@ -50,8 +50,3 @@ fi
 if [[ "$(uname)" == "Darwin" ]]; then
     create_link "$(pwd)/$(uname)/Brewfile" "${HOME}/Brewfile"
 fi
-
-echo -e "  \033[94m ==> \033[32mCreating local config files \033[39m"
-for file in ~/.config/nvim/config.local.vim; do
-  touch_file ${file}
-done
