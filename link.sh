@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
+touch "${HOME}/.dotfiles_uninstall.txt"
+
+SCRIPT_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 function create_link() {
     if [[ -e ${2} ]]; then
         echo -e "  \033[94m ==> \033[33m~{${2}} already exists... Skipping. \033[39m"
     else
         echo -e "  \033[94m ==> \033[32mCreating symlink of ${file} \033[39m"
+        echo "${2}" >> "${HOME}/.dotfiles_uninstall.txt"
         ln -s "${1}" "${2}"
     fi
 }
@@ -18,13 +23,16 @@ function touch_file() {
     fi
 }
 
-DOT_FILES="$(pwd)/$(uname) $(pwd)/common"
-
 echo -e "  \033[94m ==> \033[39m"
 echo -e "  \033[94m ==> \033[32mCreating symlinks \033[39m"
 
-linkables=$( find "${DOT_FILES}" -name "*.symlink" )
-for file in ${linkables}; do
+# shellcheck disable=SC2044
+for file in $( find "${SCRIPT_LOC}/$(uname)" -name "*.symlink" ); do
+    create_link "${file}" "${HOME}/.$( basename "${file}" '.symlink')"
+done
+
+# shellcheck disable=SC2044
+for file in $( find "${SCRIPT_LOC}/common" -name "*.symlink" ); do
     create_link "${file}" "${HOME}/.$( basename "${file}" '.symlink')"
 done
 
@@ -35,18 +43,18 @@ if [[ ! -d ${HOME}/.config ]]; then
 	mkdir -p "${HOME}/.config"
 fi
 
-if [[ -d $(pwd)/common/config ]]; then
-    for config in "$(pwd)"/common/config/*; do
+if [[ -d ${SCRIPT_LOC}/common/config ]]; then
+    for config in "${SCRIPT_LOC}"/common/config/*; do
         create_link "${config}" "${HOME}/.config/$( basename "${config}" )"
     done
 fi
 
-if [[ -d $(pwd)/$(uname)/config ]]; then
-    for config in "$(pwd)"/"$(uname)"/config/*; do
+if [[ -d ${SCRIPT_LOC}/$(uname)/config ]]; then
+    for config in "${SCRIPT_LOC}"/"$(uname)"/config/*; do
         create_link "${config}" "${HOME}/.config/$( basename "${config}" )"
     done
 fi
 
 if [[ "$(uname)" == "Darwin" ]]; then
-    create_link "$(pwd)/$(uname)/Brewfile" "${HOME}/Brewfile"
+    create_link "${SCRIPT_LOC}/$(uname)/Brewfile" "${HOME}/Brewfile"
 fi
