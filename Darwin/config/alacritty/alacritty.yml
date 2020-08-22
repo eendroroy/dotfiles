@@ -3,8 +3,8 @@ env:
 
 window:
   dimensions:
-    columns: 160
-    lines: 60
+    columns: 75
+    lines: 11
   padding:
     x: 0
     y: 0
@@ -15,10 +15,7 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
-  faux_multiplier: 3
-  auto_scroll: false
-
-tabspaces: 4
+  multiplier: 3
 
 draw_bold_text_with_bright_colors: true
 
@@ -103,7 +100,7 @@ colors:
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
