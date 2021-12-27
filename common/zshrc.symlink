@@ -6,7 +6,7 @@ export ZSH_COMMAND_TIME_COLOR="229"
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
 
-  zplug "zdharma/fast-syntax-highlighting"
+  zplug "zdharma-continuum/fast-syntax-highlighting"
   # zplug "zsh-users/zsh-syntax-highlighting"
   zplug "zsh-users/zsh-completions"
   zplug "zsh-users/zsh-autosuggestions"
@@ -25,7 +25,7 @@ if [ -d ~/.zplug ]; then
 
   # Plugins for mac only
   if [ "`uname`" = "Darwin" ]; then
-    zplug "zsh-users/zsh-apple-touchbar"
+  #  zplug "zsh-users/zsh-apple-touchbar"
   fi
 
   # Install plugins if there are plugins that have not been installed
