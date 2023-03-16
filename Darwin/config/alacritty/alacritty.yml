@@ -3,8 +3,8 @@ env:
 
 window:
   dimensions:
-    columns: 75
-    lines: 11
+    columns: 170
+    lines: 50
   padding:
     x: 0
     y: 0
@@ -15,35 +15,35 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
-  multiplier: 3
 
 draw_bold_text_with_bright_colors: true
 
 font:
   antialias: true
-  # normal:
-  #   family: "MesloLGMDZ Nerd Font"
-  #   style: RegularForPowerline
-  # bold:
-  #   family: "MesloLGMDZ Nerd Font"
-  #   style: RegularForPowerline
-  # italic:
-  #   family: "MesloLGMDZ Nerd Font"
-  #   style: RegularForPowerline
+  normal:
+    family: "Hack Nerd Font Mono"
+    style: Regular
+  bold:
+    family: "Hack Nerd Font Mono"
+    style: Bold
+  italic:
+    family: "Hack Nerd Font Mono"
+    style: Italic
 
-  size: 15.0
+  size: 17.0
 
   offset:
-    x: -2
-    y: -2
-
-  glyph_offset:
     x: 0
     y: 0
 
+  glyph_offset:
+    x: 1
+    y: 1
+
+  builtin_box_drawing: true
+
 debug:
   render_timer: false
-
   persistent_logging: false
 
 # Colors (Challenger Deep)
@@ -134,22 +134,15 @@ selection:
   save_to_clipboard: false
 
 cursor:
-  # Cursor style
-  #
-  # Values for 'style':
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
-  style: Block
+  style:
+    shape: Underline
+    blinking: On
   unfocused_hollow: true
+  thickness: .25
 
 live_config_reload: true
 
-# Shell
-#
-# You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
-# Entries in `shell.args` are passed unmodified as arguments to the shell.
-shell:
+#shell:
 #  program: tmux
 #  args:
 #    - --login
@@ -304,23 +297,6 @@ key_bindings:
   - { key: Down,                  mode: Search,     action: SearchHistoryNext     }
   - { key: Return,                mode: Search|~Vi, action: SearchFocusNext       }
   - { key: Return, mods: Shift,   mode: Search|~Vi, action: SearchFocusPrevious   }
-
-  # (Windows, Linux, and BSD only)
-  #- { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
-  #- { key: C,              mods: Control|Shift,                   action: Copy             }
-  #- { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
-  #- { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
-  #- { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }
-  #- { key: Insert,         mods: Shift,                           action: PasteSelection   }
-  #- { key: Key0,           mods: Control,                         action: ResetFontSize    }
-  #- { key: Equals,         mods: Control,                         action: IncreaseFontSize }
-  #- { key: Plus,           mods: Control,                         action: IncreaseFontSize }
-  #- { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
-  #- { key: Minus,          mods: Control,                         action: DecreaseFontSize }
-  #- { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
-
-  # (Windows only)
-  #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
 
   # (macOS only)
   - { key: K,              mods: Command, mode: ~Vi|~Search, chars: "\x0c"                 }
