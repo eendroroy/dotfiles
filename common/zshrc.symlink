@@ -21,7 +21,7 @@ if [ -d ~/.zplug ]; then
 
   # THEME
   zplug "eendroroy/alien-minimal"
-  # zplug "/Users/indrajit/Documents/Projects/eendroroy/alien-minimal", from:local, at:development
+  # zplug "/Users/indrajit/Documents/PROJECTS/TMP/eendroroy/alien-minimal", from:local, at:development
 
   # Plugins for mac only
   if [ "`uname`" = "Darwin" ]; then
