@@ -47,11 +47,11 @@ fi
 # hub alias
 which hub > /dev/null && eval "$(hub alias -s)"
 
-if which exa > /dev/null; then
-  alias ls='exa'
-  alias ll='exa -la --git --color-scale'
-  alias l='exa -l --git --color-scale'
-  alias lt='exa -lT --git --color-scale'
+if which eza > /dev/null; then
+  alias ls='eza'
+  alias ll='eza -la --git --color-scale'
+  alias l='eza -l --git --color-scale'
+  alias lt='eza -lT --git --color-scale'
 fi
 
 if which tmux > /dev/null; then
