@@ -1,5 +1,5 @@
 # os specific aliases
-if which exa > /dev/null; then
+if which eza > /dev/null; then
 else
   alias ll='ls -lFhaG'
   alias l='ls -lFhG'
