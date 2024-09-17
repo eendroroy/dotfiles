@@ -21,7 +21,8 @@ Plug 'avdgaag/vim-phoenix'              " phoenix support
 Plug 'bling/vim-bufferline'             " bufferline
 Plug 'vim-airline/vim-airline'          " airlne
 Plug 'vim-airline/vim-airline-themes'   " airline themes
-Plug 'challenger-deep-theme/vim'
+"Plug 'challenger-deep-theme/vim'
+Plug 'arcticicestudio/nord-vim'         " nord theme
 
 Plug 'airblade/vim-gitgutter'           " git
 Plug 'mileszs/ack.vim'                  " search enhance
@@ -32,13 +33,13 @@ Plug 'Scuilion/gradle-syntastic-plugin' " vim syntactic
 
 call plug#end()
 
-colorscheme challenger_deep
+colorscheme nord
 
 if has('nvim') || has('termguicolors')
   set termguicolors
 endif
 
-let g:lightline = { 'colorscheme': 'challenger_deep'}
+let g:lightline = { 'colorscheme': 'nord'}
 
 let g:airline_powerline_fonts = 1
 let g:airline_detect_paste    = 1
