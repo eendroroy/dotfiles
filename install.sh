@@ -15,6 +15,7 @@ bash "${DOTFILES}/common/recipes/zplug.sh"
 bash "${DOTFILES}/common/recipes/hg-color.sh"
 bash "${DOTFILES}/common/recipes/vim-plug.sh"
 bash "${DOTFILES}/common/recipes/sdkman.sh"
+bash "${DOTFILES}/common/recipes/tpm.sh"
 
 echo -e "  \033[94m ==> \033[39m"
 echo -e "  \033[94m ==> \033[32mInstallation of dotfiles completed. \033[39m"
