@@ -8,7 +8,7 @@ function create_link() {
     if [[ -e ${2} ]]; then
         echo -e "  \033[94m ==> \033[33m~{${2}} already exists... Skipping. \033[39m"
     else
-        echo -e "  \033[94m ==> \033[32mCreating symlink of ${file} \033[39m"
+        echo -e "  \033[94m ==> \033[32m [${1} -> ${2}] \033[39m"
         echo "${2}" >> "${HOME}/.dotfiles_uninstall.txt"
         ln -s "${1}" "${2}"
     fi
