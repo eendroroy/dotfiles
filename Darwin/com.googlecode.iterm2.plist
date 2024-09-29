@@ -4144,7 +4144,7 @@ The script should do this: \(ai.prompt)</string>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>4</integer>
 	<key>TabViewType</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
