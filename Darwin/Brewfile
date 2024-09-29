@@ -53,6 +53,7 @@ brew "openjdk"
 brew "openssh"
 brew "peco"
 brew "postgresql@14", restart_service: true
+brew "pstree"
 brew "pv"
 brew "pyenv"
 brew "pyenv-ccache"
