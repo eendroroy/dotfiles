@@ -5,26 +5,8 @@
 [github]
     user = eendroroy
 [alias]
-    # list all aliases
-    lg = log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae]- %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-    ls = log --pretty=format:'%Cred%h%Creset %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%Creset - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-    st = status -s
-    br = branch -v
-    co = checkout
-    cs = commit -S
-    rb = rebase
-    rbi = rebase -i
-    rbc = rebase --continue
-    rbs = rebase --skip
-    rba = rebase --abort
-    rs = reset
-    rsh = reset --hard
-    rss = reset --soft
-    rs1 = reset HEAD~1
-    bd = branch -D
-    cob = checkout -b
-    subu = submodule foreach git pull origin master
-    subi = submodule update --init --recursive
+    lg = log --graph --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
+    ls = log --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
 [push]
     default = simple
 [core]
