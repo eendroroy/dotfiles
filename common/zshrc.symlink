@@ -52,6 +52,7 @@ which nvim > /dev/null && export EDITOR='nvim'
 #asdf
 if [ -d $HOME/.asdf ]; then
   source "$HOME/.asdf/asdf.sh"
+  fpath=("$HOME/.asdf/completions" $fpath)
 fi
 
 # go
