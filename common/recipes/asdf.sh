@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-echo -e "  \033[94m ==> \033[39m"
-echo -e "  \033[94m ==> \033[32mInstalling asdf for zsh \033[39m"
-if [[ -d ${HOME}/.asdf ]]; then
-  echo -e "  \033[94m ==> \033[33masdf already installed. Skipping... \033[39m"
-else
-  git clone https://github.com/asdf-vm/asdf.git "${HOME}"/.asdf
-fi
+SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source "${SCRIPT_LOCATION}/__installer_template.sh"
+
+executeInstallWithTargetCheck asdf .asdf "
+git clone https://github.com/asdf-vm/asdf.git ${HOME}/.asdf
+"
