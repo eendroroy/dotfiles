@@ -18,4 +18,3 @@
     enabled = true
 [credential]
     helper = store
-
