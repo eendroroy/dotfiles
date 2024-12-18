@@ -11,6 +11,7 @@ echo -e "  \033[94m ==> \033[32mInitializing submodule(s) \033[39m"
 
 bash "${DOTFILES}/uninstall.sh"
 bash "${DOTFILES}/link.sh"
+bash "${DOTFILES}/common/recipes/asdf.sh"
 bash "${DOTFILES}/common/recipes/zplug.sh"
 bash "${DOTFILES}/common/recipes/hg-color.sh"
 bash "${DOTFILES}/common/recipes/vim-plug.sh"

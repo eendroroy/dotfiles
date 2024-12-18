@@ -49,58 +49,14 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 which nvim > /dev/null && export EDITOR='nvim'
 
-# rbenv
-if [ -d $HOME/.rbenv ]; then
-  export RBENV_ROOT="$HOME/.rbenv"
-  export PATH="$RBENV_ROOT/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-
-# pyenv
-if [ -d $HOME/.pyenv ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
-
-# nodenv
-if [ -d $HOME/.nodenv ]; then
-  export NODENV_ROOT="$HOME/.nodenv"
-  export PATH="$NODENV_ROOT/bin:$PATH"
-  eval "$(nodenv init -)"
-fi
-
-# goenv
-if [ -d $HOME/.goenv ]; then
-  export GOENV_ROOT="$HOME/.goenv"
-  export PATH="$GOENV_ROOT/bin:$PATH"
-  eval "$(goenv init -)"
+#asdf
+if [ -d $HOME/.asdf ]; then
+  source "$HOME/.asdf/asdf.sh"
 fi
 
 # go
 export GOPATH="$HOME/gopath"
 export PATH="$GOPATH/bin:$PATH"
-
-# exenv
-if [ -d $HOME/.exenv ]; then
-  export EXENV_ROOT="$HOME/.exenv"
-  export PATH="$EXENV_ROOT/bin:$PATH"
-  eval "$(exenv init -)"
-fi
-
-# crenv
-if [ -d $HOME/.crenv ]; then
-  export CRENV_ROOT="$HOME/.crenv"
-  export PATH="$CRENV_ROOT/bin:$PATH"
-  eval "$(crenv init -)"
-fi
-
-# swiftenv
-if [ -d $HOME/.swiftenv ]; then
-    export SWIFTENV_ROOT="$HOME/.swiftenv"
-    export PATH="$SWIFTENV_ROOT/bin:$PATH"
-    eval "$(swiftenv init -)"
-fi
 
 # fasd
 which fasd > /dev/null && eval "$(fasd --init auto)"
