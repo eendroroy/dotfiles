@@ -4,6 +4,6 @@ else
   alias ll='ls -lFhaG'
   alias l='ls -lFhG'
 fi
+
 alias vi='nvim'
 alias vim='nvim'
-

@@ -1,10 +1,12 @@
 # os specific aliases
-if which exa > /dev/null; then
+if which eza > /dev/null; then
 else
-  alias ll='ls -lFha --color=auto'
-  alias l='ls -lFh --color=auto'
+  alias ll='ls -lFhaG'
+  alias l='ls -lFhG'
 fi
+
+alias vi='nvim'
+alias vim='nvim'
 
 alias pbcopy='DISPLAY=:0 xclip -selection clipboard'
 alias pbpaste='DISPLAY=:0 xclip -selection clipboard -o'
-
