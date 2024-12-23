@@ -31,6 +31,8 @@ Plug 'Raimondi/delimitMate'             " automatic closing of quotes, parenthes
 Plug 'tfnico/vim-gradle'                " vim gradle support
 Plug 'Scuilion/gradle-syntastic-plugin' " vim syntactic
 
+Plug 'github/copilot.vim'               " github copilot
+
 call plug#end()
 
 colorscheme nord
