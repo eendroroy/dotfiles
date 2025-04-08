@@ -1,7 +1,26 @@
 export PATH="/usr/local/bin:$PATH"
 
-export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
-export ZSH_COMMAND_TIME_COLOR="229"
+setopt sharehistory
+setopt extendedhistory
+setopt histreduceblanks
+setopt histsavebycopy
+setopt hist_ignore_all_dups
+setopt appendhistory
+# setopt login
+setopt beep
+setopt autocd
+setopt autopushd
+setopt pushdtohome
+setopt pushdignoredups
+setopt pushdsilent
+setopt autolist
+setopt aliases
+# setopt printexitvalue
+setopt notify
+
+if [ -d ~/bin ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
 
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
@@ -30,92 +49,24 @@ if [ -d ~/.zplug ]; then
   zplug load
 fi
 
+export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
+export ZSH_COMMAND_TIME_COLOR="229"
+
 export TMUX_POWERLINE_FLAG=on
 export TMUX_POWERLINE_COMPACT_OTHER=on
 
 export AUTOENV_IN_FILE='.env.in'
 export AUTOENV_OUT_FILE='.env.out'
 
-if [ -f /usr/local/etc/profile.d/z.sh ]; then
-    source /usr/local/etc/profile.d/z.sh
-fi
-
-if [ -d ~/bin ]; then
-  export PATH="$HOME/bin:$PATH"
-fi
-
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=10000000
 which nvim > /dev/null && export EDITOR='nvim'
 
-#asdf
-if [ -d $HOME/.asdf ]; then
-  source "$HOME/.asdf/asdf.sh"
-  fpath=("$HOME/.asdf/completions" $fpath)
-fi
-
-# go
-export GOPATH="$HOME/gopath"
-export PATH="$GOPATH/bin:$PATH"
-
-# fasd
-which fasd > /dev/null && eval "$(fasd --init auto)"
-
-# thefuck
-which thefuck > /dev/null && eval $(thefuck --alias)
-
-# fzf
-export FZF_DEFAULT_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
-export FZF_CTRL_R_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
-export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-window=up:30%'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Highlight the current autocomplete option
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-
-# Better SSH/Rsync/SCP Autocomplete
-zstyle ':completion:*:(scp|rsync):*' tag-order ' hosts:-ipaddr:ip\ address hosts:-host:host files'
-zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
-zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
-
-# Allow for autocomplete to be case insensitive
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
-  '+l:|?=** r:|?=**'
-
-# Initialize the autocompletion
-autoload -Uz compinit && compinit -i
-
-setopt sharehistory
-setopt extendedhistory
-setopt histreduceblanks
-setopt histsavebycopy
-setopt hist_ignore_all_dups
-setopt appendhistory
-# setopt login
-setopt beep
-setopt autocd
-setopt autopushd
-setopt pushdtohome
-setopt pushdignoredups
-setopt pushdsilent
-setopt autolist
-setopt aliases
-# setopt printexitvalue
-setopt notify
-
-# sdkman
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 [ -f ~/.zsh_alias ] && source ~/.zsh_alias
 [ -f ~/.zsh_function ] && source ~/.zsh_function
+[ -f ~/.zsh_init ] && source ~/.zsh_init
+[ -f ~/.zsh_tool_path ] && source ~/.zsh_tool_path
+[ -f ~/.zsh_autocomplete ] && source ~/.zsh_autocomplete
 
 export PATH="/usr/local/sbin:$PATH"
-
-# zsh-completion
-export fpath=(/usr/local/share/zsh-completions $fpath)
-export fpath=($HOME/.config/zsh/completions $fpath)
-export fpath=(/Users/indrajit/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
