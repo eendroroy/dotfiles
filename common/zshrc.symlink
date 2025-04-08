@@ -116,3 +116,6 @@ export PATH="/usr/local/sbin:$PATH"
 # zsh-completion
 export fpath=(/usr/local/share/zsh-completions $fpath)
 export fpath=($HOME/.config/zsh/completions $fpath)
+export fpath=(/Users/indrajit/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
