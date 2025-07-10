@@ -1,103 +1,78 @@
-tap "eddieantonio/eddieantonio"
-tap "gromgit/fuse"
-tap "homebrew/bundle"
-tap "homebrew/services"
-tap "hudochenkov/sshpass"
-brew "openssl@3"
-brew "ansible"
-brew "zstd"
-brew "asciinema"
-brew "bash"
-brew "bash-completion"
-brew "fontconfig"
-brew "glib"
-brew "libx11"
-brew "cairo"
-brew "coreutils"
-brew "libssh2"
-brew "curl"
-brew "direnv"
-brew "e2fsprogs"
-brew "libgit2"
-brew "eza"
-brew "f3"
-brew "fd"
-brew "findutils"
-brew "fsql"
-brew "fzf"
-brew "gcc"
-brew "gh"
-brew "harfbuzz"
-brew "git"
-brew "git-crypt"
-brew "git-extras"
-brew "git-sizer"
-brew "gitleaks"
-brew "libevent"
-brew "gnutls"
-brew "helix"
-brew "htop"
-brew "hub"
-brew "libcbor"
-brew "libfido2"
-brew "libgpg-error"
-brew "libgcrypt"
-brew "liblinear"
-brew "loc"
-brew "lsusb"
-brew "luajit"
-brew "moreutils"
-brew "msgpack"
-brew "multitail"
-brew "ncdu"
-brew "neovim"
-brew "nmap"
-brew "nushell"
-brew "openconnect"
-brew "openjdk"
-brew "openssh"
+brew "ansible" # Ansible is an open-source automation tool for configuration management
+brew "asciinema" # asciinema is a tool for recording terminal sessions and sharing them
+brew "bash" # bash is a Unix shell and command language
+brew "bash-completion" # bash-completion provides programmable completion for the bash shell
+brew "coreutils" # coreutils provides GNU versions of common utilities
+brew "curl" # curl is a command-line tool for transferring data with URLs
+brew "direnv" # direnv is a shell extension that allows you to load environment variables based on the current directory
+brew "e2fsprogs" # e2fsprogs is a set of utilities for managing ext2/ext3/ext4 filesystems
+brew "libgit2" # libgit2 is a portable, pure C implementation of the Git core methods provided as a re-entrant linkable library with a solid API
+brew "eza" # eza is a modern replacement for 'ls'
+brew "f3" # f3 is a tool to test the real capacity of USB flash drives
+brew "fd" # fd is a simple, fast and user-friendly alternative to 'find'
+brew "findutils" # findutils provides GNU versions of the 'find', 'xargs', and 'locate' commands
+brew "fsql" # fsql is a command-line tool for querying files using SQL syntax
+brew "fzf" # fzf is a command-line fuzzy finder
+brew "gh" # gh is the GitHub CLI tool for interacting with GitHub from the command line
+brew "git" # git is a distributed version control system
+brew "git-crypt" # git-crypt is a tool for transparent file encryption in git repositories
+brew "git-extras" # git-extras provides additional Git commands and utilities
+brew "git-sizer" # git-sizer is a tool to analyze the size of a git repository
+brew "gitleaks" # gitleaks is a tool for detecting hardcoded secrets in git repositories
+brew "htop" # htop is an interactive process viewer for Unix systems
+brew "hub" # hub is a command-line wrapper for git that adds GitHub features
+brew "loc" # loc is a tool for counting lines of code in a project
+brew "lsusb" # lsusb is a utility for displaying information about USB devices
+brew "moreutils" # moreutils is a collection of useful command-line utilities that are not found in the standard Unix toolset
+brew "multitail" # multitail is a tool for monitoring multiple log files in real-time
+brew "ncdu" # ncdu is a disk usage analyzer with an ncurses interface
+brew "neovim" # Neovim is a modern, extensible text editor based on Vim
+brew "nmap" # nmap is a network exploration tool and security/port scanner
+brew "nushell" # Nushell is a modern shell that brings a new shell experience with structured data
+brew "openconnect" # OpenConnect is an open-source VPN client compatible with Cisco's AnyConnect VPN
+brew "vpn-slice" # vpn-slice is a tool for managing VPN connections and routing
+brew "openjdk" # OpenJDK is an open-source implementation of the Java Platform, Standard Edition
+brew "openssh" # OpenSSH is a free version of the SSH connectivity tools that technical users rely on
 brew "postgresql@14", restart_service: :changed
-brew "pstree"
-brew "pv"
+brew "pv" # pv is a tool for monitoring the progress of data through a pipeline
 brew "python@3.11"
-brew "ripgrep"
-brew "rsql"
+brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
+brew "rsql" # rsql is a command-line tool for querying files using SQL syntax
 brew "ruby"
-brew "rustscan"
-brew "shellcheck"
-brew "sniffnet"
-brew "sshuttle"
-brew "the_silver_searcher"
+brew "rustscan" # RustScan is a fast port scanner written in Rust
+brew "shellcheck" # ShellCheck is a static analysis tool for shell scripts
+brew "sniffnet" # Sniffnet is a network monitoring tool that provides insights into your network traffic
+brew "sshuttle" # sshuttle is a transparent proxy server that allows you to tunnel network traffic over SSH
+brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
 brew "thefuck"
 brew "tmux"
-brew "tree"
+brew "tree" # tree is a recursive directory listing command that produces a depth-indented listing of files
 brew "vnstat", restart_service: :changed
-brew "vpn-slice"
 brew "watch"
 brew "wget"
 brew "wireshark"
-brew "yank"
-brew "zoxide"
+brew "yank" # yank is a command-line tool for managing the system clipboard
+brew "zoxide" # zoxide is a smarter cd command that learns your habits and helps you navigate your filesystem more efficiently
 brew "zsh"
 brew "gromgit/fuse/ntfs-3g-mac"
-brew "hudochenkov/sshpass/sshpass"
 cask "alacritty"
 cask "android-platform-tools"
+cask "espanso" # espanso is a text expander for power users that works across all applications
 cask "font-hack-nerd-font"
 cask "font-meslo-lg-nerd-font"
 cask "google-chrome"
 cask "gpg-suite"
-cask "intune-company-portal"
+cask "intune-company-portal" # Intune Company Portal is an app for managing devices enrolled in Microsoft Intune
 cask "iterm2"
 cask "jetbrains-toolbox"
-cask "keka"
-cask "macfuse"
+cask "keka" # Keka is a file archiver for macOS that supports various formats like ZIP, 7z, and RAR
+cask "macfuse" # macFUSE is a software package that allows you to extend macOS's native file handling capabilities
 cask "microsoft-auto-update"
 cask "mounty"
 cask "postman"
-cask "sf-symbols"
-cask "stats"
-cask "table-tool"
+cask "sf-symbols" # SF Symbols is a set of over 3,000 symbols that you can use in your apps
+cask "stats" # Stats is a macOS application that provides real-time system monitoring and statistics
+cask "table-tool" # Table Tool is a macOS application for viewing and editing CSV files
 cask "textmate"
 cask "tor-browser"
 cask "vagrant"
@@ -107,7 +82,7 @@ cask "virtualbox-extension-pack"
 cask "visual-studio-code"
 cask "visualvm"
 cask "vlc"
-cask "warp"
+cask "warp" # Warp is a modern terminal built for speed and efficiency
 cask "whatsapp"
 cask "wireshark-chmodbpf"
 vscode "arcticicestudio.nord-visual-studio-code"
