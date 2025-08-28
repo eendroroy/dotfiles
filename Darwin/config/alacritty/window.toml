@@ -1,0 +1,12 @@
+[window]
+decorations = "full"
+dynamic_padding = false
+startup_mode = "Windowed"
+
+[window.dimensions]
+columns = 170
+lines = 50
+
+[window.padding]
+x = 0
+y = 0

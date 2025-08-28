@@ -1,4 +1,8 @@
 *
-!alacritty.yml
 !alacritty.toml
+!env.toml
+!keybindings.toml
+!mouse.toml
+!theme.toml
+!window.toml
 !.gitignore
