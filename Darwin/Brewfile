@@ -21,6 +21,7 @@ brew "git-sizer" # git-sizer is a tool to analyze the size of a git repository
 brew "gitleaks" # gitleaks is a tool for detecting hardcoded secrets in git repositories
 brew "htop" # htop is an interactive process viewer for Unix systems
 brew "hub" # hub is a command-line wrapper for git that adds GitHub features
+brew "k6" # k6 is a modern load testing tool for developers
 brew "loc" # loc is a tool for counting lines of code in a project
 brew "lsusb" # lsusb is a utility for displaying information about USB devices
 brew "moreutils" # moreutils is a collection of useful command-line utilities that are not found in the standard Unix toolset
@@ -33,7 +34,7 @@ brew "openconnect" # OpenConnect is an open-source VPN client compatible with Ci
 brew "vpn-slice" # vpn-slice is a tool for managing VPN connections and routing
 brew "openjdk" # OpenJDK is an open-source implementation of the Java Platform, Standard Edition
 brew "openssh" # OpenSSH is a free version of the SSH connectivity tools that technical users rely on
-brew "postgresql@14", restart_service: :changed
+brew "postgresql@17", restart_service: :changed
 brew "pv" # pv is a tool for monitoring the progress of data through a pipeline
 brew "python@3.11"
 brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
@@ -47,7 +48,6 @@ brew "the_silver_searcher" # The Silver Searcher is a code-searching tool simila
 brew "thefuck"
 brew "tmux"
 brew "tree" # tree is a recursive directory listing command that produces a depth-indented listing of files
-brew "vnstat", restart_service: :changed
 brew "watch"
 brew "wget"
 brew "wireshark"
@@ -55,6 +55,8 @@ brew "yank" # yank is a command-line tool for managing the system clipboard
 brew "zoxide" # zoxide is a smarter cd command that learns your habits and helps you navigate your filesystem more efficiently
 brew "zsh"
 brew "gromgit/fuse/ntfs-3g-mac"
+brew "minikube"
+brew "helm"
 cask "alacritty"
 cask "android-platform-tools"
 cask "espanso" # espanso is a text expander for power users that works across all applications
@@ -67,7 +69,6 @@ cask "iterm2"
 cask "jetbrains-toolbox"
 cask "keka" # Keka is a file archiver for macOS that supports various formats like ZIP, 7z, and RAR
 cask "macfuse" # macFUSE is a software package that allows you to extend macOS's native file handling capabilities
-cask "microsoft-auto-update"
 cask "mounty"
 cask "postman"
 cask "sf-symbols" # SF Symbols is a set of over 3,000 symbols that you can use in your apps
@@ -82,7 +83,6 @@ cask "virtualbox-extension-pack"
 cask "visual-studio-code"
 cask "visualvm"
 cask "vlc"
-cask "warp" # Warp is a modern terminal built for speed and efficiency
 cask "whatsapp"
 cask "wireshark-chmodbpf"
 vscode "arcticicestudio.nord-visual-studio-code"
