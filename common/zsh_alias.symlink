@@ -5,6 +5,8 @@ elif [ "`uname`" = "Darwin" ]; then
   [ -f ~/.zsh_alias.darwin ] && source ~/.zsh_alias.darwin
 fi
 
+[[ -f ~/.zsh_alias.local ]] && source ~/.zsh_alias.local
+
 # aliases
 if which youtube-dl > /dev/null; then
   alias ydl='youtube-dl'
