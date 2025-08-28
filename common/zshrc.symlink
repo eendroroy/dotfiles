@@ -70,3 +70,8 @@ which nvim > /dev/null && export EDITOR='nvim'
 [ -f ~/.zsh_autocomplete ] && source ~/.zsh_autocomplete
 
 export PATH="/usr/local/sbin:$PATH"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/indrajit/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
