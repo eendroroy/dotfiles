@@ -6,35 +6,16 @@ duration = 0
 [cursor]
 thickness = 0.25
 unfocused_hollow = true
-
-[cursor.style]
-blinking = "On"
-shape = "Underline"
-
+style = { blinking = "On", shape = "Underline" }
 
 [font]
 builtin_box_drawing = true
-size = 17.0
-
-[font.bold]
-family = "Hack Nerd Font Mono"
-style = "Bold"
-
-[font.glyph_offset]
-x = 1
-y = 1
-
-[font.italic]
-family = "Hack Nerd Font Mono"
-style = "Italic"
-
-[font.normal]
-family = "Hack Nerd Font Mono"
-style = "Regular"
-
-[font.offset]
-x = 0
-y = 0
+size = 18.0
+bold = { family = "Hack Nerd Font Mono", style = "Bold" }
+glyph_offset = { x = 1, y = 1 }
+italic = { family = "Hack Nerd Font Mono", style = "Italic" }
+normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+offset = { x = 0, y = 0 }
 
 [colors.primary]
 background = "#2e3440"
