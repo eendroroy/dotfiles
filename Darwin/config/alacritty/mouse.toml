@@ -1,7 +1,5 @@
-
 [mouse]
 hide_when_typing = false
-
-[[mouse.bindings]]
-action = "PasteSelection"
-mouse = "Middle"
+bindings = [
+    { action = "PasteSelection", mouse = "Middle" },
+]
