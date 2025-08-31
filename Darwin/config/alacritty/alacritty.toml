@@ -1,23 +1,25 @@
-[debug]
-persistent_logging = false
-render_timer = false
-
-[scrolling]
-history = 10000
-multiplier = 3
-
-[selection]
-save_to_clipboard = false
-semantic_escape_chars = ",│`|:\"' ()[]{}<>"
-
 [general]
 import = [
+    "~/.config/alacritty/debug.toml",
     "~/.config/alacritty/env.toml",
     "~/.config/alacritty/keybindings.toml",
     "~/.config/alacritty/mouse.toml",
-    "~/.config/alacritty/theme.toml",
+    "~/.config/alacritty/visual.toml",
     "~/.config/alacritty/window.toml",
 ]
-working_directory = "None"
+working_directory = "~"
 live_config_reload = true
 ipc_socket = true
+
+[scrolling]
+history = 100000
+multiplier = 3
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+save_to_clipboard = true
+
+[terminal]
+shell = { program = "/bin/zsh", args = ["-l"] }
+osc52 = "OnlyCopy"
+

@@ -1,8 +1,9 @@
 *
 !alacritty.toml
+!debug.toml
 !env.toml
 !keybindings.toml
 !mouse.toml
-!theme.toml
+!visual.toml
 !window.toml
 !.gitignore
