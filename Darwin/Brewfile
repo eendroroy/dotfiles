@@ -62,6 +62,7 @@ cask "android-platform-tools"
 cask "espanso" # espanso is a text expander for power users that works across all applications
 cask "font-hack-nerd-font"
 cask "font-meslo-lg-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
 cask "google-chrome"
 cask "gpg-suite"
 cask "intune-company-portal" # Intune Company Portal is an app for managing devices enrolled in Microsoft Intune
