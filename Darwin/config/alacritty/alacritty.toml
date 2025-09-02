@@ -20,6 +20,9 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 save_to_clipboard = true
 
 [terminal]
-shell = { program = "/bin/zsh", args = ["-l"] }
 osc52 = "OnlyCopy"
+
+[terminal.shell]
+program = "/bin/zsh"
+args = ["-l", "-c", "tmux attach || tmux"]
 
