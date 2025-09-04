@@ -6,5 +6,7 @@ set -g status-right-length 100
 set -g status-left-length 100
 set -g mouse on
 
+bind-key k clear-history
+
 set -g @plugin 'tmux-plugins/tpm'
 run '~/.tmux/plugins/tpm/tpm'
