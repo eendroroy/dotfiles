@@ -111,7 +111,3 @@ cask "veracrypt"
 cask "whatsapp"
 cask "intune-company-portal"
 cask "vlc"
-
-# VSCODE EXTENSIONS
-vscode "arcticicestudio.nord-visual-studio-code"
-vscode "ms-azuretools.vscode-docker"
