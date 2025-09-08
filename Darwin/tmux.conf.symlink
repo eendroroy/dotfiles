@@ -1,14 +1,16 @@
-set -g @plugin 'nordtheme/tmux'
+set -g @plugin 'eendroroy/alien-tmux'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'sainnhe/tmux-fzf'
+
+set -g @alien_colorscheme 'catppuccin/macchiato'
 
 set -g status-right-length 100
 set -g status-left-length 100
 set -g mouse on
 set -g clock-mode-style 12
-set -g @nord_tmux_date_format "%Y.%m.%d"
 
 bind-key k clear-history
+bind-key r source-file ~/.tmux.conf \; display-message "Config reloaded!"
 
 set -g @plugin 'tmux-plugins/tpm'
 run '~/.tmux/plugins/tpm/tpm'
