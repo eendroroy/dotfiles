@@ -2,7 +2,7 @@ set -g @plugin 'eendroroy/alien-tmux'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'sainnhe/tmux-fzf'
 
-set -g @alien_colorscheme 'catppuccin/macchiato'
+set -g @alien_colorscheme 'nordish'
 
 set -g status-right-length 100
 set -g status-left-length 100
