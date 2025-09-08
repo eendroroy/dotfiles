@@ -5,43 +5,34 @@ Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
-Plug 'ervandew/supertab'                " tab completion
-Plug 'yggdroot/indentline'              " show verticl line at each indent
-
-Plug 'tpope/vim-commentary'             " comment out target line
-Plug 'tpope/vim-endwise'                " auto insert end tag
-
-Plug 'neomake/neomake'                  " style checker
-Plug 'davidhalter/jedi-vim'             " autocomplete
-
-Plug 'digitaltoad/vim-jade'             " jade template
-Plug 'elixir-lang/vim-elixir'           " elixir
-Plug 'avdgaag/vim-phoenix'              " phoenix support
-
-Plug 'bling/vim-bufferline'             " bufferline
-Plug 'vim-airline/vim-airline'          " airlne
-Plug 'vim-airline/vim-airline-themes'   " airline themes
-"Plug 'challenger-deep-theme/vim'
-Plug 'arcticicestudio/nord-vim'         " nord theme
-
-Plug 'airblade/vim-gitgutter'           " git
-Plug 'mileszs/ack.vim'                  " search enhance
-
-Plug 'Raimondi/delimitMate'             " automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'tfnico/vim-gradle'                " vim gradle support
-Plug 'Scuilion/gradle-syntastic-plugin' " vim syntactic
-
-Plug 'github/copilot.vim'               " github copilot
+Plug 'ervandew/supertab'                      " tab completion
+Plug 'yggdroot/indentline'                    " show verticl line at each indent
+Plug 'tpope/vim-commentary'                   " comment out target line
+Plug 'tpope/vim-endwise'                      " auto insert end tag
+Plug 'neomake/neomake'                        " style checker
+Plug 'davidhalter/jedi-vim'                   " autocomplete
+Plug 'digitaltoad/vim-jade'                   " jade template
+Plug 'elixir-lang/vim-elixir'                 " elixir
+Plug 'avdgaag/vim-phoenix'                    " phoenix support
+Plug 'bling/vim-bufferline'                   " bufferline
+Plug 'vim-airline/vim-airline'                " airlne
+Plug 'vim-airline/vim-airline-themes'         " airline themes
+Plug 'catppuccin/vim', { 'as': 'catppuccin' } " catppuccin theme
+Plug 'airblade/vim-gitgutter'                 " git
+Plug 'mileszs/ack.vim'                        " search enhance
+Plug 'Raimondi/delimitMate'                   " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'tfnico/vim-gradle'                      " vim gradle support
+Plug 'Scuilion/gradle-syntastic-plugin'       " vim syntactic
 
 call plug#end()
-
-colorscheme nord
 
 if has('nvim') || has('termguicolors')
   set termguicolors
 endif
 
-let g:lightline = { 'colorscheme': 'nord'}
+colorscheme catppuccin_macchiato
+
+let g:airline_theme = 'catppuccin_macchiato'
 
 let g:airline_powerline_fonts = 1
 let g:airline_detect_paste    = 1
