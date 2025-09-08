@@ -6,7 +6,7 @@ import = [
     "~/.config/alacritty/mouse.toml",
     "~/.config/alacritty/visual.toml",
     "~/.config/alacritty/window.toml",
-    "~/.config/alacritty/theme/catppuccin-macchiato.toml",
+    "~/.config/alacritty/theme/nord.toml",
 ]
 working_directory = "~"
 live_config_reload = true
