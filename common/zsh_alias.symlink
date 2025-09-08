@@ -46,9 +46,6 @@ if which k > /dev/null; then
   alias kan='k -anh'
 fi
 
-# hub alias
-which hub > /dev/null && eval "$(hub alias -s)"
-
 if which eza > /dev/null; then
   alias ls='eza'
   alias ll='eza -la --git --color-scale --color-scale-mode=fixed'
