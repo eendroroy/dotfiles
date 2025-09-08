@@ -3,6 +3,7 @@ set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'sainnhe/tmux-fzf'
 
 set -g @alien_colorscheme 'nordish'
+set -g @alien_time_format '%I:%M:%S %p'
 
 set -g status-right-length 100
 set -g status-left-length 100
