@@ -7,3 +7,5 @@
 !visual.toml
 !window.toml
 !.gitignore
+!theme
+!theme/**/*
