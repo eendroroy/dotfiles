@@ -1,26 +1,28 @@
+# TAPS
+
 # SHELLS
-brew "zsh"
-brew "nushell"
+brew "alacritty"
 brew "bash"
 brew "bash-completion"
-brew "tmux"
-brew "tmate"
+brew "iterm2"
+brew "nushell"
 brew "shellcheck"
-cask "alacritty"
-cask "iterm2"
+brew "tmate"
+brew "tmux"
+brew "zsh"
 
 # VCS
-brew "git" # git is a distributed version control system
-brew "git-crypt" # git-crypt is a tool for transparent file encryption in git repositories
-brew "git-extras" # git-extras provides additional Git commands and utilities
-brew "git-sizer" # git-sizer is a tool to analyze the size of a git repository
-brew "gitleaks" # gitleaks is a tool for detecting hardcoded secrets in git repositories
+brew "git"
+brew "git-crypt"
+brew "git-extras"
+brew "git-sizer"
+brew "gitleaks"
 
 # EDITORS
-brew "neovim"
-cask "textmate"
 cask "table-tool"
+cask "textmate"
 cask "visual-studio-code"
+brew "neovim"
 
 # LINUX/UNIX TOOLS
 brew "curl"
@@ -32,45 +34,45 @@ brew "watch"
 brew "wget"
 
 # HARDWARE TOOLS
-brew "lsusb"
-brew "htop"
-brew "ncdu"
+brew "e2fsprogs" # e2fsprogs is a set of utilities for managing ext2/ext3/ext4 filesystems
 brew "fsql"
+brew "gromgit/fuse/ntfs-3g-mac"
+brew "htop"
+brew "lsusb"
+brew "ncdu"
 cask "macfuse"
 cask "mounty"
-brew "gromgit/fuse/ntfs-3g-mac"
-brew "e2fsprogs" # e2fsprogs is a set of utilities for managing ext2/ext3/ext4 filesystems
 
 # UTILITY TOOLS
-brew "jq"
-brew "yq"
-brew "eza"
-brew "f3" # f3 is a tool to test the real capacity of USB flash drives
-brew "zoxide"
-brew "fzf"
-brew "multitail"
-brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
-brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
-brew "pv"
-cask "android-platform-tools"
 brew "asciinema"
 brew "direnv"
+brew "eza"
+brew "f3" # f3 is a tool to test the real capacity of USB flash drives
+brew "fzf"
+brew "jq"
 brew "libgit2"
+brew "multitail"
+brew "pv"
+brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
+brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
 brew "yank"
+brew "yq"
+brew "zoxide"
+cask "android-platform-tools"
 cask "espanso"
-cask "stats"
-cask "sf-symbols"
 cask "keka"
+cask "sf-symbols"
+cask "stats"
 
 # NETWORKING TOOLS
 brew "nmap"
 brew "openconnect"
-brew "vpn-slice"
 brew "openssh"
 brew "rustscan"
+brew "sshuttle"
+brew "vpn-slice"
 brew "wireshark"
 cask "wireshark-chmodbpf"
-brew "sshuttle"
 
 # BROWSERS
 cask "google-chrome"
@@ -82,32 +84,31 @@ brew "loc"
 brew "openjdk"
 brew "python@3.11"
 brew "ruby"
-cask "visualvm"
 cask "jetbrains-toolbox"
 cask "postman"
+cask "visualvm"
 
 # DATABASE TOOLS
 brew "postgresql@17", restart_service: :changed
-brew "rsql"
 
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
-brew "minikube"
+brew "ansible"
 brew "helm"
+brew "minikube"
+cask "vagrant"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
-brew "ansible"
-cask "vagrant"
 
 # FONTS
 cask "font-hack-nerd-font"
-cask "font-meslo-lg-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
+cask "font-meslo-lg-nerd-font"
 
 # SECURITY
 cask "gpg-suite"
 cask "veracrypt"
 
 # OTHERS
-cask "whatsapp"
 cask "intune-company-portal"
 cask "vlc"
+cask "whatsapp"
