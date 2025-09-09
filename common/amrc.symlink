@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-export AM_THEME=hex/soft
+export AM_THEME=terminal
 export AM_USE_NERD_FONT=1
 export AM_KEEP_PROMPT=1
 export AM_ASYNC_L_PROMPT=1
