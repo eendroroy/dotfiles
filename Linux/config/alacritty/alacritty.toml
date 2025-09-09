@@ -25,5 +25,5 @@ osc52 = "OnlyCopy"
 
 [terminal.shell]
 program = "/bin/zsh"
-args = ["-l", "-c", "tmux attach || tmux new -s default2"]
+args = ["-l", "-c", "tmux attach || tmux new -s DS"]
 
