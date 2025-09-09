@@ -2,8 +2,11 @@ set -g @plugin 'eendroroy/alien-tmux'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'sainnhe/tmux-fzf'
 
-set -g @alien_colorscheme 'nordish'
+set -g @alien_colorscheme 'e_ink_color_dark'
 set -g @alien_time_format '%I:%M:%S %p'
+
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
 
 set -g status-right-length 100
 set -g status-left-length 100
