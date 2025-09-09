@@ -1,0 +1,5 @@
+[mouse]
+hide_when_typing = false
+bindings = [
+    { action = "PasteSelection", mouse = "Middle" },
+]

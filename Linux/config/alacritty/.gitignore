@@ -1,3 +1,11 @@
 *
-!alacritty.yml
+!alacritty.toml
+!debug.toml
+!env.toml
+!keybindings.toml
+!mouse.toml
+!visual.toml
+!window.toml
 !.gitignore
+!theme
+!theme/**/*

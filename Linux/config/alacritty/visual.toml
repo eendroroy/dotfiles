@@ -1,0 +1,23 @@
+[font]
+normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font Mono", style = "Bold" }
+italic = { family = "JetBrainsMono Nerd Font Mono", style = "Italic" }
+bold_italic = { family = "JetBrainsMono Nerd Font Mono", style = "BoldItalic" }
+size = 18.0
+offset = { x = 0, y = 0 }
+glyph_offset = { x = 0, y = 0 }
+builtin_box_drawing = false
+
+[bell]
+animation = "EaseOutExpo"
+duration = 50
+color = "0xffffff"
+command = "None"
+
+[cursor]
+style = { blinking = "On", shape = "Underline" }
+vi_mode_style = "None"
+blink_interval = 750
+blink_timeout = 5
+unfocused_hollow = true
+thickness = 0.25
