@@ -2,6 +2,10 @@ set -g @plugin 'eendroroy/alien-tmux'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'sainnhe/tmux-fzf'
 
+set -g status-interval 1
+set -g status on
+set -g status-justify left
+
 set -g @alien_colorscheme 'e_ink_color_dark'
 set -g @alien_time_format '%I:%M:%S %p'
 
