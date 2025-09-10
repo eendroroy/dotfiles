@@ -5,9 +5,7 @@ cask "alacritty"
 brew "bash"
 brew "bash-completion"
 cask "iterm2"
-brew "nushell"
 brew "shellcheck"
-brew "tmate"
 brew "tmux"
 brew "zsh"
 
@@ -20,16 +18,16 @@ brew "git-lfs"
 brew "gitleaks"
 
 # EDITORS
+brew "neovim"
 cask "table-tool"
 cask "textmate"
 cask "visual-studio-code"
-brew "neovim"
 
 # LINUX/UNIX TOOLS
 brew "curl"
 brew "coreutils"
-brew "moreutils"
 brew "findutils"
+brew "moreutils"
 brew "tree"
 brew "watch"
 brew "wget"
@@ -40,30 +38,30 @@ brew "fsql"
 brew "gromgit/fuse/ntfs-3g-mac"
 brew "htop"
 brew "lsusb"
-brew "ncdu"
 cask "macfuse"
 cask "mounty"
+brew "ncdu"
 
 # UTILITY TOOLS
+cask "android-platform-tools"
 brew "asciinema"
 brew "direnv"
+cask "espanso"
 brew "eza"
 brew "f3" # f3 is a tool to test the real capacity of USB flash drives
 brew "fzf"
 brew "jq"
+cask "keka"
 brew "libgit2"
 brew "multitail"
 brew "pv"
 brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
+cask "sf-symbols"
+cask "stats"
 brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
 brew "yank"
 brew "yq"
 brew "zoxide"
-cask "android-platform-tools"
-cask "espanso"
-cask "keka"
-cask "sf-symbols"
-cask "stats"
 
 # NETWORKING TOOLS
 brew "nmap"
@@ -80,13 +78,13 @@ cask "google-chrome"
 cask "tor-browser"
 
 # DEVELOPMENT TOOLS
+cask "jetbrains-toolbox"
 brew "k6"
 brew "loc"
 brew "openjdk"
+cask "postman"
 brew "python@3.11"
 brew "ruby"
-cask "jetbrains-toolbox"
-cask "postman"
 cask "visualvm"
 
 # DATABASE TOOLS
