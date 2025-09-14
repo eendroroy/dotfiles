@@ -9,10 +9,7 @@ export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-win
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #asdf
-if [ -d $HOME/.asdf ]; then
-  source "$HOME/.asdf/asdf.sh"
-  fpath=("$HOME/.asdf/completions" $fpath)
-fi
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # go
 export GOPATH="$HOME/gopath"

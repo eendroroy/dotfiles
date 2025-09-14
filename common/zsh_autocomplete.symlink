@@ -12,6 +12,8 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 export fpath=(/usr/local/share/zsh-completions $fpath)
 export fpath=($HOME/.config/zsh/completions $fpath)
 export fpath=(/Users/indrajit/.docker/completions $fpath)
+fpath=(/Users/indrajit/.docker/completions $fpath)
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 # Initialize the autocompletion
 autoload -Uz compinit && compinit -i
