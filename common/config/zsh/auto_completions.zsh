@@ -10,10 +10,10 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|?=** r:|?=**'
 
 export fpath=(/usr/local/share/zsh-completions $fpath)
-export fpath=($HOME/.config/zsh/completions $fpath)
-export fpath=(/Users/indrajit/.docker/completions $fpath)
-fpath=(/Users/indrajit/.docker/completions $fpath)
-fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+export fpath=(${HOME}/.config/zsh/completions $fpath)
+export fpath=(${HOME}/.docker/completions $fpath)
+fpath=(${HOME}/.docker/completions $fpath)
+fpath=(${ASDF_DATA_DIR:-${HOME}/.asdf}/completions $fpath)
 
 # Initialize the autocompletion
 autoload -Uz compinit && compinit -i

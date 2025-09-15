@@ -1,8 +1,10 @@
+# shellcheck disable=SC1090
+
 # os specific aliases
-if [ "`uname`" = "Linux" ]; then
-  [ -f ~/.zsh_alias.linux ] && source ~/.zsh_alias.linux
-elif [ "`uname`" = "Darwin" ]; then
-  [ -f ~/.zsh_alias.darwin ] && source ~/.zsh_alias.darwin
+if [ "$(uname)" = "Linux" ]; then
+  alias pbcopy='DISPLAY=:0 xclip -selection clipboard'
+  alias pbpaste='DISPLAY=:0 xclip -selection clipboard -o'
+  alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
 fi
 
 [[ -f ~/.zsh_alias.local ]] && source ~/.zsh_alias.local
@@ -19,7 +21,6 @@ alias pd='pushd'
 alias pa='cd && dirs -c'
 alias ..='popd'
 alias ...='cd ..'
-if which docker-compose > /dev/null; then alias dcompose='docker-compose'; fi
 
 if which ccat > /dev/null; then
   alias cat='ccat'
@@ -33,8 +34,6 @@ for c in cp rm chmod chown rename; do
   alias $c="$c -v"
 done
 which python > /dev/null && alias prettyjson='python -m json.tool'
-alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
-# which assh > /dev/null && alias ssh='assh wrapper ssh'
 
 if which k > /dev/null; then
   alias k='k -h'
@@ -51,12 +50,6 @@ if which eza > /dev/null; then
   alias ll='eza -la --git --color-scale --color-scale-mode=fixed'
   alias l='eza -l --git --color-scale --color-scale-mode=fixed'
   alias lt='eza -lT --git --color-scale --color-scale-mode=fixed'
-fi
-
-if which tmux > /dev/null; then
-  alias tkill='tmux kill-session'
-  alias tkillall='tmux kill-session -a'
-  alias tls='tmux ls'
 fi
 
 if which tmuxinator > /dev/null; then
