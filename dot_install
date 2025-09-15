@@ -3,11 +3,26 @@
 export SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 source "${SCRIPT_LOCATION}/scripts/style.sh"
+source "${SCRIPT_LOCATION}/scripts/link.sh"
+
+__FORCE=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -f|--force)
+      __FORCE=true
+      ;;
+    *)
+      ;;
+  esac
+  shift
+done
 
 echo
 echo -e "$(printPrimaryMessage "Installing dotfiles")"
 
-bash "${SCRIPT_LOCATION}/scripts/link.sh"
+
+__handle_links "install" ${__FORCE}
 bash "${SCRIPT_LOCATION}/common/recipes/asdf.sh"
 bash "${SCRIPT_LOCATION}/common/recipes/zplug.sh"
 bash "${SCRIPT_LOCATION}/common/recipes/vim-plug.sh"
