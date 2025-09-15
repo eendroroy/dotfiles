@@ -4,6 +4,7 @@
 cask "alacritty"
 brew "bash"
 brew "bash-completion"
+brew "gitmux"
 cask "iterm2"
 brew "shellcheck"
 brew "tmux"
@@ -78,6 +79,7 @@ cask "google-chrome"
 cask "tor-browser"
 
 # DEVELOPMENT TOOLS
+brew "asdf"
 cask "jetbrains-toolbox"
 brew "k6"
 brew "loc"
@@ -94,7 +96,9 @@ brew "postgresql@17", restart_service: :changed
 brew "ansible"
 brew "helm"
 brew "minikube"
+brew "qemu"
 cask "vagrant"
+brew "virt-manager"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
 
