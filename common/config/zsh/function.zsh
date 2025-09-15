@@ -29,9 +29,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
           | fzf --tmux 40% +m --no-preview\
         )
         [[ -n ${__theme} ]] && \
-          sed -i.bak "s|/theme/.*\.toml|/theme/${__theme}.toml|g" ~/.config/alacritty/alacritty.toml && \
-          echo "Theme changed to ${__theme}"
+          sed -i.bak "s|/theme/.*\.toml|/theme/${__theme}.toml|g" ~/.config/alacritty/alacritty.toml
     }
     zle -N __switch_theme_widget __switch_theme
-    bindkey '^y' __switch_theme_widget
+    bindkey 'å' __switch_theme_widget
 fi
