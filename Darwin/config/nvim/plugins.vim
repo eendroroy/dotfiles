@@ -11,18 +11,18 @@ Plug 'tpope/vim-commentary'                   " comment out target line
 Plug 'tpope/vim-endwise'                      " auto insert end tag
 Plug 'neomake/neomake'                        " style checker
 Plug 'davidhalter/jedi-vim'                   " autocomplete
-Plug 'digitaltoad/vim-jade'                   " jade template
-Plug 'elixir-lang/vim-elixir'                 " elixir
-Plug 'avdgaag/vim-phoenix'                    " phoenix support
+" Plug 'digitaltoad/vim-jade'                 " jade template
+" Plug 'elixir-lang/vim-elixir'               " elixir
+" Plug 'avdgaag/vim-phoenix'                  " phoenix support
 Plug 'bling/vim-bufferline'                   " bufferline
 Plug 'vim-airline/vim-airline'                " airlne
 Plug 'vim-airline/vim-airline-themes'         " airline themes
 Plug 'catppuccin/vim', { 'as': 'catppuccin' } " catppuccin theme
 Plug 'airblade/vim-gitgutter'                 " git
-Plug 'mileszs/ack.vim'                        " search enhance
+" Plug 'mileszs/ack.vim'                      " search enhance
 Plug 'Raimondi/delimitMate'                   " automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'tfnico/vim-gradle'                      " vim gradle support
-Plug 'Scuilion/gradle-syntastic-plugin'       " vim syntactic
+" Plug 'tfnico/vim-gradle'                    " vim gradle support
+" Plug 'Scuilion/gradle-syntastic-plugin'     " vim syntactic
 
 call plug#end()
 
