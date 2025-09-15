@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+function _runner() {
+  _IGN_COLOR='\033[1;90m'
+  _NC='\033[0m'
+  echo -ne "${_IGN_COLOR}"
+  ${1}
+  echo -ne "${_NC}"
+  unset _IGN_COLOR _NC
+}
+
+COLOR='\033[1;34m'
+NC='\033[0m'
+exclude_regex='!/\.antigen\/repos/ && !/\.cache/ && !/\.tmux/ && /\/\./'
+paths=`find ~ -maxdepth 4 -name ".git" 2>/dev/null | sed 's|.git||g' | awk "${exclude_regex} {print \$1}"`
+for path in ${paths}; do
+  echo -e "${COLOR}    ==>   ${path}${NC}"
+  pushd ${path} > /dev/null
+  _runner "git pull origin master"
+  popd > /dev/null
+done
+
+unset COLOR NC exclude_regex paths

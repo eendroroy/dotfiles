@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-source "${SCRIPT_LOCATION}/../../util/style.sh"
+source "${SCRIPT_LOCATION}/scripts/style.sh"
 
 function executeInstallWithTargetCheck() {
   echo -e "$(printPrimaryMessage "Installing ${1} for zsh")"

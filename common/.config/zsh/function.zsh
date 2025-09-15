@@ -31,6 +31,4 @@ if [[ "$(uname)" == "Darwin" ]]; then
         [[ -n ${__theme} ]] && \
           sed -i.bak "s|/theme/.*\.toml|/theme/${__theme}.toml|g" ~/.config/alacritty/alacritty.toml
     }
-    zle -N __switch_theme_widget __switch_theme
-    bindkey 'å' __switch_theme_widget
 fi

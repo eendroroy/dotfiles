@@ -1,0 +1,818 @@
+#!/usr/bin/env bash
+
+declare -A matrix
+
+values=(
+   16  17  18  19  20  21  52  53  54  55  56  57  88  89  90  91  92  93
+   22  23  24  25  26  27  58  59  60  61  62  63  94  95  96  97  98  99
+   28  29  30  31  32  33  64  65  66  67  68  69 100 101 102 103 104 105
+   34  35  36  37  38  39  70  71  72  73  74  75 106 107 108 109 110 111
+   40  41  42  43  44  45  76  77  78  79  80  81 112 113 114 115 116 117
+   46  47  48  49  50  51  82  83  84  85  86  87 118 119 120 121 122 123
+  124 125 126 127 128 129 160 161 162 163 164 165 196 197 198 199 200 201
+  130 131 132 133 134 135 166 167 168 169 170 171 202 203 204 205 206 207
+  136 137 138 139 140 141 172 173 174 175 176 177 208 209 210 211 212 213
+  142 143 144 145 146 147 178 179 180 181 182 183 214 215 216 217 218 219
+  148 149 150 151 152 153 184 185 186 187 188 189 220 221 222 223 224 225
+  154 155 156 157 158 159 190 191 192 193 194 195 226 227 228 229 230 231
+)
+
+BACKGROUND=48
+FOREGROUND=38
+RESET=0
+BOLD=1
+THIN=2
+ITALIC=3
+UNDERLINE=4
+SLOW_BLINK=5
+RAPID_BLINK=6
+INVERSE=7
+HIDDEN=8
+STRIKETHROW=9
+
+ANSI_COLORS=(
+    "Black"       # 0
+    "Red"         # 1
+    "Green"       # 2
+    "Yellow"      # 3
+    "Blue"        # 4
+    "Magenta"     # 5
+    "Cyan"        # 6
+    "White"       # 7
+    "Black (B)"   # 8
+    "Red (B)"     # 9
+    "Green (B)"   # 10
+    "Yellow (B)"  # 11
+    "Blue (B)"    # 12
+    "Magenta (B)" # 13
+    "Cyan (B)"    # 14
+    "White (B)"   # 15
+)
+
+for row in {0..11}; do
+  for col in {0..17}; do
+    idx=$((row * 18 + col))
+    matrix["$row,$col"]=${values[$idx]}
+  done
+done
+
+function __print_colors {
+  echo -e "|039| \033[39m  Default  \033[m |049| \033[49m  Default  \033[m |037| \033[37m  Light gray      \033[m |047| \033[47mLight gray     \033[m"
+  echo -e "|030| \033[30m  Black    \033[m |040| \033[40m  Black    \033[m |090| \033[90m  Dark gray       \033[m |100| \033[100mDark gray      \033[m"
+  echo -e "|031| \033[31m  Red      \033[m |041| \033[41m  Red      \033[m |091| \033[91m  Light red       \033[m |101| \033[101mLight red      \033[m"
+  echo -e "|032| \033[32m  Green    \033[m |042| \033[42m  Green    \033[m |092| \033[92m  Light green     \033[m |102| \033[102mLight green    \033[m"
+  echo -e "|033| \033[33m  Yellow   \033[m |043| \033[43m  Yellow   \033[m |093| \033[93m  Light yellow    \033[m |103| \033[103mLight yellow   \033[m"
+  echo -e "|034| \033[34m  Blue     \033[m |044| \033[44m  Blue     \033[m |094| \033[94m  Light blue      \033[m |104| \033[104mLight blue     \033[m"
+  echo -e "|035| \033[35m  Magenta  \033[m |045| \033[45m  Magenta  \033[m |095| \033[95m  Light magenta   \033[m |105| \033[105mLight magenta  \033[m"
+  echo -e "|036| \033[36m  Cyan     \033[m |046| \033[46m  Cyan     \033[m |096| \033[96m  Light cyan      \033[m |106| \033[106mLight cyan     \033[m"
+}
+
+function __palette_256 {
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;52m 5f0000 \033[0m"
+  printf "\033[38;5;88m 870000 \033[0m"
+  printf "\033[38;5;124m af0000 \033[0m"
+  printf "\033[38;5;160m d70000 \033[0m"
+  printf "\033[38;5;196m ff0000 \033[0m"
+  printf "\033[38;5;203m ff5f5f \033[0m"
+  printf "\033[38;5;210m ff8787 \033[0m"
+  printf "\033[38;5;217m ffafaf \033[0m"
+  printf "\033[38;5;224m ffd7d7 \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;52m     52 \033[0m"
+  printf "\033[38;5;88m     88 \033[0m"
+  printf "\033[38;5;124m    124 \033[0m"
+  printf "\033[38;5;160m    160 \033[0m"
+  printf "\033[38;5;196m    196 \033[0m"
+  printf "\033[38;5;203m    203 \033[0m"
+  printf "\033[38;5;210m    210 \033[0m"
+  printf "\033[38;5;217m    217 \033[0m"
+  printf "\033[38;5;224m    224 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;52m 5f0000 \033[0m"
+  printf "\033[48;5;88m 870000 \033[0m"
+  printf "\033[48;5;124m af0000 \033[0m"
+  printf "\033[48;5;160m d70000 \033[0m"
+  printf "\033[48;5;196m ff0000 \033[0m"
+  printf "\033[48;5;203m ff5f5f \033[0m"
+  printf "\033[48;5;210m ff8787 \033[0m"
+  printf "\033[48;5;217m ffafaf \033[0m"
+  printf "\033[48;5;224m ffd7d7 \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;52m     52 \033[0m"
+  printf "\033[48;5;88m     88 \033[0m"
+  printf "\033[48;5;124m    124 \033[0m"
+  printf "\033[48;5;160m    160 \033[0m"
+  printf "\033[48;5;196m    196 \033[0m"
+  printf "\033[48;5;203m    203 \033[0m"
+  printf "\033[48;5;210m    210 \033[0m"
+  printf "\033[48;5;217m    217 \033[0m"
+  printf "\033[48;5;224m    224 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;22m 005f00 \033[0m"
+  printf "\033[38;5;28m 008700 \033[0m"
+  printf "\033[38;5;34m 00af00 \033[0m"
+  printf "\033[38;5;40m 00d700 \033[0m"
+  printf "\033[38;5;46m 00ff00 \033[0m"
+  printf "\033[38;5;83m 5fff5f \033[0m"
+  printf "\033[38;5;120m 87ff87 \033[0m"
+  printf "\033[38;5;157m afffaf \033[0m"
+  printf "\033[38;5;194m d7ffd7 \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;22m     22 \033[0m"
+  printf "\033[38;5;28m     28 \033[0m"
+  printf "\033[38;5;34m     34 \033[0m"
+  printf "\033[38;5;40m     40 \033[0m"
+  printf "\033[38;5;46m     46 \033[0m"
+  printf "\033[38;5;83m     83 \033[0m"
+  printf "\033[38;5;120m    120 \033[0m"
+  printf "\033[38;5;157m    157 \033[0m"
+  printf "\033[38;5;194m    194 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;22m 005f00 \033[0m"
+  printf "\033[48;5;28m 008700 \033[0m"
+  printf "\033[48;5;34m 00af00 \033[0m"
+  printf "\033[48;5;40m 00d700 \033[0m"
+  printf "\033[48;5;46m 00ff00 \033[0m"
+  printf "\033[48;5;83m 5fff5f \033[0m"
+  printf "\033[48;5;120m 87ff87 \033[0m"
+  printf "\033[48;5;157m afffaf \033[0m"
+  printf "\033[48;5;194m d7ffd7 \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;22m     22 \033[0m"
+  printf "\033[48;5;28m     28 \033[0m"
+  printf "\033[48;5;34m     34 \033[0m"
+  printf "\033[48;5;40m     40 \033[0m"
+  printf "\033[48;5;46m     46 \033[0m"
+  printf "\033[48;5;83m     83 \033[0m"
+  printf "\033[48;5;120m    120 \033[0m"
+  printf "\033[48;5;157m    157 \033[0m"
+  printf "\033[48;5;194m    194 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;17m 00005f \033[0m"
+  printf "\033[38;5;18m 000087 \033[0m"
+  printf "\033[38;5;19m 0000af \033[0m"
+  printf "\033[38;5;20m 0000d7 \033[0m"
+  printf "\033[38;5;21m 0000ff \033[0m"
+  printf "\033[38;5;63m 5f5fff \033[0m"
+  printf "\033[38;5;105m 8787ff \033[0m"
+  printf "\033[38;5;147m afafff \033[0m"
+  printf "\033[38;5;189m d7d7ff \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;17m     17 \033[0m"
+  printf "\033[38;5;18m     18 \033[0m"
+  printf "\033[38;5;19m     19 \033[0m"
+  printf "\033[38;5;20m     20 \033[0m"
+  printf "\033[38;5;21m     21 \033[0m"
+  printf "\033[38;5;63m     63 \033[0m"
+  printf "\033[38;5;105m    105 \033[0m"
+  printf "\033[38;5;147m    147 \033[0m"
+  printf "\033[38;5;189m    189 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;17m 00005f \033[0m"
+  printf "\033[48;5;18m 000087 \033[0m"
+  printf "\033[48;5;19m 0000af \033[0m"
+  printf "\033[48;5;20m 0000d7 \033[0m"
+  printf "\033[48;5;21m 0000ff \033[0m"
+  printf "\033[48;5;63m 5f5fff \033[0m"
+  printf "\033[48;5;105m 8787ff \033[0m"
+  printf "\033[48;5;147m afafff \033[0m"
+  printf "\033[48;5;189m d7d7ff \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;17m     17 \033[0m"
+  printf "\033[48;5;18m     18 \033[0m"
+  printf "\033[48;5;19m     19 \033[0m"
+  printf "\033[48;5;20m     20 \033[0m"
+  printf "\033[48;5;21m     21 \033[0m"
+  printf "\033[48;5;63m     63 \033[0m"
+  printf "\033[48;5;105m    105 \033[0m"
+  printf "\033[48;5;147m    147 \033[0m"
+  printf "\033[48;5;189m    189 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;58m 5f5f00 \033[0m"
+  printf "\033[38;5;100m 878700 \033[0m"
+  printf "\033[38;5;142m afaf00 \033[0m"
+  printf "\033[38;5;184m d7d700 \033[0m"
+  printf "\033[38;5;226m ffff00 \033[0m"
+  printf "\033[38;5;227m ffff5f \033[0m"
+  printf "\033[38;5;228m ffff87 \033[0m"
+  printf "\033[38;5;229m ffffaf \033[0m"
+  printf "\033[38;5;230m ffffd7 \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;58m     58 \033[0m"
+  printf "\033[38;5;100m    100 \033[0m"
+  printf "\033[38;5;142m    142 \033[0m"
+  printf "\033[38;5;184m    184 \033[0m"
+  printf "\033[38;5;226m    226 \033[0m"
+  printf "\033[38;5;227m    227 \033[0m"
+  printf "\033[38;5;228m    228 \033[0m"
+  printf "\033[38;5;229m    229 \033[0m"
+  printf "\033[38;5;230m    230 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;58m 5f5f00 \033[0m"
+  printf "\033[48;5;100m 878700 \033[0m"
+  printf "\033[48;5;142m afaf00 \033[0m"
+  printf "\033[48;5;184m d7d700 \033[0m"
+  printf "\033[48;5;226m ffff00 \033[0m"
+  printf "\033[48;5;227m ffff5f \033[0m"
+  printf "\033[48;5;228m ffff87 \033[0m"
+  printf "\033[48;5;229m ffffaf \033[0m"
+  printf "\033[48;5;230m ffffd7 \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;58m     58 \033[0m"
+  printf "\033[48;5;100m    100 \033[0m"
+  printf "\033[48;5;142m    142 \033[0m"
+  printf "\033[48;5;184m    184 \033[0m"
+  printf "\033[48;5;226m    226 \033[0m"
+  printf "\033[48;5;227m    227 \033[0m"
+  printf "\033[48;5;228m    228 \033[0m"
+  printf "\033[48;5;229m    229 \033[0m"
+  printf "\033[48;5;230m    230 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;53m 5f005f \033[0m"
+  printf "\033[38;5;90m 870087 \033[0m"
+  printf "\033[38;5;127m af00af \033[0m"
+  printf "\033[38;5;164m d700d7 \033[0m"
+  printf "\033[38;5;201m ff00ff \033[0m"
+  printf "\033[38;5;207m ff5fff \033[0m"
+  printf "\033[38;5;213m ff87ff \033[0m"
+  printf "\033[38;5;219m ffafff \033[0m"
+  printf "\033[38;5;225m ffd7ff \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;53m     53 \033[0m"
+  printf "\033[38;5;90m     90 \033[0m"
+  printf "\033[38;5;127m    127 \033[0m"
+  printf "\033[38;5;164m    164 \033[0m"
+  printf "\033[38;5;201m    201 \033[0m"
+  printf "\033[38;5;207m    207 \033[0m"
+  printf "\033[38;5;213m    213 \033[0m"
+  printf "\033[38;5;219m    219 \033[0m"
+  printf "\033[38;5;225m    225 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;53m 5f005f \033[0m"
+  printf "\033[48;5;90m 870087 \033[0m"
+  printf "\033[48;5;127m af00af \033[0m"
+  printf "\033[48;5;164m d700d7 \033[0m"
+  printf "\033[48;5;201m ff00ff \033[0m"
+  printf "\033[48;5;207m ff5fff \033[0m"
+  printf "\033[48;5;213m ff87ff \033[0m"
+  printf "\033[48;5;219m ffafff \033[0m"
+  printf "\033[48;5;225m ffd7ff \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;53m     53 \033[0m"
+  printf "\033[48;5;90m     90 \033[0m"
+  printf "\033[48;5;127m    127 \033[0m"
+  printf "\033[48;5;164m    164 \033[0m"
+  printf "\033[48;5;201m    201 \033[0m"
+  printf "\033[48;5;207m    207 \033[0m"
+  printf "\033[48;5;213m    213 \033[0m"
+  printf "\033[48;5;219m    219 \033[0m"
+  printf "\033[48;5;225m    225 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;23m 005f5f \033[0m"
+  printf "\033[38;5;30m 008787 \033[0m"
+  printf "\033[38;5;37m 00afaf \033[0m"
+  printf "\033[38;5;44m 00d7d7 \033[0m"
+  printf "\033[38;5;51m 00ffff \033[0m"
+  printf "\033[38;5;87m 5fffff \033[0m"
+  printf "\033[38;5;123m 87ffff \033[0m"
+  printf "\033[38;5;159m afffff \033[0m"
+  printf "\033[38;5;195m d7ffff \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;23m     23 \033[0m"
+  printf "\033[38;5;30m     30 \033[0m"
+  printf "\033[38;5;37m     37 \033[0m"
+  printf "\033[38;5;44m     44 \033[0m"
+  printf "\033[38;5;51m     51 \033[0m"
+  printf "\033[38;5;87m     87 \033[0m"
+  printf "\033[38;5;123m    123 \033[0m"
+  printf "\033[38;5;159m    159 \033[0m"
+  printf "\033[38;5;195m    195 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;23m 005f5f \033[0m"
+  printf "\033[48;5;30m 008787 \033[0m"
+  printf "\033[48;5;37m 00afaf \033[0m"
+  printf "\033[48;5;44m 00d7d7 \033[0m"
+  printf "\033[48;5;51m 00ffff \033[0m"
+  printf "\033[48;5;87m 5fffff \033[0m"
+  printf "\033[48;5;123m 87ffff \033[0m"
+  printf "\033[48;5;159m afffff \033[0m"
+  printf "\033[48;5;195m d7ffff \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;23m     23 \033[0m"
+  printf "\033[48;5;30m     30 \033[0m"
+  printf "\033[48;5;37m     37 \033[0m"
+  printf "\033[48;5;44m     44 \033[0m"
+  printf "\033[48;5;51m     51 \033[0m"
+  printf "\033[48;5;87m     87 \033[0m"
+  printf "\033[48;5;123m    123 \033[0m"
+  printf "\033[48;5;159m    159 \033[0m"
+  printf "\033[48;5;195m    195 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;196m ff0000 \033[0m"
+  printf "\033[38;5;203m ff5f5f \033[0m"
+  printf "\033[38;5;210m ff8787 \033[0m"
+  printf "\033[38;5;217m ffafaf \033[0m"
+  printf "\033[38;5;224m ffd7d7 \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  printf "\033[38;5;230m ffffd7 \033[0m"
+  printf "\033[38;5;229m ffffaf \033[0m"
+  printf "\033[38;5;228m ffff87 \033[0m"
+  printf "\033[38;5;227m ffff5f \033[0m"
+  printf "\033[38;5;226m ffff00 \033[0m"
+  echo
+  printf "\033[38;5;196m    196 \033[0m"
+  printf "\033[38;5;203m    203 \033[0m"
+  printf "\033[38;5;210m    210 \033[0m"
+  printf "\033[38;5;217m    217 \033[0m"
+  printf "\033[38;5;224m    224 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  printf "\033[38;5;230m    230 \033[0m"
+  printf "\033[38;5;229m    229 \033[0m"
+  printf "\033[38;5;228m    228 \033[0m"
+  printf "\033[38;5;227m    227 \033[0m"
+  printf "\033[38;5;226m    226 \033[0m"
+  echo
+  printf "\033[48;5;196m ff0000 \033[0m"
+  printf "\033[48;5;203m ff5f5f \033[0m"
+  printf "\033[48;5;210m ff8787 \033[0m"
+  printf "\033[48;5;217m ffafaf \033[0m"
+  printf "\033[48;5;224m ffd7d7 \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  printf "\033[48;5;230m ffffd7 \033[0m"
+  printf "\033[48;5;229m ffffaf \033[0m"
+  printf "\033[48;5;228m ffff87 \033[0m"
+  printf "\033[48;5;227m ffff5f \033[0m"
+  printf "\033[48;5;226m ffff00 \033[0m"
+  echo
+  printf "\033[48;5;196m    196 \033[0m"
+  printf "\033[48;5;203m    203 \033[0m"
+  printf "\033[48;5;210m    210 \033[0m"
+  printf "\033[48;5;217m    217 \033[0m"
+  printf "\033[48;5;224m    224 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  printf "\033[48;5;230m    230 \033[0m"
+  printf "\033[48;5;229m    229 \033[0m"
+  printf "\033[48;5;228m    228 \033[0m"
+  printf "\033[48;5;227m    227 \033[0m"
+  printf "\033[48;5;226m    226 \033[0m"
+  echo
+  printf "\033[38;5;46m 00ff00 \033[0m"
+  printf "\033[38;5;83m 5fff5f \033[0m"
+  printf "\033[38;5;120m 87ff87 \033[0m"
+  printf "\033[38;5;157m afffaf \033[0m"
+  printf "\033[38;5;194m d7ffd7 \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  printf "\033[38;5;195m d7ffff \033[0m"
+  printf "\033[38;5;159m afffff \033[0m"
+  printf "\033[38;5;123m 87ffff \033[0m"
+  printf "\033[38;5;87m 5fffff \033[0m"
+  printf "\033[38;5;51m 00ffff \033[0m"
+  echo
+  printf "\033[38;5;46m     46 \033[0m"
+  printf "\033[38;5;83m     83 \033[0m"
+  printf "\033[38;5;120m    120 \033[0m"
+  printf "\033[38;5;157m    157 \033[0m"
+  printf "\033[38;5;194m    194 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  printf "\033[38;5;195m    195 \033[0m"
+  printf "\033[38;5;159m    159 \033[0m"
+  printf "\033[38;5;123m    123 \033[0m"
+  printf "\033[38;5;87m     87 \033[0m"
+  printf "\033[38;5;51m     51 \033[0m"
+  echo
+  printf "\033[48;5;46m 00ff00 \033[0m"
+  printf "\033[48;5;83m 5fff5f \033[0m"
+  printf "\033[48;5;120m 87ff87 \033[0m"
+  printf "\033[48;5;157m afffaf \033[0m"
+  printf "\033[48;5;194m d7ffd7 \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  printf "\033[48;5;195m d7ffff \033[0m"
+  printf "\033[48;5;159m afffff \033[0m"
+  printf "\033[48;5;123m 87ffff \033[0m"
+  printf "\033[48;5;87m 5fffff \033[0m"
+  printf "\033[48;5;51m 00ffff \033[0m"
+  echo
+  printf "\033[48;5;46m     46 \033[0m"
+  printf "\033[48;5;83m     83 \033[0m"
+  printf "\033[48;5;120m    120 \033[0m"
+  printf "\033[48;5;157m    157 \033[0m"
+  printf "\033[48;5;194m    194 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  printf "\033[48;5;195m    195 \033[0m"
+  printf "\033[48;5;159m    159 \033[0m"
+  printf "\033[48;5;123m    123 \033[0m"
+  printf "\033[48;5;87m     87 \033[0m"
+  printf "\033[48;5;51m     51 \033[0m"
+  echo
+  printf "\033[38;5;21m 0000ff \033[0m"
+  printf "\033[38;5;63m 5f5fff \033[0m"
+  printf "\033[38;5;105m 8787ff \033[0m"
+  printf "\033[38;5;147m afafff \033[0m"
+  printf "\033[38;5;189m d7d7ff \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  printf "\033[38;5;225m ffd7ff \033[0m"
+  printf "\033[38;5;219m ffafff \033[0m"
+  printf "\033[38;5;213m ff87ff \033[0m"
+  printf "\033[38;5;207m ff5fff \033[0m"
+  printf "\033[38;5;201m ff00ff \033[0m"
+  echo
+  printf "\033[38;5;21m     21 \033[0m"
+  printf "\033[38;5;63m     63 \033[0m"
+  printf "\033[38;5;105m    105 \033[0m"
+  printf "\033[38;5;147m    147 \033[0m"
+  printf "\033[38;5;189m    189 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  printf "\033[38;5;225m    225 \033[0m"
+  printf "\033[38;5;219m    219 \033[0m"
+  printf "\033[38;5;213m    213 \033[0m"
+  printf "\033[38;5;207m    207 \033[0m"
+  printf "\033[38;5;201m    201 \033[0m"
+  echo
+  printf "\033[48;5;21m 0000ff \033[0m"
+  printf "\033[48;5;63m 5f5fff \033[0m"
+  printf "\033[48;5;105m 8787ff \033[0m"
+  printf "\033[48;5;147m afafff \033[0m"
+  printf "\033[48;5;189m d7d7ff \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  printf "\033[48;5;225m ffd7ff \033[0m"
+  printf "\033[48;5;219m ffafff \033[0m"
+  printf "\033[48;5;213m ff87ff \033[0m"
+  printf "\033[48;5;207m ff5fff \033[0m"
+  printf "\033[48;5;201m ff00ff \033[0m"
+  echo
+  printf "\033[48;5;21m     21 \033[0m"
+  printf "\033[48;5;63m     63 \033[0m"
+  printf "\033[48;5;105m    105 \033[0m"
+  printf "\033[48;5;147m    147 \033[0m"
+  printf "\033[48;5;189m    189 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  printf "\033[48;5;225m    225 \033[0m"
+  printf "\033[48;5;219m    219 \033[0m"
+  printf "\033[48;5;213m    213 \033[0m"
+  printf "\033[48;5;207m    207 \033[0m"
+  printf "\033[48;5;201m    201 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;52m 5f0000 \033[0m"
+  printf "\033[38;5;88m 870000 \033[0m"
+  printf "\033[38;5;124m af0000 \033[0m"
+  printf "\033[38;5;160m d70000 \033[0m"
+  printf "\033[38;5;196m ff0000 \033[0m"
+  printf "\033[38;5;202m ff5f00 \033[0m"
+  printf "\033[38;5;208m ff8700 \033[0m"
+  printf "\033[38;5;214m ffaf00 \033[0m"
+  printf "\033[38;5;220m ffd700 \033[0m"
+  printf "\033[38;5;226m ffff00 \033[0m"
+  printf "\033[38;5;227m ffff5f \033[0m"
+  printf "\033[38;5;228m ffff87 \033[0m"
+  printf "\033[38;5;229m ffffaf \033[0m"
+  printf "\033[38;5;230m ffffd7 \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;52m     52 \033[0m"
+  printf "\033[38;5;88m     88 \033[0m"
+  printf "\033[38;5;124m    124 \033[0m"
+  printf "\033[38;5;160m    160 \033[0m"
+  printf "\033[38;5;196m    196 \033[0m"
+  printf "\033[38;5;202m    202 \033[0m"
+  printf "\033[38;5;208m    208 \033[0m"
+  printf "\033[38;5;214m    214 \033[0m"
+  printf "\033[38;5;220m    220 \033[0m"
+  printf "\033[38;5;226m    226 \033[0m"
+  printf "\033[38;5;227m    227 \033[0m"
+  printf "\033[38;5;228m    228 \033[0m"
+  printf "\033[38;5;229m    229 \033[0m"
+  printf "\033[38;5;230m    230 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;52m 5f0000 \033[0m"
+  printf "\033[48;5;88m 870000 \033[0m"
+  printf "\033[48;5;124m af0000 \033[0m"
+  printf "\033[48;5;160m d70000 \033[0m"
+  printf "\033[48;5;196m ff0000 \033[0m"
+  printf "\033[48;5;202m ff5f00 \033[0m"
+  printf "\033[48;5;208m ff8700 \033[0m"
+  printf "\033[48;5;214m ffaf00 \033[0m"
+  printf "\033[48;5;220m ffd700 \033[0m"
+  printf "\033[48;5;226m ffff00 \033[0m"
+  printf "\033[48;5;227m ffff5f \033[0m"
+  printf "\033[48;5;228m ffff87 \033[0m"
+  printf "\033[48;5;229m ffffaf \033[0m"
+  printf "\033[48;5;230m ffffd7 \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;52m     52 \033[0m"
+  printf "\033[48;5;88m     88 \033[0m"
+  printf "\033[48;5;124m    124 \033[0m"
+  printf "\033[48;5;160m    160 \033[0m"
+  printf "\033[48;5;196m    196 \033[0m"
+  printf "\033[48;5;202m    202 \033[0m"
+  printf "\033[48;5;208m    208 \033[0m"
+  printf "\033[48;5;214m    214 \033[0m"
+  printf "\033[48;5;220m    220 \033[0m"
+  printf "\033[48;5;226m    226 \033[0m"
+  printf "\033[48;5;227m    227 \033[0m"
+  printf "\033[48;5;228m    228 \033[0m"
+  printf "\033[48;5;229m    229 \033[0m"
+  printf "\033[48;5;230m    230 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;22m 005f00 \033[0m"
+  printf "\033[38;5;28m 008700 \033[0m"
+  printf "\033[38;5;34m 00af00 \033[0m"
+  printf "\033[38;5;40m 00d700 \033[0m"
+  printf "\033[38;5;46m 00ff00 \033[0m"
+  printf "\033[38;5;47m 00ff5f \033[0m"
+  printf "\033[38;5;48m 00ff87 \033[0m"
+  printf "\033[38;5;49m 00ffaf \033[0m"
+  printf "\033[38;5;50m 00ffd7 \033[0m"
+  printf "\033[38;5;51m 00ffff \033[0m"
+  printf "\033[38;5;87m 5fffff \033[0m"
+  printf "\033[38;5;123m 87ffff \033[0m"
+  printf "\033[38;5;159m afffff \033[0m"
+  printf "\033[38;5;195m d7ffff \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;22m     22 \033[0m"
+  printf "\033[38;5;28m     28 \033[0m"
+  printf "\033[38;5;34m     34 \033[0m"
+  printf "\033[38;5;40m     40 \033[0m"
+  printf "\033[38;5;46m     46 \033[0m"
+  printf "\033[38;5;47m     47 \033[0m"
+  printf "\033[38;5;48m     48 \033[0m"
+  printf "\033[38;5;49m     49 \033[0m"
+  printf "\033[38;5;50m     50 \033[0m"
+  printf "\033[38;5;51m     51 \033[0m"
+  printf "\033[38;5;87m     87 \033[0m"
+  printf "\033[38;5;123m    123 \033[0m"
+  printf "\033[38;5;159m    159 \033[0m"
+  printf "\033[38;5;195m    195 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;22m 005f00 \033[0m"
+  printf "\033[48;5;28m 008700 \033[0m"
+  printf "\033[48;5;34m 00af00 \033[0m"
+  printf "\033[48;5;40m 00d700 \033[0m"
+  printf "\033[48;5;46m 00ff00 \033[0m"
+  printf "\033[48;5;47m 00ff5f \033[0m"
+  printf "\033[48;5;48m 00ff87 \033[0m"
+  printf "\033[48;5;49m 00ffaf \033[0m"
+  printf "\033[48;5;50m 00ffd7 \033[0m"
+  printf "\033[48;5;51m 00ffff \033[0m"
+  printf "\033[48;5;87m 5fffff \033[0m"
+  printf "\033[48;5;123m 87ffff \033[0m"
+  printf "\033[48;5;159m afffff \033[0m"
+  printf "\033[48;5;195m d7ffff \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;22m     22 \033[0m"
+  printf "\033[48;5;28m     28 \033[0m"
+  printf "\033[48;5;34m     34 \033[0m"
+  printf "\033[48;5;40m     40 \033[0m"
+  printf "\033[48;5;46m     46 \033[0m"
+  printf "\033[48;5;47m     47 \033[0m"
+  printf "\033[48;5;48m     48 \033[0m"
+  printf "\033[48;5;49m     49 \033[0m"
+  printf "\033[48;5;50m     50 \033[0m"
+  printf "\033[48;5;51m     51 \033[0m"
+  printf "\033[48;5;87m     87 \033[0m"
+  printf "\033[48;5;123m    123 \033[0m"
+  printf "\033[48;5;159m    159 \033[0m"
+  printf "\033[48;5;195m    195 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  printf "\033[38;5;16m 000000 \033[0m"
+  printf "\033[38;5;17m 00005f \033[0m"
+  printf "\033[38;5;18m 000087 \033[0m"
+  printf "\033[38;5;19m 0000af \033[0m"
+  printf "\033[38;5;20m 0000d7 \033[0m"
+  printf "\033[38;5;21m 0000ff \033[0m"
+  printf "\033[38;5;57m 5f00ff \033[0m"
+  printf "\033[38;5;93m 8700ff \033[0m"
+  printf "\033[38;5;129m af00ff \033[0m"
+  printf "\033[38;5;165m d700ff \033[0m"
+  printf "\033[38;5;201m ff00ff \033[0m"
+  printf "\033[38;5;207m ff5fff \033[0m"
+  printf "\033[38;5;213m ff87ff \033[0m"
+  printf "\033[38;5;219m ffafff \033[0m"
+  printf "\033[38;5;225m ffd7ff \033[0m"
+  printf "\033[38;5;231m ffffff \033[0m"
+  echo
+  printf "\033[38;5;16m     16 \033[0m"
+  printf "\033[38;5;17m     17 \033[0m"
+  printf "\033[38;5;18m     18 \033[0m"
+  printf "\033[38;5;19m     19 \033[0m"
+  printf "\033[38;5;20m     20 \033[0m"
+  printf "\033[38;5;21m     21 \033[0m"
+  printf "\033[38;5;57m     57 \033[0m"
+  printf "\033[38;5;93m     93 \033[0m"
+  printf "\033[38;5;129m    129 \033[0m"
+  printf "\033[38;5;165m    165 \033[0m"
+  printf "\033[38;5;201m    201 \033[0m"
+  printf "\033[38;5;207m    207 \033[0m"
+  printf "\033[38;5;213m    213 \033[0m"
+  printf "\033[38;5;219m    219 \033[0m"
+  printf "\033[38;5;225m    225 \033[0m"
+  printf "\033[38;5;231m    231 \033[0m"
+  echo
+  printf "\033[48;5;16m 000000 \033[0m"
+  printf "\033[48;5;17m 00005f \033[0m"
+  printf "\033[48;5;18m 000087 \033[0m"
+  printf "\033[48;5;19m 0000af \033[0m"
+  printf "\033[48;5;20m 0000d7 \033[0m"
+  printf "\033[48;5;21m 0000ff \033[0m"
+  printf "\033[48;5;57m 5f00ff \033[0m"
+  printf "\033[48;5;93m 8700ff \033[0m"
+  printf "\033[48;5;129m af00ff \033[0m"
+  printf "\033[48;5;165m d700ff \033[0m"
+  printf "\033[48;5;201m ff00ff \033[0m"
+  printf "\033[48;5;207m ff5fff \033[0m"
+  printf "\033[48;5;213m ff87ff \033[0m"
+  printf "\033[48;5;219m ffafff \033[0m"
+  printf "\033[48;5;225m ffd7ff \033[0m"
+  printf "\033[48;5;231m ffffff \033[0m"
+  echo
+  printf "\033[48;5;16m     16 \033[0m"
+  printf "\033[48;5;17m     17 \033[0m"
+  printf "\033[48;5;18m     18 \033[0m"
+  printf "\033[48;5;19m     19 \033[0m"
+  printf "\033[48;5;20m     20 \033[0m"
+  printf "\033[48;5;21m     21 \033[0m"
+  printf "\033[48;5;57m     57 \033[0m"
+  printf "\033[48;5;93m     93 \033[0m"
+  printf "\033[48;5;129m    129 \033[0m"
+  printf "\033[48;5;165m    165 \033[0m"
+  printf "\033[48;5;201m    201 \033[0m"
+  printf "\033[48;5;207m    207 \033[0m"
+  printf "\033[48;5;213m    213 \033[0m"
+  printf "\033[48;5;219m    219 \033[0m"
+  printf "\033[48;5;225m    225 \033[0m"
+  printf "\033[48;5;231m    231 \033[0m"
+  echo
+  echo
+}
+
+function __print_colors_256 {
+  for i in {0..15} ; do
+    $FG && printf "\e[38;5;%sm%3d\e[0m " "$i" "$i"
+    $BG && printf "\e[48;5;%sm%3d\e[0m " "$i" "$i"
+  done
+
+  echo
+  echo
+
+  for row in {0..11}; do
+    for col in {0..17}; do
+      value=${matrix["$row,$col"]}
+      $FG && printf "\e[38;5;%sm%4d\e[0m" "$value" "$value"
+      $BG && printf "\e[48;5;%sm%4d\e[0m" "$value" "$value"
+    done
+    echo
+  done
+
+  echo
+  echo
+
+  for i in {232..243} ; do
+    $FG && printf "\e[38;5;%sm%3d\e[0m " "$i" "$i"
+    $BG && printf "\e[48;5;%sm%3d\e[0m " "$i" "$i"
+  done
+
+  echo
+
+  for i in {244..255} ; do
+    $FG && printf "\e[38;5;%sm%3d\e[0m " "$i" "$i"
+    $BG && printf "\e[48;5;%sm%3d\e[0m " "$i" "$i"
+  done
+
+  echo
+}
+
+function __print_colors_table {
+  printf "\e[${RESET};${FOREGROUND};5;8m┌────┬───────────────┬─────────────┬─────────────┬─────────────┐\n\e[0m"
+  printf "\e[${RESET};${FOREGROUND};5;8m│CODE│            FG │     FG-BOLD │          BG │     BG-BOLD │\n\e[0m"
+  printf "\e[${RESET};${FOREGROUND};5;8m├────┼───────────────┼─────────────┼─────────────┼─────────────┤\n\e[0m"
+
+  for i in {0..15} ; do
+    printf "\e[${RESET};${FOREGROUND};5;8m│%3d │  \e[0m" "$i"
+    printf " \e[${RESET};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│" "$i" "${ANSI_COLORS[i]}"
+    printf " \e[${BOLD};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│" "$i" "${ANSI_COLORS[i]}"
+    printf " \e[${INVERSE};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│"  "$i" "${ANSI_COLORS[i]}"
+    printf " \e[${BOLD};${INVERSE};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│"  "$i" "${ANSI_COLORS[i]}"
+    echo
+  done
+  printf "\e[${RESET};${FOREGROUND};5;8m└────┴───────────────┴─────────────┴─────────────┴─────────────┘\n\e[0m"
+
+}
+
+function __help() {
+  echo
+  echo -e "\e[1;36mUsage:\e[0m print_colors [OPTIONS]"
+  echo
+  echo -e "\e[1;33mOptions:\e[0m"
+  echo -e "  \e[1;32m-h\e[0m, \e[1;32m--help\e[0m           Show this help message"
+  echo -e "  \e[1;32m-l\e[0m, \e[1;32m--legacy\e[0m         Print ANSI color in old format"
+  echo -e "  \e[1;32m-t\e[0m, \e[1;32m--table\e[0m          Print ANSI color table"
+  echo -e "  \e[1;32m-2\e[0m, \e[1;32m--256\e[0m            Print 256-color palette"
+  echo -e "      \e[1;32m-f\e[0m, \e[1;32m--foreground\e[0m Show foreground colors"
+  echo -e "      \e[1;32m-b\e[0m, \e[1;32m--background\e[0m Show background colors"
+  echo
+  echo -e "\e[1;33mExamples:\e[0m"
+  echo -e "  print_colors --table"
+  echo -e "  print_colors --256 --foreground"
+  echo
+}
+
+
+_256=false
+FG=false
+BG=true
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help)
+      __help
+      exit ;;
+    -2|--256)
+      _256=true
+      ;;
+    -f|--foreground)
+      FG=true
+      BG=false
+      ;;
+    -b|--background)
+      FG=false
+      BG=true
+      ;;
+    -l|--legacy)
+      __print_colors
+      exit ;;
+    -t|--table)
+      __print_colors_table
+      exit ;;
+    -p|--palette)
+      __palette_256
+      exit ;;
+    *)
+      # Unknown option, ignore or handle as needed
+      ;;
+  esac
+  shift
+done
+
+$_256 && __print_colors_256 || __help

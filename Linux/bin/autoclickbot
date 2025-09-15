@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+[[ "`uname`" != 'Linux' ]] && echo 'Only support Linux distros' && exit 1
+
+clear
+printf "Checking dependency...\n"
+XDOTOOL_INSTALLED=$(dpkg-query -W -f='${Status}' xdotool 2>/dev/null | grep -c "ok installed")
+if [ $XDOTOOL_INSTALLED -eq 0 ]; then
+  printf "\a"
+  printf "Unmet dependency: xdotool"
+  printf "\nDo you want to install required packages (Y/n)?"
+  read answer
+  if [[ $answer = "Y" || $answer = "y" || $answer = "" ]]; then
+    sudo apt-get install xdotool
+  else
+    printf "Please solve dependency first.\n"
+    exit 1
+  fi
+  XDOTOOL_INSTALLED=$(dpkg-query -W -f='${Status}' xdotool 2>/dev/null | grep -c "ok installed")
+  if [ $XDOTOOL_INSTALLED -eq 0 ]; then
+    printf "\nUnmet dependency:\n  xdotool"
+    printf "\nBetter luck next time :P\n"
+    exit 1
+  fi
+fi
+printf "Bring the desired window to the top\nand place the mouse in desired position.\n"
+printf "And do not move the mouse untill 10 seconds is over.\n"
+for i in {10..1}
+do
+  printf "\rYou have $i seconds   "
+  sleep 1
+done
+DW=$(xdotool getwindowfocus)
+eval $(xdotool getwindowgeometry --shell $DW)
+W_POS_X=$X
+W_POS_Y=$Y
+eval $(xdotool getmouselocation --shell)
+M_POS_X=$((X - W_POS_X + 10))
+M_POS_Y=$((Y - W_POS_Y + 40))
+printf "\nChoose click interval: "
+read CLICK_INTERVAL
+while [ 1 ]; do
+  W=$(xdotool getwindowfocus)
+  eval $(xdotool getmouselocation --shell)
+  C_M_POS_X=$X
+  C_M_POS_Y=$Y
+  xdotool windowfocus --sync $DW && xdotool windowraise $DW
+  xdotool mousemove --sync --window $DW $M_POS_X $M_POS_Y
+  sleep .01
+  xdotool click 1
+  eval $(xdotool getmouselocation --shell)
+  xdotool windowfocus --sync $W && xdotool windowraise $W
+  xdotool mousemove $C_M_POS_X $C_M_POS_Y
+  printf "\rmouse click on $X $Y   \n"
+  count=$CLICK_INTERVAL
+  while [ $count -gt 0 ]; do
+    printf "\rnext click in ... $count s "
+    count=$((count -1))
+    sleep 1
+  done
+done
+exit 0
+
