@@ -1,9 +1,0 @@
-# os specific aliases
-if which eza > /dev/null; then
-else
-  alias ll='ls -lFhaG'
-  alias l='ls -lFhG'
-fi
-
-alias vi='nvim'
-alias vim='nvim'

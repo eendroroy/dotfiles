@@ -65,3 +65,8 @@ if which tmuxinator > /dev/null; then
   alias txc='tmuxinator stop'
   alias txl='tmuxinator list'
 fi
+
+if which nvim >  > /dev/null; then
+  alias vi='nvim'
+  alias vim='nvim'
+fi

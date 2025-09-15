@@ -63,10 +63,10 @@ export HISTSIZE=10000000
 export SAVEHIST=10000000
 which nvim > /dev/null && export EDITOR='nvim'
 
-[ -f ~/.zsh_alias ] && source ~/.zsh_alias
-[ -f ~/.zsh_function ] && source ~/.zsh_function
-[ -f ~/.zsh_init ] && source ~/.zsh_init
-[ -f ~/.zsh_tool_path ] && source ~/.zsh_tool_path
-[ -f ~/.zsh_autocomplete ] && source ~/.zsh_autocomplete
+[ -f ~/.config/zsh/zsh_alias ] && source ~/.config/zsh/zsh_alias
+[ -f ~/.config/zsh/zsh_function ] && source ~/.config/zsh/zsh_function
+[ -f ~/.config/zsh/zsh_init ] && source ~/.config/zsh/zsh_init
+[ -f ~/.config/zsh/zsh_tool_path ] && source ~/.config/zsh/zsh_tool_path
+[ -f ~/.config/zsh/zsh_autocomplete ] && source ~/.config/zsh/zsh_autocomplete
 
 export PATH="/usr/local/sbin:$PATH"
