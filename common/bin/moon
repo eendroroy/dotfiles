@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+
+printf "\rMoon..... 🌑"
+
+for ((i=1; i<=1000; i++)); do
+	printf "\rMoon..... 🌑"
+	sleep .1
+	printf "\rMoon..... 🌒"
+	sleep .1
+	printf "\rMoon..... 🌓"
+	sleep .1
+	printf "\rMoon..... 🌔"
+	sleep .1
+	printf "\rMoon..... 🌕"
+	sleep .1
+	printf "\rMoon..... 🌖"
+	sleep .1
+	printf "\rMoon..... 🌗"
+	sleep .1
+	printf "\rMoon..... 🌘"
+	sleep .1
+done
