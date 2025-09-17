@@ -58,6 +58,25 @@ function __print_colors {
   echo -e "|036| \033[36m  Cyan     \033[m |046| \033[46m  Cyan     \033[m |096| \033[96m  Light cyan      \033[m |106| \033[106mLight cyan     \033[m"
 }
 
+function __print_colors_true {
+  echo
+  awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
+    for (i=0; i<3; i++) {
+      for (colnum = 0; colnum<term_cols; colnum++) {
+        r = 255-(colnum*255/term_cols);
+        g = (colnum*510/term_cols);
+        b = (colnum*255/term_cols);
+        if (g>255) g = 510-g;
+        printf "\033[48;2;%d;%d;%dm", r,g,b;
+        printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+        printf " \033[0m";
+      }
+      printf "\n";
+    }
+  }'
+  echo
+}
+
 function __print_colors_256 {
   for i in {0..15} ; do
     $FG && printf "\e[38;5;%sm%3d\e[0m " "$i" "$i"
@@ -119,6 +138,7 @@ function __help() {
   echo -e "  \e[1;32m-h\e[0m, \e[1;32m--help\e[0m           Show this help message"
   echo -e "  \e[1;32m-l\e[0m, \e[1;32m--legacy\e[0m         Print ANSI color in old format"
   echo -e "  \e[1;32m-t\e[0m, \e[1;32m--table\e[0m          Print ANSI color table"
+  echo -e "  \e[1;32m-tc\e[0m, \e[1;32m--true-color\e[0m    Print true colors"
   echo -e "  \e[1;32m-2\e[0m, \e[1;32m--256\e[0m            Print 256-color colors"
   echo -e "      \e[1;32m-f\e[0m, \e[1;32m--foreground\e[0m Show in foreground colors"
   echo -e "      \e[1;32m-b\e[0m, \e[1;32m--background\e[0m Show in background colors"
@@ -152,6 +172,9 @@ while [[ $# -gt 0 ]]; do
       ;;
     -l|--legacy)
       __print_colors
+      exit ;;
+    -tc|--true-color)
+      __print_colors_true
       exit ;;
     -t|--table)
       __print_colors_table
