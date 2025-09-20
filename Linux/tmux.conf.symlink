@@ -2,17 +2,16 @@ set -g @plugin 'eendroroy/alien-tmux'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 set -g @plugin 'sainnhe/tmux-fzf'
 
-set-option -g default-shell "/bin/zsh"
-
 set -g status-interval 1
 set -g status on
 set -g status-justify left
 
-set -g @alien_colorscheme 'e_ink_dark'
+set -g @alien_colorscheme 'e_ink/dark'
 set -g @alien_time_format '%I:%M:%S %p'
 
 set -g default-terminal "tmux-256color"
 set -ag terminal-overrides ",xterm-256color:RGB"
+set -asg terminal-overrides ',*:sitm=\E[3m'
 
 set -g status-right-length 100
 set -g status-left-length 100
