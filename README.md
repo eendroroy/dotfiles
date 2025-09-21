@@ -2,6 +2,14 @@
  
 ## Installation
 
+### Using the installer
+
+```shell
+curl -s 'https://raw.githubusercontent.com/eendroroy/dotfiles/refs/heads/master/installer.sh' | bash
+```
+
+### Manually
+
 Clone the repo:
 
 ```bash
