@@ -6,21 +6,18 @@ function create_link() {
     local __link
     __link=$(readlink "${2}")
     if [[ "${3}" != "true" && -e "${2}" ]]; then
-        echo -e "$(printWarningMessage "Already exists. Skipping...")"
-        echo -e "$(printWarningMessageC "  Source: '${1}'")"
-        echo -e "$(printWarningMessageC "  Destination: '${2}']")"
+        echo -e "$(printWarningMessage "'${2}' already exists. Skipping...")"
+        echo -e "$(printWarningMessageC "      Source: '${1}'")"
     elif [[ "${3}" = "true" && -e "${2}" && "${__link}" != "${1}" ]]; then
-        echo -e "$(printNoticedMessage "Already exists. Replacing...")"
-        echo -e "$(printNoticedMessageC "  Source:          '${__link}'")"
-        echo -e "$(printNoticedMessageC "  Expected Source: '${1}'")"
-        echo -e "$(printNoticedMessageC "  Destination: '${2}']")"
+        echo -e "$(printNoticedMessage "'${2}' already exists. Replacing...")"
+        echo -e "$(printNoticedMessageC "      Source:          '${__link}'")"
+        echo -e "$(printNoticedMessageC "      Expected Source: '${1}'")"
         rm "${2}"
         echo "${2}" >> "${HOME}/.dotfiles_uninstall.txt"
         ln -s "${1}" "${2}"
     elif [[ "${3}" = "true" && -e "${2}" && "${__link}" = "${1}" ]]; then
-        echo -e "$(printWarningMessage "Already exists. Skipping...")"
-        echo -e "$(printWarningMessageC "  Source: '${1}'")"
-        echo -e "$(printWarningMessageC "  Destination: '${2}']")"
+        echo -e "$(printWarningMessage "'${2}' already exists. Skipping...")"
+        echo -e "$(printWarningMessageC "      Source: '${1}'")"
     else
         echo -e "$(printSecondaryMessage "['${1}' -> '${2}']")"
         echo "${2}" >> "${HOME}/.dotfiles_uninstall.txt"
@@ -32,19 +29,16 @@ function remove_link() {
     local __link
     __link=$(readlink "${2}")
     if [[ ! -e ${__link} ]]; then
-        echo -e "$(printWarningMessage "Does not exist. Skipping...")"
-        echo -e "$(printWarningMessageC "  Source: '${1}'")"
-        echo -e "$(printWarningMessageC "  Destination: '${2}']")"
+        echo -e "$(printWarningMessage "'${2}' does not exist. Skipping...")"
+        echo -e "$(printWarningMessageC "      Source: '${1}'")"
     elif [[ "${3}" != "true" && ${__link} != "${1}" ]]; then
-        echo -e "$(printWarningMessage "Exists from different source. Skipping...")"
+        echo -e "$(printWarningMessage "'${2}' exists from different source. Skipping...")"
         echo -e "$(printWarningMessageC "  Source:          '${__link}'")"
         echo -e "$(printWarningMessageC "  Expected Source: '${1}'")"
-        echo -e "$(printWarningMessageC "  Destination: '${2}']")"
     elif [[ "${3}" = "true" && ${__link} != "${1}" ]]; then
-        echo -e "$(printNoticedMessage "Exists from different source. Replacing...")"
+        echo -e "$(printNoticedMessage "'${2}' exists from different source. Replacing...")"
         echo -e "$(printNoticedMessageC "  Source:          '${__link}'")"
         echo -e "$(printNoticedMessageC "  Expected Source: '${1}'")"
-        echo -e "$(printNoticedMessageC "  Destination: '${2}']")"
         rm "${2}"
     else
         echo -e "$(printSecondaryMessage "Removing ['${__link}' -> '${2}'] ...")"

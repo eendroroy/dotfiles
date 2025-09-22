@@ -29,5 +29,9 @@ bash "${SCRIPT_LOCATION}/common/recipes/vim-plug.sh"
 bash "${SCRIPT_LOCATION}/common/recipes/sdkman.sh"
 bash "${SCRIPT_LOCATION}/common/recipes/tpm.sh"
 
+for recipe in "${SCRIPT_LOCATION}/common/post_install/"*.sh; do
+  bash "$recipe"
+done
+
 echo -e "$(printPrimaryMessage "Installation of dotfiles completed")"
 echo
