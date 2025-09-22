@@ -23,14 +23,21 @@ echo -e "$(printPrimaryMessage "Installing dotfiles")"
 
 
 __handle_links "install" ${__FORCE}
-bash "${SCRIPT_LOCATION}/common/recipes/asdf.sh"
-bash "${SCRIPT_LOCATION}/common/recipes/zplug.sh"
-bash "${SCRIPT_LOCATION}/common/recipes/vim-plug.sh"
-bash "${SCRIPT_LOCATION}/common/recipes/sdkman.sh"
-bash "${SCRIPT_LOCATION}/common/recipes/tpm.sh"
 
-for recipe in "${SCRIPT_LOCATION}/common/post_install/"*.sh; do
-  bash "$recipe"
+for dir in "common" "$(uname)"; do
+  if [ -d "${SCRIPT_LOCATION}/${dir}/recipes" ]; then
+    for recipe in "${SCRIPT_LOCATION}/${dir}/recipes/"*.sh; do
+      bash "$recipe"
+    done
+  fi
+done
+
+for dir in "common" "$(uname)"; do
+  if [ -d "${SCRIPT_LOCATION}/${dir}/post_install" ]; then
+    for post_install in "${SCRIPT_LOCATION}/${dir}/post_install/"*.sh; do
+      bash "$post_install"
+    done
+  fi
 done
 
 echo -e "$(printPrimaryMessage "Installation of dotfiles completed")"
