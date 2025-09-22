@@ -61,7 +61,7 @@ function __handle_links() {
     for prefix in "common" "$(uname)"; do
         echo -e "$(printPrimaryMessage "Installing from ${prefix} to ~/")"
         while IFS= read -r file; do
-            ${__command} "${file}" "${HOME}/.$(basename "${file}" '.symlink')" ${2}
+            ${__command} "${file}" "${HOME}/$(basename "${file}" '.symlink')" "${2}"
         done < <(find "${SCRIPT_LOCATION}/${prefix}" -name "*.symlink")
     done
 
@@ -74,13 +74,9 @@ function __handle_links() {
                   mkdir -p "${HOME}/${dir}"
               fi
               for linkable in "${SCRIPT_LOCATION}/${prefix}/${dir}"/*; do
-                  ${__command} "${linkable}" "${HOME}/${dir}/$( basename "${linkable}" )" ${2}
+                  ${__command} "${linkable}" "${HOME}/${dir}/$( basename "${linkable}" )" "${2}"
               done
           fi
         done
     done
-
-    if [[ "$(uname)" == "Darwin" ]]; then
-        ${__command} "${SCRIPT_LOCATION}/$(uname)/Brewfile" "${HOME}/Brewfile" ${2}
-    fi
 }
