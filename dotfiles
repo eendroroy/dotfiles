@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" && export SCRIPT_LOCATION
+
+for file in "${SCRIPT_LOCATION}/__functions/"*.sh; do
+  # shellcheck source=__functions/*.sh
+  source "${file}"
+done
+
+__INSTALL=false
+__UNINSTALL=false
+__LIST=false
+__VERBOSE=false
+__FORCE=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help)
+      __help
+      exit 0
+      ;;
+    -l|--list)
+      __LIST=true
+      ;;
+    -i|--install)
+      __INSTALL=true
+      ;;
+    -u|--uninstall)
+      __UNINSTALL=true
+      ;;
+    -v|--verbose)
+      __VERBOSE=true
+      ;;
+    -f|--force)
+      __FORCE=true
+      ;;
+    *)
+      ;;
+  esac
+  shift
+done
+
+if [[ "$__LIST" = "true" ]]; then
+    __list
+    exit 0
+elif [[ "$__INSTALL" = "true" ]]; then
+  rm "${HOME}/.dotfiles_uninstall.txt" 2>/dev/null
+
+  for item in "${SCRIPT_LOCATION}/__pre_dots/"*.sh; do
+    # shellcheck source=__pre_dots/*.sh
+    source "${item}"
+  done
+
+  __install_links
+
+  for item in "${SCRIPT_LOCATION}/__post_dots/"*.sh; do
+    # shellcheck source=__post_dots/*.sh
+    source "${item}"
+  done
+
+  exit 0
+elif [[ "$__UNINSTALL" = "true" ]]; then
+    __uninstall
+    exit 0
+else
+    __help
+    exit 1
+fi
