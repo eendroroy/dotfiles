@@ -18,11 +18,23 @@ cd ~/.dotfiles
 ./dotfiles -i
 ```
 
-## Uninstallation
+## Usage
 
-```bash
-cd ~/.dotfiles
-./dotfiles -u
+```shell
+./dotfiles -h
+```
+
+```text
+Usage: dotfiles [options]
+
+Options:
+  -h, --help          Show this help message and exit
+  -l, --list          List all managed dotfiles
+      -s, --status    Show installation status
+  -i, --install       Install dotfiles
+  -u, --uninstall     Uninstall dotfiles
+      -f, --force     Force while uninstalling dotfiles
+  -v, --verbose       Enable verbose output
 ```
 
 ## License

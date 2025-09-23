@@ -9,9 +9,10 @@ done
 
 __INSTALL=false
 __UNINSTALL=false
-__LIST=false
-__VERBOSE=false
 __FORCE=false
+__LIST=false
+__STATUS=false
+__VERBOSE=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -22,17 +23,20 @@ while [[ $# -gt 0 ]]; do
     -l|--list)
       __LIST=true
       ;;
+    -s|--status)
+      __STATUS=true
+      ;;
     -i|--install)
       __INSTALL=true
       ;;
     -u|--uninstall)
       __UNINSTALL=true
       ;;
-    -v|--verbose)
-      __VERBOSE=true
-      ;;
     -f|--force)
       __FORCE=true
+      ;;
+    -v|--verbose)
+      __VERBOSE=true
       ;;
     *)
       ;;
@@ -64,5 +68,5 @@ elif [[ "$__UNINSTALL" = "true" ]]; then
     exit 0
 else
     __help
-    exit 1
+    exit 0
 fi
