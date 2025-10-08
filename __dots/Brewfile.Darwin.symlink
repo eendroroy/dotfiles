@@ -4,6 +4,7 @@
 cask "alacritty"
 brew "bash"
 brew "bash-completion"
+brew "carapace"
 brew "gitmux"
 # cask "iterm2"
 brew "shellcheck"

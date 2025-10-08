@@ -17,3 +17,8 @@ fpath=(${ASDF_DATA_DIR:-${HOME}/.asdf}/completions $fpath)
 
 # Initialize the autocompletion
 autoload -Uz compinit && compinit -i
+
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
