@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+__CURRENT_DIR=$(pwd)
+__STDOUT_COLOR='\033[38;2;80;80;80m'
+__STDERR_COLOR='\033[38;2;99;80;80m'
+__NC='\033[0m'
+
+# Function to handle stdout
+handle_stdout() {
+  while IFS= read -r line; do
+    echo -e "${__STDOUT_COLOR}    I: $line ${__NC}"
+  done
+}
+
+# Function to handle stderr
+handle_stderr() {
+  while IFS= read -r line; do
+    echo -e "${__STDERR_COLOR}    E: ${line} ${__NC}" >&2
+  done
+}
+
+function list() {
+  while IFS= read -r -d '' dir
+  do
+    repo_dir=$(dirname "${dir}")
+    (cd "${repo_dir}" && echo -e "\e[38;5;2m($(git branch --show-current)) \e[38;5;4m${PWD#"${__CURRENT_DIR}/"}\e[m")
+  done < <(find . -name ".git" -type d -print0)
+}
+
+if [[ $# -gt 0 ]]; then
+  case "$1" in
+    help)
+      echo -e "\033[1;37mUsage:\033[0m \033[1;36mgitter\033[0m [command] [args]"
+      echo
+      echo -e "\033[1;37mCommands:\033[0m"
+      echo -e "  \033[1;32mhelp\033[0m                 Show this help menu"
+      echo -e "  \033[1;32mlist, -l\033[0m             List all git repos"
+      echo -e "  \033[1;32mall,  -a [cmd]\033[0m       Run git [cmd] in all repos"
+      echo -e "  \033[1;32mrepo, -r [dir] [cmd]\033[0m Run git [cmd] in [dir]"
+      exit 0
+      ;;
+    list|-l)
+      list
+      exit 0
+      ;;
+    all|-a)
+      shift
+      while IFS= read -r -d '' dir
+        do
+          repo_dir=$(dirname "${dir}")
+          echo -e "\e[38;5;2m(git $@)\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
+          (cd "${repo_dir}" && git "$@" 2> >(handle_stderr) | handle_stdout)
+        done < <(find . -name ".git" -type d -print0)
+      exit 0
+      ;;
+    repo|-r)
+      shift
+      repo_dir=${1}
+      shift
+      echo -e "\e[38;5;2m(git $@)\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
+      (cd "${repo_dir}" && git "$@" 2> >(handle_stderr) | handle_stdout)
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1"
+      exit 1
+      ;;
+  esac
+fi
