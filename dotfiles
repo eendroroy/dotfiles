@@ -50,15 +50,15 @@ if [[ "$__LIST" = "true" ]]; then
 elif [[ "$__INSTALL" = "true" ]]; then
   rm "${HOME}/.dotfiles_uninstall.txt" 2>/dev/null
 
-  for item in "${SCRIPT_LOCATION}/__pre_dots/"*.sh; do
-    # shellcheck source=__pre_dots/*.sh
+  for item in "${SCRIPT_LOCATION}/__before_dots/"*.sh; do
+    # shellcheck source=__before_dots/*.sh
     source "${item}"
   done
 
   __install_links
 
-  for item in "${SCRIPT_LOCATION}/__post_dots/"*.sh; do
-    # shellcheck source=__post_dots/*.sh
+  for item in "${SCRIPT_LOCATION}/__dots_after/"*.sh; do
+    # shellcheck source=__dots_after/*.sh
     source "${item}"
   done
 
