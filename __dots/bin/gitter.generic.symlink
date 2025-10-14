@@ -58,7 +58,7 @@ if [[ $# -gt 0 ]]; then
       repo_dir=${1}
       shift
       echo -e "\e[38;5;2m(git $@)\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
-      (cd "${repo_dir}" && git "$@" 2> >(handle_stderr) | handle_stdout)
+      (cd "${repo_dir}" && git "$@" 2> >(handle_stderr) 1> >(handle_stdout))
       exit 0
       ;;
     *)
