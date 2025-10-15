@@ -41,12 +41,30 @@ __help() {
   echo -e "  \e[32m repo, -r <directory> <command>\e[0m Run git <command> in <directory>"
 }
 
+function __accept_no_arg() {
+  case $1 in
+    '')
+      ;;
+    *)
+      echo
+      echo -e "\e[1;31mUnknown argument:\e[0m $1"
+      echo
+      __help
+      exit 1
+      ;;
+  esac
+}
+
 case "$1" in
   help)
+    shift
+    __accept_no_arg "${1}"
     __help
     exit 0
     ;;
   list)
+    shift
+    __accept_no_arg "${1}"
     __list
     exit 0
     ;;
