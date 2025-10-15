@@ -21,23 +21,24 @@ __list() {
   find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
     repo_dir=$(dirname "$dir")
     (cd "$repo_dir" && \
-      printf "\e[38;5;2m%s\e[m \e[33;5;2m%s\e[m \e[91;5;2m%s\e[m \e[33;5;2m%s\e[m\n" \
+      printf "\e[32m%s\e[m \e[33m%s\e[m \e[35m%s\e[m \e[33m%s\e[m \e[96m%s\e[m\n" \
         "$(git branch --show-current)" \
         "$(git log -1 --format="%h" --abbrev=8)" \
         "${PWD#"${__CURRENT_DIR}/"}" \
-        "$(git log -1 --format="%cr")"
+        "$(git log -1 --format="%cr")" \
+        "$(git log -1 --format="%ae")"
       )
   done
 }
 
 __help() {
-  echo -e "\e[1;37mUsage:\e[0m\e[1;36m gitter\e[0m [command] [args]"
+  echo -e "\e[37mUsage:\e[0m\e[36m gitter\e[0m [command] [args]"
   echo
-  echo -e "\e[1;37mCommands:\e[0m"
-  echo -e "  \e[1;32m help\e[0m                           Show this help menu"
-  echo -e "  \e[1;32m list\e[0m                           List all git repos"
-  echo -e "  \e[1;32m all,  -a <command>\e[0m             Run git <command> in all directories"
-  echo -e "  \e[1;32m repo, -r <directory> <command>\e[0m Run git <command> in <directory>"
+  echo -e "\e[37mCommands:\e[0m"
+  echo -e "  \e[32m help\e[0m                           Show this help menu"
+  echo -e "  \e[32m list\e[0m                           List all git repos"
+  echo -e "  \e[32m all,  -a <command>\e[0m             Run git <command> in all directories"
+  echo -e "  \e[32m repo, -r <directory> <command>\e[0m Run git <command> in <directory>"
 }
 
 case "$1" in
@@ -53,7 +54,7 @@ case "$1" in
     shift
     find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
       repo_dir=$(dirname "$dir")
-      echo -e "\e[38;5;2m(git $*)\e[m \e[31;5;2min\e[m \e[93;5;2m$repo_dir\e[m"
+      echo -e "\e[32m(git $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
       (cd "$repo_dir" && git "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
     done
     exit 0
@@ -63,7 +64,7 @@ case "$1" in
       shift
       repo_dir=$1
       shift
-      echo -e "\e[38;5;2m(git $*)\e[m \e[31;5;2min\e[m \e[93;5;2m$repo_dir\e[m"
+      echo -e "\e[32m(git $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
       (cd "$repo_dir" && git "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
       exit 0
     fi
@@ -71,7 +72,7 @@ case "$1" in
 esac
 
 echo
-echo -e "\e[91;5;2mInvalid usage.\e[m"
+echo -e "\e[91mInvalid usage.\e[m"
 echo
 __help
 exit 1
