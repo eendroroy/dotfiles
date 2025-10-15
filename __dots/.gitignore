@@ -1,4 +1,5 @@
 *
 !*/
+!**/completions.generic.symlink/*
 !.gitignore
 !**/*.symlink

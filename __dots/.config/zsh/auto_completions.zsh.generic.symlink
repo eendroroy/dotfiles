@@ -10,7 +10,6 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|?=** r:|?=**'
 
 export fpath=(/usr/local/share/zsh-completions $fpath)
-export fpath=(${HOME}/.local/share/zsh-completions $fpath)
 export fpath=(${HOME}/.config/zsh/completions $fpath)
 export fpath=(${HOME}/.docker/completions $fpath)
 export fpath=(${HOME}/.docker/completions $fpath)
