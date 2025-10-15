@@ -30,13 +30,13 @@ function list() {
 if [[ $# -gt 0 ]]; then
   case "$1" in
     help)
-      echo -e "\033[1;37mUsage:\033[0m \033[1;36mgitter\033[0m [command] [args]"
+      echo -e "\033[1;37mUsage:\033[0m\033[1;36m gitter\033[0m [command] [args]"
       echo
       echo -e "\033[1;37mCommands:\033[0m"
-      echo -e "  \033[1;32mhelp\033[0m                 Show this help menu"
-      echo -e "  \033[1;32mlist, -l\033[0m             List all git repos"
-      echo -e "  \033[1;32mall,  -a [cmd]\033[0m       Run git [cmd] in all repos"
-      echo -e "  \033[1;32mrepo, -r [dir] [cmd]\033[0m Run git [cmd] in [dir]"
+      echo -e "  \033[1;32m help\033[0m                           Show this help menu"
+      echo -e "  \033[1;32m list, -l\033[0m                       List all git repos"
+      echo -e "  \033[1;32m all,  -a <command>\033[0m             Run git <command> in all directories"
+      echo -e "  \033[1;32m repo, -r <directory> [command]\033[0m Run git <command> in <directory>"
       exit 0
       ;;
     list|-l)
@@ -48,7 +48,7 @@ if [[ $# -gt 0 ]]; then
       while IFS= read -r -d '' dir
         do
           repo_dir=$(dirname "${dir}")
-          echo -e "\e[38;5;2m(git $@)\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
+          echo -e "\e[38;5;2m(git ${*})\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
           (cd "${repo_dir}" && git "$@" 2> >(handle_stderr) | handle_stdout)
         done < <(find . -name ".git" -type d -print0)
       exit 0
@@ -57,8 +57,8 @@ if [[ $# -gt 0 ]]; then
       shift
       repo_dir=${1}
       shift
-      echo -e "\e[38;5;2m(git $@)\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
-      (cd "${repo_dir}" && git "$@" 2> >(handle_stderr) 1> >(handle_stdout))
+      echo -e "\e[38;5;2m(git ${*})\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
+      (cd "${repo_dir}" && git "${@}" 2> >(handle_stderr) 1> >(handle_stdout))
       exit 0
       ;;
     *)
