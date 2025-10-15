@@ -1,0 +1,17 @@
+#compdef print_colors
+
+_arguments -s \
+  '-h[Show help message]' \
+  '--help[Show help message]' \
+  '-l[Print ANSI color in old format]' \
+  '--legacy[Print ANSI color in old format]' \
+  '-t[Print ANSI color table]' \
+  '--table[Print ANSI color table]' \
+  '-tc[Print true colors]' \
+  '--true-color[Print true colors]' \
+  '-2[Print 256-color colors]' \
+  '--256[Print 256-color colors]' \
+  '-f[Show in foreground colors]' \
+  '--foreground[Show in foreground colors]' \
+  '-b[Show in background colors]' \
+  '--background[Show in background colors]'
