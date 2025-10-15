@@ -1,0 +1,16 @@
+#compdef show_loader
+
+local -a templates
+templates=(
+  '001' '002' '003' '004' '005' '006' '007' '008' '009' '010' '011' '012' '013' '014' '015' '016'
+)
+
+_arguments -s \
+  '-h[Show help message]' \
+  '--help[Show help message]' \
+  '-t[Use a predefined template for the loader animation]:template number:(${templates[@]})' \
+  '--template[Use a predefined template for the loader animation]:template number:(${templates[@]})' \
+  '-d[Custom string of characters to use for the loader animation]:data string:' \
+  '--data[Custom string of characters to use for the loader animation]:data string:' \
+  '-i[Set the interval (in seconds) between each character display]:interval (float):' \
+  '--interval[Set the interval (in seconds) between each character display]:interval (float):'
