@@ -1,69 +1,77 @@
 #!/usr/bin/env bash
 
 __CURRENT_DIR=$(pwd)
-__STDOUT_COLOR='\033[38;2;80;80;80m'
-__STDERR_COLOR='\033[38;2;99;80;80m'
-__NC='\033[0m'
+__STDOUT_COLOR='\e[38;2;80;80;80m'
+__STDERR_COLOR='\e[38;2;99;80;80m'
+__NC='\e[0m'
 
-# Function to handle stdout
-handle_stdout() {
+__handle_stdout() {
   while IFS= read -r line; do
     echo -e "${__STDOUT_COLOR}    I: $line ${__NC}"
   done
 }
 
-# Function to handle stderr
-handle_stderr() {
+__handle_stderr() {
   while IFS= read -r line; do
-    echo -e "${__STDERR_COLOR}    E: ${line} ${__NC}" >&2
+    echo -e "${__STDERR_COLOR}    E: $line ${__NC}" >&2
   done
 }
 
-function list() {
-  while IFS= read -r -d '' dir
-  do
-    repo_dir=$(dirname "${dir}")
-    (cd "${repo_dir}" && echo -e "\e[38;5;2m($(git branch --show-current)) \e[38;5;4m${PWD#"${__CURRENT_DIR}/"}\e[m")
-  done < <(find . -name ".git" -type d -print0)
+__list() {
+  find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
+    repo_dir=$(dirname "$dir")
+    (cd "$repo_dir" && \
+      printf "\e[38;5;2m%s\e[m \e[33;5;2m%s\e[m \e[91;5;2m%s\e[m \e[33;5;2m%s\e[m\n" \
+        "$(git branch --show-current)" \
+        "$(git log -1 --format="%h" --abbrev=8)" \
+        "${PWD#"${__CURRENT_DIR}/"}" \
+        "$(git log -1 --format="%cr")"
+      )
+  done
 }
 
-if [[ $# -gt 0 ]]; then
-  case "$1" in
-    help)
-      echo -e "\033[1;37mUsage:\033[0m\033[1;36m gitter\033[0m [command] [args]"
-      echo
-      echo -e "\033[1;37mCommands:\033[0m"
-      echo -e "  \033[1;32m help\033[0m                           Show this help menu"
-      echo -e "  \033[1;32m list, -l\033[0m                       List all git repos"
-      echo -e "  \033[1;32m all,  -a <command>\033[0m             Run git <command> in all directories"
-      echo -e "  \033[1;32m repo, -r <directory> [command]\033[0m Run git <command> in <directory>"
-      exit 0
-      ;;
-    list|-l)
-      list
-      exit 0
-      ;;
-    all|-a)
+__help() {
+  echo -e "\e[1;37mUsage:\e[0m\e[1;36m gitter\e[0m [command] [args]"
+  echo
+  echo -e "\e[1;37mCommands:\e[0m"
+  echo -e "  \e[1;32m help\e[0m                           Show this help menu"
+  echo -e "  \e[1;32m list\e[0m                           List all git repos"
+  echo -e "  \e[1;32m all,  -a <command>\e[0m             Run git <command> in all directories"
+  echo -e "  \e[1;32m repo, -r <directory> <command>\e[0m Run git <command> in <directory>"
+}
+
+case "$1" in
+  help)
+    __help
+    exit 0
+    ;;
+  list)
+    __list
+    exit 0
+    ;;
+  all|-a)
+    shift
+    find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
+      repo_dir=$(dirname "$dir")
+      echo -e "\e[38;5;2m(git $*)\e[m \e[31;5;2min\e[m \e[93;5;2m$repo_dir\e[m"
+      (cd "$repo_dir" && git "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
+    done
+    exit 0
+    ;;
+  repo|-r)
+    if [[ $# -ge 3 ]]; then
       shift
-      while IFS= read -r -d '' dir
-        do
-          repo_dir=$(dirname "${dir}")
-          echo -e "\e[38;5;2m(git ${*})\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
-          (cd "${repo_dir}" && git "$@" 2> >(handle_stderr) | handle_stdout)
-        done < <(find . -name ".git" -type d -print0)
-      exit 0
-      ;;
-    repo|-r)
+      repo_dir=$1
       shift
-      repo_dir=${1}
-      shift
-      echo -e "\e[38;5;2m(git ${*})\e[m \e[31;5;2min\e[m \e[93;5;2m${repo_dir}\e[m"
-      (cd "${repo_dir}" && git "${@}" 2> >(handle_stderr) 1> >(handle_stdout))
+      echo -e "\e[38;5;2m(git $*)\e[m \e[31;5;2min\e[m \e[93;5;2m$repo_dir\e[m"
+      (cd "$repo_dir" && git "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
       exit 0
-      ;;
-    *)
-      echo "Unknown argument: $1"
-      exit 1
-      ;;
-  esac
-fi
+    fi
+    ;;
+esac
+
+echo
+echo -e "\e[91;5;2mInvalid usage.\e[m"
+echo
+__help
+exit 1
