@@ -47,7 +47,7 @@ ANSI_COLORS=(
     "White (B)"   # 15
 )
 
-function __print_colors {
+function __print_colors_legacy {
   echo -e "|039| \033[39m  Default  \033[m |049| \033[49m  Default  \033[m |037| \033[37m  Light gray      \033[m |047| \033[47mLight gray     \033[m"
   echo -e "|030| \033[30m  Black    \033[m |040| \033[40m  Black    \033[m |090| \033[90m  Dark gray       \033[m |100| \033[100mDark gray      \033[m"
   echo -e "|031| \033[31m  Red      \033[m |041| \033[41m  Red      \033[m |091| \033[91m  Light red       \033[m |101| \033[101mLight red      \033[m"
@@ -206,6 +206,11 @@ while [[ $# -gt 0 ]]; do
       shift
       __accept_no_arg "${1}"
       __print_colors_table
+      exit ;;
+    -l|--legacy)
+      shift
+      __accept_no_arg "${1}"
+      __print_colors_legacy
       exit ;;
     *)
       __help
