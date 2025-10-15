@@ -143,12 +143,21 @@ function __help() {
   echo -e "      \e[1;32m-f\e[0m, \e[1;32m--foreground\e[0m Show in foreground colors"
   echo -e "      \e[1;32m-b\e[0m, \e[1;32m--background\e[0m Show in background colors"
   echo
-  echo -e "\e[1;33mExamples:\e[0m"
-  echo -e "  print_colors --table"
-  echo -e "  print_colors --256 --foreground"
-  echo
 }
 
+function __accept_no_arg() {
+  case $1 in
+    '')
+      ;;
+    *)
+      echo
+      echo -e "\e[1;31mUnknown argument:\e[0m $1"
+      echo
+      __help
+      exit 1
+      ;;
+  esac
+}
 
 _256=false
 FG=false
@@ -157,33 +166,51 @@ BG=true
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -h|--help)
+      shift
+      __accept_no_arg "${1}"
       __help
-      exit ;;
+      exit 0
+      ;;
     -2|--256)
       _256=true
+      shift
+      case $1 in
+        -f|--foreground)
+          FG=true
+          BG=false
+          ;;
+        -b|--background)
+          FG=false
+          BG=true
+          ;;
+        '')
+          FG=true
+          BG=false
+          ;;
+        *)
+          echo
+          echo -e "\e[1;31mUnknown argument:\e[0m $1"
+          echo
+          __help
+          exit 1
+          ;;
+        esac
+      __print_colors_256
       ;;
-    -f|--foreground)
-      FG=true
-      BG=false
-      ;;
-    -b|--background)
-      FG=false
-      BG=true
-      ;;
-    -l|--legacy)
-      __print_colors
-      exit ;;
     -tc|--true-color)
+      shift
+      __accept_no_arg "${1}"
       __print_colors_true
       exit ;;
     -t|--table)
+      shift
+      __accept_no_arg "${1}"
       __print_colors_table
       exit ;;
     *)
-      # Unknown option, ignore or handle as needed
+      __help
+      exit 0
       ;;
   esac
   shift
 done
-
-$_256 && __print_colors_256 || __help
