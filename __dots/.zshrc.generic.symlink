@@ -35,7 +35,6 @@ if [ -d ~/.zplug ]; then
   zplug "wfxr/forgit", defer:1
 
   zplug "eendroroy/zsh-autoenv-templates-installer", defer:1
-  zplug "eendroroy/zshPlugins", defer:1
   zplug "eendroroy/awesome-git", defer:1
 
   # THEME
@@ -50,7 +49,7 @@ if [ -d ~/.zplug ]; then
 fi
 
 export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
-export ZSH_COMMAND_TIME_COLOR="229"
+export ZSH_COMMAND_TIME_COLOR="3"
 
 export TMUX_POWERLINE_FLAG=on
 export TMUX_POWERLINE_COMPACT_OTHER=on
@@ -61,6 +60,16 @@ export AUTOENV_OUT_FILE='.env.out'
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=10000000
+
+# man colors
+export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
+export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
+export LESS_TERMCAP_me=$(printf '\e[0m')     # turn off all appearance modes (mb, md, so, us)
+export LESS_TERMCAP_se=$(printf '\e[0m')     # leave standout mode
+export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
+export LESS_TERMCAP_ue=$(printf '\e[0m')     # leave underline mode
+export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
+
 which nvim > /dev/null && export EDITOR='nvim'
 
 for config_file in $(ls -1 ~/.config/zsh); do
