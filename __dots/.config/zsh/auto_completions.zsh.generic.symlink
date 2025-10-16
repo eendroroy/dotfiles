@@ -1,5 +1,6 @@
 # Highlight the current autocomplete option
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' format $'\e[2;37mChose (%d) from below ...\e[m'
 
 # Better SSH/Rsync/SCP Autocomplete
 zstyle ':completion:*:(scp|rsync):*' tag-order ' hosts:-ipaddr:ip\ address hosts:-host:host files'
@@ -9,16 +10,13 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 # Allow for autocomplete to be case insensitive
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|?=** r:|?=**'
 
-export fpath=(/usr/local/share/zsh-completions $fpath)
-export fpath=(${HOME}/.config/zsh/completions $fpath)
-export fpath=(${HOME}/.docker/completions $fpath)
-export fpath=(${HOME}/.docker/completions $fpath)
-export fpath=(${ASDF_DATA_DIR:-${HOME}/.asdf}/completions $fpath)
+export fpath=("${fpath[@]}" "/usr/local/share/zsh-completions")
+export fpath=("${fpath[@]}" "${HOME}/.config/zsh/completions")
+export fpath=("${fpath[@]}" "${HOME}/.docker/completions")
+export fpath=("${fpath[@]}" "${ASDF_DATA_DIR:-${HOME}/.asdf}/completions")
 
 # Initialize the autocompletion
 autoload -Uz compinit && compinit -i
 
-export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-source <(carapace _carapace)
+# export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+# source <(carapace _carapace zsh)
