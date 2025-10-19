@@ -1,3 +1,5 @@
+which nvim > /dev/null && export EDITOR='nvim'
+
 # sdkman
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -14,3 +16,7 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # go
 export GOPATH="$HOME/gopath"
 export PATH="$GOPATH/bin:$PATH"
+
+which fasd > /dev/null && eval "$(fasd --init auto)"
+which thefuck > /dev/null && eval $(thefuck --alias)
+which zoxide > /dev/null && eval "$(zoxide init zsh)"

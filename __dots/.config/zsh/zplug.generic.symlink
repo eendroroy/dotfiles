@@ -1,0 +1,25 @@
+if [ -d "${HOME}/.zplug" ]; then
+  source "${HOME}/.zplug/init.zsh"
+
+  zplug "zdharma-continuum/fast-syntax-highlighting", defer:1
+  # zplug "zsh-users/zsh-syntax-highlighting"
+  zplug "zsh-users/zsh-completions", defer:1
+  zplug "zsh-users/zsh-autosuggestions", defer:1
+  zplug "changyuheng/zsh-interactive-cd", defer:1
+  zplug "zpm-zsh/autoenv", defer:1
+  zplug "popstas/zsh-command-time", defer:1
+  zplug "wfxr/forgit", defer:1
+
+  zplug "eendroroy/zsh-autoenv-templates-installer", defer:1
+  zplug "eendroroy/awesome-git", defer:1
+
+  # THEME
+  zplug "eendroroy/alien-minimal"
+  # zplug "/Users/indrajit/Documents/PROJECTS/TMP/eendroroy/alien-minimal", from:local, at:development
+
+  # Install plugins if there are plugins that have not been installed
+  if ! zplug check --verbose; then
+    zplug install
+  fi
+  zplug load
+fi

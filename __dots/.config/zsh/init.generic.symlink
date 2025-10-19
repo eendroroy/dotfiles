@@ -1,0 +1,29 @@
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+
+if [ -d ~/bin ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+setopt sharehistory
+setopt extendedhistory
+setopt histreduceblanks
+setopt histsavebycopy
+setopt hist_ignore_all_dups
+setopt appendhistory
+# setopt login
+setopt beep
+setopt autocd
+setopt autopushd
+setopt pushdtohome
+setopt pushdignoredups
+setopt pushdsilent
+setopt autolist
+setopt aliases
+# setopt printexitvalue
+setopt notify
+
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+

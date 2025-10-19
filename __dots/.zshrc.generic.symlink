@@ -1,79 +1,13 @@
-export PATH="/usr/local/bin:$PATH"
-
-setopt sharehistory
-setopt extendedhistory
-setopt histreduceblanks
-setopt histsavebycopy
-setopt hist_ignore_all_dups
-setopt appendhistory
-# setopt login
-setopt beep
-setopt autocd
-setopt autopushd
-setopt pushdtohome
-setopt pushdignoredups
-setopt pushdsilent
-setopt autolist
-setopt aliases
-# setopt printexitvalue
-setopt notify
-
-if [ -d ~/bin ]; then
-  export PATH="$HOME/bin:$PATH"
-fi
-
-if [ -d ~/.zplug ]; then
-  source ~/.zplug/init.zsh
-
-  zplug "zdharma-continuum/fast-syntax-highlighting", defer:1
-  # zplug "zsh-users/zsh-syntax-highlighting"
-  zplug "zsh-users/zsh-completions", defer:1
-  zplug "zsh-users/zsh-autosuggestions", defer:1
-  zplug "changyuheng/zsh-interactive-cd", defer:1
-  zplug "zpm-zsh/autoenv", defer:1
-  zplug "popstas/zsh-command-time", defer:1
-  zplug "wfxr/forgit", defer:1
-
-  zplug "eendroroy/zsh-autoenv-templates-installer", defer:1
-  zplug "eendroroy/awesome-git", defer:1
-
-  # THEME
-  zplug "eendroroy/alien-minimal"
-  # zplug "/Users/indrajit/Documents/PROJECTS/TMP/eendroroy/alien-minimal", from:local, at:development
-
-  # Install plugins if there are plugins that have not been installed
-  if ! zplug check --verbose; then
-    zplug install
-  fi
-  zplug load
-fi
+[[ -f "${HOME}/.config/zsh/init" ]] && source "${HOME}/.config/zsh/init"
+[[ -f "${HOME}/.config/zsh/zplug" ]] && source "${HOME}/.config/zsh/zplug"
 
 export ZSH_COMMAND_TIME_MSG="\nExecution time: %s sec"
 export ZSH_COMMAND_TIME_COLOR="3"
 
-export TMUX_POWERLINE_FLAG=on
-export TMUX_POWERLINE_COMPACT_OTHER=on
-
 export AUTOENV_IN_FILE='.env.in'
 export AUTOENV_OUT_FILE='.env.out'
 
-export HISTFILE=~/.zsh_history
-export HISTSIZE=10000000
-export SAVEHIST=10000000
-
-# man colors
-export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
-export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
-export LESS_TERMCAP_me=$(printf '\e[0m')     # turn off all appearance modes (mb, md, so, us)
-export LESS_TERMCAP_se=$(printf '\e[0m')     # leave standout mode
-export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
-export LESS_TERMCAP_ue=$(printf '\e[0m')     # leave underline mode
-export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
-
-which nvim > /dev/null && export EDITOR='nvim'
-
-for config_file in $(ls -1 ~/.config/zsh); do
-  source ~/.config/zsh/$config_file
+for config_file in "${HOME}"/.config/zsh/*.zsh; do
+  # shellcheck source=${HOME}/.config/zsh/*.zsh
+  source "${config_file}"
 done
-
-export PATH="/usr/local/sbin:$PATH"
