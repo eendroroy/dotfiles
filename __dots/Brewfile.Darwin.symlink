@@ -117,6 +117,5 @@ cask "gpg-suite"
 cask "veracrypt"
 
 # OTHERS
-# cask "intune-company-portal"
 cask "vlc"
 cask "whatsapp"
