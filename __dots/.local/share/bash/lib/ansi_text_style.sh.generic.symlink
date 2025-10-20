@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2028
+
+# ANSI Text Style Library
+# Provides functions to apply ANSI text styles in the terminal
+# Usage: source this file in your bash scripts
+# Example: source ${HOME}/.local/share/bash/lib/ansi_text_style.sh
+
+# Text style foreground colors
+function fg_black { echo "\033[30m"; }
+function fg_red { echo "\033[31m"; }
+function fg_green { echo "\033[32m"; }
+function fg_yellow { echo "\033[33m"; }
+function fg_blue { echo "\033[34m"; }
+function fg_magenta { echo "\033[35m"; }
+function fg_cyan { echo "\033[36m"; }
+function fg_white { echo "\033[37m"; }
+function fg_default { echo "\033[39m"; }
+function fg_bright_black { echo "\033[90m"; }
+function fg_bright_red { echo "\033[91m"; }
+function fg_bright_green { echo "\033[92m"; }
+function fg_bright_yellow { echo "\033[93m"; }
+function fg_bright_blue { echo "\033[94m"; }
+function fg_bright_magenta { echo "\033[95m"; }
+function fg_bright_cyan { echo "\033[96m"; }
+function fg_bright_white { echo "\033[97m"; }
+
+function bg_black { echo "\033[40m"; }
+function bg_red { echo "\033[41m"; }
+function bg_green { echo "\033[42m"; }
+function bg_yellow { echo "\033[43m"; }
+function bg_blue { echo "\033[44m"; }
+function bg_magenta { echo "\033[45m"; }
+function bg_cyan { echo "\033[46m"; }
+function bg_white { echo "\033[47m"; }
+function bg_default { echo "\033[49m"; }
+function bg_bright_black { echo "\033[100m"; }
+function bg_bright_red { echo "\033[101m"; }
+function bg_bright_green { echo "\033[102m"; }
+function bg_bright_yellow { echo "\033[103m"; }
+function bg_bright_blue { echo "\033[104m"; }
+function bg_bright_magenta { echo "\033[105m"; }
+function bg_bright_cyan { echo "\033[106m"; }
+function bg_bright_white { echo "\033[107m"; }
+
+function bg_256 { echo "\033[48;5;${1}m"; }
+function fg_256 { echo "\033[38;5;${1}m"; }
+
+function fg_rgb { echo "\033[38;2;${1};${2};${3}m"; }
+function bg_rgb { echo "\033[48;2;${1};${2};${3}m"; }
+
+function bold { echo "\033[1m"; }
+function dim { echo "\033[2m"; }
+function italic { echo "\033[3m"; }
+function underline { echo "\033[4m"; }
+function slow_blink { echo "\033[5m"; }
+function rapid_blink { echo "\033[6m"; }
+function inverse { echo "\033[7m"; }
+function hidden { echo "\033[8m"; }
+function strikethrough { echo "\033[9m"; }
+
+function reset_all { echo "\033[0m"; }
+function reset_bold { echo "\033[21m"; }
+function reset_dim { echo "\033[22m"; }
+function reset_italic { echo "\033[23m"; }
+function reset_underline { echo "\033[24m"; }
+function reset_blink { echo "\033[25m"; }
+function reset_inverse { echo "\033[27m"; }
+function reset_hidden { echo "\033[28m"; }
+function reset_strikethrough { echo "\033[29m"; }
+
+function clear_line { echo "\033[2K"; }
+function clear_screen { echo "\033[2J"; }
+function move_cursor_up { echo "\033[${1}A"; }
+function move_cursor_down { echo "\033[${1}B"; }
+function move_cursor_forward { echo "\033[${1}C"; }
+function move_cursor_backward { echo "\033[${1}D"; }
+function move_cursor_to_column { echo "\033[${1}G"; }
+function move_cursor_to_position { echo "\033[${1};${2}H"; }
+function save_cursor_position { echo "\033[s"; }
+function restore_cursor_position { echo "\033[u"; }
+function hide_cursor { echo "\033[?25l"; }
+function show_cursor { echo "\033[?25h"; }
+
+function demonstrate() {
+  print_sample() {
+    local name="$1"
+    local seq="$2"
+    local text="${3:-The quick brown fox jumpped over the lazy dog.}"
+    printf "%-22s %b%s%b\n" "$name" "$seq" "$text" "$(reset_all)"
+  }
+
+  echo "=== Foreground colors ==="
+  for name in fg_black fg_red fg_green fg_yellow fg_blue fg_magenta fg_cyan fg_white fg_default \
+              fg_bright_black fg_bright_red fg_bright_green fg_bright_yellow fg_bright_blue fg_bright_magenta fg_bright_cyan fg_bright_white; do
+    print_sample "$name" "$($name)"
+  done
+
+  echo
+  echo "=== Background colors ==="
+  for name in bg_black bg_red bg_green bg_yellow bg_blue bg_magenta bg_cyan bg_white bg_default \
+              bg_bright_black bg_bright_red bg_bright_green bg_bright_yellow bg_bright_blue bg_bright_magenta bg_bright_cyan bg_bright_white; do
+    print_sample "$name" "$($name)" "Background"
+  done
+
+  echo
+  echo "=== 256-color examples ==="
+  print_sample "fg_256 196" "$(fg_256 196)" "Red-ish (196)"
+  print_sample "bg_256  22" "$(bg_256 22)" "Green-ish (22)"
+  print_sample "fg_256  21" "$(fg_256 21)" "Blue-ish (21)"
+  print_sample "bg_256 130" "$(bg_256 130)" "Orange-ish (130)"
+  print_sample "fg_256 201" "$(fg_256 201)" "Pink-ish (201)"
+  print_sample "bg_256  45" "$(bg_256 45)" "Cyan-ish (45)"
+  print_sample "fg_256 240" "$(fg_256 240)" "Gray-ish (240)"
+  print_sample "bg_256  16" "$(bg_256 16)" "Black (16)"
+  print_sample "fg_256 231" "$(fg_256 231)" "White (231)"
+
+  echo
+  echo "=== RGB examples ==="
+  print_sample "fg_rgb 255 100   0" "$(fg_rgb 255 100 0)" "Orange-ish"
+  print_sample "bg_rgb  20  20  80" "$(bg_rgb 20 20 80)" "Dark blue background"
+  print_sample "fg_rgb 128   0 128" "$(fg_rgb 128 0 128)" "Purple text"
+  print_sample "bg_rgb 200 200   0" "$(bg_rgb 200 200 0)" "Yellow background"
+  print_sample "fg_rgb   0 128 128" "$(fg_rgb 0 128 128)" "Teal text"
+  print_sample "bg_rgb 255 192 203" "$(bg_rgb 255 192 203)" "Pink background"
+  print_sample "fg_rgb   0   0   0" "$(fg_rgb 0 0 0)" "Black text"
+  print_sample "bg_rgb 255 255 255" "$(bg_rgb 255 255 255)" "White background"
+  print_sample "fg_rgb 255   0 255" "$(fg_rgb 255 0 255)" "Magenta text"
+
+  echo
+  echo "=== Text styles ==="
+  for name in bold dim italic underline slow_blink rapid_blink inverse hidden strikethrough; do
+    print_sample "$name" "$($name)" "Styled text"
+  done
+
+  echo
+  echo "=== Reset helpers ==="
+  printf "%-22s %b%s%b\n" "reset_all" "$(reset_all)" "Reset applied" ""
+  printf "%-22s %b%s%b\n" "reset_bold" "$(reset_bold)" "Reset bold" "$(reset_all)"
+
+  echo
+  echo "Demo complete."
+}
