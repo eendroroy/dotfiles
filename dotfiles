@@ -2,6 +2,8 @@
 
 SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" && export SCRIPT_LOCATION
 
+source "${SCRIPT_LOCATION}/__dots/.local/share/bash/lib/ansi_text_style.sh.generic.symlink"
+
 for file in "${SCRIPT_LOCATION}/__functions/"*.sh; do
   # shellcheck source=__functions/*.sh
   source "${file}"
