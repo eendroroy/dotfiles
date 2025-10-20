@@ -5,7 +5,7 @@ git clone https://github.com/asdf-vm/asdf.git ${HOME}/.asdf
 "
 
 if [[ -f "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf" ]]; then
-  ${__VERBOSE} && __m_warning "asdf completions already exists. Skipping..."
+  ${__VERBOSE} && __m_warning "Skipping : asdf completions already exists"
 else
   __m_secondary "Installing asdf completions"
   mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"

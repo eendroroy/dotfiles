@@ -2,12 +2,12 @@
 
 function __install_from_git() {
   if [[ -e ${HOME}/${2} ]]; then
-    ${__VERBOSE} && echo -e "$(__m_warning "${1} already installed. Skipping...")"
+    ${__VERBOSE} && __m_warning "Skipping : ${1} already installed"
   else
-    echo -e "$(__m_primary "Installing ${1}...")"
+    __m_primary "Installing ${1}..."
     mkdir -p "${HOME}/${2}"
     eval "${3}"
-    echo -e "$(__m_secondary "${1} installed.")"
+    __m_secondary "${1} installed"
   fi
 }
 
@@ -17,7 +17,7 @@ function __install_links() {
     do
       __destination="${HOME}/$(echo "${item}" | sed "s|${SCRIPT_LOCATION}/__dots/||;s|.${type}.symlink||")"
       if [ -e "${__destination}" ] || [ -L "${__destination}" ]; then
-        ${__VERBOSE} && __m_warning "Skipping existing file: ${__destination}"
+        ${__VERBOSE} && __m_warning "Skipping : ${__destination}"
       else
         mkdir -p "$(dirname "${__destination}")"
         ln -s "${item}" "${__destination}"
