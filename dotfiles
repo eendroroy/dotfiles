@@ -44,23 +44,21 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
+function __source_all_from_directory() {
+  # shellcheck disable=SC1090
+  while IFS= read -r item; do  source "${item}"; done < \
+    <(find "${SCRIPT_LOCATION}/${1}/" \( -name "*.generic.sh" -o -name "*.$(uname).sh" \) -type f)
+}
+
 if [[ "$__LIST" = "true" ]]; then
     __list
     exit 0
 elif [[ "$__INSTALL" = "true" ]]; then
   rm "${HOME}/.dotfiles_uninstall.txt" 2>/dev/null
 
-  for item in "${SCRIPT_LOCATION}/__before_dots/"*.sh; do
-    # shellcheck source=__before_dots/*.sh
-    source "${item}"
-  done
-
+  __source_all_from_directory "__before_dots"
   __install_links
-
-  for item in "${SCRIPT_LOCATION}/__dots_after/"*.sh; do
-    # shellcheck source=__dots_after/*.sh
-    source "${item}"
-  done
+  __source_all_from_directory "__dots_after"
 
   exit 0
 elif [[ "$__UNINSTALL" = "true" ]]; then
