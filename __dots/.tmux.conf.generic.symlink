@@ -9,6 +9,7 @@ set -g status-justify left
 set -g @alien_colorscheme 'e_ink/dark'
 set -g @alien_time_format '%I:%M:%S %p'
 set -g @alien_gitmux_enabled 1
+set -g @alien_gitmux_clean_symbol "󰘾"
 
 set -g default-terminal "tmux-256color"
 set -ag terminal-overrides ",xterm-256color:RGB"
