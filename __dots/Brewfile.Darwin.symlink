@@ -51,7 +51,7 @@ brew "ncdu"
 cask "android-platform-tools"
 brew "asciinema"
 brew "direnv"
-cask "espanso"
+# cask "espanso"
 brew "eza"
 brew "f3" # f3 is a tool to test the real capacity of USB flash drives
 brew "fzf"
