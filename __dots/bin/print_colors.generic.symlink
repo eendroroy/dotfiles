@@ -15,38 +15,6 @@ values=(
   "154 155 156 157 158 159 190 191 192 193 194 195 226 227 228 229 230 231"
 )
 
-BACKGROUND=48
-FOREGROUND=38
-RESET=0
-BOLD=1
-THIN=2
-ITALIC=3
-UNDERLINE=4
-SLOW_BLINK=5
-RAPID_BLINK=6
-INVERSE=7
-HIDDEN=8
-STRIKETHROW=9
-
-ANSI_COLORS=(
-    "Black"       # 0
-    "Red"         # 1
-    "Green"       # 2
-    "Yellow"      # 3
-    "Blue"        # 4
-    "Magenta"     # 5
-    "Cyan"        # 6
-    "White"       # 7
-    "Black (B)"   # 8
-    "Red (B)"     # 9
-    "Green (B)"   # 10
-    "Yellow (B)"  # 11
-    "Blue (B)"    # 12
-    "Magenta (B)" # 13
-    "Cyan (B)"    # 14
-    "White (B)"   # 15
-)
-
 function __print_colors_legacy {
   echo -e "|039| \033[39m  Default  \033[m |049| \033[49m  Default  \033[m |037| \033[37m  Light gray      \033[m |047| \033[47mLight gray     \033[m"
   echo -e "|030| \033[30m  Black    \033[m |040| \033[40m  Black    \033[m |090| \033[90m  Dark gray       \033[m |100| \033[100mDark gray      \033[m"
@@ -113,36 +81,73 @@ function __print_colors_256 {
   echo
 }
 
-function __print_colors_table {
-  printf "\e[${RESET};${FOREGROUND};5;8m┌────┬───────────────┬─────────────┬─────────────┬─────────────┐\n\e[0m"
-  printf "\e[${RESET};${FOREGROUND};5;8m│CODE│            FG │     FG-BOLD │          BG │     BG-BOLD │\n\e[0m"
-  printf "\e[${RESET};${FOREGROUND};5;8m├────┼───────────────┼─────────────┼─────────────┼─────────────┤\n\e[0m"
+__print_colors_table() {
+  local names=("Black" "Red" "Green" "Yellow" "Blue" "Magenta" "Cyan" "White")
 
-  for i in {0..15} ; do
-    printf "\e[${RESET};${FOREGROUND};5;8m│%3d │  \e[0m" "$i"
-    printf " \e[${RESET};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│" "$i" "${ANSI_COLORS[i]}"
-    printf " \e[${BOLD};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│" "$i" "${ANSI_COLORS[i]}"
-    printf " \e[${INVERSE};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│"  "$i" "${ANSI_COLORS[i]}"
-    printf " \e[${BOLD};${INVERSE};${FOREGROUND};5;%sm%11s\e[0m \e[${RESET};${FOREGROUND};5;8m│"  "$i" "${ANSI_COLORS[i]}"
-    echo
-  done
-  printf "\e[${RESET};${FOREGROUND};5;8m└────┴───────────────┴─────────────┴─────────────┴─────────────┘\n\e[0m"
+  if [[ ${1} == 1 ]]; then
+    printf "\e[38;5;8m     ╭───────────────────────────────────────────────────────────────────────────────────────────╮\e[0m\n"
+    for i in {0..7}; do
+      local bright=$((i + 8))
+      printf "\e[38;5;8m%7s \e[0m" "${names[i]}"
+      printf "\e[2;38;5;%sm%-15s\e[0m" "$i" "\e[2;38;5;${i}m"
+      printf "\e[38;5;%sm%-13s\e[0m" "$i" "\e[38;5;${i}m"
+      printf "\e[38;5;%sm%-14s\e[0m" "$bright" "\e[38;5;${bright}m"
+      printf "\e[2;7;38;5;%sm%-16s\e[0m " "$i" "\e[2;7;38;5;${i}m"
+      printf "\e[7;38;5;%sm%-14s\e[0m " "$i" "\e[7;38;5;${i}m"
+      printf "\e[7;38;5;%sm%-15s\e[0m" "$bright" "\e[7;38;5;${bright}m"
+      printf "\e[38;5;8m│\e[0m\n"
 
+      printf "\e[1;38;5;8m%7s \e[0m" "${names[i]}"
+      printf "\e[1;2;38;5;%sm%-15s\e[0m" "$i" "\e[1;2;38;5;${i}m"
+      printf "\e[1;38;5;%sm%-13s\e[0m" "$i" "\e[1;38;5;${i}m"
+      printf "\e[1;38;5;%sm%-14s\e[0m" "$bright" "\e[1;38;5;${bright}m"
+      printf "\e[1;2;7;38;5;%sm%-16s\e[0m " "$i" "\e[1;2;7;38;5;${i}m"
+      printf "\e[1;7;38;5;%sm%-14s\e[0m " "$i" "\e[1;7;38;5;${i}m"
+      printf "\e[1;7;38;5;%sm%-15s\e[0m" "$bright" "\e[1;7;38;5;${bright}m"
+      printf "\e[1;38;5;8m│\e[0m\n"
+    done
+    printf "\e[38;5;8m     ╰───────────────────────────────────────────────────────────────────────────────────────────╯\e[0m\n"
+  else
+    printf "\e[38;5;8m     ╭──────────────────────────────────────╮\e[0m\n"
+    for i in {0..7}; do
+      local bright=$((i + 8))
+      printf "\e[38;5;8m%7s \e[0m" "${names[i]}"
+      printf "\e[2;38;5;%smDim\e[0m " "$i"
+      printf "\e[38;5;%smNormal\e[0m " "$i"
+      printf "\e[38;5;%smBright \e[0m" "$bright"
+      printf "\e[2;7;38;5;%smDim\e[0m " "$i"
+      printf "\e[7;38;5;%smNormal\e[0m " "$i"
+      printf "\e[7;38;5;%smBright\e[0m" "$bright"
+      printf "\e[38;5;8m │\e[0m\n"
+
+      printf "\e[1;38;5;8m%7s \e[0m" "${names[i]}"
+      printf "\e[1;2;38;5;%smDim\e[0m " "$i"
+      printf "\e[1;38;5;%smNormal\e[0m " "$i"
+      printf "\e[1;38;5;%smBright \e[0m" "$bright"
+      printf "\e[1;2;7;38;5;%smDim\e[0m " "$i"
+      printf "\e[1;7;38;5;%smNormal\e[0m " "$i"
+      printf "\e[1;7;38;5;%smBright\e[0m" "$bright"
+      printf "\e[1;38;5;8m │\e[0m\n"
+    done
+    printf "\e[38;5;8m     ╰──────────────────────────────────────╯\e[0m\n"
+  fi
 }
 
+
 function __help() {
-  echo
-  echo -e "\e[1;36mUsage:\e[0m print_colors [OPTIONS]"
-  echo
-  echo -e "\e[1;33mOptions:\e[0m"
-  echo -e "  \e[1;32m-h\e[0m, \e[1;32m--help\e[0m           Show this help message"
-  echo -e "  \e[1;32m-l\e[0m, \e[1;32m--legacy\e[0m         Print ANSI color in old format"
-  echo -e "  \e[1;32m-t\e[0m, \e[1;32m--table\e[0m          Print ANSI color table"
-  echo -e "  \e[1;32m-tc\e[0m, \e[1;32m--true-color\e[0m    Print true colors"
-  echo -e "  \e[1;32m-2\e[0m, \e[1;32m--256\e[0m            Print 256-color colors"
-  echo -e "      \e[1;32m-f\e[0m, \e[1;32m--foreground\e[0m Show in foreground colors"
-  echo -e "      \e[1;32m-b\e[0m, \e[1;32m--background\e[0m Show in background colors"
-  echo
+echo
+echo -e "\e[1;36mUsage:\e[0m print_colors [OPTIONS]"
+echo
+echo -e "\e[1;33mOptions:\e[0m"
+echo -e "  \e[1;32m-h\e[0m, \e[1;32m--help\e[0m            Show this help message"
+echo -e "  \e[1;32m-l\e[0m, \e[1;32m--legacy\e[0m          Print ANSI colors in legacy format"
+echo -e "  \e[1;32m-t\e[0m, \e[1;32m--table\e[0m           Print ANSI color table"
+echo -e "      \e[1;32m-c\e[0m, \e[1;32m--code\e[0m        Show table with color codes"
+echo -e "  \e[1;32m-tc\e[0m, \e[1;32m--true-color\e[0m     Print true color gradient"
+echo -e "  \e[1;32m-2\e[0m, \e[1;32m--256\e[0m             Print 256-color palette"
+echo -e "      \e[1;32m-f\e[0m, \e[1;32m--foreground\e[0m  Show in foreground colors"
+echo -e "      \e[1;32m-b\e[0m, \e[1;32m--background\e[0m  Show in background colors"
+echo
 }
 
 function __accept_no_arg() {
@@ -160,8 +165,8 @@ function __accept_no_arg() {
 }
 
 _256=false
-FG=false
-BG=true
+FG=true
+BG=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -204,8 +209,21 @@ while [[ $# -gt 0 ]]; do
       exit ;;
     -t|--table)
       shift
-      __accept_no_arg "${1}"
-      __print_colors_table
+      case $1 in
+        -c|--code)
+          __print_colors_table 1
+          ;;
+        '')
+          __print_colors_table 0
+          ;;
+        *)
+          echo
+          echo -e "\e[1;31mUnknown argument:\e[0m $1"
+          echo
+          __help
+          exit 1
+          ;;
+      esac
       exit ;;
     -l|--legacy)
       shift

@@ -1,17 +1,13 @@
 #compdef print_colors
 
-_arguments -s \
+_arguments \
   '-h[Show help message]' \
   '--help[Show help message]' \
-  '-l[Print ANSI color in old format]' \
-  '--legacy[Print ANSI color in old format]' \
-  '-t[Print ANSI color table]' \
-  '--table[Print ANSI color table]' \
-  '-tc[Print true colors]' \
-  '--true-color[Print true colors]' \
-  '-2[Print 256-color colors]' \
-  '--256[Print 256-color colors]' \
-  '-f[Show in foreground colors]' \
-  '--foreground[Show in foreground colors]' \
-  '-b[Show in background colors]' \
-  '--background[Show in background colors]'
+  '-l[Print ANSI colors in legacy format]' \
+  '--legacy[Print ANSI colors in legacy format]' \
+  '-t[Print ANSI color table]: :(( -c\:"Show table with color codes" --code\:"Show table with color codes" ))' \
+  '--table[Print ANSI color table]: :(( -c\:"Show table with color codes" --code\:"Show table with color codes" ))' \
+  '-tc[Print true color gradient]' \
+  '--true-color[Print true color gradient]' \
+  '-2[Print 256-color palette]: :(( -f\:"Show in foreground colors" --foreground\:"Show in foreground colors" -b\:"Show in background colors" --background\:"Show in background colors" ))' \
+  '--256[Print 256-color palette]: :(( -f\:"Show in foreground colors" --foreground\:"Show in foreground colors" -b\:"Show in background colors" --background\:"Show in background colors" ))'
