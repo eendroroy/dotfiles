@@ -4,13 +4,20 @@
     signingkey = 7D65308546343630
 [github]
     user = eendroroy
-[alias]
-    lg = log --graph --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
-    ls = log --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
-[push]
-    default = simple
 [core]
     excludesfile = ~/.gitignore_global
+[http]
+	sslVerify = true
+[init]
+	defaultBranch = master
+[branch]
+    sort = committerdate
+[log]
+    date = iso
+[push]
+    default = simple
+[pull]
+    ff = only
 [commit]
     template = ~/.stCommitMsg
     gpgsign = true
@@ -18,10 +25,8 @@
     enabled = true
 [credential]
     helper = store
-[filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-[init]
-	defaultBranch = master
+[help]
+    autoCorrect = prompt
+[alias]
+    lg = log --graph --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
+    ls = log --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
