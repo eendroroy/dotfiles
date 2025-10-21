@@ -1,0 +1,30 @@
+#compdef unicode
+
+_unicode() {
+  local -a opts
+  opts=(
+    '--all[Print all unicode characters from U+0000 to U+FFFF]'
+    '--box[Box drawing unicode characters from U+2500 to U+257F]'
+    '--block[Block elements from U+2580 to U+259F]'
+    '--dingbat[Dingbat symbols from U+2700 to U+27BF]'
+    '--arrow[Arrow symbols from U+2190 to U+21FF, U+27F0 to U+27FF, U+2900 to U+297F]'
+    '--currency[Currency symbols from U+20A0 to U+20CF]'
+    '--math[Math symbols from U+2980 to U+29FF, U+2A80 to U+2AFF]'
+    '--misc[Miscellaneous symbols from U+2600 to U+26FF, U+2B00 to U+2BFF]'
+    '--braille[Braille patterns from U+2800 to U+28FF]'
+    '--modifier[Modifier letters from U+A700 to U+A71F]'
+    '--map[Map symbols from U+1F680 to U+1F6FF]'
+    '--alchemy[Alchemical symbols from U+1F700 to U+1F77F]'
+    '--encircled[Encircled numbers and letters from U+2460 to U+24FF]'
+    '--hexagram[Hexagram symbols from U+4DC0 to U+4DFF]'
+    '--range[Print unicode characters from codepoint S to E]'
+    '--help[Show help message]'
+  )
+  if (( $words[(I)--range] )); then
+    _arguments "${opts[@]}" '*:unicode: '
+  else
+    _arguments "${opts[@]}"
+  fi
+}
+
+_unicode "$@"

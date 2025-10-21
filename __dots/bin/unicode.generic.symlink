@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+export LANG=en_US.UTF-8
+
+__print() {
+  start=$((($1/16)*16))
+  end=$((($2/16)*16+15))
+
+  echo "             0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F"
+  [[ ${3} ]] && echo
+  for ((i=start; i<=end; i++)); do
+    escape_sequence=$(printf "\\\U%08x" "$i")
+    if (( (i + 1 - start) % 16 == 1 )); then
+      printf "%s_   " "${escape_sequence:0:-1}"
+    fi
+    printf "%b  " "$escape_sequence"
+    if (( (i + 1 - start) % 16 == 0 )); then
+      echo
+      [[ ${3} ]] && echo
+    fi
+  done
+  echo
+}
+
+
+__help() {
+  echo
+  echo -e "\033[1mUsage:\033[0m unicode [option]"
+  echo
+  echo -e "\033[1mOptions:\033[0m"
+  echo -e "  \033[32m--all\033[0m                Print all unicode characters from U+0000 to U+FFFF"
+  echo -e "  \033[32m--box\033[0m                Print box drawing unicode characters from U+2500 to U+257F"
+  echo -e "  \033[32m--block\033[0m              Print block elements from U+2580 to U+259F"
+  echo -e "  \033[32m--dingbat\033[0m            Print dingbat symbols from U+2700 to U+27BF"
+  echo -e "  \033[32m--arrow\033[0m              Print arrow symbols from U+2190 to U+21FF, U+27F0 to U+27FF, U+2900 to U+297F"
+  echo -e "  \033[32m--currency\033[0m           Print currency symbols from U+20A0 to U+20CF"
+  echo -e "  \033[32m--math\033[0m               Print math symbols from U+2980 to U+29FF, U+2A80 to U+2AFF"
+  echo -e "  \033[32m--misc\033[0m               Print miscellaneous symbols from U+2600 to U+26FF, U+2B00 to U+2BFF"
+  echo -e "  \033[32m--braille\033[0m            Print braille patterns from U+2800 to U+28FF"
+  echo -e "  \033[32m--modifier\033[0m           Print modifier letters from U+A700 to U+A71F"
+  echo -e "  \033[32m--map\033[0m                Print map symbols from U+1F680 to U+1F6FF"
+  echo -e "  \033[32m--alchemy\033[0m            Print alchemical symbols from U+1F700 to U+1F77F"
+  echo -e "  \033[32m--encircled\033[0m          Print encircled numbers and letters from U+2460 to U+24FF"
+  echo -e "  \033[32m--hexagram\033[0m           Print hexagram symbols from U+4DC0 to U+4DFF"
+  echo -e "  \033[32m--range    <S> <E>\033[0m   Print unicode characters from codepoint <S> to <E>"
+  echo -e "  \033[32m--help\033[0m               Show this help message"
+  echo
+}
+
+case "$1" in
+  --all)
+    __print $((0x0000)) $((0xFFFF))
+    exit 0 ;;
+  --box)
+    __print $((0x2500)) $((0x257F)) true
+    exit 0 ;;
+  --block)
+    __print $((0x2580)) $((0x259F)) true
+    exit 0 ;;
+  --dingbat)
+    __print $((0x2700)) $((0x27BF))
+    exit 0 ;;
+  --arrow)
+    __print $((0x2190)) $((0x21FF))
+    __print $((0x27F0)) $((0x27FF))
+    __print $((0x2900)) $((0x297F))
+    exit 0 ;;
+  --currency)
+    __print $((0x20A0)) $((0x20CF))
+    exit 0 ;;
+  --math)
+    __print $((0x2980)) $((0x29FF))
+    __print $((0x2A80)) $((0x2AFF))
+    exit 0 ;;
+  --misc)
+    __print $((0x2600)) $((0x26FF))
+    __print $((0x2B00)) $((0x2BFF))
+    exit 0 ;;
+  --braille)
+    __print $((0x2800)) $((0x28FF))
+    exit 0 ;;
+  --modifier)
+    __print $((0xA700)) $((0xA71F))
+    exit 0 ;;
+  --map)
+    __print $((0x1F680)) $((0x1F6FF))
+    exit 0 ;;
+  --alchemy)
+    __print $((0x1F700)) $((0x1F77F))
+    exit 0 ;;
+  --encircled)
+    __print $((0x2460)) $((0x24FF))
+    exit 0 ;;
+  --hexagram)
+    __print $((0x4DC0)) $((0x4DFF))
+    exit 0 ;;
+  --range)
+    shift
+    start=$1
+    shift
+    end=$1
+    __print "${start}" "${end}"
+    exit 0 ;;
+  help|--help|-h)
+    __help
+    exit 0 ;;
+  *)
+    echo "Unknown option: $1"
+    echo "Use 'unicode help' to see available options."
+    exit 1 ;;
+esac
