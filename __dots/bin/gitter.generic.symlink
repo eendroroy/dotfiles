@@ -24,7 +24,7 @@ __list() {
         "${PWD#"${__CURRENT_DIR}/"}" \
         "$(git log -1 --format="%cr")" \
         "$(git log -1 --format="%ae")"
-      )
+    )
   done
 }
 
@@ -32,53 +32,45 @@ __help() {
   echo -e "\e[37mUsage:\e[0m\e[38;5;2m gitter\e[0m \e[38;5;3m[command]\e[0m \e[38;5;6m[args]\e[0m"
   echo
   echo -e "\e[37mCommands:\e[0m"
-  echo -e "  \e[38;5;3m          help\e[0m                           \e[2mShow this help menu\e[m"
-  echo -e "  \e[38;5;3m          list\e[0m                           \e[2mList all git repos\e[m"
-  echo -e "  \e[38;5;3m          all,  -a <command>\e[0m             \e[2mRun git <command> in all directories\e[m"
-  echo -e "  \e[38;5;3m          repo, -r <directory> <command>\e[0m \e[2mRun git <command> in <directory>\e[m"
-  echo -e " \e[2;38;5;3m[all|repo]\e[m \e[38;5;6mexec, -e <command>\e[0m             \e[2mRun exec <command>\e[m"
-  echo -e "                                           \e[2;38;5;3mall\e[m \e[2min all directories\e[m"
-  echo -e "                                           \e[2;38;5;3mall\e[m \e[2min <directory>\e[m"
+  echo -e "  \e[38;5;3mhelp\e[0m                           \e[2mShow this help menu\e[m"
+  echo -e "  \e[38;5;3mlist\e[0m                           \e[2mList all git repos\e[m"
+  echo -e "  \e[38;5;3mall, -a <command>\e[0m             \e[2mRun git <command> in all directories\e[m"
+  echo -e "  \e[38;5;3mrepo, -r <directory> <command>\e[0m \e[2mRun git <command> in <directory>\e[m"
+  echo -e "  [all|repo] exec, -e <command>\e[0m           \e[2mRun exec <command>\e[m"
+  echo -e "                                           all in all directories"
+  echo -e "                                           all in <directory>"
 }
 
-function __accept_no_arg() {
-  case $1 in
-    '')
-      ;;
-    *)
-      echo
-      echo -e "\e[1;31mUnknown argument:\e[0m $1"
-      echo
-      __help
-      exit 1
-      ;;
-  esac
+__accept_no_arg() {
+  if [[ -n $1 ]]; then
+    echo
+    echo -e "\e[1;31mUnknown argument:\e[0m $1"
+    echo
+    __help
+    exit 1
+  fi
 }
 
 case "$1" in
   help)
     shift
-    __accept_no_arg "${1}"
+    __accept_no_arg "$1"
     __help
     exit 0
     ;;
   list)
     shift
-    __accept_no_arg "${1}"
+    __accept_no_arg "$1"
     __list
     exit 0
     ;;
   all|-a)
     shift
-    case $1 in
-      exec|-e)
-        command='exec'
-        shift
-        ;;
-      *)
-        command='git'
-        ;;
-    esac
+    command='git'
+    if [[ $1 == "exec" || $1 == "-e" ]]; then
+      command='exec'
+      shift
+    fi
     find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
       repo_dir=$(dirname "$dir")
       echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
@@ -91,15 +83,11 @@ case "$1" in
       shift
       repo_dir=$1
       shift
-      case $1 in
-        exec|-e)
-          command='exec'
-          shift
-          ;;
-        *)
-          command='git'
-          ;;
-      esac
+      command='git'
+      if [[ $1 == "exec" || $1 == "-e" ]]; then
+        command='exec'
+        shift
+      fi
       echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
       (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
       exit 0
