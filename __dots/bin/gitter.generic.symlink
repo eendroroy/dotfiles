@@ -32,13 +32,16 @@ __list() {
 }
 
 __help() {
-  echo -e "\e[37mUsage:\e[0m\e[36m gitter\e[0m [command] [args]"
+  echo -e "\e[37mUsage:\e[0m\e[38;5;2m gitter\e[0m \e[38;5;3m[command]\e[0m \e[38;5;6m[args]\e[0m"
   echo
   echo -e "\e[37mCommands:\e[0m"
-  echo -e "  \e[32m help\e[0m                           Show this help menu"
-  echo -e "  \e[32m list\e[0m                           List all git repos"
-  echo -e "  \e[32m all,  -a <command>\e[0m             Run git <command> in all directories"
-  echo -e "  \e[32m repo, -r <directory> <command>\e[0m Run git <command> in <directory>"
+  echo -e "  \e[38;5;3m          help\e[0m                           Show this help menu"
+  echo -e "  \e[38;5;3m          list\e[0m                           List all git repos"
+  echo -e "  \e[38;5;3m          all,  -a <command>\e[0m             Run git <command> in all directories"
+  echo -e "  \e[38;5;3m          repo, -r <directory> <command>\e[0m Run git <command> in <directory>"
+  echo -e " \e[2;38;5;3m[all|repo]\e[m \e[38;5;6mexec, -e <command>\e[0m             Run exec <command>"
+  echo -e "                                           \e[38;5;3mall\e[m in all directories"
+  echo -e "                                           \e[38;5;3mall\e[m in <directory>"
 }
 
 function __accept_no_arg() {
@@ -70,10 +73,19 @@ case "$1" in
     ;;
   all|-a)
     shift
+    case $1 in
+      exec|-e)
+        command='exec'
+        shift
+        ;;
+      *)
+        command='git'
+        ;;
+    esac
     find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
       repo_dir=$(dirname "$dir")
-      echo -e "\e[32m(git $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
-      (cd "$repo_dir" && git "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
+      echo -e "\e[32m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
+      (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
     done
     exit 0
     ;;
