@@ -41,14 +41,14 @@ text = "CellBackground"
 background = "CellForeground"
 
 [colors.dim]
-black = "#3f3f3f"
-red = "#5f5050"
-green = "#505f50"
-yellow = "#5f5f50"
-blue = "#50505f"
-magenta = "#5f505f"
-cyan = "#505f5f"
-white = "#909090"
+black = "#303030"
+red = "#6f6060"
+green = "#606f60"
+yellow = "#6f6f60"
+blue = "#60606f"
+magenta = "#6f606f"
+cyan = "#606f6f"
+white = "#aaaaaa"
 
 [colors.normal]
 black = "#404040"
