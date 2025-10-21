@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
 
 __CURRENT_DIR=$(pwd)
-__STDOUT_COLOR='\e[38;2;80;80;80m'
-__STDERR_COLOR='\e[38;2;99;80;80m'
-__NC='\e[0m'
 
 __handle_stdout() {
   while IFS= read -r line; do
-    echo -e "${__STDOUT_COLOR}    I: $line ${__NC}"
+    echo -e "\e[38;5;2m┃\e[0m  \e[38;5;10m$line\e[0m"
   done
 }
 
 __handle_stderr() {
   while IFS= read -r line; do
-    echo -e "${__STDERR_COLOR}    E: $line ${__NC}" >&2
+    echo -e "\e[38;5;1m┃\e[0m  \e[38;5;9m$line\e[0m" >&2
   done
 }
 
@@ -84,7 +81,7 @@ case "$1" in
     esac
     find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
       repo_dir=$(dirname "$dir")
-      echo -e "\e[32m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
+      echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
       (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
     done
     exit 0
@@ -94,8 +91,17 @@ case "$1" in
       shift
       repo_dir=$1
       shift
-      echo -e "\e[32m(git $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
-      (cd "$repo_dir" && git "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
+      case $1 in
+        exec|-e)
+          command='exec'
+          shift
+          ;;
+        *)
+          command='git'
+          ;;
+      esac
+      echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
+      (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
       exit 0
     fi
     ;;
