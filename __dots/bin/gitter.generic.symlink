@@ -35,13 +35,13 @@ __help() {
   echo -e "\e[37mUsage:\e[0m\e[38;5;2m gitter\e[0m \e[38;5;3m[command]\e[0m \e[38;5;6m[args]\e[0m"
   echo
   echo -e "\e[37mCommands:\e[0m"
-  echo -e "  \e[38;5;3m          help\e[0m                           Show this help menu"
-  echo -e "  \e[38;5;3m          list\e[0m                           List all git repos"
-  echo -e "  \e[38;5;3m          all,  -a <command>\e[0m             Run git <command> in all directories"
-  echo -e "  \e[38;5;3m          repo, -r <directory> <command>\e[0m Run git <command> in <directory>"
-  echo -e " \e[2;38;5;3m[all|repo]\e[m \e[38;5;6mexec, -e <command>\e[0m             Run exec <command>"
-  echo -e "                                           \e[38;5;3mall\e[m in all directories"
-  echo -e "                                           \e[38;5;3mall\e[m in <directory>"
+  echo -e "  \e[38;5;3m          help\e[0m                           \e[2mShow this help menu\e[m"
+  echo -e "  \e[38;5;3m          list\e[0m                           \e[2mList all git repos\e[m"
+  echo -e "  \e[38;5;3m          all,  -a <command>\e[0m             \e[2mRun git <command> in all directories\e[m"
+  echo -e "  \e[38;5;3m          repo, -r <directory> <command>\e[0m \e[2mRun git <command> in <directory>\e[m"
+  echo -e " \e[2;38;5;3m[all|repo]\e[m \e[38;5;6mexec, -e <command>\e[0m             \e[2mRun exec <command>\e[m"
+  echo -e "                                           \e[2;38;5;3mall\e[m \e[2min all directories\e[m"
+  echo -e "                                           \e[2;38;5;3mall\e[m \e[2min <directory>\e[m"
 }
 
 function __accept_no_arg() {
