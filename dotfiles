@@ -14,10 +14,10 @@ __VERBOSE=false __FORCE=false __STATUS=false __DRY=false
 __parse_common_args() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      -s|--status)  __STATUS=true  ;;
+      -s|--status ) __STATUS=true  ;;
       -v|--verbose) __VERBOSE=true ;;
-      -f|--force)   __FORCE=true   ;;
-      -d|--dry)     __DRY=true     ;;
+      -f|--force  ) __FORCE=true   ;;
+      -d|--dry    ) __DRY=true     ;;
       *) ;;
     esac
     shift
@@ -27,9 +27,9 @@ __parse_common_args() {
 export __VERBOSE __FORCE __STATUS __DRY
 
 case "$1" in
-  h|help)      shift;                           __help;      exit 0 ;;
-  l|list)      shift; __parse_common_args "$@"; __list;      exit 0 ;;
-  i|install)   shift; __parse_common_args "$@"; __install;   exit 0 ;;
+  h|help     ) shift;                           __help     ; exit 0 ;;
+  l|list     ) shift; __parse_common_args "$@"; __list     ; exit 0 ;;
+  i|install  ) shift; __parse_common_args "$@"; __install  ; exit 0 ;;
   u|uninstall) shift; __parse_common_args "$@"; __uninstall; exit 0 ;;
-  *)           shift;                           __help;      exit 0 ;;
+  *          ) shift;                           __help     ; exit 0 ;;
 esac
