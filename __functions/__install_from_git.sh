@@ -5,8 +5,9 @@ function __install_from_git() {
     ${__VERBOSE} && __m_warning "Skipping : ${1} already installed"
   else
     __m_primary "Installing ${1}..."
-    mkdir -p "${HOME}/${2}"
-    eval "${3}"
+    ${__DRY} || mkdir -p "${HOME}/${2}"
+    ${__DRY} || eval "${3}"
+    ${__DRY} && ${__VERBOSE} && __m_warning "(${1} >> ${HOME}/${2})"
     __m_secondary "${1} installed"
   fi
 }

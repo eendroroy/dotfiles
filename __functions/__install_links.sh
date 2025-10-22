@@ -8,9 +8,10 @@ function __install_links() {
       if [ -e "${__destination}" ] || [ -L "${__destination}" ]; then
         ${__VERBOSE} && __m_warning "Skipping : ${__destination}"
       else
-        mkdir -p "$(dirname "${__destination}")"
-        ln -s "${item}" "${__destination}"
         __m_primary "[${item} -> ${__destination}]"
+        ${__DRY} || mkdir -p "$(dirname "${__destination}")"
+        ${__DRY} || ln -s "${item}" "${__destination}"
+        ${__DRY} && ${__VERBOSE} && __m_warning "(ln -s ${item} ${__destination})"
         echo "${__destination}" >> "${HOME}/.dotfiles_uninstall.txt"
       fi
     done < <(find "${SCRIPT_LOCATION}/__dots/" -name "*.${type}.symlink" -print0)

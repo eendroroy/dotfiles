@@ -11,3 +11,4 @@ else
   mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
   asd completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
 fi
+__install_from_git

@@ -9,9 +9,7 @@ for file in "${SCRIPT_LOCATION}/__functions/"*.sh; do
   source "${file}"
 done
 
-export __VERBOSE=false
-export __FORCE=false
-export __STATUS=false
+__VERBOSE=false __FORCE=false __STATUS=false __DRY=false
 
 __parse_common_args() {
   while [[ $# -gt 0 ]]; do
@@ -19,12 +17,14 @@ __parse_common_args() {
       -s|--status)  __STATUS=true  ;;
       -v|--verbose) __VERBOSE=true ;;
       -f|--force)   __FORCE=true   ;;
+      -d|--dry)     __DRY=true     ;;
       *) ;;
     esac
     shift
   done
 }
 
+export __VERBOSE __FORCE __STATUS __DRY
 
 case "$1" in
   h|help)      shift;                           __help;      exit 0 ;;
