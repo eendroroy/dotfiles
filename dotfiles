@@ -9,64 +9,27 @@ for file in "${SCRIPT_LOCATION}/__functions/"*.sh; do
   source "${file}"
 done
 
-__INSTALL=false
-__UNINSTALL=false
-__FORCE=false
-__LIST=false
-__STATUS=false
-__VERBOSE=false
+export __VERBOSE=false
+export __FORCE=false
+export __STATUS=false
 
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    -h|--help)
-      __help
-      exit 0
-      ;;
-    -l|--list)
-      __LIST=true
-      ;;
-    -s|--status)
-      __STATUS=true
-      ;;
-    -i|--install)
-      __INSTALL=true
-      ;;
-    -u|--uninstall)
-      __UNINSTALL=true
-      ;;
-    -f|--force)
-      __FORCE=true
-      ;;
-    -v|--verbose)
-      __VERBOSE=true
-      ;;
-    *)
-      ;;
-  esac
-  shift
-done
-
-function __source_all_from_directory() {
-  # shellcheck disable=SC1090
-  while IFS= read -r item; do  source "${item}"; done < \
-    <(find "${SCRIPT_LOCATION}/${1}/" \( -name "*.generic.sh" -o -name "*.$(uname).sh" \) -type f)
+__parse_common_args() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -s|--status)  __STATUS=true  ;;
+      -v|--verbose) __VERBOSE=true ;;
+      -f|--force)   __FORCE=true   ;;
+      *) ;;
+    esac
+    shift
+  done
 }
 
-if [[ "$__LIST" = "true" ]]; then
-    __list
-    exit 0
-elif [[ "$__INSTALL" = "true" ]]; then
-  rm "${HOME}/.dotfiles_uninstall.txt" 2>/dev/null
 
-  __source_all_from_directory "__before_dots"
-  __install_links
-  __source_all_from_directory "__dots_after"
-
-  exit 0
-elif [[ "$__UNINSTALL" = "true" ]]; then
-    __uninstall
-    exit 0
-else
-    __help
-    exit 0
-fi
+case "$1" in
+  h|help)      shift;                           __help;      exit 0 ;;
+  l|list)      shift; __parse_common_args "$@"; __list;      exit 0 ;;
+  i|install)   shift; __parse_common_args "$@"; __install;   exit 0 ;;
+  u|uninstall) shift; __parse_common_args "$@"; __uninstall; exit 0 ;;
+  *)           shift;                           __help;      exit 0 ;;
+esac

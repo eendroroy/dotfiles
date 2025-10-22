@@ -6,7 +6,7 @@ function __list() {
     do
       __target="$(echo "${item}" | sed "s|${SCRIPT_LOCATION}/__dots/||;s|.${type}.symlink||")"
       __m_primary "${__target}"
-      ${__VERBOSE} && __m_secondary_c "${item//${SCRIPT_LOCATION}\//}"
+      [[ ${__VERBOSE} == true ]] && __m_secondary_c "${item//${SCRIPT_LOCATION}\//}"
       if [[ ${__STATUS} == true ]]; then
         __real_path="$(readlink "${HOME}/${__target}")"
 

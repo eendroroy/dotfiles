@@ -1,17 +1,28 @@
 #!/usr/bin/env bash
 
 function __help() {
-  echo -e "\033[1;36mUsage:\033[0m dotfiles [options]"
-  echo
-  echo -e "\033[1;36mOptions:\033[0m"
-  echo -e "  \033[1;33m-h, --help\033[0m          Show this help message and exit"
-  echo -e "  \033[1;33m-l, --list\033[0m          List all managed dotfiles"
-  echo -e "      \033[1;33m-s, --status\033[0m    Show installation status"
-  echo -e "  \033[1;33m-i, --install\033[0m       Install dotfiles"
-  echo -e "  \033[1;33m-u, --uninstall\033[0m     Uninstall dotfiles"
-  echo -e "      \033[1;33m-f, --force\033[0m     Force while uninstalling dotfiles"
-  echo -e "  \033[1;33m-v, --verbose\033[0m       Enable verbose output"
-  echo
+  COMMAND="$(bold)$(fg_green)"
+  SUB_COMMAND="$(fg_yellow)"
+  OPTIONS="$(fg_red)"
+  RESET="$(reset_all)"
+
+  printf "\n"
+  printf "%b\n" "Usage: ${COMMAND}dotfiles${RESET} ${SUB_COMMAND}[command]${RESET} ${OPTIONS}[options]${RESET}"
+  printf "\n"
+  printf "%b\n" "Commands:"
+  printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "h, help     " "Show this help"
+  printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "l, list     " "List managed dotfiles"
+  printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "i, install  " "Install symlinks"
+  printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "u, uninstall" "Remove symlinks"
+  printf "\n"
+  printf "%b\n" "Common options:"
+  printf "  ${OPTIONS}%-13s${RESET} %s\n" "-s, --status"  "Show status only"
+  printf "  ${OPTIONS}%-13s${RESET} %s\n" "-v, --verbose" "Increase verbosity"
+  printf "  ${OPTIONS}%-13s${RESET} %s\n" "-f, --force"   "Force overwrite"
+  printf "\n"
+  printf "Script location: ${OPTIONS}%s${RESET}\n" "${SCRIPT_LOCATION:-unknown}"
+  printf "\n"
 }
+
 
 export -f __help
