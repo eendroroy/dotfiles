@@ -8,6 +8,7 @@ function __uninstall() {
       ${__DRY} || rm "${line}"
       ${__DRY} && ${__VERBOSE} && __m_warning "(rm ${line})"
     done < <(cat "${HOME}/.dotfiles_uninstall.txt")
+
     ${__DRY} || rm "${HOME}/.dotfiles_uninstall.txt"
     ${__DRY} && ${__VERBOSE} && __m_warning "(rm ${HOME}/.dotfiles_uninstall.txt)"
   else
@@ -18,15 +19,20 @@ function __uninstall() {
   ${__FORCE} && for type in generic $(uname); do
     while IFS= read -r -d '' item
     do
-      __destination="${HOME}/$(echo "${item}" | sed "s|${SCRIPT_LOCATION}/__dots/||;s|.${type}.symlink||")"
-      if [ -e "${__destination}" ] || [ -L "${__destination}" ]; then
-        __m_primary "Removing existing file: ${__destination}"
-        ${__DRY} || rm -rf "${__destination}"
-        ${__DRY} && ${__VERBOSE} && __m_warning "(rm -rf ${__destination})"
-      else
-        ${__VERBOSE} && __m_warning "File not found, skipping: ${__destination}"
+      read -r _ target <<< "$(__get_source_target "${item}" "${type}")"
+
+      if [[ ${target} == "" ]]; then
+        continue
       fi
-    done < <(find "${SCRIPT_LOCATION}/__dots/" -name "*.${type}.symlink" -print0)
+
+      if [ -e "${target}" ] || [ -L "${target}" ]; then
+        __m_primary "Removing existing file: ${target}"
+        ${__DRY} || rm -rf "${target}"
+        ${__DRY} && ${__VERBOSE} && __m_warning "(rm -rf ${target})"
+      else
+        ${__VERBOSE} && __m_warning "File not found, skipping: ${target}"
+      fi
+    done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)
   done
 }
 

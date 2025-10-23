@@ -30,6 +30,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
         )
 
         [[ -n ${__theme} ]] && \
-          sed -i.bak "s|/theme/.*\.toml|/theme/${__theme}.toml|g" $(realpath ~/.config/alacritty/alacritty.toml)
+          sed -i.bak "s|/theme/.*\.toml|/theme/${__theme}.toml|g" "$(realpath ~/.config/alacritty/alacritty.toml)"
     }
 fi

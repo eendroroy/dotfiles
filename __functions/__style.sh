@@ -6,7 +6,7 @@ __m_secondary()   { echo -e " $(dim)$(fg_bright_black) 󰇘 $(reset_all)$(fg_cya
 __m_secondary_c() { echo -e " $(dim)$(fg_bright_black)   $(reset_all)$(fg_cyan)$(dim)${1}$(reset_all)"; }
 __m_warning()     { echo -e " $(dim)$(fg_bright_black) 󰇘 $(reset_all)$(fg_yellow)$(dim)$(underline)${1}$(reset_all)"; }
 __m_warning_c()   { echo -e " $(dim)$(fg_bright_black)   $(reset_all)$(fg_yellow)$(dim)$(underline)${1}$(reset_all)"; }
-__m_error()       { echo -e " $(dim)$(fg_bright_black) 󰇘 $(reset_all)$(fg_bright_red)$(dim)$(underline)${1}$(reset_all)"; }
+__m_error()       { echo -e " $(dim)$(fg_bright_red)  $(reset_all)$(fg_bright_red)$(dim)$(underline)${1}$(reset_all)"; }
 __m_error_c()     { echo -e " $(dim)$(fg_bright_black)   $(reset_all)$(fg_bright_red)$(dim)$(underline)${1}$(reset_all)"; }
 
 export -f __m_primary

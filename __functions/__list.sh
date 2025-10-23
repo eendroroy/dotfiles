@@ -4,15 +4,20 @@ function __list() {
   for type in generic $(uname); do
     while IFS= read -r -d '' item
     do
-      __target="$(echo "${item}" | sed "s|${SCRIPT_LOCATION}/__dots/||;s|.${type}.symlink||")"
-      __m_primary "${__target}"
-      [[ ${__VERBOSE} == true ]] && __m_secondary_c "${item//${SCRIPT_LOCATION}\//}"
-      if [[ ${__STATUS} == true ]]; then
-        __real_path="$(readlink "${HOME}/${__target}")"
+      read -r source target <<< "$(__get_source_target "${item}" "${type}")"
 
-        if [[ ! -e "${HOME}/${__target}" ]]; then
+      if [[ ${target} == "" ]]; then
+        continue
+      fi
+
+      __m_primary "${target}"
+      [[ ${__VERBOSE} == true ]] && __m_secondary_c "source=${source}"
+      if [[ ${__STATUS} == true ]]; then
+        __real_path="$(readlink "${target}")"
+
+        if [[ ! -e "${target}" ]]; then
           __m_error_c "Not installed"
-        elif [[ ! -L "${HOME}/${__target}" ]]; then
+        elif [[ ! -L "${target}" ]]; then
           __m_warning_c "Installed, but not a symlink"
         elif [[ ! -e "${__real_path}" ]]; then
           __m_error_c "Symlink broken"
@@ -22,7 +27,7 @@ function __list() {
           __m_secondary_c "Installed"
         fi
       fi
-    done < <(find "${SCRIPT_LOCATION}/__dots/" -name "*.${type}.symlink" -print0)
+    done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)
   done
 }
 
