@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 __m_primary()     { echo -e " $(dim)$(fg_bright_black)  $(reset_all)$(fg_green)$(bold)${1}$(reset_all)"; }
 __m_primary_c()   { echo -e " $(dim)$(fg_bright_black)   $(reset_all)$(fg_green)$(bold)${1}$(reset_all)"; }
 __m_secondary()   { echo -e " $(dim)$(fg_bright_black) 󰇘 $(reset_all)$(fg_cyan)$(dim)${1}$(reset_all)"; }

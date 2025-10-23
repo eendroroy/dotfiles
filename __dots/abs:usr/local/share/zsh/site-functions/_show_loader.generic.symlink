@@ -1,5 +1,9 @@
 #compdef show_loader
 
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 local -a templates
 templates=(
   '001' '002' '003' '004' '005' '006' '007' '008' '009' '010' '011' '012' '013' '014' '015' '016'

@@ -1,3 +1,7 @@
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 # man colors
 export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
 export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 __install_by_shell vim-plug .config/nvim/autoload/plug.vim "
 \curl --silent -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

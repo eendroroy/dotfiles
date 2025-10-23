@@ -1,3 +1,7 @@
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 [[ -f "${HOME}/.config/zsh/init" ]] && source "${HOME}/.config/zsh/init"
 [[ -f "${HOME}/.config/zsh/zplug" ]] && source "${HOME}/.config/zsh/zplug"
 

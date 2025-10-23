@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-__CURRENT_DIR=$(pwd)
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.__CURRENT_DIR=$(pwd)
 
 __handle_stdout() {
   while IFS= read -r line; do

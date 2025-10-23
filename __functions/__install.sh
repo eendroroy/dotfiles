@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 function __source_all_from_directory() {
   # shellcheck disable=SC1090
   while IFS= read -r item; do  source "${item}"; done < \

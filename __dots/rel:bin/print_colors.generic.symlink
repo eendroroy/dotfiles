@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 values=(
   " 16  17  18  19  20  21  52  53  54  55  56  57  88  89  90  91  92  93"
   " 22  23  24  25  26  27  58  59  60  61  62  63  94  95  96  97  98  99"
@@ -132,7 +136,6 @@ __print_colors_table() {
     printf "\e[38;5;8m     ╰──────────────────────────────────────╯\e[0m\n"
   fi
 }
-
 
 function __help() {
 echo

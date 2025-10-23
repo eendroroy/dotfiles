@@ -1,3 +1,7 @@
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
+
 # config file for ansible -- https://ansible.com/
 # ===============================================
 
@@ -63,7 +67,6 @@ host_key_checking = False
 
 # change the default callback, you can only have one 'stdout' type  enabled at a time.
 #stdout_callback = skippy
-
 
 ## Ansible ships with some plugins that require whitelisting,
 ## this is done to avoid running all of a type by default.
@@ -178,7 +181,6 @@ deprecation_warnings = True
 # instead of shelling out to the git command.
 # command_warnings = False
 
-
 # set plugin path directories here, separate with colons
 #action_plugins     = /usr/share/ansible/plugins/action
 #cache_plugins      = /usr/share/ansible/plugins/cache
@@ -192,7 +194,6 @@ deprecation_warnings = True
 #terminal_plugins   = /usr/share/ansible/plugins/terminal
 #strategy_plugins   = /usr/share/ansible/plugins/strategy
 
-
 # by default, ansible will use the 'linear' strategy but you may want to try
 # another one
 #strategy = free
@@ -201,7 +202,6 @@ deprecation_warnings = True
 # want, for example, a notification or logging callback to also apply to
 # /bin/ansible runs
 #bin_ansible_callbacks = False
-
 
 # don't like cows?  that's unfortunate.
 # set to 1 if you don't want cowsay support or export ANSIBLE_NOCOWS=1
@@ -231,7 +231,6 @@ deprecation_warnings = True
 # without having to talk to them in the same playbook run to get their
 # current IP information.
 #fact_caching = memory
-
 
 # retry files
 # When a playbook fails by default a .retry file will be created in ~/
@@ -465,7 +464,6 @@ changed = yellow
 diff_add = green
 diff_remove = red
 diff_lines = cyan
-
 
 [diff]
 # Always print diff when running ( same as always running with -D/--diff )

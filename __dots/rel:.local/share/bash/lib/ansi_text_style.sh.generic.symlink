@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC2028
+# Copyright (c) 2025 Indrajit Roy
+# Part of "dotfiles", licensed under GNU AGPLv3 or later
+# See https://opensource.org/license/agpl-v3 for details.
 
-# ANSI Text Style Library
-# Provides functions to apply ANSI text styles in the terminal
-# Usage: source this file in your bash scripts
-# Example: source ${HOME}/.local/share/bash/lib/ansi_text_style.sh
+# shellcheck disable=SC2028
 
 # Text style foreground colors
 function fg_black { echo "\033[30m"; }
