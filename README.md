@@ -15,26 +15,30 @@ Clone the repo:
 ```bash
 git clone https://github.com/eendroroy/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-./dotfiles -i
+./dotfiles install
 ```
 
 ## Usage
 
 ```shell
-./dotfiles -h
+./dotfiles help
 ```
 
-```text
-Usage: dotfiles [options]
+```
+Usage: ./dotfiles [command] [options]
 
-Options:
-  -h, --help          Show this help message and exit
-  -l, --list          List all managed dotfiles
-      -s, --status    Show installation status
-  -i, --install       Install dotfiles
-  -u, --uninstall     Uninstall dotfiles
-      -f, --force     Force while uninstalling dotfiles
-  -v, --verbose       Enable verbose output
+Commands:
+  h, help       Show this help
+  l, list       List managed dotfiles
+  i, install    Install symlinks
+  u, uninstall  Remove symlinks
+
+Common options:
+  -s, --status  Show status only
+  -v, --verbose Increase verbosity
+  -f, --force   Force overwrite
+
+Script location: /Users/indrajit/.dotfiles
 ```
 
 ## License

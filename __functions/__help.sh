@@ -7,7 +7,7 @@ function __help() {
   RESET="$(reset_all)"
 
   printf "\n"
-  printf "%b\n" "Usage: ${COMMAND}dotfiles${RESET} ${SUB_COMMAND}[command]${RESET} ${OPTIONS}[options]${RESET}"
+  printf "%b\n" "Usage: ${COMMAND}./dotfiles${RESET} ${SUB_COMMAND}[command]${RESET} ${OPTIONS}[options]${RESET}"
   printf "\n"
   printf "%b\n" "Commands:"
   printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "h, help     " "Show this help"
