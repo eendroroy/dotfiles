@@ -10,7 +10,6 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 # Allow for autocomplete to be case insensitive
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|?=** r:|?=**'
 
-export fpath=("${fpath[@]}" "${HOME}/.config/zsh/completions")
 export fpath=("${fpath[@]}" "${HOME}/.docker/completions")
 
 # Initialize the autocompletion
