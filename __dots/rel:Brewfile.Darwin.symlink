@@ -103,8 +103,9 @@ brew "postgresql@17", restart_service: :changed
 
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
 brew "ansible"
+brew "k3d"
 brew "helm"
-brew "minikube"
+# brew "minikube"
 brew "qemu"
 cask "vagrant"
 brew "virt-manager"
