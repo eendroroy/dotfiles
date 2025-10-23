@@ -2,7 +2,7 @@
 
 # Copyright (c) 2025 Indrajit Roy
 # Part of "dotfiles", licensed under GNU AGPLv3 or later
-# See https://opensource.org/license/agpl-v3 for details.
+# See https://www.fsf.org/licensing/licenses/agpl.html for details.
 
 function __list() {
   for type in generic $(uname); do

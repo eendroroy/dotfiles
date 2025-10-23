@@ -2,7 +2,7 @@
 
 # Copyright (c) 2025 Indrajit Roy
 # Part of "dotfiles", licensed under GNU AGPLv3 or later
-# See https://opensource.org/license/agpl-v3 for details.
+# See https://www.fsf.org/licensing/licenses/agpl.html for details.
 
 values=(
   " 16  17  18  19  20  21  52  53  54  55  56  57  88  89  90  91  92  93"

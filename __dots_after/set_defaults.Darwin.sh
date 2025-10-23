@@ -2,7 +2,7 @@
 
 # Copyright (c) 2025 Indrajit Roy
 # Part of "dotfiles", licensed under GNU AGPLv3 or later
-# See https://opensource.org/license/agpl-v3 for details.
+# See https://www.fsf.org/licensing/licenses/agpl.html for details.
 
 if [[ $(defaults read org.alacritty AppleFontSmoothing) != "0" ]]; then
   __m_primary "disabling font smoothing for Alacritty"

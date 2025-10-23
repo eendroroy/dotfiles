@@ -43,4 +43,4 @@ Script location: /Users/indrajit/.dotfiles
 
 ## License
 
-The project is available as open source under the terms of the [AGPL3 License](https://opensource.org/license/agpl-v3).
+The project is available as open source under the terms of the [AGPL3 License](https://www.fsf.org/licensing/licenses/agpl.html).
