@@ -10,7 +10,7 @@ function __get_source_target() {
   if [[ "${prefix}" == "rel:" ]]; then
     echo "${item} ${HOME}/${target_name:4}"
   elif [[ "${prefix}" == "abs:" ]]; then
-    echo "${item} ${target_name:4}"
+    echo "${item} /${target_name:4}"
   else
     __m_error "No prefix, ignoring [${target_name} <- ${item}]" >&2
   fi
