@@ -21,7 +21,8 @@ function __install_links() {
         ${__DRY} || mkdir -p "$(dirname "${target}")"
         ${__DRY} || ln -s "${source}" "${target}"
         ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
-        echo "${target}" >> "${HOME}/.dotfiles_uninstall.txt"
+        echo "${target}" >> "${__INSTALLATION_CACHE_FILE}"
+        echo "${target} >> ${__INSTALLATION_CACHE_FILE}"
       fi
     done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)
   done

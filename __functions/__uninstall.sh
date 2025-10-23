@@ -5,18 +5,19 @@
 # See https://www.fsf.org/licensing/licenses/agpl.html for details.
 
 function __uninstall() {
-  if [ -f "${HOME}/.dotfiles_uninstall.txt" ]; then
+  if [ -f "${__INSTALLATION_CACHE_FILE}" ]; then
     while IFS= read -r line
     do
       __m_warning "Removing ${line}"
       ${__DRY} || rm "${line}"
       ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${line})"
-    done < <(cat "${HOME}/.dotfiles_uninstall.txt")
+    done < <(cat "${__INSTALLATION_CACHE_FILE}")
 
-    ${__DRY} || rm "${HOME}/.dotfiles_uninstall.txt"
-    ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${HOME}/.dotfiles_uninstall.txt)"
+    __m_warning "Removing installation cache ${__INSTALLATION_CACHE_FILE}"
+    ${__DRY} || rm "${__INSTALLATION_CACHE_FILE}"
+    ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${__INSTALLATION_CACHE_FILE})"
   else
-    ${__VERBOSE} && __m_warning "No uninstall file found at ${HOME}/.dotfiles_uninstall.txt"
+    ${__VERBOSE} && __m_warning "No uninstall file found at ${__INSTALLATION_CACHE_FILE}"
     ${__VERBOSE} && __m_warning_c "Nothing to uninstall"
   fi
 

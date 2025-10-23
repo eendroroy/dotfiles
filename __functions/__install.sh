@@ -11,8 +11,6 @@ function __source_all_from_directory() {
 }
 
 function __install() {
-  rm "${HOME}/.dotfiles_uninstall.txt" 2>/dev/null
-
   __source_all_from_directory "${__BEFORE_DIR}"
   __install_links
   __source_all_from_directory "${__AFTER_DIR}"
