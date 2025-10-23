@@ -28,7 +28,7 @@ function __list() {
         elif [[ "${__real_path}" != "${item}" ]]; then
           __m_warning_c "Installed from a different source {${__real_path}}"
         else
-          __m_secondary_c "Installed"
+          __m_success_c "Installed"
         fi
       fi
     done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)

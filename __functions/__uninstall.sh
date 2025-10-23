@@ -10,11 +10,11 @@ function __uninstall() {
     do
       __m_warning "Removing ${line}"
       ${__DRY} || rm "${line}"
-      ${__DRY} && ${__VERBOSE} && __m_warning "(rm ${line})"
+      ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${line})"
     done < <(cat "${HOME}/.dotfiles_uninstall.txt")
 
     ${__DRY} || rm "${HOME}/.dotfiles_uninstall.txt"
-    ${__DRY} && ${__VERBOSE} && __m_warning "(rm ${HOME}/.dotfiles_uninstall.txt)"
+    ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${HOME}/.dotfiles_uninstall.txt)"
   else
     ${__VERBOSE} && __m_warning "No uninstall file found at ${HOME}/.dotfiles_uninstall.txt"
     ${__VERBOSE} && __m_warning_c "Nothing to uninstall"
@@ -32,7 +32,7 @@ function __uninstall() {
       if [ -e "${target}" ] || [ -L "${target}" ]; then
         __m_primary "Removing existing file: ${target}"
         ${__DRY} || rm -rf "${target}"
-        ${__DRY} && ${__VERBOSE} && __m_warning "(rm -rf ${target})"
+        ${__DRY} && ${__VERBOSE} && __m_success_c "(rm -rf ${target})"
       else
         ${__VERBOSE} && __m_warning "File not found, skipping: ${target}"
       fi

@@ -20,7 +20,7 @@ function __install_links() {
         __m_primary "[${item} -> ${target}]"
         ${__DRY} || mkdir -p "$(dirname "${target}")"
         ${__DRY} || ln -s "${source}" "${target}"
-        ${__DRY} && ${__VERBOSE} && __m_warning "(ln -s ${item} ${target})"
+        ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
         echo "${target}" >> "${HOME}/.dotfiles_uninstall.txt"
       fi
     done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)
