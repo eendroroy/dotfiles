@@ -13,6 +13,7 @@ function __source_all_from_directory() {
 }
 
 function __install() {
+  __source_all_from_directory "${__PREINSTALL_DIR}"
   __source_all_from_directory "${__BEFORE_DIR}"
   __install_links
   __source_all_from_directory "${__AFTER_DIR}"

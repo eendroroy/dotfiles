@@ -10,14 +10,12 @@ SCRIPT_LOCATION="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd
 
 # directories
 __FUNCTIONS_DIR="${SCRIPT_LOCATION}/__functions"
+__PREINSTALL_DIR="${SCRIPT_LOCATION}/__before_dotfiles"
 __BEFORE_DIR="${SCRIPT_LOCATION}/__before_dots"
 __AFTER_DIR="${SCRIPT_LOCATION}/__dots_after"
 __DOTS_DIR="${SCRIPT_LOCATION}/__dots"
 
 __INSTALLATION_CACHE_FILE="${SCRIPT_LOCATION}/.cache/installation"
-
-
-echo ${__INSTALLATION_CACHE_FILE}
 
 source "${__DOTS_DIR}/rel:.local/share/bash/lib/ansi_text_style.sh.generic.symlink"
 

@@ -8,11 +8,18 @@
 
 function __uninstall() {
   if [ -f "${__INSTALLATION_CACHE_FILE}" ]; then
-    while IFS= read -r line
+    while IFS= read -r target
     do
-      __m_warning "Removing ${line}"
-      ${__DRY} || rm "${line}"
-      ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${line})"
+      __m_warning "Removing ${target}"
+
+      if [[ -w "${target}" && -w "${target%/*}" ]]; then
+        ${__DRY} || rm "${target}"
+        ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${target})"
+      else
+        __m_warning_c "[$(dirname "${target}")] is not writable. using sudo...."
+        ${__DRY} || sudo rm "${target}"
+        ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo rm ${target})"
+      fi
     done < <(cat "${__INSTALLATION_CACHE_FILE}")
 
     __m_warning "Removing installation cache ${__INSTALLATION_CACHE_FILE}"
@@ -34,8 +41,15 @@ function __uninstall() {
 
       if [ -e "${target}" ] || [ -L "${target}" ]; then
         __m_primary "Removing existing file: ${target}"
-        ${__DRY} || rm -rf "${target}"
-        ${__DRY} && ${__VERBOSE} && __m_success_c "(rm -rf ${target})"
+
+        if [[ -w "${target}" && -w "${target%/*}" ]]; then
+          ${__DRY} || rm -rf "${target}"
+          ${__DRY} && ${__VERBOSE} && __m_success_c "(rm -rf ${target})"
+        else
+          __m_warning_c "[${target}] is not writable. using sudo...."
+          ${__DRY} || sudo rm -rf "${target}"
+          ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo rm -rf ${target})"
+        fi
       else
         ${__VERBOSE} && __m_warning "File not found, skipping: ${target}"
       fi

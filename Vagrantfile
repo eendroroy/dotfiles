@@ -26,8 +26,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y neovim zsh tmux
-    chsh vagrant -s /usr/bin/tmux
-    su vagrant -c "cd dotfiles && ./install.sh"
+    apt-get upgrade -y
+    # su vagrant -c "cd dotfiles && ./dotfiles install -f -v"
   SHELL
 end

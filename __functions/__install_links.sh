@@ -20,11 +20,20 @@ function __install_links() {
         ${__VERBOSE} && __m_warning "Skipping : ${target}"
       else
         __m_primary "[${item} -> ${target}]"
-        ${__DRY} || mkdir -p "$(dirname "${target}")"
-        ${__DRY} || ln -s "${source}" "${target}"
-        ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
-        echo "${target}" >> "${__INSTALLATION_CACHE_FILE}"
-        echo "${target} >> ${__INSTALLATION_CACHE_FILE}"
+
+        if [[ -w "$(dirname "${target}")" ]]; then
+          ${__DRY} || mkdir -p "$(dirname "${target}")"
+          ${__DRY} || ln -s "${source}" "${target}"
+          ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
+        else
+          __m_warning_c "[$(dirname "${target}")] is not writable. using sudo...."
+          ${__DRY} || sudo mkdir -p "$(dirname "${target}")"
+          ${__DRY} || sudo ln -s "${source}" "${target}"
+          ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo ln -s ${item} ${target})"
+        fi
+
+        ${__DRY} || echo "${target}" >> "${__INSTALLATION_CACHE_FILE}"
+        ${__DRY} && ${__VERBOSE} && __m_secondary_c "(${target} >> ${__INSTALLATION_CACHE_FILE})"
       fi
     done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)
   done
