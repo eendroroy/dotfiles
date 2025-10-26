@@ -1,3 +1,9 @@
+[//]: # (SPDX-License-Identifier: AGPL-3.0-or-later)
+[//]: # (Copyright &#40;c&#41; 2025 Indrajit Roy)
+[//]: # (Part of `dotfiles`)
+[//]: # (See https://www.fsf.org/licensing/licenses/agpl.html)
+[//]: # (OR https://spdx.org/licenses/AGPL-3.0-or-later.html)
+
 # dotfiles
  
 ## Installation

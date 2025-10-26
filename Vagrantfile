@@ -1,6 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2025 Indrajit Roy
+# Part of `dotfiles`
+# See https://www.fsf.org/licensing/licenses/agpl.html
+# OR https://spdx.org/licenses/AGPL-3.0-or-later.html
+
+
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-24.04"
   config.vm.box_version = "202508.03.0"

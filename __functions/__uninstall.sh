@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+# SPDX-License-Identifier: AGPL-3.0-or-later
 # Copyright (c) 2025 Indrajit Roy
-# Part of "dotfiles", licensed under GNU AGPLv3 or later
-# See https://www.fsf.org/licensing/licenses/agpl.html for details.
+# Part of `dotfiles`
+# See https://www.fsf.org/licensing/licenses/agpl.html
+# OR https://spdx.org/licenses/AGPL-3.0-or-later.html
 
 function __uninstall() {
   if [ -f "${__INSTALLATION_CACHE_FILE}" ]; then
