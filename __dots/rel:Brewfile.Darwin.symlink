@@ -17,6 +17,7 @@ brew "tmux"
 brew "zsh"
 
 # VCS
+brew "diff-so-fancy"
 brew "git"
 brew "git-crypt"
 brew "git-extras"
