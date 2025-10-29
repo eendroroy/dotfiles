@@ -19,6 +19,7 @@ brew "gitmux"
 brew "nushell"
 brew "shellcheck"
 brew "tmux"
+brew "xxh"
 brew "zsh"
 
 # VCS
@@ -74,7 +75,7 @@ brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searche
 cask "sf-symbols"
 cask "stats"
 brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
-brew "yank"
+brew "yank" # yank is a simple clipboard manager for the terminal
 brew "yq"
 brew "zoxide"
 
@@ -82,6 +83,7 @@ brew "zoxide"
 brew "nmap"
 brew "openconnect"
 brew "openssh"
+brew "posting" # posting is a command-line HTTP client for testing web servers
 brew "rustscan"
 brew "sshuttle"
 brew "vpn-slice"
@@ -110,6 +112,8 @@ brew "postgresql@17", restart_service: :changed
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
 brew "ansible"
 brew "k3d"
+brew "podman"
+cask "podman-desktop"
 brew "helm"
 # brew "minikube"
 brew "qemu"
