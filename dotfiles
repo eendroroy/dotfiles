@@ -20,6 +20,9 @@ __DOTS_DIR="${SCRIPT_LOCATION}/__dots"
 
 __INSTALLATION_CACHE_FILE="${SCRIPT_LOCATION}/.cache/installation"
 
+# Cache uname result to avoid multiple system calls
+__UNAME="$(uname)" && export __UNAME
+
 source "${__DOTS_DIR}/rel:.local/share/bash/lib/ansi_text_style.sh.generic.symlink"
 
 for file in "${__FUNCTIONS_DIR}/"*.sh; do

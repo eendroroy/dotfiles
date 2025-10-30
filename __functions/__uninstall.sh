@@ -33,7 +33,7 @@ function __uninstall() {
     ${__VERBOSE} && __m_warning_c "Nothing to uninstall"
   fi
 
-  ${__FORCE} && for type in generic $(uname); do
+  ${__FORCE} && for type in generic "${__UNAME}"; do
     while IFS= read -r -d '' item
     do
       read -r _ target <<< "$(__get_source_target "${item}" "${type}")"

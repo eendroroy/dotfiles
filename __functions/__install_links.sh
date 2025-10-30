@@ -10,7 +10,7 @@
 # License, or (at your option) any later version.
 
 function __install_links() {
-  for type in generic $(uname); do
+  for type in generic "${__UNAME}"; do
     while IFS= read -r -d '' item
     do
       read -r source target <<< "$(__get_source_target "${item}" "${type}")"
@@ -24,13 +24,14 @@ function __install_links() {
       else
         __m_primary "[${item} -> ${target}]"
 
-        if [[ -w "$(dirname "${target}")" ]]; then
-          ${__DRY} || mkdir -p "$(dirname "${target}")"
+        target_dir="$(dirname "${target}")"
+        if [[ -w "${target_dir}" ]]; then
+          ${__DRY} || mkdir -p "${target_dir}"
           ${__DRY} || ln -s "${source}" "${target}"
           ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
         else
-          __m_warning_c "[$(dirname "${target}")] is not writable. using sudo...."
-          ${__DRY} || sudo mkdir -p "$(dirname "${target}")"
+          __m_warning_c "[${target_dir}] is not writable. using sudo...."
+          ${__DRY} || sudo mkdir -p "${target_dir}"
           ${__DRY} || sudo ln -s "${source}" "${target}"
           ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo ln -s ${item} ${target})"
         fi

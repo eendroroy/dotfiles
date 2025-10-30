@@ -10,7 +10,7 @@
 # License, or (at your option) any later version.
 
 function __list() {
-  for type in generic $(uname); do
+  for type in generic "${__UNAME}"; do
     while IFS= read -r -d '' item
     do
       read -r source target <<< "$(__get_source_target "${item}" "${type}")"
