@@ -10,9 +10,13 @@
 # License, or (at your option) any later version.
 
 function __source_all_from_directory() {
+  local file
+  shopt -s nullglob
   # shellcheck disable=SC1090
-  while IFS= read -r item; do  source "${item}"; done < \
-    <(find "${1}/" \( -name "*.generic.sh" -o -name "*.$(uname).sh" \) -type f)
+  for file in "${1}/"*.generic.sh "${1}/"*.${__UNAME}.sh; do
+    source "${file}"
+  done
+  shopt -u nullglob
 }
 
 function __install() {
