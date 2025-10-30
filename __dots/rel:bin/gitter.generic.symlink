@@ -38,16 +38,34 @@ __list() {
 }
 
 __help() {
-  echo -e "\e[37mUsage:\e[0m\e[38;5;2m gitter\e[0m \e[38;5;3m[command]\e[0m \e[38;5;6m[args]\e[0m"
+  echo
+  echo -e "\e[37mUsage:\e[0m"
+  echo -e "  \e[38;5;2m gitter\e[0m \e[38;5;3m<command>\e[0m \e[38;5;9m[<sub-command>]\e[0m \e[38;5;6m[args]\e[0m"
   echo
   echo -e "\e[37mCommands:\e[0m"
-  echo -e "  \e[38;5;3mhelp\e[0m                           \e[2mShow this help menu\e[m"
-  echo -e "  \e[38;5;3mlist\e[0m                           \e[2mList all git repos\e[m"
-  echo -e "  \e[38;5;3mall, -a <command>\e[0m             \e[2mRun git <command> in all directories\e[m"
-  echo -e "  \e[38;5;3mrepo, -r <directory> <command>\e[0m \e[2mRun git <command> in <directory>\e[m"
-  echo -e "  [all|repo] exec, -e <command>\e[0m           \e[2mRun exec <command>\e[m"
-  echo -e "                                           all in all directories"
-  echo -e "                                           all in <directory>"
+  echo -e "  \e[38;5;3mhelp | h\e[0m                   \e[2mShow this help menu\e[m"
+  echo -e "  \e[38;5;3mls   | ls\e[0m                  \e[2mList all git repos\e[m"
+  echo -e "  \e[38;5;3mall  | a \e[38;5;6m<cmd>\e[0m             \e[2mRun git <cmd> in all directories\e[m"
+  echo -e "  \e[38;5;3mrepo | r \e[38;5;6m<directory> <cmd>\e[0m \e[2mRun git <cmd> in <directory>\e[m"
+  echo
+  echo -e "\e[37mSub-commands:\e[0m"
+  echo -e "  \e[38;5;3m[command]\e[0m \e[38;5;9mexec | e \e[38;5;6m<cmd>\e[0m   \e[2mRun exec <cmd>\e[m"
+  echo -e "                             Can be used with [\e[38;5;3mall\e[0m] and [\e[38;5;3mrepo \e[38;5;6m<directory>\e[0m]"
+  echo
+  echo -e "\e[37mExamples:\e[0m"
+  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mhelp\e[0m"
+  echo -e "                         Show help menu"
+  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mlist\e[0m"
+  echo -e "                         Show git repo list"
+  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mall \e[0m            [\e[38;5;9mgit\e[0m] \e[38;5;6mstatus\e[0m"
+  echo -e " Execute \e[38;5;9mgit status\e[0m in all git repos"
+  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mall \e[0m            \e[38;5;9mexec\e[0m  \e[38;5;6mls\e[0m"
+  echo -e "     Execute \e[38;5;9mls\e[0m in all git repos"
+  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mrepo\e[0m \e[38;5;6m./gir-repo\e[0m [\e[38;5;9mgit\e[0m] \e[38;5;6mstatus\e[0m"
+  echo -e " Execute \e[38;5;9mgit status\e[0m in \e[38;5;6m./gir-repo\e[0m"
+  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mrepo\e[0m \e[38;5;6m./gir-repo\e[0m \e[38;5;9mexec\e[0m  \e[38;5;6mls\e[0m"
+  echo -e "     Execute \e[38;5;9mls\e[0m in \e[38;5;6m./gir-repo\e[0m"
+  echo
 }
 
 __accept_no_arg() {
@@ -61,25 +79,29 @@ __accept_no_arg() {
 }
 
 case "$1" in
-  help)
+  help|h)
     shift
     __accept_no_arg "$1"
     __help
     exit 0
     ;;
-  list)
+  list|ls)
     shift
     __accept_no_arg "$1"
     __list
     exit 0
     ;;
-  all|-a)
+  all|a)
     shift
     command='git'
-    if [[ $1 == "exec" || $1 == "-e" ]]; then
+    if [[ $1 == "exec" || $1 == "e" ]]; then
       command='exec'
-      shift
+    elif [[ $1 == "git" || $1 == "g" ]]; then
+      command='git'
+    else
+      command='git'
     fi
+    shift
     find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
       repo_dir=$(dirname "$dir")
       echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
@@ -87,16 +109,19 @@ case "$1" in
     done
     exit 0
     ;;
-  repo|-r)
+  repo|r)
     if [[ $# -ge 3 ]]; then
       shift
       repo_dir=$1
       shift
-      command='git'
-      if [[ $1 == "exec" || $1 == "-e" ]]; then
+      if [[ $1 == "exec" || $1 == "e" ]]; then
         command='exec'
-        shift
+      elif [[ $1 == "git" || $1 == "g" ]]; then
+        command='git'
+      else
+        command='git'
       fi
+      shift
       echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
       (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
       exit 0
