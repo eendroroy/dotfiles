@@ -11,10 +11,12 @@
 
 function __source_all_from_directory() {
   local file
+  shopt -s nullglob
   # shellcheck disable=SC1090
   for file in "${1}/"*.generic.sh "${1}/"*.${__UNAME}.sh; do
     [[ -f "${file}" ]] && source "${file}"
   done
+  shopt -u nullglob
 }
 
 function __install() {
