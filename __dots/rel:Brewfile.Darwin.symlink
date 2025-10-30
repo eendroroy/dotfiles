@@ -28,7 +28,7 @@ brew "git"
 brew "git-crypt"
 brew "git-extras"
 brew "git-sizer"
-brew "git-lfs"
+# brew "git-lfs"
 brew "gitleaks"
 brew "glab"
 
