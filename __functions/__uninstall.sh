@@ -19,11 +19,12 @@ function __uninstall() {
         ${__DRY} || rm "${target}"
         ${__DRY} && ${__VERBOSE} && __m_success_c "(rm ${target})"
       else
-        __m_warning_c "[$(dirname "${target}")] is not writable. using sudo...."
+        target_dir="$(dirname "${target}")"
+        __m_warning_c "[${target_dir}] is not writable. using sudo...."
         ${__DRY} || sudo rm "${target}"
         ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo rm ${target})"
       fi
-    done < <(cat "${__INSTALLATION_CACHE_FILE}")
+    done < "${__INSTALLATION_CACHE_FILE}"
 
     __m_warning "Removing installation cache ${__INSTALLATION_CACHE_FILE}"
     ${__DRY} || rm "${__INSTALLATION_CACHE_FILE}"
