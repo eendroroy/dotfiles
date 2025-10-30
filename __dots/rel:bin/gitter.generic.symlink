@@ -10,24 +10,32 @@
 # License, or (at your option) any later version.
 
 __CURRENT_DIR=$(pwd)
+__SUCCESS_SYMBOL=" ░"
+__ERROR_SYMBOL=" ░"
+__PRIMARY_SYMBOL=" ━"
 
 __handle_stdout() {
   while IFS= read -r line; do
-    echo -e "\e[38;5;2m┃\e[0m  \e[38;5;10m$line\e[0m"
+    printf "\e[38;5;2m%s\e[0m  %s\n" "${__SUCCESS_SYMBOL}" "${line}"
   done
 }
 
 __handle_stderr() {
   while IFS= read -r line; do
-    echo -e "\e[38;5;1m┃\e[0m  \e[38;5;9m$line\e[0m" >&2
+    printf "\e[38;5;1m%s\e[0m  %s\n" "${__ERROR_SYMBOL}" "${line}" >&2
   done
 }
 
 __list() {
   find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
     repo_dir=$(dirname "$dir")
-    (cd "$repo_dir" && \
-      printf "\e[32m%s\e[m \e[33m%s\e[m \e[35m%s\e[m \e[33m%s\e[m \e[96m%s\e[m\n" \
+    (
+      if ! cd "$repo_dir" 2>/dev/null; then
+        echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${repo_dir}\e[0m" 1>&2
+        exit 1
+      fi
+
+      printf "\e[38;5;2m${__PRIMARY_SYMBOL}\e[0m \e[32m%s\e[m \e[33m%s\e[m \e[35m%s\e[m \e[33m%s\e[m \e[96m%s\e[m\n" \
         "$(git branch --show-current)" \
         "$(git log -1 --format="%h" --abbrev=8)" \
         "${PWD/"${__CURRENT_DIR}"/.}" \
@@ -39,32 +47,21 @@ __list() {
 
 __help() {
   echo
-  echo -e "\e[37mUsage:\e[0m"
-  echo -e "  \e[38;5;2m gitter\e[0m \e[38;5;3m<command>\e[0m \e[38;5;9m[<sub-command>]\e[0m \e[38;5;6m[args]\e[0m"
+  echo -e "\e[1;37mGitter\e[0m - Run git or arbitrary command in multiple git repositories"
   echo
-  echo -e "\e[37mCommands:\e[0m"
-  echo -e "  \e[38;5;3mhelp | h\e[0m                   \e[2mShow this help menu\e[m"
-  echo -e "  \e[38;5;3mls   | ls\e[0m                  \e[2mList all git repos\e[m"
-  echo -e "  \e[38;5;3mall  | a \e[38;5;6m<cmd>\e[0m             \e[2mRun git <cmd> in all directories\e[m"
-  echo -e "  \e[38;5;3mrepo | r \e[38;5;6m<directory> <cmd>\e[0m \e[2mRun git <cmd> in <directory>\e[m"
+  echo -e "\e[1;37mUsage:\e[0m"
+  echo -e "  \e[32mgitter\e[0m [\e[36m--include <dir>\e[0m ...] [\e[36m--exclude <dir>\e[0m ...] [\e[36m--git\e[0m|\e[36m--exe\e[0m] [\e[33margs...\e[0m]"
   echo
-  echo -e "\e[37mSub-commands:\e[0m"
-  echo -e "  \e[38;5;3m[command]\e[0m \e[38;5;9mexec | e \e[38;5;6m<cmd>\e[0m   \e[2mRun exec <cmd>\e[m"
-  echo -e "                             Can be used with [\e[38;5;3mall\e[0m] and [\e[38;5;3mrepo \e[38;5;6m<directory>\e[0m]"
+  echo -e "\e[1;37mOptions:\e[0m"
+  echo -e "  \e[36m--include, -i <dir>\e[0m Include directory (can be used multiple times; default: .)"
+  echo -e "  \e[36m--exclude, -e <dir>\e[0m Exclude directory (can be used multiple times, supports globs, ex: 'node_modules')"
+  echo -e "  \e[36m--git, -g\e[0m           Use git (default)"
+  echo -e "  \e[36m--exe, -x\e[0m           Use exec (run arbitrary command)"
+  echo -e "  \e[33margs...\e[0m             Arguments passed to the command"
   echo
-  echo -e "\e[37mExamples:\e[0m"
-  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mhelp\e[0m"
-  echo -e "                         Show help menu"
-  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mlist\e[0m"
-  echo -e "                         Show git repo list"
-  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mall \e[0m            [\e[38;5;9mgit\e[0m] \e[38;5;6mstatus\e[0m"
-  echo -e " Execute \e[38;5;9mgit status\e[0m in all git repos"
-  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mall \e[0m            \e[38;5;9mexec\e[0m  \e[38;5;6mls\e[0m"
-  echo -e "     Execute \e[38;5;9mls\e[0m in all git repos"
-  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mrepo\e[0m \e[38;5;6m./gir-repo\e[0m [\e[38;5;9mgit\e[0m] \e[38;5;6mstatus\e[0m"
-  echo -e " Execute \e[38;5;9mgit status\e[0m in \e[38;5;6m./gir-repo\e[0m"
-  echo -ne "  \e[38;5;2m gitter\e[0m \e[38;5;3mrepo\e[0m \e[38;5;6m./gir-repo\e[0m \e[38;5;9mexec\e[0m  \e[38;5;6mls\e[0m"
-  echo -e "     Execute \e[38;5;9mls\e[0m in \e[38;5;6m./gir-repo\e[0m"
+  echo -e "\e[1;37mCommands:\e[0m"
+  echo -e "  \e[32mlist\e[0m                List all git repos"
+  echo -e "  \e[32mhelp\e[0m                Show this help menu"
   echo
 }
 
@@ -78,61 +75,101 @@ __accept_no_arg() {
   fi
 }
 
-case "$1" in
-  help|h)
-    shift
-    __accept_no_arg "$1"
-    __help
-    exit 0
-    ;;
-  list|ls)
-    shift
-    __accept_no_arg "$1"
-    __list
-    exit 0
-    ;;
-  all|a)
-    shift
-    command='git'
-    if [[ $1 == "exec" || $1 == "e" ]]; then
-      command='exec'
-      shift
-    elif [[ $1 == "git" || $1 == "g" ]]; then
-      command='git'
-      shift
-    else
-      command='git'
-    fi
-    find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
-      repo_dir=$(dirname "$dir")
-      echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
-      (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
-    done
-    exit 0
-    ;;
-  repo|r)
-    if [[ $# -ge 3 ]]; then
-      shift
-      repo_dir=$1
-      shift
-      if [[ $1 == "exec" || $1 == "e" ]]; then
-        command='exec'
-        shift
-      elif [[ $1 == "git" || $1 == "g" ]]; then
-        command='git'
-        shift
-      else
-        command='git'
-      fi
-      echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
-      (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
-      exit 0
-    fi
-    ;;
-esac
+# Argument defaults
+include_dirs=()
+exclude_dirs=()
+cmd_type="git"
+args=()
 
-echo
-echo -e "\e[91mInvalid usage.\e[m"
-echo
-__help
-exit 1
+if [[ $# -eq 0 ]]; then
+  __help
+  exit 1
+fi
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    help)
+      shift
+      __accept_no_arg "$1"
+      __help
+      exit 0
+      ;;
+    list)
+      shift
+      __accept_no_arg "$1"
+      __list
+      exit 0
+      ;;
+    --include|-i)
+      shift
+      if [[ -z "$1" || "$1" == -* ]]; then
+        echo
+        echo -e "\e[1;31mMissing or invalid argument for:\e[0m \e[36m--include\e[0m"
+        echo
+        __help
+        exit 1
+      fi
+      include_dirs+=("$1")
+      shift
+      ;;
+    --exclude|-e)
+      shift
+      if [[ -z "$1" || "$1" == -* ]]; then
+        echo
+        echo -e "\e[1;31mMissing or invalid argument for:\e[0m \e[36m--exclude\e[0m"
+        echo
+        __help
+        exit 1
+      fi
+      exclude_dirs+=("$1")
+      shift
+      ;;
+    --git|-g)
+      cmd_type="git"
+      shift
+      ;;
+    --exe|-x)
+      cmd_type="exec"
+      shift
+      ;;
+    *)
+      args+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ ${#include_dirs[@]} -eq 0 ]]; then
+  include_dirs=(".")
+fi
+
+for find_dir in "${include_dirs[@]}"; do
+  find "$find_dir" -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
+    repo_dir=$(dirname "$dir")
+    skip=0
+    for ex in "${exclude_dirs[@]}"; do
+      repo_clean=${repo_dir#./}
+      repo_clean=${repo_clean%/}
+      IFS='/' read -ra dir_parts <<< "$repo_clean"
+      for part in "${dir_parts[@]}"; do
+        # shellcheck disable=SC2254
+        case "$part" in
+          $ex)
+            skip=1
+            break
+            ;;
+        esac
+      done
+    done
+    [[ $skip -eq 1 ]] && continue
+    echo -e "\e[38;5;2m${__PRIMARY_SYMBOL} \e[1;38;5;2m(${cmd_type} ${args[*]})\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
+    (
+      if ! cd "$repo_dir" 2>/dev/null; then
+        echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${repo_dir}\e[0m" 1>&2
+        exit 1
+      fi
+      "$cmd_type" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
+    )
+  done
+done
