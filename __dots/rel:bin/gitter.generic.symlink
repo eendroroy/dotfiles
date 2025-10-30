@@ -96,12 +96,13 @@ case "$1" in
     command='git'
     if [[ $1 == "exec" || $1 == "e" ]]; then
       command='exec'
+      shift
     elif [[ $1 == "git" || $1 == "g" ]]; then
       command='git'
+      shift
     else
       command='git'
     fi
-    shift
     find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
       repo_dir=$(dirname "$dir")
       echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
@@ -116,12 +117,13 @@ case "$1" in
       shift
       if [[ $1 == "exec" || $1 == "e" ]]; then
         command='exec'
+        shift
       elif [[ $1 == "git" || $1 == "g" ]]; then
         command='git'
+        shift
       else
         command='git'
       fi
-      shift
       echo -e "\e[38;5;2m┣━ \e[1;38;5;2m(${command} $*)\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
       (cd "$repo_dir" && "${command}" "$@" 2> >(__handle_stderr) 1> >(__handle_stdout))
       exit 0
