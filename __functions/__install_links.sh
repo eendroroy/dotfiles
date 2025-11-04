@@ -24,13 +24,26 @@ function __install_links() {
       else
         __m_primary "[${item} -> ${target}]"
 
+        __target_dir="$(dirname "${target}")"
+
+        if [[ ! -d "${__target_dir}" ]]
+        then
+          __m_secondary_c "Creating directory: ${__target_dir}"
+          if [[ -w "$(dirname "${__target_dir}")" ]]; then
+            ${__DRY} || mkdir -p "${__target_dir}"
+            ${__DRY} && ${__VERBOSE} && __m_success_c "(mkdir -p ${__target_dir})"
+          else
+            __m_warning_c "[$(dirname "${__target_dir}")] is not writable. using sudo...."
+            ${__DRY} || mkdir -p "${__target_dir}"
+            ${__DRY} && ${__VERBOSE} && __m_success_c "(mkdir -p ${__target_dir})"
+          fi
+        fi
+
         if [[ -w "$(dirname "${target}")" ]]; then
-          ${__DRY} || mkdir -p "$(dirname "${target}")"
           ${__DRY} || ln -s "${source}" "${target}"
           ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
         else
           __m_warning_c "[$(dirname "${target}")] is not writable. using sudo...."
-          ${__DRY} || sudo mkdir -p "$(dirname "${target}")"
           ${__DRY} || sudo ln -s "${source}" "${target}"
           ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo ln -s ${item} ${target})"
         fi
