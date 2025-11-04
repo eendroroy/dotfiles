@@ -17,6 +17,7 @@ __PREINSTALL_DIR="${SCRIPT_LOCATION}/__before_dotfiles"
 __BEFORE_DIR="${SCRIPT_LOCATION}/__before_dots"
 __AFTER_DIR="${SCRIPT_LOCATION}/__dots_after"
 __DOTS_DIR="${SCRIPT_LOCATION}/__dots"
+__UNAME=$(uname)
 
 __INSTALLATION_CACHE_FILE="${SCRIPT_LOCATION}/.cache/installation"
 

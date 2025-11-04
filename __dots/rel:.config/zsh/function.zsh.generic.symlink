@@ -27,7 +27,7 @@ hst(){
 }
 
 # alacritty theme switcher
-if [[ "$(uname)" == "Darwin" ]]; then
+if [[ "${__UNAME}" == "Darwin" ]]; then
     __switch_theme() {
         local __theme; __theme=$(\
           find ~/.config/alacritty/theme -name '*.toml'\

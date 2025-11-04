@@ -10,49 +10,47 @@
 # License, or (at your option) any later version.
 
 function __install_links() {
-  for type in generic $(uname); do
-    while IFS= read -r -d '' item
-    do
-      read -r source target <<< "$(__get_source_target "${item}" "${type}")"
+  while IFS= read -r -d '' item
+  do
+    read -r source target <<< "$(__get_source_target "${item}")"
 
-      if [[ ${target} == "" ]]; then
-        continue
-      fi
+    if [[ ${target} == "" ]]; then
+      continue
+    fi
 
-      if [ -e "${target}" ] || [ -L "${target}" ]; then
-        ${__VERBOSE} && __m_warning "Skipping : ${target}"
-      else
-        __m_primary "[${item} -> ${target}]"
+    if [ -e "${target}" ] || [ -L "${target}" ]; then
+      ${__VERBOSE} && __m_warning "Skipping : ${target}"
+    else
+      __m_primary "[${item} -> ${target}]"
 
-        __target_dir="$(dirname "${target}")"
+      __target_dir="$(dirname "${target}")"
 
-        if [[ ! -d "${__target_dir}" ]]
-        then
-          __m_secondary_c "Creating directory: ${__target_dir}"
-          if [[ -w "$(dirname "${__target_dir}")" ]]; then
-            ${__DRY} || mkdir -p "${__target_dir}"
-            ${__DRY} && ${__VERBOSE} && __m_success_c "(mkdir -p ${__target_dir})"
-          else
-            __m_warning_c "[$(dirname "${__target_dir}")] is not writable. using sudo...."
-            ${__DRY} || mkdir -p "${__target_dir}"
-            ${__DRY} && ${__VERBOSE} && __m_success_c "(mkdir -p ${__target_dir})"
-          fi
-        fi
-
-        if [[ -w "$(dirname "${target}")" ]]; then
-          ${__DRY} || ln -s "${source}" "${target}"
-          ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
+      if [[ ! -d "${__target_dir}" ]]
+      then
+        __m_secondary_c "Creating directory: ${__target_dir}"
+        if [[ -w "$(dirname "${__target_dir}")" ]]; then
+          ${__DRY} || mkdir -p "${__target_dir}"
+          ${__DRY} && ${__VERBOSE} && __m_success_c "(mkdir -p ${__target_dir})"
         else
-          __m_warning_c "[$(dirname "${target}")] is not writable. using sudo...."
-          ${__DRY} || sudo ln -s "${source}" "${target}"
-          ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo ln -s ${item} ${target})"
+          __m_warning_c "[$(dirname "${__target_dir}")] is not writable. using sudo...."
+          ${__DRY} || mkdir -p "${__target_dir}"
+          ${__DRY} && ${__VERBOSE} && __m_success_c "(mkdir -p ${__target_dir})"
         fi
-
-        ${__DRY} || echo "${target}" >> "${__INSTALLATION_CACHE_FILE}"
-        ${__DRY} && ${__VERBOSE} && __m_secondary_c "(${target} >> ${__INSTALLATION_CACHE_FILE})"
       fi
-    done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)
-  done
+
+      if [[ -w "$(dirname "${target}")" ]]; then
+        ${__DRY} || ln -s "${source}" "${target}"
+        ${__DRY} && ${__VERBOSE} && __m_success_c "(ln -s ${item} ${target})"
+      else
+        __m_warning_c "[$(dirname "${target}")] is not writable. using sudo...."
+        ${__DRY} || sudo ln -s "${source}" "${target}"
+        ${__DRY} && ${__VERBOSE} && __m_success_c "(sudo ln -s ${item} ${target})"
+      fi
+
+      ${__DRY} || echo "${target}" >> "${__INSTALLATION_CACHE_FILE}"
+      ${__DRY} && ${__VERBOSE} && __m_secondary_c "(${target} >> ${__INSTALLATION_CACHE_FILE})"
+    fi
+  done < <(find "${__DOTS_DIR}/" \( -name "*.${__UNAME}.symlink" -o -name "*.generic.symlink" \) -print0)
 }
 
 export -f __install_links

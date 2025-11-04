@@ -11,8 +11,9 @@
 
 function __source_all_from_directory() {
   # shellcheck disable=SC1090
-  while IFS= read -r item; do  source "${item}"; done < \
-    <(find "${1}/" \( -name "*.generic.sh" -o -name "*.$(uname).sh" \) -type f)
+  while IFS= read -r item; do
+    source "${item}"
+   done < <(find "${1}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -type f)
 }
 
 function __install() {

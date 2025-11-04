@@ -11,9 +11,9 @@
 
 function __get_source_target() {
   local item=$1
-  local type=$2
   local target_name=${item#"${__DOTS_DIR}"/}
-        target_name=${target_name%."${type}".symlink}
+        target_name=${target_name%."${__UNAME}".symlink}
+        target_name=${target_name%.generic.symlink}
   local prefix=${target_name:0:4}
 
   if [[ "${prefix}" == "rel:" ]]; then

@@ -10,34 +10,43 @@
 # License, or (at your option) any later version.
 
 function __list() {
-  for type in generic $(uname); do
+  while IFS= read -r -d '' item
+  do
+    __m_primary "RUN: ${item#"${__BEFORE_DIR}"/}"
+  done < <(find "${__BEFORE_DIR}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
+
+  while IFS= read -r -d '' item
+  do
+    read -r source target <<< "$(__get_source_target "${item}")"
+
+    if [[ ${target} == "" ]]; then
+      continue
+    fi
+
+    __m_primary "LNK: ${target}"
+    [[ ${__VERBOSE} == true ]] && __m_secondary_c "source=${source}"
+    if [[ ${__STATUS} == true ]]; then
+      __real_path="$(readlink "${target}")"
+
+      if [[ ! -e "${target}" ]]; then
+        __m_error_c "Not installed"
+      elif [[ ! -L "${target}" ]]; then
+        __m_warning_c "Installed, but not a symlink"
+      elif [[ ! -e "${__real_path}" ]]; then
+        __m_error_c "Symlink broken"
+      elif [[ "${__real_path}" != "${item}" ]]; then
+        __m_warning_c "Installed from a different source {${__real_path}}"
+      else
+        __m_success_c "Installed"
+      fi
+    fi
+  done < <(find "${__DOTS_DIR}/" \( -name "*.generic.symlink" -o -name "*.${__UNAME}.symlink" \) -type f -print0 | sort -z)
+
     while IFS= read -r -d '' item
-    do
-      read -r source target <<< "$(__get_source_target "${item}" "${type}")"
+  do
+    __m_primary "RUN: ${item#"${__AFTER_DIR}"/}"
+  done < <(find "${__AFTER_DIR}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
 
-      if [[ ${target} == "" ]]; then
-        continue
-      fi
-
-      __m_primary "${target}"
-      [[ ${__VERBOSE} == true ]] && __m_secondary_c "source=${source}"
-      if [[ ${__STATUS} == true ]]; then
-        __real_path="$(readlink "${target}")"
-
-        if [[ ! -e "${target}" ]]; then
-          __m_error_c "Not installed"
-        elif [[ ! -L "${target}" ]]; then
-          __m_warning_c "Installed, but not a symlink"
-        elif [[ ! -e "${__real_path}" ]]; then
-          __m_error_c "Symlink broken"
-        elif [[ "${__real_path}" != "${item}" ]]; then
-          __m_warning_c "Installed from a different source {${__real_path}}"
-        else
-          __m_success_c "Installed"
-        fi
-      fi
-    done < <(find "${__DOTS_DIR}/" -name "*.${type}.symlink" -print0)
-  done
 }
 
 export -f __list

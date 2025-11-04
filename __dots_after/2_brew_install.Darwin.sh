@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Copyright (C) 2025 Indrajit Roy <eendroroy@gmail.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
@@ -7,7 +9,7 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-if [[ "${__UNAME}" == "Darwin" ]]; then
-    zle -N __switch_theme_widget __switch_theme
-    bindkey 'å' __switch_theme_widget
-fi
+brew update
+brew bundle --cleanup --file="${__DOTS_DIR}/rel:Brewfile.Darwin.symlink"
+brew upgrade --greedy
+brew cleanup --prune=all -v

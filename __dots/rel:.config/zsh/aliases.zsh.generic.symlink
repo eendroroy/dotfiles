@@ -10,7 +10,7 @@
 # shellcheck disable=SC1090
 
 # os specific aliases
-if [ "$(uname)" = "Linux" ]; then
+if [ "${__UNAME}" = "Linux" ]; then
   alias pbcopy='DISPLAY=:0 xclip -selection clipboard'
   alias pbpaste='DISPLAY=:0 xclip -selection clipboard -o'
   alias recvkey='sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys '
