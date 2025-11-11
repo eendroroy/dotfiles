@@ -112,7 +112,7 @@ cask "visualvm"
 
 # DATABASE TOOLS
 brew "pgcli"
-brew "postgresql@17", restart_service: :changed
+#brew "postgresql@17", restart_service: :changed
 
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
 brew "ansible"
