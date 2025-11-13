@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Copyright (C) 2025 Indrajit Roy <eendroroy@gmail.com>
+# Copyright (C) Indrajit Roy <eendroroy@gmail.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 #
