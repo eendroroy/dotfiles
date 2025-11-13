@@ -1,0 +1,81 @@
+#compdef gitter
+
+# Copyright (C) 2025 Indrajit Roy <eendroroy@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+_gitter() {
+  local -a opts
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  opts=(
+    '--help[Show help menu]'
+    '-h[Show help menu]'
+    '--filter-exclude[Exclude matches instead of including them]'
+    '-e[Exclude matches instead of including them]'
+    '--filter-name[Match repo name exactly]:repository name:_files -/'
+    '-n[Match repo name exactly]:repository name:_files -/'
+    '--filter-name-prefix[Match repo name with prefix]:prefix:'
+    '-np[Match repo name with prefix]:prefix:'
+    '--filter-name-suffix[Match repo name with suffix]:suffix:'
+    '-ns[Match repo name with suffix]:suffix:'
+    '--filter-name-contains[Match repo name containing substring]:substring:'
+    '-nc[Match repo name containing substring]:substring:'
+    '--filter-branch[Match current git branch]:branch name:__gitter_git_branches'
+    '-gb[Match current git branch]:branch name:__gitter_git_branches'
+    '--filter-branch-prefix[Match git branch prefix]:prefix:'
+    '-gbp[Match git branch prefix]:prefix:'
+    '--filter-branch-suffux[Match git branch suffix]:suffix:'
+    '-gbs[Match git branch suffix]:suffix:'
+    '--filter-branch-contains[Match git branch containing substring]:substring:'
+    '-gbc[Match git branch containing substring]:substring:'
+    '--git[Run git command (default)]'
+    '-g[Run git command (default)]'
+    '--exe[Run arbitrary command]'
+    '-x[Run arbitrary command]'
+    '--list[List repositories only]'
+    '-l[List repositories only]'
+    '--debug[Enable debug output]'
+  )
+
+  _arguments -C \
+    $opts \
+    '*::args:->args'
+
+  case $state in
+    args)
+      # If user specified --git or -g, delegate to _git
+      if (( ${words[(I)--git]} || ${words[(I)-g]} )); then
+        _git
+        return
+      fi
+
+      # If user specified --exe or -x, complete executables in PATH
+      if (( ${words[(I)--exe]} || ${words[(I)-x]} )); then
+        _command_names -e
+        return
+      fi
+
+      # For --list, no further args
+      if (( ${words[(I)--list]} || ${words[(I)-l]} )); then
+        return
+      fi
+
+      # Default to file completion
+      _files
+      ;;
+  esac
+}
+
+# Helper to complete branch names in the current repo
+__gitter_git_branches() {
+  local expl branches
+  branches=(${(f)"$(git branch --format='%(refname:short)' 2>/dev/null)"})
+  _describe -t branches 'git branch' branches
+}

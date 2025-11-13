@@ -26,23 +26,20 @@ __handle_stderr() {
   done
 }
 
-__list() {
-  find . -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
-    repo_dir=$(dirname "$dir")
-    (
-      if ! cd "$repo_dir" 2>/dev/null; then
-        echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${repo_dir}\e[0m" 1>&2
-        exit 1
-      fi
+__repo_status() {
+  (
+    if ! cd "${1}" 2>/dev/null; then
+      echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${1}\e[0m" 1>&2
+      exit 1
+    fi
 
-      printf "\e[38;5;2m${__PRIMARY_SYMBOL}\e[0m \e[32m%s\e[m \e[33m%s\e[m \e[35m%s\e[m \e[33m%s\e[m \e[96m%s\e[m\n" \
-        "$(git branch --show-current)" \
-        "$(git log -1 --format="%h" --abbrev=8)" \
-        "${PWD/"${__CURRENT_DIR}"/.}" \
-        "$(git log -1 --format="%cr")" \
-        "$(git log -1 --format="%ae")"
-    )
-  done
+    printf "\e[38;5;2m${__PRIMARY_SYMBOL}\e[0m \e[32m%s\e[m \e[33m%s\e[m \e[35m%s\e[m \e[33m%s\e[m \e[96m%s\e[m\n" \
+      "$(git branch --show-current)" \
+      "$(git log -1 --format="%h" --abbrev=8)" \
+      "${PWD/"${__CURRENT_DIR}"/.}" \
+      "$(git log -1 --format="%cr")" \
+      "$(git log -1 --format="%ae")"
+  )
 }
 
 __help() {
@@ -50,18 +47,34 @@ __help() {
   echo -e "\e[1;37mGitter\e[0m - Run git or arbitrary command in multiple git repositories"
   echo
   echo -e "\e[1;37mUsage:\e[0m"
-  echo -e "  \e[32mgitter\e[0m [\e[36m--include <dir>\e[0m ...] [\e[36m--exclude <dir>\e[0m ...] [\e[36m--git\e[0m|\e[36m--exe\e[0m] [\e[33margs...\e[0m]"
+  echo -e "  \e[32mgitter\e[0m [\e[36m--filter-exclude\e[0m]"
+  echo -e "         [\e[36m--filter-name <filter>\e[0m ...]"
+  echo -e "         [\e[36m--filter-name-prefix <filter>\e[0m ...]"
+  echo -e "         [\e[36m--filter-name-suffix <filter>\e[0m ...]"
+  echo -e "         [\e[36m--filter-name-contains <filter>\e[0m ...]"
+  echo -e "         [\e[36m--filter-branch <filter>\e[0m ...]"
+  echo -e "         [\e[36m--filter-branch-prefix <filter>\e[0m ...]"
+  echo -e "         [\e[36m--filter-branch-suffix <filter>\e[0m ...]"
+  echo -e "         [\e[36m--filter-branch-contains <filter>\e[0m ...]"
+  echo -e "         [\e[36m--git\e[0m|\e[36m--exe\e[0m|\e[36m--list\e[0m|\e[36m--help\e[0m]"
+  echo -e "         [\e[36m--debug\e[0m]"
+  echo -e "         [\e[33margs...\e[0m]"
   echo
   echo -e "\e[1;37mOptions:\e[0m"
-  echo -e "  \e[36m--include, -i <dir>\e[0m Include directory (can be used multiple times; default: .)"
-  echo -e "  \e[36m--exclude, -e <dir>\e[0m Exclude directory (can be used multiple times, supports globs, ex: 'node_modules')"
-  echo -e "  \e[36m--git, -g\e[0m           Use git (default)"
-  echo -e "  \e[36m--exe, -x\e[0m           Use exec (run arbitrary command)"
-  echo -e "  \e[33margs...\e[0m             Arguments passed to the command"
-  echo
-  echo -e "\e[1;37mCommands:\e[0m"
-  echo -e "  \e[32mlist\e[0m                List all git repos"
-  echo -e "  \e[32mhelp\e[0m                Show this help menu"
+  echo -e "  \e[36m--filter-exclude,         -e           \e[0m Exclude matches instead of including them (\e[33minclude by default\e[0m)"
+  echo -e "  \e[36m--filter-name,            -n  <filter> \e[0m Match repo directory name exactly"
+  echo -e "  \e[36m--filter-name-prefix,     -np <filter> \e[0m Match repo directory name with prefix"
+  echo -e "  \e[36m--filter-name-suffix,     -ns <filter> \e[0m Match repo directory name with suffix"
+  echo -e "  \e[36m--filter-name-contains,   -nc <filter> \e[0m Match repo directory name containing substring"
+  echo -e "  \e[36m--filter-branch,          -b  <filter> \e[0m Match current git branch name exactly"
+  echo -e "  \e[36m--filter-branch-prefix,   -bp <filter> \e[0m Match current git branch name with prefix"
+  echo -e "  \e[36m--filter-branch-suffix,   -bs <filter> \e[0m Match current git branch name with suffix"
+  echo -e "  \e[36m--filter-branch-contains, -bc <filter> \e[0m Match current git branch name containing substring"
+  echo -e "  \e[36m--git,                    -g           \e[0m Run a git command (\e[33mdefault\e[0m)"
+  echo -e "  \e[36m--exe,                    -x           \e[0m Run an arbitrary command"
+  echo -e "  \e[36m--list,                   -l           \e[0m List repositories only"
+  echo -e "  \e[36m--help,                   -h           \e[0m Show this help menu"
+  echo -e "  \e[33margs                                   \e[0m Arguments passed to the chosen command"
   echo
 }
 
@@ -75,10 +88,29 @@ __accept_no_arg() {
   fi
 }
 
+__require_value() {
+  # $1 = next token, $2 = colored flag name
+  if [[ -z "$1" || "$1" == -* ]]; then
+    echo
+    echo -e "\e[1;31mMissing or invalid argument for:\e[0m $2"
+    echo
+    __help
+    exit 1
+  fi
+}
+
 # Argument defaults
-include_dirs=()
-exclude_dirs=()
 cmd_type="git"
+filter_type="i"
+has_filters=false
+filters_name=()
+filters_name_prefix=()
+filters_name_suffix=()
+filters_name_contains=()
+filters_branch=()
+filters_branch_prefix=()
+filters_branch_suffix=()
+filters_branch_contains=()
 args=()
 
 if [[ $# -eq 0 ]]; then
@@ -89,40 +121,68 @@ fi
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    help)
-      shift
-      __accept_no_arg "$1"
+    --help)
       __help
       exit 0
       ;;
-    list)
-      shift
-      __accept_no_arg "$1"
-      __list
-      exit 0
-      ;;
-    --include|-i)
-      shift
-      if [[ -z "$1" || "$1" == -* ]]; then
-        echo
-        echo -e "\e[1;31mMissing or invalid argument for:\e[0m \e[36m--include\e[0m"
-        echo
-        __help
-        exit 1
-      fi
-      include_dirs+=("$1")
+    --filter-exclude|-e)
+      filter_type="e"
       shift
       ;;
-    --exclude|-e)
+    --filter-name|-n)
       shift
-      if [[ -z "$1" || "$1" == -* ]]; then
-        echo
-        echo -e "\e[1;31mMissing or invalid argument for:\e[0m \e[36m--exclude\e[0m"
-        echo
-        __help
-        exit 1
-      fi
-      exclude_dirs+=("$1")
+      __require_value "$1" "\e[36m--filter-name\e[0m"
+      has_filters=true
+      filters_name+=("$1")
+      shift
+      ;;
+    --filter-name-prefix|-np)
+      shift
+      __require_value "$1" "\e[36m--filter-name-prefix\e[0m"
+      has_filters=true
+      filters_name_prefix+=("$1")
+      shift
+      ;;
+    --filter-name-suffix|-ns)
+      shift
+      __require_value "$1" "\e[36m--filter-name-suffix\e[0m"
+      has_filters=true
+      filters_name_suffix+=("$1")
+      shift
+      ;;
+    --filter-name-contains|-nc)
+      shift
+      __require_value "$1" "\e[36m--filter-name-contains\e[0m"
+      has_filters=true
+      filters_name_contains+=("$1")
+      shift
+      ;;
+    --filter-branch|-gb)
+      shift
+      __require_value "$1" "\e[36m--filter-branch\e[0m"
+      has_filters=true
+      filters_branch+=("$1")
+      shift
+      ;;
+    --filter-branch-prefix|-gbp)
+      shift
+      __require_value "$1" "\e[36m--filter-branch-prefix\e[0m"
+      has_filters=true
+      filters_branch_prefix+=("$1")
+      shift
+      ;;
+    --filter-branch-suffux|-gbs)
+      shift
+      __require_value "$1" "\e[36m--filter-branch-suffux\e[0m"
+      has_filters=true
+      filters_branch_suffix+=("$1")
+      shift
+      ;;
+    --filter-branch-contains|-gbc)
+      shift
+      __require_value "$1" "\e[36m--filter-branch-contains\e[0m"
+      has_filters=true
+      filters_branch_contains+=("$1")
       shift
       ;;
     --git|-g)
@@ -133,6 +193,14 @@ while [[ $# -gt 0 ]]; do
       cmd_type="exec"
       shift
       ;;
+    --list|-l)
+      cmd_type="list"
+      shift
+      ;;
+    --debug)
+      __debug=1
+      shift
+      ;;
     *)
       args+=("$1")
       shift
@@ -140,36 +208,60 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ ${#include_dirs[@]} -eq 0 ]]; then
-  include_dirs=(".")
+readarray -d '' -t repo_git_dirs < <(find . -name ".git" -type d -print0)
+
+if [[ ${#repo_git_dirs[@]} -eq 0 ]]; then
+  echo -e "\e[38;5;9m${__ERROR_SYMBOL}\e[0m  \e[38;5;9mNo git repositories found in the current directory\e[0m" 1>&2
+  exit 1
 fi
 
-for find_dir in "${include_dirs[@]}"; do
-  find "$find_dir" -name ".git" -type d -print0 | while IFS= read -r -d '' dir; do
-    repo_dir=$(dirname "$dir")
-    skip=0
-    for ex in "${exclude_dirs[@]}"; do
-      repo_clean=${repo_dir#./}
-      repo_clean=${repo_clean%/}
-      IFS='/' read -ra dir_parts <<< "$repo_clean"
-      for part in "${dir_parts[@]}"; do
-        # shellcheck disable=SC2254
-        case "$part" in
-          $ex)
-            skip=1
-            break
-            ;;
-        esac
-      done
-    done
-    [[ $skip -eq 1 ]] && continue
+filtered_repo_git_dirs=()
+
+for repo_git_dir in "${repo_git_dirs[@]}"; do
+  # If no filters, include all repositories
+  [[ "$has_filters" == false ]] && filtered_repo_git_dirs+=("$repo_git_dir") && continue
+
+  git_branch=$(git -C "$repo_git_dir" branch --show-current 2>/dev/null)
+
+  match=false
+  # Name filters
+  for filter in "${filters_name[@]}";            do [[ "$repo_git_dir" == "$filter"       ]] && { match=true; break; }; done
+  for filter in "${filters_name_prefix[@]}";     do [[ "$repo_git_dir" == "$filter"*      ]] && { match=true; break; }; done
+  for filter in "${filters_name_suffix[@]}";     do [[ "$repo_git_dir" == *"$filter"/.git ]] && { match=true; break; }; done
+  for filter in "${filters_name_contains[@]}";   do [[ "$repo_git_dir" == *"$filter"*     ]] && { match=true; break; }; done
+  # Branch filters
+  for filter in "${filters_branch[@]}";          do [[ "$git_branch" == "$filter"         ]] && { match=true; break; }; done
+  for filter in "${filters_branch_prefix[@]}";   do [[ "$git_branch" == "$filter"*        ]] && { match=true; break; }; done
+  for filter in "${filters_branch_suffix[@]}";   do [[ "$git_branch" == *"$filter"        ]] && { match=true; break; }; done
+  for filter in "${filters_branch_contains[@]}"; do [[ "$git_branch" == *"$filter"*       ]] && { match=true; break; }; done
+
+  # Apply include/exclude logic
+  if [[ "$filter_type" == "i" && "$match" == true ]]; then
+    filtered_repo_git_dirs+=("$repo_git_dir")
+  elif [[ "$filter_type" == "e" && "$match" == false ]]; then
+    filtered_repo_git_dirs+=("$repo_git_dir")
+  fi
+done
+
+if [[ ${#filtered_repo_git_dirs[@]} -eq 0 ]]; then
+  echo -e "\e[38;5;9m${__ERROR_SYMBOL}\e[0m  No git repositories found in the current directory with applied filters" 1>&2
+  exit 1
+fi
+
+for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
+  repo_dir=$(dirname "$repo_git_dir")
+  if [[ "$cmd_type" == "list" ]]; then
+    __repo_status "$repo_dir"
+    continue
+  fi
+  if [[ "$cmd_type" == "git" || "$cmd_type" == "exec" ]]; then
     echo -e "\e[38;5;2m${__PRIMARY_SYMBOL} \e[1;38;5;2m(${cmd_type} ${args[*]})\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
     (
-      if ! cd "$repo_dir" 2>/dev/null; then
+      cd "$repo_dir" 2>/dev/null || {
         echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${repo_dir}\e[0m" 1>&2
         exit 1
-      fi
+      }
       "$cmd_type" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
     )
-  done
+  fi
 done
