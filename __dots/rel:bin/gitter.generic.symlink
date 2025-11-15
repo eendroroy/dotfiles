@@ -22,7 +22,7 @@ __handle_stdout() {
 
 __handle_stderr() {
   while IFS= read -r line; do
-    printf "\e[38;5;1m%s\e[0m  %s\n" "${__ERROR_SYMBOL}" "${line}" >&2
+    printf "\e[38;5;1m%s\e[0m  %s\n" "${__ERROR_SYMBOL}" "${line}" 1>&2
   done
 }
 
@@ -101,7 +101,7 @@ __help() {
   echo -e "    Run \e[33mgit status\e[0m in the repository named \e[35mmy-repo\e[0m"
   echo
   echo -e "  \e[32mgitter\e[0m \e[36m--filter B:feature\e[0m \e[36m--exe\e[0m \e[36m--\e[0m \e[33mmake build\e[0m"
-  echo -e "    Run \e[33mmake build\e[0m in repositories currently checkedout to any \e[35mfeature\e[0m branch"
+  echo -e "    Run \e[33mmake build\e[0m in repositories currently on any \e[35mfeature\e[0m branch"
   echo
   echo -e "  \e[32mgitter\e[0m \e[36m--filter-exclude\e[0m \e[36m--filter R:old-project\e[0m \e[36m--list\e[0m"
   echo -e "    List all repositories except the ones has \e[35mold-project\e[0m in repo name"
@@ -111,7 +111,7 @@ __help() {
 __accept_no_arg() {
   if [[ -n $1 ]]; then
     echo
-    echo -e "\e[1;31mUnknown argument:\e[0m $1"
+    echo -e "\e[1;31mUnknown argument:\e[0m $1" 1>&2
     echo
     __help
     exit 1
@@ -122,7 +122,7 @@ __require_value() {
   # $1 = next token, $2 = colored flag name
   if [[ -z "$1" || "$1" == -* ]]; then
     echo
-    echo -e "\e[1;31mMissing or invalid argument for:\e[0m $2"
+    echo -e "\e[1;31mMissing or invalid argument for:\e[0m $2" 1>&2
     echo
     __help
     exit 1
