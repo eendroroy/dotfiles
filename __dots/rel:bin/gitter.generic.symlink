@@ -14,15 +14,25 @@ __SUCCESS_SYMBOL=" ░"
 __ERROR_SYMBOL=" ░"
 __PRIMARY_SYMBOL=" ━"
 
+_C___RESET='\e[0m'
+_C____PATH='\e[35m'
+_C_COMMAND='\e[32m'
+_C____ARGS='\e[33m'
+_C__OPTION='\e[36m'
+_C_____DIM='\e[2;38;5;3m'
+_C_SUCCESS='\e[38;5;2m'
+_C___ERROR='\e[38;5;9m'
+_C_HEADING='\e[1;37m'
+
 __handle_stdout() {
   while IFS= read -r line; do
-    printf "\e[38;5;2m%s\e[0m  %s\n" "${__SUCCESS_SYMBOL}" "${line}"
+    printf "${_C_SUCCESS}%s${_C___RESET}  %s\n" "${__SUCCESS_SYMBOL}" "${line}"
   done
 }
 
 __handle_stderr() {
   while IFS= read -r line; do
-    printf "\e[38;5;1m%s\e[0m  %s\n" "${__ERROR_SYMBOL}" "${line}" 1>&2
+    printf "${_C___ERROR}%s${_C___RESET}  %s\n" "${__ERROR_SYMBOL}" "${line}" 1>&2
   done
 }
 
@@ -54,11 +64,11 @@ __match_filter() {
 __repo_status() {
   (
     if ! cd "${1}" 2>/dev/null; then
-      echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${1}\e[0m" 1>&2
+      echo -e "${_C___ERROR}${__PRIMARY_SYMBOL}  Failed to enter: ${1}${_C___RESET}" 1>&2
       exit 1
     fi
 
-    printf "\e[38;5;2m${__PRIMARY_SYMBOL}\e[0m \e[32m%s\e[m \e[33m%s\e[m \e[35m%s\e[m \e[33m%s\e[m \e[96m%s\e[m\n" \
+    printf "${_C_SUCCESS}${__PRIMARY_SYMBOL}${_C___RESET} ${_C_COMMAND}%s${_C___RESET} ${_C____ARGS}%s${_C___RESET} ${_C____PATH}%s${_C___RESET} ${_C____ARGS}%s${_C___RESET} ${_C__OPTION}%s${_C___RESET}\n" \
       "$(git branch --show-current)" \
       "$(git log -1 --format="%h" --abbrev=8)" \
       "${PWD/"${__CURRENT_DIR}"/.}" \
@@ -69,49 +79,50 @@ __repo_status() {
 
 __help() {
   echo
-  echo -e "\e[1;37mGitter\e[0m"
+  echo -e "${_C_HEADING}Gitter${_C___RESET}"
   echo -e "  Run git or arbitrary command in multiple git repositories with filters in current directory"
   echo
-  echo -e "\e[1;37mUsage:\e[0m"
-  echo -ne "  \e[32mgitter\e[0m [\e[36m--filter-exclude\e[0m] [\e[36m--filter <pattern>\e[0m ...]"
-  echo -ne " [\e[36m--git\e[0m|\e[36m--exe\e[0m|\e[36m--list\e[0m|\e[36m--help\e[0m]"
-  echo -ne " \e[36m--\e[0m"
-  echo -e " [\e[33margs...\e[0m]"
+  echo -e "${_C_HEADING}Usage:${_C___RESET}"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} [${_C__OPTION}--filter-exclude${_C___RESET}] [${_C__OPTION}--filter <pattern>${_C___RESET} ...]"
+  echo -ne " [${_C__OPTION}--git${_C___RESET}|${_C__OPTION}--exe${_C___RESET}|${_C__OPTION}--list${_C___RESET}|${_C__OPTION}--help${_C___RESET}]"
+  echo -ne " ${_C__OPTION}--${_C___RESET}"
+  echo -e " [${_C____ARGS}args...${_C___RESET}]"
   echo
-  echo -e "\e[1;37mOptions:\e[0m"
-  echo -e "  \e[36m--filter-exclude, -e           \e[0m Exclude matches instead of including them (\e[33minclude by default\e[0m)"
-  echo -e "  \e[36m--filter,         -f <pattern> \e[0m Match repo directory name exactly"
-  echo -e "  \e[36m--git,            -g           \e[0m Run a git command (\e[33mdefault\e[0m)"
-  echo -e "  \e[36m--exe,            -x           \e[0m Run an arbitrary command"
-  echo -e "  \e[36m--list,           -l           \e[0m List repositories only"
-  echo -e "  \e[36m--help,           -h           \e[0m Show this help menu"
-  echo -e "  \e[33margs                           \e[0m Arguments passed to the chosen command"
+  echo -e "${_C_HEADING}Options:${_C___RESET}"
+  echo -e "  ${_C__OPTION}--no-color                     ${_C___RESET} Disable colored output"
+  echo -e "  ${_C__OPTION}--filter-exclude, -e           ${_C___RESET} Exclude matches instead of including them (${_C____ARGS}include by default${_C___RESET})"
+  echo -e "  ${_C__OPTION}--filter,         -f <pattern> ${_C___RESET} Match repo directory name exactly"
+  echo -e "  ${_C__OPTION}--git,            -g           ${_C___RESET} Run a git command (${_C____ARGS}default${_C___RESET})"
+  echo -e "  ${_C__OPTION}--exe,            -x           ${_C___RESET} Run an arbitrary command"
+  echo -e "  ${_C__OPTION}--list,           -l           ${_C___RESET} List repositories only"
+  echo -e "  ${_C__OPTION}--help,           -h           ${_C___RESET} Show this help menu"
+  echo -e "  ${_C____ARGS}args                           ${_C___RESET} Arguments passed to the chosen command"
   echo
-  echo -e "\e[1;37mPatterns:\e[0m"
-  echo -e "  \e[31mP:           \e[0m Match for path name"
-  echo -e "  \e[31mR:           \e[0m Match for repo name"
-  echo -e "  \e[31mB:           \e[0m Match for current git branch"
-  echo -e "  \e[31m^\e[0m\e[2;38;5;3m<pattern>\e[0m\e[31m$  \e[0m Exact match"
-  echo -e "  \e[31m^\e[0m\e[2;38;5;3m<pattern>   \e[0m Prefix match"
-  echo -e "   \e[2;38;5;3m<pattern>\e[0m\e[31m$  \e[0m Suffix match"
-  echo -e "   \e[2;38;5;3m<pattern>   \e[0m Substring match"
+  echo -e "${_C_HEADING}Patterns:${_C___RESET}"
+  echo -e "  ${_C___ERROR}P:           ${_C___RESET} Match for path name"
+  echo -e "  ${_C___ERROR}R:           ${_C___RESET} Match for repo name"
+  echo -e "  ${_C___ERROR}B:           ${_C___RESET} Match for current git branch"
+  echo -e "  ${_C___ERROR}^${_C___RESET}${_C_____DIM}<pattern>${_C___RESET}${_C___ERROR}$  ${_C___RESET} Exact match"
+  echo -e "  ${_C___ERROR}^${_C___RESET}${_C_____DIM}<pattern>   ${_C___RESET} Prefix match"
+  echo -e "  ${_C_____DIM} <pattern>${_C___RESET}${_C___ERROR}$  ${_C___RESET} Suffix match"
+  echo -e "  ${_C_____DIM} <pattern>   ${_C___RESET} Substring match"
   echo
-  echo -e "\e[1;37mExamples:\e[0m"
-  echo -ne "  \e[32mgitter\e[0m \e[36m--filter R:^my-repo$\e[0m \e[36m--git\e[0m \e[36m--\e[0m \e[33mstatus\e[0m"
-  echo -e "           - Run \e[33mgit status\e[0m in the repository named \e[35mmy-repo\e[0m"
-  echo -ne "  \e[32mgitter\e[0m \e[36m--filter B:feature\e[0m \e[36m--exe\e[0m \e[36m--\e[0m \e[33mmake build\e[0m"
-  echo -e "         - Run \e[33mmake build\e[0m in repositories currently on any \e[35mfeature\e[0m branch"
-  echo -ne "  \e[32mgitter\e[0m \e[36m--filter-exclude\e[0m \e[36m--filter R:old-project\e[0m \e[36m--list\e[0m"
-  echo -e " - List all repositories except the ones has \e[35mold-project\e[0m in repo name"
+  echo -e "${_C_HEADING}Examples:${_C___RESET}"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter R:^my-repo\$${_C___RESET} ${_C__OPTION}--git${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}status${_C___RESET}"
+  echo -e "           - Run ${_C____ARGS}git status${_C___RESET} in the repository named ${_C____PATH}my-repo${_C___RESET}"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter B:feature${_C___RESET} ${_C__OPTION}--exe${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}make build${_C___RESET}"
+  echo -e "         - Run ${_C____ARGS}make build${_C___RESET} in repositories currently on any ${_C____PATH}feature${_C___RESET} branch"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter-exclude${_C___RESET} ${_C__OPTION}--filter R:old-project${_C___RESET} ${_C__OPTION}--list${_C___RESET}"
+  echo -e " - List all repositories except the ones has ${_C____PATH}old-project${_C___RESET} in repo name"
   echo
 }
 
 __parse_command() {
   if [[ -n "$command" ]]; then
     echo
-    echo -e "\n\e[31mMultiple command types specified\e[0m" 1>&2
+    echo -e "\n${_C___ERROR}Multiple command types specified${_C___RESET}" 1>&2
     echo
-    echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+    echo -e "Run ${_C_COMMAND}gitter --help${_C___RESET} for usage information." 1>&2
     echo
     exit 1
   fi
@@ -121,9 +132,9 @@ __parse_command() {
 __accept_no_arg() {
   if [[ -n $1 ]]; then
     echo
-    echo -e "\e[31mUnknown argument:\e[0m $1" 1>&2
+    echo -e "${_C___ERROR}Unknown argument:${_C___RESET} $1" 1>&2
     echo
-    echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+    echo -e "Run ${_C_COMMAND}gitter --help${_C___RESET} for usage information." 1>&2
     echo
     exit 1
   fi
@@ -132,15 +143,16 @@ __accept_no_arg() {
 __require_value() {
   if [[ -z "$1" || "$1" == -* ]]; then
     echo
-    echo -e "\e[31mMissing or invalid argument for:\e[0m $2" 1>&2
+    echo -e "${_C___ERROR}Missing or invalid argument for:${_C___RESET} $2" 1>&2
     echo
-    echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+    echo -e "Run ${_C_COMMAND}gitter --help${_C___RESET} for usage information." 1>&2
     echo
     exit 1
   fi
 }
 
 # Argument defaults
+no_color=false
 command=""
 filter_type="i"
 has_filters=false
@@ -155,34 +167,25 @@ fi
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --help)
-      __parse_command ""
-      __help
-      exit 0
-      ;;
     --filter-exclude|-e)
       filter_type="e"
       shift
       ;;
+    --no-color)
+      no_color=true
+      shift
+      ;;
     --filter|-f)
       shift
-      __require_value "$1" "\e[36m--filter-name\e[0m"
+      __require_value "$1" "${_C__OPTION}--filter-name${_C___RESET}"
       has_filters=true
       filters+=("$1")
       shift
       ;;
-    --git|-g)
-      __parse_command "git"
-      shift
-      ;;
-    --exe|-x)
-      __parse_command "exec"
-      shift
-      ;;
-    --list|-l)
-      __parse_command "list"
-      shift
-      ;;
+    --git |-g) __parse_command "git" ; shift ;;
+    --exe |-x) __parse_command "exec"; shift ;;
+    --list|-l) __parse_command "list"; shift ;;
+    --help|-h) __parse_command "help"; shift ;;
     --)
       shift
       while [[ $# -gt 0 ]]; do
@@ -192,23 +195,36 @@ while [[ $# -gt 0 ]]; do
       ;;
     *)
       echo
-      echo -e "\e[31mUnknown argument:\e[0m $1" 1>&2
+      echo -e "${_C___ERROR}Unknown argument:${_C___RESET} $1" 1>&2
       echo
-      echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+      echo -e "Run ${_C_COMMAND}gitter --help${_C___RESET} for usage information." 1>&2
       echo
       exit 1
       ;;
   esac
 done
 
+# Disable colors if no_color is set
+if [[ $no_color == true ]]; then
+  _C___RESET=''
+  _C____PATH=''
+  _C_COMMAND=''
+  _C____ARGS=''
+  _C__OPTION=''
+  _C_____DIM=''
+  _C_SUCCESS=''
+  _C___ERROR=''
+  _C_HEADING=''
+fi
+
 # Set default command type if none specified
 [[ -z "$command" ]] && command="git"
 
-[[ "$command" != "list" && ${#args[@]} -eq 0 ]] && {
+[[ "$command" != "list" && "$command" != "help" && ${#args[@]} -eq 0 ]] && {
   echo
-  echo -e "\e[31mNo arguments provided for command:\e[0m $command" 1>&2
+  echo -e "${_C___ERROR}No arguments provided for command:${_C___RESET} $command" 1>&2
   echo
-  echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+  echo -e "Run ${_C_COMMAND}gitter --help${_C___RESET} for usage information." 1>&2
   echo
   exit 1
 }
@@ -216,7 +232,7 @@ done
 readarray -d '' -t repo_git_dirs < <(find . -name ".git" -type d -print0)
 
 if [[ ${#repo_git_dirs[@]} -eq 0 ]]; then
-  echo -e "\e[38;5;9m${__ERROR_SYMBOL}\e[0m  \e[38;5;9mNo git repositories found in the current directory\e[0m" 1>&2
+  echo -e "${_C___ERROR}${__ERROR_SYMBOL}  No git repositories found in the current directory${_C___RESET}" 1>&2
   exit 1
 fi
 
@@ -254,7 +270,7 @@ for repo_git_dir in "${repo_git_dirs[@]}"; do
         fi
         ;;
       *)
-        echo -e "\e[38;5;9m${__ERROR_SYMBOL}\e[0m  \e[38;5;9mUnknown filter key: ${filter_key}\e[0m" 1>&2
+        echo -e "${_C___ERROR}${__ERROR_SYMBOL}  Unknown filter key: ${filter_key}${_C___RESET}" 1>&2
         exit 1
         ;;
     esac
@@ -269,8 +285,13 @@ for repo_git_dir in "${repo_git_dirs[@]}"; do
 done
 
 if [[ ${#filtered_repo_git_dirs[@]} -eq 0 ]]; then
-  echo -e "\e[38;5;9m${__ERROR_SYMBOL}\e[0m  No git repositories found in the current directory with applied filters" 1>&2
+  echo -e "${_C___ERROR}${__ERROR_SYMBOL}${_C___RESET}  No git repositories found in the current directory with applied filters" 1>&2
   exit 1
+fi
+
+if [[ "$command" == "help" ]]; then
+  __help
+  exit 0
 fi
 
 for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
@@ -280,10 +301,10 @@ for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
     continue
   fi
   if [[ "$command" == "git" || "$command" == "exec" ]]; then
-    echo -e "\e[38;5;2m${__PRIMARY_SYMBOL} \e[1;38;5;2m(${command} ${args[*]})\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
+    echo -e "${_C_SUCCESS}${__PRIMARY_SYMBOL} (${command} ${args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} ${_C____PATH}$repo_dir${_C___RESET}"
     (
       cd "$repo_dir" 2>/dev/null || {
-        echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${repo_dir}\e[0m" 1>&2
+        echo -e "${_C___ERROR}${__PRIMARY_SYMBOL}  Failed to enter: ${repo_dir}${_C___RESET}" 1>&2
         exit 1
       }
       "$command" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
