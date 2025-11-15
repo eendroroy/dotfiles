@@ -97,40 +97,51 @@ __help() {
   echo -e "   \e[2;38;5;3m<pattern>   \e[0m Substring match"
   echo
   echo -e "\e[1;37mExamples:\e[0m"
-  echo -e "  \e[32mgitter\e[0m \e[36m--filter R:^my-repo$\e[0m \e[36m--git\e[0m \e[36m--\e[0m \e[33mstatus\e[0m"
-  echo -e "    Run \e[33mgit status\e[0m in the repository named \e[35mmy-repo\e[0m"
+  echo -ne "  \e[32mgitter\e[0m \e[36m--filter R:^my-repo$\e[0m \e[36m--git\e[0m \e[36m--\e[0m \e[33mstatus\e[0m"
+  echo -e "           - Run \e[33mgit status\e[0m in the repository named \e[35mmy-repo\e[0m"
+  echo -ne "  \e[32mgitter\e[0m \e[36m--filter B:feature\e[0m \e[36m--exe\e[0m \e[36m--\e[0m \e[33mmake build\e[0m"
+  echo -e "         - Run \e[33mmake build\e[0m in repositories currently on any \e[35mfeature\e[0m branch"
+  echo -ne "  \e[32mgitter\e[0m \e[36m--filter-exclude\e[0m \e[36m--filter R:old-project\e[0m \e[36m--list\e[0m"
+  echo -e " - List all repositories except the ones has \e[35mold-project\e[0m in repo name"
   echo
-  echo -e "  \e[32mgitter\e[0m \e[36m--filter B:feature\e[0m \e[36m--exe\e[0m \e[36m--\e[0m \e[33mmake build\e[0m"
-  echo -e "    Run \e[33mmake build\e[0m in repositories currently on any \e[35mfeature\e[0m branch"
-  echo
-  echo -e "  \e[32mgitter\e[0m \e[36m--filter-exclude\e[0m \e[36m--filter R:old-project\e[0m \e[36m--list\e[0m"
-  echo -e "    List all repositories except the ones has \e[35mold-project\e[0m in repo name"
-  echo
+}
+
+__parse_command() {
+  if [[ -n "$command" ]]; then
+    echo
+    echo -e "\n\e[31mMultiple command types specified\e[0m" 1>&2
+    echo
+    echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+    echo
+    exit 1
+  fi
+  command="${1}"
 }
 
 __accept_no_arg() {
   if [[ -n $1 ]]; then
     echo
-    echo -e "\e[1;31mUnknown argument:\e[0m $1" 1>&2
+    echo -e "\e[31mUnknown argument:\e[0m $1" 1>&2
     echo
-    __help
+    echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+    echo
     exit 1
   fi
 }
 
 __require_value() {
-  # $1 = next token, $2 = colored flag name
   if [[ -z "$1" || "$1" == -* ]]; then
     echo
-    echo -e "\e[1;31mMissing or invalid argument for:\e[0m $2" 1>&2
+    echo -e "\e[31mMissing or invalid argument for:\e[0m $2" 1>&2
     echo
-    __help
+    echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+    echo
     exit 1
   fi
 }
 
 # Argument defaults
-cmd_type="git"
+command=""
 filter_type="i"
 has_filters=false
 filters=()
@@ -145,6 +156,7 @@ fi
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --help)
+      __parse_command ""
       __help
       exit 0
       ;;
@@ -160,15 +172,15 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     --git|-g)
-      cmd_type="git"
+      __parse_command "git"
       shift
       ;;
     --exe|-x)
-      cmd_type="exec"
+      __parse_command "exec"
       shift
       ;;
     --list|-l)
-      cmd_type="list"
+      __parse_command "list"
       shift
       ;;
     --)
@@ -178,8 +190,28 @@ while [[ $# -gt 0 ]]; do
         shift
       done
       ;;
+    *)
+      echo
+      echo -e "\e[31mUnknown argument:\e[0m $1" 1>&2
+      echo
+      echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+      echo
+      exit 1
+      ;;
   esac
 done
+
+# Set default command type if none specified
+[[ -z "$command" ]] && command="git"
+
+[[ "$command" != "list" && ${#args[@]} -eq 0 ]] && {
+  echo
+  echo -e "\e[31mNo arguments provided for command:\e[0m $command" 1>&2
+  echo
+  echo -e "Run \e[32mgitter --help\e[0m for usage information." 1>&2
+  echo
+  exit 1
+}
 
 readarray -d '' -t repo_git_dirs < <(find . -name ".git" -type d -print0)
 
@@ -243,18 +275,18 @@ fi
 
 for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
   repo_dir=$(dirname "$repo_git_dir")
-  if [[ "$cmd_type" == "list" ]]; then
+  if [[ "$command" == "list" ]]; then
     __repo_status "$repo_dir"
     continue
   fi
-  if [[ "$cmd_type" == "git" || "$cmd_type" == "exec" ]]; then
-    echo -e "\e[38;5;2m${__PRIMARY_SYMBOL} \e[1;38;5;2m(${cmd_type} ${args[*]})\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
+  if [[ "$command" == "git" || "$command" == "exec" ]]; then
+    echo -e "\e[38;5;2m${__PRIMARY_SYMBOL} \e[1;38;5;2m(${command} ${args[*]})\e[m \e[90min\e[m \e[35m$repo_dir\e[m"
     (
       cd "$repo_dir" 2>/dev/null || {
         echo -e "\e[38;5;1m${__PRIMARY_SYMBOL}\e[0m  \e[38;5;9mFailed to enter: ${repo_dir}\e[0m" 1>&2
         exit 1
       }
-      "$cmd_type" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
+      "$command" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
     )
   fi
 done
