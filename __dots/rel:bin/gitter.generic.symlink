@@ -75,6 +75,7 @@ __help() {
   echo -e "\e[1;37mUsage:\e[0m"
   echo -ne "  \e[32mgitter\e[0m [\e[36m--filter-exclude\e[0m] [\e[36m--filter <pattern>\e[0m ...]"
   echo -ne " [\e[36m--git\e[0m|\e[36m--exe\e[0m|\e[36m--list\e[0m|\e[36m--help\e[0m]"
+  echo -ne " \e[36m--\e[0m"
   echo -e " [\e[33margs...\e[0m]"
   echo
   echo -e "\e[1;37mOptions:\e[0m"
@@ -96,10 +97,10 @@ __help() {
   echo -e "   \e[2;38;5;3m<pattern>   \e[0m Substring match"
   echo
   echo -e "\e[1;37mExamples:\e[0m"
-  echo -e "  \e[32mgitter\e[0m \e[36m--filter R:^my-repo$\e[0m \e[36m--git\e[0m \e[33mstatus\e[0m"
+  echo -e "  \e[32mgitter\e[0m \e[36m--filter R:^my-repo$\e[0m \e[36m--git\e[0m \e[36m--\e[0m \e[33mstatus\e[0m"
   echo -e "    Run \e[33mgit status\e[0m in the repository named \e[35mmy-repo\e[0m"
   echo
-  echo -e "  \e[32mgitter\e[0m \e[36m--filter B:feature\e[0m \e[36m--exe\e[0m \e[33mmake build\e[0m"
+  echo -e "  \e[32mgitter\e[0m \e[36m--filter B:feature\e[0m \e[36m--exe\e[0m \e[36m--\e[0m \e[33mmake build\e[0m"
   echo -e "    Run \e[33mmake build\e[0m in repositories currently checkedout to any \e[35mfeature\e[0m branch"
   echo
   echo -e "  \e[32mgitter\e[0m \e[36m--filter-exclude\e[0m \e[36m--filter R:old-project\e[0m \e[36m--list\e[0m"
@@ -170,9 +171,12 @@ while [[ $# -gt 0 ]]; do
       cmd_type="list"
       shift
       ;;
-    *)
-      args+=("$1")
+    --)
       shift
+      while [[ $# -gt 0 ]]; do
+        args+=("$1")
+        shift
+      done
       ;;
   esac
 done
