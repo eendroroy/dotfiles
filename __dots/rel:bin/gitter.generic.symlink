@@ -104,27 +104,31 @@ __help() {
   echo -e "  ${_C__OPTION}--no-color              ${_C___RESET} Disable colored output"
   echo
   echo -e "${_C_HEADING}Filers:${_C___RESET}"
-  echo -ne "  ${_C_____DIM}<${_C___RESET}${_C___ERROR}filter_prefix${_C___RESET}${_C_____DIM}>${_C___RESET}"
+  echo -ne "  ${_C_____DIM}<${_C___RESET}${_C___ERROR}prefix${_C___RESET}${_C_____DIM}>${_C___RESET}"
   echo -ne   "${_C_____DIM}<${_C___RESET}${_C_HEADING}:${_C___RESET}${_C_____DIM}>${_C___RESET}"
-  echo -ne   "${_C_____DIM}[${_C___RESET}${_C___ERROR}prefix_match${_C___RESET}${_C_____DIM}]${_C___RESET}"
+  echo -ne   "${_C_____DIM}[${_C___RESET}${_C___ERROR}+${_C___RESET}${_C_____DIM}]${_C___RESET}"
   echo -ne   "${_C_____DIM}<${_C___RESET}${_C___VALUE}pattern${_C___RESET}${_C_____DIM}>${_C___RESET}"
-  echo  -e   "${_C_____DIM}[${_C___RESET}${_C___ERROR}suffix_match${_C___RESET}${_C_____DIM}]${_C___RESET}"
+  echo -e   "${_C_____DIM}[${_C___RESET}${_C___ERROR}+${_C___RESET}${_C_____DIM}]${_C___RESET}"
   echo
-  echo -e "  ${_C___ERROR}P:${_C___RESET}  ${_C___ERROR}path:${_C___RESET}     Match for path name"
-  echo -e "  ${_C___ERROR}R:${_C___RESET}  ${_C___ERROR}repo:${_C___RESET}     Match for repo name"
-  echo -e "  ${_C___ERROR}B:${_C___RESET}  ${_C___ERROR}branch:${_C___RESET}   Match for current git branch"
-  echo -e "  ${_C_____DIM} <${_C___RESET}${_C___VALUE}pattern${_C___RESET}${_C_____DIM}>   ${_C___RESET} Exact match"
-  echo -e "  ${_C_____DIM} <${_C___RESET}${_C___VALUE}pattern${_C___RESET}${_C_____DIM}>${_C___RESET}${_C___ERROR}+  ${_C___RESET} Prefix match"
-  echo -e "  ${_C___ERROR}+${_C___RESET}${_C_____DIM}<${_C___RESET}${_C___VALUE}pattern${_C_____DIM}>${_C___RESET}    Suffix match"
-  echo -e "  ${_C___ERROR}+${_C___RESET}${_C_____DIM}<${_C___RESET}${_C___VALUE}pattern${_C_____DIM}>${_C___RESET}${_C___ERROR}+  ${_C___RESET} Substring match"
+  echo -e "  Prefixes:"
+  echo -e "    ${_C___ERROR}path  ${_C___RESET} ${_C___ERROR}P${_C___RESET}   Match for path name"
+  echo -e "    ${_C___ERROR}repo  ${_C___RESET} ${_C___ERROR}R${_C___RESET}   Match for repo name"
+  echo -e "    ${_C___ERROR}branch${_C___RESET} ${_C___ERROR}B${_C___RESET}   Match for current git branch"
   echo
-  echo -e "${_C_HEADING}Examples:${_C___RESET}"
-  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter repo:my-repo${_C___RESET} ${_C__OPTION}git${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}status${_C___RESET}"
-  echo -e "          - Run ${_C____ARGS}git status${_C___RESET} in the repository named ${_C____PATH}my-repo${_C___RESET}"
-  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter branch:+feature+${_C___RESET} ${_C__OPTION}exec${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}make build${_C___RESET}"
-  echo -e " - Run ${_C____ARGS}make build${_C___RESET} in repositories currently on any ${_C____PATH}feature${_C___RESET} branch"
-  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--exclude${_C___RESET} ${_C__OPTION}--filter repo:+old-project+${_C___RESET} ${_C__OPTION}list${_C___RESET}"
-  echo -e "   - List all repositories except the ones has ${_C____PATH}old-project${_C___RESET} in repo name"
+  echo -e "  Patterns:"
+  echo -e "    ${_C___ERROR}+${_C___RESET}          Matches anywhere in the value (default if no anchors specified)"
+  echo -e "     ${_C___VALUE}pattern${_C___RESET}${_C___ERROR}+${_C___RESET}  Matches the beginning of the value"
+  echo -e "    ${_C___ERROR}+${_C___RESET}${_C___VALUE}pattern${_C___RESET}   Matches the end of the value"
+  echo -e "    ${_C___ERROR}+${_C___RESET}${_C___VALUE}pattern${_C___RESET}${_C___ERROR}+${_C___RESET}  Matches substring anywhere in the value"
+  echo -e "     ${_C___VALUE}pattern${_C___RESET}   Matches exactly the value"
+  echo
+  echo -e "${_C_HEADING}Ignore-file (${_C___RESET}${_C____PATH}./.gitterignore${_C___RESET}${_C_HEADING}):${_C___RESET}"
+  echo -e "  Each line in the file should contain a pattern to match repository names or paths."
+  echo -e "  Lines starting with ${_C___ERROR}#${_C___RESET} are treated as comments and ignored."
+  echo -e "  Patterns:"
+  echo -e "    ${_C___ERROR}relative/path/to/directory${_C___RESET} - Ignore directory at exact relative path ${_C____PATH}relative/path/to/directory${_C___RESET}"
+  echo -e "    ${_C___ERROR}*/directory_name${_C___RESET}           - Ignore directories under any parent directory named ${_C____PATH}directory_name${_C___RESET}"
+  echo -e "    ${_C___ERROR}directory_name/*${_C___RESET}           - Ignore directories directly under the top-level directory named ${_C____PATH}directory_name${_C___RESET}"
   echo
 }
 
@@ -233,6 +237,57 @@ fi
 }
 
 readarray -d '' -t repo_git_dirs < <(find . -name ".git" -type d -print0)
+
+# If .gitterignore exists, load patterns and remove matching repos from the list.
+if [[ -f .gitterignore ]]; then
+  # Load non-empty, non-comment lines from .gitterignore
+  mapfile -t ignore_patterns < <(sed -e 's/#.*//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d' .gitterignore)
+
+  # If there are patterns, filter repo_git_dirs accordingly.
+  if [[ ${#ignore_patterns[@]} -gt 0 ]]; then
+    kept_repo_git_dirs=()
+    for repo_git_dir in "${repo_git_dirs[@]}"; do
+      git_repo_dir_name="$(dirname "${repo_git_dir#./}")"
+      for pattern in "${ignore_patterns[@]}"; do
+        if [[ "$pattern" == '*/'* ]]; then
+          # find all folder tree and match each folder in the path
+          IFS='/' read -r -a path_parts <<< "$git_repo_dir_name"
+          ignore=false
+          for part in "${path_parts[@]}"; do
+            if [[ "$part" == "${pattern#*/}" ]]; then
+              ignore=true
+              break
+            fi
+          done
+          [[ "$ignore" == true ]] && break
+        elif [[ "$pattern" == *'/*' ]]; then
+          # find only the parent folder
+          parent_dir="${git_repo_dir_name%%/*}"
+          if [[ "$parent_dir" == "${pattern%/*}" ]]; then
+            ignore=true
+            break
+          fi
+        else
+          # direct match with repo name
+          repo_name="$(basename "$(dirname "$repo_git_dir")")"
+          if [[ "$repo_name" == "$pattern" ]]; then
+            ignore=true
+            break
+          fi
+          # direct match with relative path
+          if [[ "$git_repo_dir_name" == "$pattern" ]]; then
+            ignore=true
+            break
+          fi
+        fi
+      done
+
+      [[ "$ignore" == false ]] && kept_repo_git_dirs+=("$repo_git_dir")
+    done
+
+    repo_git_dirs=("${kept_repo_git_dirs[@]}")
+  fi
+fi
 
 if [[ ${#repo_git_dirs[@]} -eq 0 ]]; then
   echo -e "${_C___ERROR}${___ERROR_SYMBOL}  No git repositories found in the current directory${_C___RESET}" 1>&2
