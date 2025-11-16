@@ -9,55 +9,85 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
+#compdef gitter
+
+# Compact zsh completion for gitter
+
 _gitter() {
-  local -a args
-  local expl
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
 
-  _arguments -C \
-    '(-h --help)'{-h,--help}'[Show help message]' \
-    '(-e --filter-exclude)'{-e,--filter-exclude}'[Exclude matches instead of including them (include by default)]' \
-    '(-f --filter)'{-f,--filter}'[Add filter pattern (P:, R:, or B: prefix)]::filter pattern:_gitter_filters' \
-    '(-g --git)'{-g,--git}'[Run git command (default)]' \
-    '(-x --exe)'{-x,--exe}'[Run an arbitrary command in repositories]' \
-    '(-l --list)'{-l,--list}'[List repositories only]' \
-    '*::args:->args'
+  # Helper to generate filter value suggestions
+  _gitter_filter_values() {
+    local cur="${words[CURRENT]}"
+    if [[ "$cur" == *:* ]]; then
+      local key="${cur%%:*}"
+      local val="${cur#*:}"
+      case "$key" in
+        P|path|.P|.path)
+          local -a paths
+          paths=(${(f)"$(find . -maxdepth 4 -type d -name .git 2>/dev/null | xargs -n1 dirname 2>/dev/null)"})
+          paths=(${(M)paths:#./})
+          compadd -- ${(@u)paths}
+          ;;
+        R|repo|.R|.repo)
+          local -a repos
+          repos=(${(f)"$(find . -maxdepth 4 -type d -name .git 2>/dev/null | sed 's|/\.git$||' | xargs -n1 basename 2>/dev/null)"})
+          compadd -- ${(@u)repos}
+          ;;
+        B|branch|.B|.branch)
+          local -a branches
+          branches=(main master develop feature)
+          compadd -- ${branches}
+          ;;
+        *)
+          compadd 'path:' 'repo:' 'branch:'
+          ;;
+      esac
+    else
+      compadd 'path:^pattern' 'repo:^pattern' 'branch:^pattern' \
+              'path:pattern$' 'repo:pattern$' 'branch:pattern$' \
+              'path:^pattern$' 'repo:^pattern$' 'branch:^pattern$' \
+              'path:pattern' 'repo:pattern' 'branch:pattern'
+    fi
+  }
 
-  case $state in
-    (args)
-      # Determine if --git, --exe, or --list is selected
-      if (( ${words[(I)--git]} || ${words[(I)-g]} )); then
-        # Complete git subcommands dynamically
-        _call_program git-subcommand git help -a 2>/dev/null | awk '/^  [a-z]/ {print $1}' | _describe -t commands 'git subcommands'
-        return
-      elif (( ${words[(I)--exe]} || ${words[(I)-x]} )); then
-        # Complete executable commands from PATH
-        _path_commands
-        return
-      elif (( ${words[(I)--list]} || ${words[(I)-l]} )); then
-        # --list takes no additional arguments
-        return
-      else
-        # By default assume git mode
-        _call_program git-subcommand git help -a 2>/dev/null | awk '/^  [a-z]/ {print $1}' | _describe -t commands 'git subcommands'
+  _arguments -s \
+    '1:command:->command' \
+    '-f[Filter repositories]:filter:_gitter_filter_values' \
+    '--filter[Filter repositories]:filter:_gitter_filter_values' \
+    '--exclude[Exclude filter matches]' \
+    '--no-color[Disable colored output]' \
+    '--debug[Enable debug output]' \
+    '--[End of options]' \
+    '*:args:->args'
+
+  if (( CURRENT > 1 )); then
+    if [[ "${words[2]}" == "exec" || "${words[2]}" == "x" ]]; then
+      if (( CURRENT > 2 )); then
+        _command
         return
       fi
+    fi
+  fi
+
+  case $state in
+    command)
+      local -a cmds
+      cmds=('git:Run a git command' 'g:Run a git command' \
+            'exec:Run an arbitrary command' 'x:Run an arbitrary command' \
+            'list:List repositories' 'ls:List repositories' \
+            'help:Show help' 'h:Show help')
+      _describe -t commands 'gitter commands' cmds
+      ;;
+    args)
+      _message 'arguments' && _files
       ;;
   esac
+
+  if [[ ${words[CURRENT-1]} == "--filter" || ${words[CURRENT-1]} == "-f" ]]; then
+    _gitter_filter_values
+  fi
 }
 
-# Completion function for filter patterns (R:, P:, B:)
-_gitter_filters() {
-  local -a filters
-  local repos branches paths
-
-  # Possible prefixes
-  filters=(
-    'R:repo-name[Filter by repository name]'
-    'P:path[Filter by directory path]'
-    'B:branch[Filter by git branch]'
-  )
-
-  _describe -t filter-prefix 'filter type' filters
-}
-
-_gitter "$@"
+compdef _gitter gitter
