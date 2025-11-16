@@ -9,10 +9,10 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-__CURRENT_DIR=$(pwd)
-__SUCCESS_SYMBOL=" ░"
-__ERROR_SYMBOL=" ░"
-__PRIMARY_SYMBOL=" ━"
+____CURRENT_DIR=$(pwd)
+_SUCCESS_SYMBOL=" ░"
+___ERROR_SYMBOL=" ░"
+_PRIMARY_SYMBOL=" ━"
 
 _C___RESET='\e[0m'
 _C____PATH='\e[35m'
@@ -26,13 +26,13 @@ _C_HEADING='\e[1;37m'
 
 __handle_stdout() {
   while IFS= read -r line; do
-    printf "${_C_SUCCESS}%s${_C___RESET}  %s\n" "${__SUCCESS_SYMBOL}" "${line}"
+    printf "${_C_SUCCESS}%s${_C___RESET}  %s\n" "${_SUCCESS_SYMBOL}" "${line}"
   done
 }
 
 __handle_stderr() {
   while IFS= read -r line; do
-    printf "${_C___ERROR}%s${_C___RESET}  %s\n" "${__ERROR_SYMBOL}" "${line}" 1>&2
+    printf "${_C___ERROR}%s${_C___RESET}  %s\n" "${___ERROR_SYMBOL}" "${line}" 1>&2
   done
 }
 
@@ -63,17 +63,17 @@ __match_filter() {
 
 __repo_status() {
   (
-    if ! cd "${1}" 2>/dev/null; then
-      echo -e "${_C___ERROR}${__PRIMARY_SYMBOL}  Failed to enter: ${1}${_C___RESET}" 1>&2
+    cd "$1" 2>/dev/null || {
+      echo -e "${_C___ERROR}${_PRIMARY_SYMBOL}  Failed to enter: ${1}${_C___RESET}" 1>&2
       exit 1
-    fi
+    }
 
-    printf "${_C_SUCCESS}${__PRIMARY_SYMBOL}${_C___RESET} ${_C_COMMAND}%s${_C___RESET} ${_C____ARGS}%s${_C___RESET} ${_C____PATH}%s${_C___RESET} ${_C____ARGS}%s${_C___RESET} ${_C__OPTION}%s${_C___RESET}\n" \
-      "$(git branch --show-current)" \
-      "$(git log -1 --format="%h" --abbrev=8)" \
-      "${PWD/"${__CURRENT_DIR}"/.}" \
-      "$(git log -1 --format="%cr")" \
-      "$(git log -1 --format="%ae")"
+    echo -ne "${_C_SUCCESS}${_PRIMARY_SYMBOL}${_C___RESET}"
+    echo -ne " ${_C_COMMAND}$(git branch --show-current)${_C___RESET}"
+    echo -ne " ${_C____ARGS}$(git log -1 --format="%h" --abbrev=8)${_C___RESET}"
+    echo -ne " ${_C____PATH}${PWD/"${____CURRENT_DIR}"/.}${_C___RESET}"
+    echo -ne " ${_C____ARGS}$(git log -1 --format="%cr")${_C___RESET}"
+    echo  -e " ${_C__OPTION}$(git log -1 --format="%ae")${_C___RESET}"
   )
 }
 
@@ -83,37 +83,46 @@ __help() {
   echo -e "  Run git or arbitrary command in multiple git repositories with filters in current directory"
   echo
   echo -e "${_C_HEADING}Usage:${_C___RESET}"
-  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} [${_C__OPTION}--filter-exclude${_C___RESET}] [${_C__OPTION}--filter <pattern>${_C___RESET} ...]"
-  echo -ne " [${_C__OPTION}--git${_C___RESET}|${_C__OPTION}--exe${_C___RESET}|${_C__OPTION}--list${_C___RESET}|${_C__OPTION}--help${_C___RESET}]"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} [${_C__OPTION}--filter <pattern>${_C___RESET} ...]"
+  echo -ne " [${_C__OPTION}git${_C___RESET}|${_C__OPTION}exec${_C___RESET}|${_C__OPTION}list${_C___RESET}|${_C__OPTION}help${_C___RESET}]"
   echo -ne " ${_C__OPTION}--${_C___RESET}"
   echo -e " [${_C____ARGS}args...${_C___RESET}]"
   echo
+  echo -e "${_C_HEADING}Commands:${_C___RESET}"
+  echo -e "  ${_C__OPTION}git   g      ${_C___RESET} Run a git command (${_C____ARGS}default${_C___RESET})"
+  echo -e "  ${_C__OPTION}exec  x      ${_C___RESET} Run an arbitrary command"
+  echo -e "  ${_C__OPTION}list  ls     ${_C___RESET} List repositories only"
+  echo -e "  ${_C__OPTION}help  h      ${_C___RESET} Show this help menu"
+  echo -e "  ${_C____ARGS}args         ${_C___RESET} Arguments passed to the chosen command"
+  echo
   echo -e "${_C_HEADING}Options:${_C___RESET}"
-  echo -e "  ${_C__OPTION}--no-color                     ${_C___RESET} Disable colored output"
-  echo -e "  ${_C__OPTION}--filter-exclude, -e           ${_C___RESET} Exclude matches instead of including them (${_C____ARGS}include by default${_C___RESET})"
-  echo -e "  ${_C__OPTION}--filter,         -f <pattern> ${_C___RESET} Match repo directory name exactly"
-  echo -e "  ${_C__OPTION}--git,            -g           ${_C___RESET} Run a git command (${_C____ARGS}default${_C___RESET})"
-  echo -e "  ${_C__OPTION}--exe,            -x           ${_C___RESET} Run an arbitrary command"
-  echo -e "  ${_C__OPTION}--list,           -l           ${_C___RESET} List repositories only"
-  echo -e "  ${_C__OPTION}--help,           -h           ${_C___RESET} Show this help menu"
-  echo -e "  ${_C____ARGS}args                           ${_C___RESET} Arguments passed to the chosen command"
+  echo -e "  ${_C__OPTION}--filter   -f <pattern> ${_C___RESET} Match repo directory name exactly"
+  echo -e "  ${_C__OPTION}--no-color              ${_C___RESET} Disable colored output"
   echo
   echo -e "${_C_HEADING}Patterns:${_C___RESET}"
-  echo -e "  ${_C___ERROR}P:           ${_C___RESET} Match for path name"
-  echo -e "  ${_C___ERROR}R:           ${_C___RESET} Match for repo name"
-  echo -e "  ${_C___ERROR}B:           ${_C___RESET} Match for current git branch"
-  echo -e "  ${_C___ERROR}^${_C___RESET}${_C_____DIM}<pattern>${_C___RESET}${_C___ERROR}$  ${_C___RESET} Exact match"
-  echo -e "  ${_C___ERROR}^${_C___RESET}${_C_____DIM}<pattern>   ${_C___RESET} Prefix match"
-  echo -e "  ${_C_____DIM} <pattern>${_C___RESET}${_C___ERROR}$  ${_C___RESET} Suffix match"
-  echo -e "  ${_C_____DIM} <pattern>   ${_C___RESET} Substring match"
+  echo -ne "  ${_C_____DIM}[${_C___RESET}${_C___ERROR}sign_prefix${_C___RESET}${_C_____DIM}]${_C___RESET}"
+  echo -ne   "${_C_____DIM}<${_C___RESET}${_C___ERROR}filter_prefix${_C___RESET}${_C_____DIM}>${_C___RESET}"
+  echo -ne   "${_C_____DIM}<${_C___RESET}${_C_HEADING}:${_C___RESET}${_C_____DIM}>${_C___RESET}"
+  echo -ne   "${_C_____DIM}[${_C___RESET}${_C___ERROR}prefix_match${_C___RESET}${_C_____DIM}]${_C___RESET}"
+  echo -ne   "${_C_____DIM}<${_C___RESET}${_C____PATH}pattern${_C___RESET}${_C_____DIM}>${_C___RESET}"
+  echo  -e   "${_C_____DIM}[${_C___RESET}${_C___ERROR}suffix_match${_C___RESET}${_C_____DIM}]${_C___RESET}"
+  echo
+  echo -e "  ${_C___ERROR}.${_C___RESET}            ${_C___RESET} Exclude sign prefix (${_C___ERROR}include ${_C____ARGS}by default${_C___RESET})"
+  echo -e "  ${_C___ERROR}P:${_C___RESET}, ${_C___ERROR}path:${_C___RESET}     Match for path name"
+  echo -e "  ${_C___ERROR}R:${_C___RESET}, ${_C___ERROR}repo:${_C___RESET}     Match for repo name"
+  echo -e "  ${_C___ERROR}B:${_C___RESET}, ${_C___ERROR}branch:${_C___RESET}   Match for current git branch"
+  echo -e "  ${_C___ERROR}^${_C___RESET}${_C_____DIM}<${_C____PATH}pattern${_C_____DIM}>${_C___RESET}${_C___ERROR}$  ${_C___RESET} Exact match"
+  echo -e "  ${_C___ERROR}^${_C___RESET}${_C_____DIM}<${_C____PATH}pattern${_C_____DIM}>   ${_C___RESET} Prefix match"
+  echo -e "  ${_C_____DIM} <${_C____PATH}pattern${_C_____DIM}>${_C___RESET}${_C___ERROR}$  ${_C___RESET} Suffix match"
+  echo -e "  ${_C_____DIM} <${_C____PATH}pattern${_C_____DIM}>   ${_C___RESET} Substring match"
   echo
   echo -e "${_C_HEADING}Examples:${_C___RESET}"
-  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter R:^my-repo\$${_C___RESET} ${_C__OPTION}--git${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}status${_C___RESET}"
-  echo -e "           - Run ${_C____ARGS}git status${_C___RESET} in the repository named ${_C____PATH}my-repo${_C___RESET}"
-  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter B:feature${_C___RESET} ${_C__OPTION}--exe${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}make build${_C___RESET}"
-  echo -e "         - Run ${_C____ARGS}make build${_C___RESET} in repositories currently on any ${_C____PATH}feature${_C___RESET} branch"
-  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter-exclude${_C___RESET} ${_C__OPTION}--filter R:old-project${_C___RESET} ${_C__OPTION}--list${_C___RESET}"
-  echo -e " - List all repositories except the ones has ${_C____PATH}old-project${_C___RESET} in repo name"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter repo:^my-repo\$${_C___RESET} ${_C__OPTION}git${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}status${_C___RESET}"
+  echo -e "      - Run ${_C____ARGS}git status${_C___RESET} in the repository named ${_C____PATH}my-repo${_C___RESET}"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter branch:feature${_C___RESET} ${_C__OPTION}exec${_C___RESET} ${_C__OPTION}--${_C___RESET} ${_C____ARGS}make build${_C___RESET}"
+  echo -e " - Run ${_C____ARGS}make build${_C___RESET} in repositories currently on any ${_C____PATH}feature${_C___RESET} branch"
+  echo -ne "  ${_C_COMMAND}gitter${_C___RESET} ${_C__OPTION}--filter .repo:old-project${_C___RESET} ${_C__OPTION}list${_C___RESET}"
+  echo -e "            - List all repositories except the ones has ${_C____PATH}old-project${_C___RESET} in repo name"
   echo
 }
 
@@ -154,8 +163,6 @@ __require_value() {
 # Argument defaults
 no_color=false
 command=""
-filter_type="i"
-has_filters=false
 filters=()
 args=()
 
@@ -167,25 +174,20 @@ fi
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --filter-exclude|-e)
-      filter_type="e"
-      shift
-      ;;
     --no-color)
       no_color=true
       shift
       ;;
     --filter|-f)
       shift
-      __require_value "$1" "${_C__OPTION}--filter-name${_C___RESET}"
-      has_filters=true
+      __require_value "$1" "${_C__OPTION}--filter${_C___RESET}"
       filters+=("$1")
       shift
       ;;
-    --git |-g) __parse_command "git" ; shift ;;
-    --exe |-x) __parse_command "exec"; shift ;;
-    --list|-l) __parse_command "list"; shift ;;
-    --help|-h) __parse_command "help"; shift ;;
+    git  |g ) __parse_command "git" ; shift ;;
+    exec |x ) __parse_command "exec"; shift ;;
+    list |ls) __parse_command "list"; shift ;;
+    help |h ) __parse_command "help"; shift ;;
     --)
       shift
       while [[ $# -gt 0 ]]; do
@@ -217,10 +219,15 @@ if [[ $no_color == true ]]; then
   _C_HEADING=''
 fi
 
+if [[ "$command" == "help" ]]; then
+  __help
+  exit 0
+fi
+
 # Set default command type if none specified
 [[ -z "$command" ]] && command="git"
 
-[[ "$command" != "list" && "$command" != "help" && ${#args[@]} -eq 0 ]] && {
+[[ "$command" != "list" && ${#args[@]} -eq 0 ]] && {
   echo
   echo -e "${_C___ERROR}No arguments provided for command:${_C___RESET} $command" 1>&2
   echo
@@ -232,7 +239,7 @@ fi
 readarray -d '' -t repo_git_dirs < <(find . -name ".git" -type d -print0)
 
 if [[ ${#repo_git_dirs[@]} -eq 0 ]]; then
-  echo -e "${_C___ERROR}${__ERROR_SYMBOL}  No git repositories found in the current directory${_C___RESET}" 1>&2
+  echo -e "${_C___ERROR}${___ERROR_SYMBOL}  No git repositories found in the current directory${_C___RESET}" 1>&2
   exit 1
 fi
 
@@ -240,58 +247,54 @@ filtered_repo_git_dirs=()
 
 for repo_git_dir in "${repo_git_dirs[@]}"; do
   # If no filters, include all repositories
-  [[ "$has_filters" == false ]] && filtered_repo_git_dirs+=("$repo_git_dir") && continue
-
-  git_branch=$(git -C "$repo_git_dir" branch --show-current 2>/dev/null)
+  if [[ ${#filters[@]} -eq 0 ]]; then
+    filtered_repo_git_dirs+=("$repo_git_dir")
+    continue
+  fi
 
   match=false
-  for filter in "${filters[@]}"
-  do
-    filter_key="${filter%%:*}"
-    filter_value="${filter#*:}"
+  for filter in "${filters[@]}"; do
+    first_char="${filter:0:1}"
+    if [[ "$first_char" == . ]]; then
+      include=false
+      remainder="${filter:1}"
+      filter_key="${remainder%%:*}"
+      filter_value="${remainder#*:}"
+    else
+      include=true
+      filter_key="${filter%%:*}"
+      filter_value="${filter#*:}"
+    fi
+
+    repo_dir="$(dirname "$repo_git_dir")"
 
     case "$filter_key" in
-      P)
-        if __match_filter "$(dirname "$repo_git_dir")" "$filter_value"; then
-          match=true
-          break
-        fi
-        ;;
-      R)
-        if __match_filter "$(basename "$(dirname "$repo_git_dir")")" "$filter_value"; then
-          match=true
-          break
-        fi
-        ;;
-      B)
-        if __match_filter "$git_branch" "$filter_value"; then
-          match=true
-          break
-        fi
-        ;;
+      P|path  ) value="$repo_dir" ;;
+      R|repo  ) value="$(basename "$repo_dir")" ;;
+      B|branch) value="$(git -C "$repo_dir" branch --show-current 2>/dev/null)" ;;
       *)
-        echo -e "${_C___ERROR}${__ERROR_SYMBOL}  Unknown filter key: ${filter_key}${_C___RESET}" 1>&2
+        echo -e "${_C___ERROR}${___ERROR_SYMBOL}  Unknown filter key: ${filter_key}${_C___RESET}" 1>&2
         exit 1
         ;;
     esac
+
+    if __match_filter "$value" "$filter_value"; then
+      match=true
+      break
+    fi
   done
 
   # Apply include/exclude logic
-  if [[ "$filter_type" == "i" && "$match" == true ]]; then
+  if [[ "$include" == true && "$match" == true ]]; then
     filtered_repo_git_dirs+=("$repo_git_dir")
-  elif [[ "$filter_type" == "e" && "$match" == false ]]; then
+  elif [[ "$include" == false && "$match" == false ]]; then
     filtered_repo_git_dirs+=("$repo_git_dir")
   fi
 done
 
 if [[ ${#filtered_repo_git_dirs[@]} -eq 0 ]]; then
-  echo -e "${_C___ERROR}${__ERROR_SYMBOL}${_C___RESET}  No git repositories found in the current directory with applied filters" 1>&2
+  echo -e "${_C___ERROR}${___ERROR_SYMBOL}${_C___RESET}  No git repositories found in the current directory with applied filters" 1>&2
   exit 1
-fi
-
-if [[ "$command" == "help" ]]; then
-  __help
-  exit 0
 fi
 
 for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
@@ -301,10 +304,10 @@ for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
     continue
   fi
   if [[ "$command" == "git" || "$command" == "exec" ]]; then
-    echo -e "${_C_SUCCESS}${__PRIMARY_SYMBOL} (${command} ${args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} ${_C____PATH}$repo_dir${_C___RESET}"
+    echo -e "${_C_SUCCESS}${_PRIMARY_SYMBOL} (${command} ${args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} ${_C____PATH}$repo_dir${_C___RESET}"
     (
       cd "$repo_dir" 2>/dev/null || {
-        echo -e "${_C___ERROR}${__PRIMARY_SYMBOL}  Failed to enter: ${repo_dir}${_C___RESET}" 1>&2
+        echo -e "${_C___ERROR}${_PRIMARY_SYMBOL}  Failed to enter: ${repo_dir}${_C___RESET}" 1>&2
         exit 1
       }
       "$command" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
