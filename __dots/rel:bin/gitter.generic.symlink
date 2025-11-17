@@ -16,6 +16,7 @@ _PRIMARY_SYMBOL=" ━"
 
 _C___RESET='\e[0m'
 _C____PATH='\e[35m'
+_C_PATH_DM='\e[2;35m'
 _C_COMMAND='\e[32m'
 _C____ARGS='\e[33m'
 _C__OPTION='\e[36m'
@@ -37,7 +38,7 @@ __handle_stderr() {
   done
 }
 
-__match_filter_v2() {
+__match_filter() {
   local value="$1" pattern="$2"
 
   # Special-case: single '+' matches everything
@@ -66,6 +67,16 @@ __match_filter_v2() {
   fi
 }
 
+__print_path() {
+  if [[ -z ${1} ]]; then
+    local path=${PWD/"${____CURRENT_DIR}"/.}
+  else
+    local path=${1/"${____CURRENT_DIR}"/.}
+  fi
+  echo -ne "${_C_PATH_DM}${path%/*}/${_C___RESET}"
+  echo -ne "${_C____PATH}${path##*/}${_C___RESET}"
+}
+
 __repo_status() {
   (
     cd "$1" 2>/dev/null || {
@@ -74,11 +85,12 @@ __repo_status() {
     }
 
     echo -ne "${_C_SUCCESS}${_PRIMARY_SYMBOL}${_C___RESET}"
-    echo -ne " ${_C_COMMAND}$(git branch --show-current)${_C___RESET}"
-    echo -ne " ${_C____ARGS}$(git log -1 --format="%h" --abbrev=8)${_C___RESET}"
-    echo -ne " ${_C____PATH}${PWD/"${____CURRENT_DIR}"/.}${_C___RESET}"
-    echo -ne " ${_C____ARGS}$(git log -1 --format="%cr")${_C___RESET}"
-    echo  -e " ${_C__OPTION}$(git log -1 --format="%ae")${_C___RESET}"
+    echo -ne " $(__print_path)"
+    echo -ne " ${_C_____DIM}on${_C___RESET} ${_C_COMMAND}$(git branch --show-current)${_C___RESET}"
+    [[ $verbose == true ]] && echo -ne " ${_C_____DIM}#${_C___RESET} ${_C___VALUE}$(git log -1 --format="%h" --abbrev=8)${_C___RESET}"
+    [[ $verbose == true ]] && echo -ne " ${_C____ARGS}$(git log -1 --format="%cr")${_C___RESET}"
+    [[ $verbose == true ]] && echo -ne " ${_C_____DIM}by${_C___RESET} ${_C__OPTION}$(git log -1 --format="%ae")${_C___RESET}"
+    echo
   )
 }
 
@@ -101,6 +113,7 @@ __help() {
   echo -e "${_C_HEADING}Options:${_C___RESET}"
   echo -e "  ${_C__OPTION}--filter   -f <${_C___VALUE}pattern${_C___RESET}> ${_C___RESET} Match repo directory name exactly"
   echo -e "  ${_C__OPTION}--exclude  -e           ${_C___RESET} Exclude matched repositories instead of including"
+  echo -e "  ${_C__OPTION}--verbose  -v           ${_C___RESET} Enable verbose mode (only for ${_C__OPTION}list${_C___RESET} command)"
   echo -e "  ${_C__OPTION}--no-color              ${_C___RESET} Disable colored output"
   echo
   echo -e "${_C_HEADING}Filers:${_C___RESET}"
@@ -169,6 +182,7 @@ __set_no_color() {
   }
   _C___RESET=''
   _C____PATH=''
+  _C_PATH_DM=''
   _C_COMMAND=''
   _C____ARGS=''
   _C__OPTION=''
@@ -183,6 +197,7 @@ filters=()
 exclude=false
 debug=false
 command=""
+verbose=false
 args=()
 
 if [[ $# -eq 0 ]]; then
@@ -193,14 +208,15 @@ fi
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --exclude|-e) exclude=true;              shift ;;
-    --filter |-f) shift; __read_filter "$1"; shift ;;
-    --no-color  ) __set_no_color;            shift ;;
-    --debug     ) debug=true;                shift ;;
-    git  |g     ) __parse_command "git" ;    shift ;;
-    exec |x     ) __parse_command "exec";    shift ;;
-    list |ls    ) __parse_command "list";    shift ;;
-    help |h     ) __parse_command "help";    shift ;;
+    --exclude |-e ) exclude=true;              shift ;;
+    --filter  |-f ) shift; __read_filter "$1"; shift ;;
+    --no-color    ) __set_no_color;            shift ;;
+    --verbose |-v ) verbose=true;              shift ;;
+    --debug       ) debug=true;                shift ;;
+    git       |g  ) __parse_command "git" ;    shift ;;
+    exec      |x  ) __parse_command "exec";    shift ;;
+    list      |ls ) __parse_command "list";    shift ;;
+    help      |h  ) __parse_command "help";    shift ;;
     --)
       shift
       while [[ $# -gt 0 ]]; do
@@ -333,7 +349,7 @@ for repo_git_dir in "${repo_git_dirs[@]}"; do
         ;;
     esac
 
-    if __match_filter_v2 "$value" "$filter_value"; then
+    if __match_filter "$value" "$filter_value"; then
       [[ "$debug" == true ]] && {
         echo -e "${_C_____DIM}Debug:${_C___RESET} Filter matched: ${_C__OPTION}${filter}${_C___RESET} for value: ${_C____PATH}${value}${_C___RESET}"
       }
@@ -380,10 +396,10 @@ fi
 
 for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
   repo_dir=$(dirname "$repo_git_dir")
-  echo -e "${_C_SUCCESS}${_PRIMARY_SYMBOL} \$(${command} ${args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} ${_C____PATH}$repo_dir${_C___RESET}"
+  echo -e "${_C_SUCCESS}${_PRIMARY_SYMBOL} \$(${command} ${args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} $(__print_path "$repo_dir")"
   (
     cd "$repo_dir" 2>/dev/null || {
-      echo -e "${_C___ERROR}${_PRIMARY_SYMBOL}  Failed to enter: ${repo_dir}${_C___RESET}" 1>&2
+      echo -e "${_C___ERROR}${_PRIMARY_SYMBOL}  Failed to enter: ${_C___RESET} $(__print_path "$repo_dir")" 1>&2
       exit 1
     }
     "$command" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
