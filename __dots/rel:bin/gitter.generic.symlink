@@ -73,7 +73,12 @@ __print_path() {
   else
     local path=${1/"${____CURRENT_DIR}"/.}
   fi
-  echo -ne "${_C_PATH_DM}${path%/*}/${_C___RESET}"
+
+  if [[ "$path" == "." ]]; then
+    local path="$(basename "${____CURRENT_DIR}")"
+  else
+    echo -ne "${_C_PATH_DM}${path%/*}/${_C___RESET}"
+  fi
   echo -ne "${_C____PATH}${path##*/}${_C___RESET}"
 }
 
