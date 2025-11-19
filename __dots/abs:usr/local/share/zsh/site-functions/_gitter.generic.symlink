@@ -1,3 +1,5 @@
+#compdef gitter
+
 # Copyright (C) Indrajit Roy <eendroroy@gmail.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
@@ -6,8 +8,6 @@
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
-# shell script
-#compdef gitter
 
 _gitter() {
   emulate -L zsh
@@ -30,6 +30,7 @@ _gitter() {
     "--verbose:Enable verbose mode (only for list command)"
     "-v:Enable verbose mode (only for list command)"
     "--no-color:Disable colored output"
+    "--:End of command options, all following arguments are treated as positional arguments"
   )
 
   pattern_prefixes=(
@@ -43,7 +44,6 @@ _gitter() {
 
   _arguments -C \
     '1:command:->command' \
-    '2:arg-sentinel:->arg-sentinel' \
     '--filter:pattern:->pattern' \
     '-f:pattern:->pattern' \
     '*::args:->args'
@@ -51,10 +51,6 @@ _gitter() {
   case $state in
     command)
       _describe 'gitter commands' commands
-      return
-      ;;
-    arg-sentinel)
-      compadd -- --
       return
       ;;
     pattern)
