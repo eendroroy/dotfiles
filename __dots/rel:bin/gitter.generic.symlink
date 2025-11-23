@@ -90,13 +90,11 @@ __repo_status() {
       exit 1
     }
 
-    echo -ne "${_C_SUCCESS}${_PRIMARY_SYMBOL}${_C___RESET}"
-    echo -ne " $(__print_path)"
-    echo -ne " ${_C_____DIM}on${_C___RESET} ${_C_COMMAND}$(git branch --show-current)${_C___RESET}"
-    [[ $verbose == true ]] && echo -ne " ${_C_____DIM}#${_C___RESET} ${_C___VALUE}$(git log -1 --format="%h" --abbrev=8)${_C___RESET}"
+    echo -ne "$(__print_path)"
+    [[ $verbose == true || $2 = true ]] && echo -ne " ${_C_____DIM}on${_C___RESET} ${_C_COMMAND}$(git branch --show-current)${_C___RESET}"
+    [[ $verbose == true ]] && echo -ne " ${_C___VALUE}$(git log -1 --format="%h" --abbrev=8)${_C___RESET}"
     [[ $verbose == true ]] && echo -ne " ${_C____ARGS}$(git log -1 --format="%cr")${_C___RESET}"
     [[ $verbose == true ]] && echo -ne " ${_C_____DIM}by${_C___RESET} ${_C__OPTION}$(git log -1 --format="%ae")${_C___RESET}"
-    echo
   )
 }
 
@@ -162,13 +160,14 @@ __help() {
   echo -e "  ${_C__OPTION}git   g      ${_C___RESET} Run a git command (${_C____ARGS}default${_C___RESET})"
   echo -e "  ${_C__OPTION}exec  x      ${_C___RESET} Run an arbitrary command"
   echo -e "  ${_C__OPTION}list  ls     ${_C___RESET} List repositories only"
+  echo -e "  ${_C__OPTION}      lb     ${_C___RESET} List repositories with branch name"
   echo -e "  ${_C__OPTION}      ll     ${_C___RESET} Equivalent to ${_C__OPTION}list --verbose${_C___RESET} command"
   echo -e "  ${_C__OPTION}help         ${_C___RESET} Show this help menu"
   echo
   echo -e "${_C_HEADING}Options:${_C___RESET}"
   echo -e "  ${_C__OPTION}--filter   -f <${_C___VALUE}pattern${_C___RESET}> ${_C___RESET} Match repo directory name exactly"
   echo -e "  ${_C__OPTION}--exclude  -e           ${_C___RESET} Exclude matched repositories instead of including"
-  echo -e "  ${_C__OPTION}--verbose  -v           ${_C___RESET} Enable verbose mode (only for ${_C__OPTION}list${_C___RESET} command)"
+  echo -e "  ${_C__OPTION}--verbose  -v           ${_C___RESET} Enable verbose mode"
   echo -e "  ${_C__OPTION}--no-color              ${_C___RESET} Disable colored output"
   echo
   echo -e "${_C_HEADING}Filers:${_C___RESET}"
@@ -215,6 +214,7 @@ exclude=false
 debug=false
 command=""
 verbose=false
+branch=false
 args=()
 
 # Commands
@@ -224,6 +224,7 @@ ___list() { __parse_command "list"; }
 ___help() { __parse_command "help"; }
 
 # Command aliases
+___lb()   { __parse_command "list"; branch=true; }
 ___ll()   { __parse_command "list"; verbose=true; }
 
 if [[ $# -eq 0 ]]; then
@@ -244,6 +245,7 @@ while [[ $# -gt 0 ]]; do
     git  |g  ) ___git;  shift ;;
     exec |x  ) ___exec; shift ;;
     list |ls ) ___list; shift ;;
+          lb ) ___lb;   shift ;;
           ll ) ___ll;   shift ;;
     help     ) ___help; shift ;;
     --)
@@ -413,8 +415,10 @@ fi
 
 if [[ "$command" == "list" ]]; then
   for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
-  repo_dir=$(dirname "$repo_git_dir")
-    __repo_status "$repo_dir"
+    repo_dir=$(dirname "$repo_git_dir")
+    echo -ne "${_C_SUCCESS}${_PRIMARY_SYMBOL}${_C___RESET} "
+    __repo_status "$repo_dir" "$branch"
+    echo
     continue
   done
   exit 0
@@ -458,7 +462,7 @@ for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
       echo -e "${_C_____DIM}Debug:${_C___RESET} Executing command: ${_C_COMMAND}${command} ${parsed_args[*]}${_C___RESET}"
     }
 
-    echo -e "${_C_SUCCESS}${_PRIMARY_SYMBOL} \$(${command} ${parsed_args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} $(__print_path "$repo_dir")"
+    echo -e "${_C_SUCCESS}${_PRIMARY_SYMBOL} \$(${command} ${parsed_args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} $(__repo_status ".")"
     command -- "$command" "${parsed_args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
   )
 done
