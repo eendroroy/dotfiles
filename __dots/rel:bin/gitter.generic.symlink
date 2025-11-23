@@ -190,7 +190,9 @@ __help() {
   echo -e "    ${_C___ERROR}+${_C___RESET}${_C___VALUE}pattern${_C___RESET}${_C___ERROR}+${_C___RESET}  Matches substring anywhere in the value"
   echo -e "     ${_C___VALUE}pattern${_C___RESET}   Matches exactly the value"
   echo
-  echo -e "${_C_HEADING}Ignore-file (${_C___RESET}${_C____PATH}./.gitterignore${_C___RESET}${_C_HEADING}):${_C___RESET}"
+  echo -e "${_C_HEADING}Ignore-file:${_C___RESET}"
+  echo -e "  Gitter will look for a ${_C____PATH}.gitterignore${_C___RESET} file ${_C____ARGS}in the current directory.${_C___RESET}"
+  echo -e "  If found, it will read patterns from the file to ignore matching repositories."
   echo -e "  Each line in the file should contain a pattern to match repository names or paths."
   echo -e "  Lines starting with ${_C___ERROR}#${_C___RESET} are treated as comments and ignored."
   echo -e "  Patterns:"
@@ -200,10 +202,10 @@ __help() {
   echo
   echo -e "${_C_HEADING}Placeholders:${_C___RESET}"
   echo -e "  Within ${_C__OPTION}exec${_C___RESET} and ${_C__OPTION}git${_C___RESET} commands, the following placeholders can be used in arguments:"
-  echo -e "    ${_C___VALUE}{_repo_}${_C___RESET}       - Name of the current git repository"
-  echo -e "    ${_C___VALUE}{_path_}${_C___RESET}       - Relative path of the current working directory from where gitter was invoked"
-  echo -e "    ${_C___VALUE}{_path:abs_}${_C___RESET}   - Absolute path of the current working directory"
-  echo -e "    ${_C___VALUE}{_branch_}${_C___RESET}     - Current git branch name"
+  echo -e "    ${_C____ARGS}{_repo_}${_C___RESET}       - Name of the current git repository"
+  echo -e "    ${_C____ARGS}{_path_}${_C___RESET}       - Relative path of the current working directory from where gitter was invoked"
+  echo -e "    ${_C____ARGS}{_path:abs_}${_C___RESET}   - Absolute path of the current working directory"
+  echo -e "    ${_C____ARGS}{_branch_}${_C___RESET}     - Current git branch name"
   echo
 }
 
