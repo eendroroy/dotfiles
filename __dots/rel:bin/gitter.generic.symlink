@@ -198,6 +198,13 @@ __help() {
   echo -e "    ${_C___ERROR}*/directory_name${_C___RESET}           - Ignore directories under any parent directory named ${_C____PATH}directory_name${_C___RESET}"
   echo -e "    ${_C___ERROR}directory_name/*${_C___RESET}           - Ignore directories directly under the top-level directory named ${_C____PATH}directory_name${_C___RESET}"
   echo
+  echo -e "${_C_HEADING}Placeholders:${_C___RESET}"
+  echo -e "  Within ${_C__OPTION}exec${_C___RESET} and ${_C__OPTION}git${_C___RESET} commands, the following placeholders can be used in arguments:"
+  echo -e "    ${_C___VALUE}{_repo_}${_C___RESET}       - Name of the current git repository"
+  echo -e "    ${_C___VALUE}{_path_}${_C___RESET}       - Relative path of the current working directory from where gitter was invoked"
+  echo -e "    ${_C___VALUE}{_path:abs_}${_C___RESET}   - Absolute path of the current working directory"
+  echo -e "    ${_C___VALUE}{_branch_}${_C___RESET}     - Current git branch name"
+  echo
 }
 
 # Argument defaults
@@ -416,13 +423,41 @@ fi
 
 for repo_git_dir in "${filtered_repo_git_dirs[@]}"; do
   repo_dir=$(dirname "$repo_git_dir")
-  echo -e "${_C_SUCCESS}${_PRIMARY_SYMBOL} \$(${command} ${args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} $(__print_path "$repo_dir")"
   (
     cd "$repo_dir" 2>/dev/null || {
       echo -e "${_C___ERROR}${_PRIMARY_SYMBOL}  Failed to enter: ${_C___RESET} $(__print_path "$repo_dir")" 1>&2
       exit 1
     }
-    "$command" "${args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
+
+    parsed_args=()
+    for arg in "${args[@]}"; do
+      # {_repo_} -> name of the current git repository
+      [[ $arg == *"{_repo_}"* ]] && arg="${arg//\{_repo_\}/$(basename "$(pwd)")}"
+
+      # {_path_} -> relative path of the current working directory from where gitter was invoked
+      [[ $arg == *"{_path_}"* ]] && arg="${arg//\{_path_\}/${PWD/"${____CURRENT_DIR}"/.}}"
+
+      # {_path:abs_} -> absolute path of the current working directory}
+      [[ $arg == *"{_path:abs_}"* ]] && arg="${arg//\{_path:abs_\}/$(pwd)}"
+
+      # {_branch_} -> current git branch name
+      [[ $arg == *"{_branch_}"* ]] && arg="${arg//\{_branch_\}/$(git branch --show-current 2>/dev/null)}"
+
+      [[ "$debug" == true ]] && {
+        echo -e "${_C_____DIM}Debug:${_C___RESET} Parsed argument: ${_C____ARGS}${arg}${_C___RESET}"
+      }
+
+      parsed_args+=("$arg")
+    done
+
+    [[ "$debug" == true ]] && {
+      echo -e "${_C_____DIM}Debug:${_C___RESET} in:                ${_C____PATH}$(pwd)${_C___RESET}"
+      echo -e "${_C_____DIM}Debug:${_C___RESET} Received command:  ${_C_COMMAND}${command} ${args[*]}${_C___RESET}"
+      echo -e "${_C_____DIM}Debug:${_C___RESET} Executing command: ${_C_COMMAND}${command} ${parsed_args[*]}${_C___RESET}"
+    }
+
+    echo -e "${_C_SUCCESS}${_PRIMARY_SYMBOL} \$(${command} ${parsed_args[*]})${_C___RESET} ${_C_____DIM}in${_C___RESET} $(__print_path "$repo_dir")"
+    command -- "$command" "${parsed_args[@]}" 1> >(__handle_stdout) 2> >(__handle_stderr)
   )
 done
 exit 0
