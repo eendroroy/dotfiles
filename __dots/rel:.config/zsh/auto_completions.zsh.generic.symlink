@@ -20,7 +20,7 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|?=** r:|?=**'
 
 export fpath=("${fpath[@]}" "${HOME}/.docker/completions")
-export fpath=("${fpath[@]}" "${HOME}/.gitter/completions")
+export fpath=("${fpath[@]}" "${HOME}/.gitter/completion/zsh")
 
 # Initialize the autocompletion
 autoload -Uz compinit && compinit -i
