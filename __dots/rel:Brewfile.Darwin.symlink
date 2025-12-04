@@ -8,6 +8,10 @@
 # License, or (at your option) any later version.
 
 # TAPS
+tap "filosottile/musl-cross"
+tap "gromgit/fuse"
+tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu"
+tap "sergiobenitez/osxct"
 
 # SHELLS
 cask "alacritty"
@@ -54,7 +58,7 @@ brew "wget"
 # HARDWARE TOOLS
 brew "e2fsprogs" # e2fsprogs is a set of utilities for managing ext2/ext3/ext4 filesystems
 brew "fsql"
-brew "gromgit/fuse/ntfs-3g-mac"
+brew "ntfs-3g-mac"
 brew "htop"
 brew "lsusb"
 cask "macfuse"
@@ -112,9 +116,9 @@ brew "ruby"
 cask "visualvm"
 
 # build linkers
-brew "filosottile/musl-cross/musl-cross"
 brew "mingw-w64"
-brew "sergiobenitez/osxct/x86_64-unknown-linux-gnu"
+brew "musl-cross"
+brew "x86_64-unknown-linux-gnu"
 
 # DATABASE TOOLS
 brew "pgcli"
