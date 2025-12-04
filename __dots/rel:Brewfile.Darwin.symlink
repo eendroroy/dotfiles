@@ -60,10 +60,10 @@ brew "e2fsprogs" # e2fsprogs is a set of utilities for managing ext2/ext3/ext4 f
 brew "fsql"
 brew "ntfs-3g-mac"
 brew "htop"
-brew "lsusb"
 cask "macfuse"
 cask "mounty"
 brew "ncdu"
+brew "usbutils"
 
 # UTILITY TOOLS
 cask "android-platform-tools"
