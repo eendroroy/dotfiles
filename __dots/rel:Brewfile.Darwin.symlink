@@ -14,6 +14,7 @@ cask "alacritty"
 brew "bash"
 brew "bash-completion"
 # brew "carapace"
+brew "fish"
 brew "gitmux"
 # cask "iterm2"
 brew "nushell"
@@ -110,6 +111,11 @@ brew "python@3.11"
 brew "ruby"
 cask "visualvm"
 
+# build linkers
+brew "filosottile/musl-cross/musl-cross"
+brew "mingw-w64"
+brew "sergiobenitez/osxct/x86_64-unknown-linux-gnu"
+
 # DATABASE TOOLS
 brew "pgcli"
 #brew "postgresql@17", restart_service: :changed
@@ -123,6 +129,7 @@ cask "podman-desktop"
 brew "helm"
 # brew "minikube"
 brew "qemu"
+brew "quickemu"
 cask "vagrant"
 brew "virt-manager"
 cask "virtualbox"
