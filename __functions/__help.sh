@@ -28,6 +28,8 @@ function __help() {
   printf "  ${OPTIONS}%-13s${RESET} %s\n" "-s, --status " "Show status only"
   printf "  ${OPTIONS}%-13s${RESET} %s\n" "-v, --verbose" "Increase verbosity"
   printf "  ${OPTIONS}%-13s${RESET} %s\n" "-f, --force  " "Force overwrite"
+  printf "  ${OPTIONS}%-13s${RESET} %s\n" "-n, --dry-run" "Simulate actions"
+  printf "  ${OPTIONS}%-13s${RESET} %s\n" "-b, --brew   " "Install/Update Homebrew packages (Darwin only)"
   printf "\n"
   printf "Script location: ${OPTIONS}%s${RESET}\n" "${SCRIPT_LOCATION:-unknown}"
   printf "\n"
