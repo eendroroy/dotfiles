@@ -9,7 +9,7 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-SCRIPT_LOCATION="$( cd "$( dirname "$(realpath ${BASH_SOURCE[0]})" )" >/dev/null 2>&1 && pwd )"
+SCRIPT_LOCATION="$( cd "$( dirname "$(realpath "${BASH_SOURCE[0]}")" )" >/dev/null 2>&1 && pwd )"
 
 # directories
 __FUNCTIONS_DIR="${SCRIPT_LOCATION}/__functions"
