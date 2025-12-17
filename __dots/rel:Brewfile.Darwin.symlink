@@ -16,7 +16,7 @@ tap "sergiobenitez/osxct"
 # SHELLS
 cask "alacritty"
 brew "bash"
-brew "bash-completion"
+#brew "bash-completion"
 brew "bash-completion@2"
 # brew "carapace"
 brew "fish"
