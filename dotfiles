@@ -28,22 +28,23 @@ for file in "${__FUNCTIONS_DIR}/"*.sh; do
   source "${file}"
 done
 
-__VERBOSE=false __FORCE=false __STATUS=false __DRY=false
+__VERBOSE=false __FORCE=false __STATUS=false __DRY=false __USE_BREW=false
 
 __parse_common_args() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      -s|--status ) __STATUS=true  ;;
-      -v|--verbose) __VERBOSE=true ;;
-      -f|--force  ) __FORCE=true   ;;
-      -d|--dry    ) __DRY=true     ;;
+      -s|--status ) __STATUS=true   ;;
+      -v|--verbose) __VERBOSE=true  ;;
+      -f|--force  ) __FORCE=true    ;;
+      -d|--dry    ) __DRY=true      ;;
+      -b|--brew   ) __USE_BREW=true ;;
       *) ;;
     esac
     shift
   done
 }
 
-export __VERBOSE __FORCE __STATUS __DRY
+export __VERBOSE __FORCE __STATUS __DRY __USE_BREW
 
 case "$1" in
   h|help     ) shift;                           __help     ; exit 0 ;;

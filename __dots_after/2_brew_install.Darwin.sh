@@ -9,7 +9,9 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-brew update
-brew bundle --cleanup --file="${__DOTS_DIR}/rel:Brewfile.Darwin.symlink"
-brew upgrade --greedy
-brew cleanup --prune=all -v
+[[ "${__USE_BREW}" == "true" ]] && {
+  brew update
+  brew bundle --cleanup --file="${__DOTS_DIR}/rel:Brewfile.Darwin.symlink"
+  brew upgrade --greedy
+  brew cleanup --prune=all -v
+}
