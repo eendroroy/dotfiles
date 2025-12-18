@@ -38,5 +38,5 @@
 [help]
     autoCorrect = prompt
 [alias]
-    lg = log --graph --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
-    ls = log --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
+    lg = log --graph --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr%C(reset) - %C(yellow)%cd)%C(reset)' --abbrev-commit
+    ls = log --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr%C(reset) - %C(yellow)%cd)%C(reset)' --abbrev-commit
