@@ -77,6 +77,7 @@ brew "fzf"
 brew "jq"
 cask "keka"
 brew "libgit2"
+brew "mole"
 brew "multitail"
 brew "pv"
 brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
