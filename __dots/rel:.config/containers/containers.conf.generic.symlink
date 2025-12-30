@@ -1,0 +1,8 @@
+[engine]
+compose_providers = ["/usr/local/bin/docker-compose", "/usr/local/bin/podman-compose"]
+default_provider = "docker-compose"
+compose_warning_logs = false
+
+[machine]
+cpus = 6
+memory = 4096
