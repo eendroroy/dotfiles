@@ -25,5 +25,8 @@ export fpath=("${fpath[@]}" "${HOME}/.gitter/completion/zsh")
 # Initialize the autocompletion
 autoload -Uz compinit && compinit -i
 
+# Mole completion
+if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
+
 # export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
 # source <(carapace _carapace zsh)
