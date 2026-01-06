@@ -57,6 +57,9 @@ brew "watch"
 brew "wget"
 
 # HARDWARE TOOLS
+cask "blackhole-2ch"
+cask "blackhole-16ch"
+cask "blackhole-64ch"
 brew "e2fsprogs" # e2fsprogs is a set of utilities for managing ext2/ext3/ext4 filesystems
 brew "fsql"
 brew "ntfs-3g-mac"
