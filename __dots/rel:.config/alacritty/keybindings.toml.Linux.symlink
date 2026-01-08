@@ -98,7 +98,6 @@ bindings = [
     { action = "WordRight",               key = "W",              mode = "Vi|~Search",  mods = "Shift"           },
     { action = "WordRightEnd",            key = "E",              mode = "Vi|~Search",  mods = "Shift"           },
     { chars  = "\f",                      key = "L",              mode = "~Vi|~Search", mods = "Control"         },
-    { chars  = "\f",                      key = "K",              mode = "~Vi|~Search", mods = "Command"         },
     # tmux integration
     { chars  = "\u0002",                  key = "T",                                    mods = "Command"         },
     { chars  = "c",                       key = "T",                                    mods = "Command"         },
@@ -114,4 +113,6 @@ bindings = [
     { chars  = "%",                       key = "D",                                    mods = "Command|Shift"   },
     { chars  = "exit",                    key = "E",                                    mods = "Command"         },
     { chars  = "\u000D",                  key = "E",                                    mods = "Command"         },
+    { chars  = "\u0002",                  key = "K",                                    mods = "Command"         },
+    { chars  = "k",                       key = "K",                                    mods = "Command"         },
 ]
