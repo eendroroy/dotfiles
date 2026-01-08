@@ -36,15 +36,13 @@ __parse_common_args() {
       -s|--status ) __STATUS=true   ;;
       -v|--verbose) __VERBOSE=true  ;;
       -f|--force  ) __FORCE=true    ;;
-      -d|--dry    ) __DRY=true      ;;
+      -n|--dry-run) __DRY=true      ;;
       -b|--brew   ) __USE_BREW=true ;;
       *) ;;
     esac
     shift
   done
 }
-
-export __VERBOSE __FORCE __STATUS __DRY __USE_BREW
 
 case "$1" in
   h|help     ) shift;                           __help     ; exit 0 ;;
