@@ -15,3 +15,17 @@ if [[ $(defaults read org.alacritty AppleFontSmoothing) != "0" ]]; then
 else
   ${__VERBOSE} && __m_warning "Skipping : font smoothing already disabled for Alacritty [$(defaults read org.alacritty AppleFontSmoothing)]"
 fi
+
+if [[ $(defaults read com.apple.desktopservices DSDontWriteNetworkStores) != "1" ]]; then
+  __m_primary "disabling creation of .DS_Store files on network volumes"
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+else
+  ${__VERBOSE} && __m_warning "Skipping : .DS_Store creation already disabled on network volumes [$(defaults read com.apple.desktopservices DSDontWriteNetworkStores)]"
+fi
+
+if [[ $(defaults read com.apple.desktopservices DSDontWriteUSBStores) != "1" ]]; then
+  __m_primary "disabling creation of .DS_Store files on USB volumes"
+  defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+else
+  ${__VERBOSE} && __m_warning "Skipping : .DS_Store creation already disabled on USB volumes [$(defaults read com.apple.desktopservices DSDontWriteUSBStores)]"
+fi
