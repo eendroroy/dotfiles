@@ -1,0 +1,36 @@
+# Copyright (C) Indrajit Roy <eendroroy@gmail.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+palette = 0=#404040
+palette = 1=#9f7070
+palette = 2=#709f70
+palette = 3=#9f9f70
+palette = 4=#70709f
+palette = 5=#9f709f
+palette = 6=#709f9f
+palette = 7=#aaaaaa
+palette = 8=#505050
+palette = 9=#9f8080
+palette = 10=#809f80
+palette = 11=#9f9f80
+palette = 12=#80809f
+palette = 13=#9f809f
+palette = 14=#809f9f
+palette = 15=#bbbbbb
+background = #0a0a0d
+foreground = #999999
+cursor-color = #999999
+cursor-text = #0a0a0d
+selection-background = #999999
+selection-foreground = #0a0a0d
+
+background-image=themes/bg/e_ink_dark_bg.jpg
+background-image-fit=cover
+
+minimum-contrast=1.5
