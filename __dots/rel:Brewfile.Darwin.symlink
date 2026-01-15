@@ -8,7 +8,7 @@
 # License, or (at your option) any later version.
 
 # TAPS
-tap "filosottile/musl-cross"
+# tap "filosottile/musl-cross"
 tap "gromgit/fuse"
 tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu"
 tap "sergiobenitez/osxct"
@@ -100,8 +100,9 @@ brew "posting" # posting is a command-line HTTP client for testing web servers
 brew "rustscan"
 brew "sshuttle"
 brew "vpn-slice"
-brew "wireshark"
-cask "wireshark-chmodbpf"
+# brew "wireshark"
+cask "wireshark-app"
+# cask "wireshark-chmodbpf"
 
 # BROWSERS
 cask "google-chrome"
@@ -122,9 +123,9 @@ brew "ruby"
 cask "visualvm"
 
 # build linkers
-brew "mingw-w64"
-brew "musl-cross"
-brew "x86_64-unknown-linux-gnu"
+# brew "mingw-w64"
+# brew "musl-cross"
+# brew "x86_64-unknown-linux-gnu"
 
 # DATABASE TOOLS
 brew "pgcli"
