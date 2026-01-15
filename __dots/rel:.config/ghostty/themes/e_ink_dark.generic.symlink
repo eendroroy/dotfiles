@@ -32,5 +32,3 @@ selection-foreground = cell-background
 
 background-image=themes/bg/e_ink_dark_bg.jpg
 background-image-fit=cover
-
-minimum-contrast=1.5
