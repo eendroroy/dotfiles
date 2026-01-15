@@ -25,10 +25,10 @@ palette = 14=#809f9f
 palette = 15=#bbbbbb
 background = #0a0a0d
 foreground = #999999
-cursor-color = #999999
-cursor-text = #0a0a0d
-selection-background = #999999
-selection-foreground = #0a0a0d
+cursor-color = cell-foreground
+cursor-text = cell-background
+selection-background = cell-foreground
+selection-foreground = cell-background
 
 background-image=themes/bg/e_ink_dark_bg.jpg
 background-image-fit=cover
