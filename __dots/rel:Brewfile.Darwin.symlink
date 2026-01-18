@@ -106,7 +106,7 @@ cask "wireshark-app"
 
 # BROWSERS
 cask "google-chrome"
-cask "tor-browser"
+# cask "tor-browser"
 
 # DEVELOPMENT TOOLS
 brew "asdf"
@@ -132,15 +132,15 @@ brew "pgcli"
 #brew "postgresql@17", restart_service: :changed
 
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
-brew "ansible"
+# brew "ansible"
 # brew "k3d"
 brew "kind"
 brew "podman"
 cask "podman-desktop"
-brew "helm"
+# brew "helm"
 # brew "minikube"
 brew "qemu"
-brew "quickemu"
+# brew "quickemu"
 cask "vagrant"
 brew "virt-manager"
 cask "virtualbox"
