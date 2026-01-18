@@ -30,7 +30,7 @@ cursor-text = cell-background
 selection-background = cell-foreground
 selection-foreground = cell-background
 
-# custom-shader=themes/e_ink_dark.glsl
 background-image=themes/e_ink_dark_bg.jpg
 background-image-fit=cover
 
+#custom-shader=themes/e_ink_dark.glsl
