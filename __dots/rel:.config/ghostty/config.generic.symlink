@@ -6,6 +6,8 @@ font-size = 18
 font-style-bold = "SemiBold"
 font-style-bold-italic = "SemiBold Italic"
 
+shell-integration = zsh
+
 keybind = cmd+right=next_tab
 keybind = cmd+left=previous_tab
 keybind = cmd+shift+right=move_tab:1
