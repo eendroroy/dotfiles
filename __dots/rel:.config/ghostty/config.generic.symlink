@@ -6,10 +6,11 @@ font-size = 18
 font-style-bold = "SemiBold"
 font-style-bold-italic = "SemiBold Italic"
 
-shell-integration = zsh
+macos-icon = paper
 
-keybind = cmd+right=next_tab
-keybind = cmd+left=previous_tab
-keybind = cmd+shift+right=move_tab:1
-keybind = cmd+shift+left=move_tab:-1
-keybind = global:cmd+backquote=toggle_quick_terminal
+shell-integration = zsh
+selection-clear-on-typing = true
+selection-clear-on-copy = true
+scrollback-limit = 10000000
+
+config-file = kyebinds
