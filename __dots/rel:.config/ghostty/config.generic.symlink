@@ -1,4 +1,4 @@
-theme = e_ink_dark
+theme = dark:e_ink_dark,light:e_ink_bright
 
 font-family = ""
 font-family = "JetBrainsMono Nerd Font Mono"
