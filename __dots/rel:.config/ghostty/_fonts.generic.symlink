@@ -1,0 +1,14 @@
+font-family = ""
+font-family = "BlexMono Nerd Font Mono"
+
+font-size = 20
+
+font-style = "Regular"
+font-style-bold = "Medium"
+font-style-italic = "Italic"
+font-style-bold-italic = "Medium Italic"
+
+adjust-cell-width = -2%
+adjust-cell-height = -10%
+
+font-feature = "aalt, lnum, zero"

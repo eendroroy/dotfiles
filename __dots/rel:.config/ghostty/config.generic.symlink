@@ -1,16 +1,15 @@
-theme = dark:e_ink_dark,light:e_ink_bright
-
-font-family = ""
-font-family = "JetBrainsMono Nerd Font Mono"
-font-size = 18
-font-style-bold = "SemiBold"
-font-style-bold-italic = "SemiBold Italic"
-
+theme = dark:e_ink_dark,light:e_ink_light
 macos-icon = paper
 
 shell-integration = zsh
+shell-integration-features = true
+
 selection-clear-on-typing = true
 selection-clear-on-copy = true
 scrollback-limit = 10000000
 
-config-file = kyebinds
+window-vsync = true
+window-save-state = always
+
+config-file = _key_bindings
+config-file = _fonts
