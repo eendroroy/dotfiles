@@ -14,7 +14,7 @@ palette = 3=#9f9f70
 palette = 4=#70799F
 palette = 5=#9f709f
 palette = 6=#709f9f
-palette = 7=#aaaaaa
+palette = 7=#999999
 palette = 8=#505050
 palette = 9=#9f8080
 palette = 10=#809f80
@@ -22,9 +22,9 @@ palette = 11=#9f9f80
 palette = 12=#80899f
 palette = 13=#9f809f
 palette = 14=#809f9f
-palette = 15=#bbbbbb
+palette = 15=#aaaaaa
 background = #0a0a0d
-foreground = #999999
+foreground = #909090
 cursor-color = cell-foreground
 cursor-text = cell-background
 selection-background = cell-foreground

@@ -8,29 +8,29 @@
 # License, or (at your option) any later version.
 
 palette = 0=#111111
-palette = 1=#502020
-palette = 2=#205020
-palette = 3=#505020
-palette = 4=#202050
-palette = 5=#502050
-palette = 6=#205050
-palette = 7=#cccccc
+palette = 1=#704040
+palette = 2=#407040
+palette = 3=#707040
+palette = 4=#404070
+palette = 5=#704070
+palette = 6=#407070
+palette = 7=#888888
 palette = 8=#222222
-palette = 9=#5f2f2f
-palette = 10=#2f5f2f
-palette = 11=#5f5f2f
-palette = 12=#2f2f5f
-palette = 13=#5f2f5F
-palette = 14=#2f5f5f
-palette = 15=#dddddd
-background = #aaaaa1
+palette = 9=#7f4f4f
+palette = 10=#4f7f4f
+palette = 11=#7f7f4f
+palette = 12=#4f4f7f
+palette = 13=#7f4f7f
+palette = 14=#4f7f7f
+palette = 15=#999999
+background = #aaaaaa
 foreground = #222222
 cursor-color = cell-foreground
 cursor-text = cell-background
 selection-background = cell-foreground
 selection-foreground = cell-background
 
-background-image=themes/e_ink_bright_bg.jpg
+background-image=themes/e_ink_light_bg.jpg
 background-image-fit=cover
 
-#custom-shader=themes/e_ink_bright.glsl
+#custom-shader=themes/e_ink_light.glsl
