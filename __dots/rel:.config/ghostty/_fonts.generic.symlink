@@ -1,7 +1,9 @@
 font-family = ""
 font-family = "BlexMono Nerd Font Mono"
 
-font-size = 20
+font-size = 18
+adjust-cell-height = 10%
+adjust-cell-width = -10%
 
 font-style = "Regular"
 font-style-bold = "Medium"
