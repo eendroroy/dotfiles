@@ -48,6 +48,7 @@
         .contrast-badge {
             font-size: 9px; padding: 3px 8px; border-radius: 4px; background: #0a0a0c; color: #aaa;
             font-weight: bold; border: 1px solid #333; font-family: 'JetBrains Mono', monospace;
+            white-space: pre; text-align: right;
         }
         .active-var-label {
             font-weight: bold; color: #4cc9f0; font-family: 'JetBrains Mono', monospace;
@@ -81,7 +82,7 @@
         .main-content::before {
             content: "";
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+            background-image: url("./___documents/bg-patterns/black-paper.png");
             opacity: 0.4;
             pointer-events: none;
             mix-blend-mode: overlay; /* Allows texture to work on both dark and light */
@@ -130,7 +131,7 @@
     <div id="picker-area">
         <div class="picker-header">
             <div class="active-var-label" id="current-var-display">SELECT COLOR</div>
-            <div id="contrast-info" class="contrast-badge">RATIO --</div>
+            <div id="contrast-info" class="contrast-badge">FG: -- | GRN: --</div>
         </div>
         <div id="picker-container" style="display: flex; justify-content: center;"></div>
         <div class="hex-input-wrapper">
@@ -246,15 +247,41 @@
     }
 
     function rgbToHex(rgb) { const s = (x) => Math.round(x).toString(16).padStart(2, '0'); return `#${s(rgb.r)}${s(rgb.g)}${s(rgb.b)}`.toUpperCase(); }
-    function getLuminance(hex) { const rgb = hex.replace('#', '').match(/.{2}/g).map(x => { let v = parseInt(x, 16) / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]; }
+    function getLuminance(hex) {
+        const rgb = hex.replace('#', '').match(/.{2}/g).map(x => {
+            let v = parseInt(x, 16) / 255;
+            return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+    }
 
     function updateContrastDisplay() {
-        const bg = getComputedStyle(root).getPropertyValue('--bg-color').trim(), fg = getComputedStyle(root).getPropertyValue('--fg-color').trim();
-        const l1 = getLuminance(bg), l2 = getLuminance(fg);
-        const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+        const bg = getComputedStyle(root).getPropertyValue('--bg-color').trim();
+        const fg = getComputedStyle(root).getPropertyValue('--fg-color').trim();
+        const green = getComputedStyle(root).getPropertyValue('--green-normal').trim();
+
+        const getRatio = (c1, c2) => {
+            const l1 = getLuminance(c1), l2 = getLuminance(c2);
+            return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+        };
+
+        const fgRatio = getRatio(bg, fg);
+        const greenRatio = getRatio(bg, green);
+
         const display = document.getElementById('contrast-info');
-        display.innerText = `${ratio.toFixed(1)}:1`;
-        display.style.borderColor = ratio < 3 ? '#ff5f56' : (ratio < 4.5 ? '#ffbd2e' : '#27c93f');
+        display.innerText = `FG: ${fgRatio.toFixed(1)}:1 | GRN: ${greenRatio.toFixed(1)}:1`;
+
+        // UI Feedback: If either is below 3.0, mark as critical (red)
+        if (fgRatio < 3 || greenRatio < 3) {
+            display.style.borderColor = '#ff5f56';
+            display.style.color = '#ff5f56';
+        } else if (fgRatio < 4.5 || greenRatio < 4.5) {
+            display.style.borderColor = '#ffbd2e';
+            display.style.color = '#ffbd2e';
+        } else {
+            display.style.borderColor = '#27c93f';
+            display.style.color = '#27c93f';
+        }
     }
 
     function updateColorVar(varName, hex) {
@@ -297,7 +324,7 @@
 
     function updateConfig() {
         const getV = (n) => getComputedStyle(root).getPropertyValue(n).trim().toUpperCase();
-        let g = `# Ghostty\nbackground = ${getV('--bg-color')}\nforeground = ${getV('--fg-color')}\n\n`;
+        let g = `background = ${getV('--bg-color')}\nforeground = ${getV('--fg-color')}\n\n`;
         colors.forEach((c, i) => g += `palette = ${i}=${getV('--'+c.toLowerCase()+'-normal')}\n`);
         colors.forEach((c, i) => g += `palette = ${i+8}=${getV('--'+c.toLowerCase()+'-bright')}\n`);
         document.getElementById('ghostty-output').innerText = g;
