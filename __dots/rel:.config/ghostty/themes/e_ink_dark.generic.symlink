@@ -7,30 +7,34 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-palette = 0=#404040
-palette = 1=#9f7070
-palette = 2=#709f70
-palette = 3=#9f9f70
-palette = 4=#70799F
-palette = 5=#9f709f
-palette = 6=#709f9f
-palette = 7=#999999
-palette = 8=#505050
-palette = 9=#9f8080
-palette = 10=#809f80
-palette = 11=#9f9f80
-palette = 12=#80899f
-palette = 13=#9f809f
-palette = 14=#809f9f
-palette = 15=#aaaaaa
-background = #0a0a0d
+# Ghostty
+background = #000000
 foreground = #909090
+
+palette = 0=#404040
+palette = 1=#B37E7E
+palette = 2=#7EB37E
+palette = 3=#B3B37E
+palette = 4=#7F89B3
+palette = 5=#B37EB3
+palette = 6=#7EB3B3
+palette = 7=#B3B3B3
+palette = 8=#4D4D4D
+palette = 9=#CCA4A4
+palette = 10=#A4CCA4
+palette = 11=#CCCCA4
+palette = 12=#A4B0CC
+palette = 13=#CCA4CC
+palette = 14=#A4CCCC
+palette = 15=#CCCCCC
+
 cursor-color = cell-foreground
 cursor-text = cell-background
 selection-background = cell-foreground
 selection-foreground = cell-background
 
-background-image=themes/e_ink_dark_bg.jpg
-background-image-fit=cover
+background-image=themes/e_ink_dark_bg.png
+background-image-fit=none
+background-image-repeat=true
 
 #custom-shader=themes/e_ink_dark.glsl
