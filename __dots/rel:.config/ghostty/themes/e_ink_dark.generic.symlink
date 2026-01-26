@@ -7,26 +7,25 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-# Ghostty
 background = #000000
-foreground = #909090
+foreground = #BFBFBF
 
-palette = 0=#404040
-palette = 1=#B37E7E
-palette = 2=#7EB37E
-palette = 3=#B3B37E
-palette = 4=#7F89B3
-palette = 5=#B37EB3
-palette = 6=#7EB3B3
-palette = 7=#B3B3B3
-palette = 8=#4D4D4D
-palette = 9=#CCA4A4
-palette = 10=#A4CCA4
-palette = 11=#CCCCA4
-palette = 12=#A4B0CC
-palette = 13=#CCA4CC
-palette = 14=#A4CCCC
-palette = 15=#CCCCCC
+palette = 0=#595959
+palette = 1=#CC9090
+palette = 2=#90CC90
+palette = 3=#CCCC90
+palette = 4=#919CCC
+palette = 5=#CC90CC
+palette = 6=#90CCCC
+palette = 7=#CCCCCC
+palette = 8=#808080
+palette = 9=#E6B9B9
+palette = 10=#B9E6B9
+palette = 11=#E6E6B9
+palette = 12=#B9C6E6
+palette = 13=#E6B9E6
+palette = 14=#B9E6E6
+palette = 15=#E6E6E6
 
 cursor-color = cell-foreground
 cursor-text = cell-background
