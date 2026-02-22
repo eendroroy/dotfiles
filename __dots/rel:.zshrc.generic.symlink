@@ -20,3 +20,6 @@ for config_file in "${HOME}"/.config/zsh/*.zsh; do
   # shellcheck source=${HOME}/.config/zsh/*.zsh
   source "${config_file}"
 done
+
+# Added by Antigravity
+export PATH="/Users/indrajit/.antigravity/antigravity/bin:$PATH"
