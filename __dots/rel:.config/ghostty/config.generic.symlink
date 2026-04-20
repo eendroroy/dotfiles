@@ -13,3 +13,5 @@ window-save-state = always
 
 config-file = _key_bindings
 config-file = _fonts
+
+macos-secure-input-indication = false
