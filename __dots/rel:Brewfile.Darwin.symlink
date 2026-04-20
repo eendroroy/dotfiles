@@ -59,9 +59,10 @@ brew "wget"
 brew "chafa"
 
 # HARDWARE TOOLS
-cask "blackhole-2ch"
-cask "blackhole-16ch"
-cask "blackhole-64ch"
+# cask "blackhole-2ch"
+# cask "blackhole-16ch"
+# cask "blackhole-64ch"
+brew "btop"
 brew "e2fsprogs" # e2fsprogs is a set of utilities for managing ext2/ext3/ext4 filesystems
 brew "fsql"
 brew "ntfs-3g-mac"
@@ -112,7 +113,7 @@ cask "google-chrome"
 
 # DEVELOPMENT TOOLS
 brew "asdf"
-cask "hoppscotch"
+# cask "hoppscotch"
 cask "jetbrains-toolbox"
 brew "k6"
 brew "loc"
@@ -130,6 +131,7 @@ cask "visualvm"
 # brew "x86_64-unknown-linux-gnu"
 
 # DATABASE TOOLS
+# cask "azure-data-studio"
 brew "pgcli"
 #brew "postgresql@17", restart_service: :changed
 
@@ -159,5 +161,6 @@ cask "gpg-suite"
 cask "veracrypt"
 
 # OTHERS
+cask "galaxybudsclient"
 cask "vlc"
 cask "whatsapp"
