@@ -13,7 +13,7 @@ set -euo pipefail
 
 # ─── Guard ────────────────────────────────────────────────────────────────────
 
-[[ "$(uname)" != 'Linux' ]] && { echo 'Only supported on Linux distros'; exit 1; }
+[[ "$(uname)" != 'Darwin' ]] && { echo 'Only supported on macOS'; exit 1; }
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -21,19 +21,24 @@ log()  { printf '%s\n' "$*"; }
 warn() { printf '\a%s\n' "$*" >&2; }
 
 check_dependency() {
-  if ! dpkg-query -W -f='${Status}' xdotool 2>/dev/null | grep -q "ok installed"; then
-    warn "Unmet dependency: xdotool"
-    printf 'Do you want to install it now? (Y/n): '
+  if ! command -v cliclick &>/dev/null; then
+    warn "Unmet dependency: cliclick"
+    printf 'Do you want to install it via Homebrew now? (Y/n): '
     read -r answer
     case "${answer:-Y}" in
-      [Yy]*) sudo apt-get install -y xdotool ;;
-      *)     log 'Please install xdotool first.'; exit 1 ;;
+      [Yy]*) brew install cliclick ;;
+      *)     log 'Please install cliclick first: brew install cliclick'; exit 1 ;;
     esac
-    if ! dpkg-query -W -f='${Status}' xdotool 2>/dev/null | grep -q "ok installed"; then
-      warn "Installation failed. Please install xdotool manually."
+    if ! command -v cliclick &>/dev/null; then
+      warn "Installation failed. Please install cliclick manually: brew install cliclick"
       exit 1
     fi
   fi
+}
+
+get_mouse_position() {
+  # Returns "x y" from cliclick
+  cliclick p: 2>/dev/null | tr ',' ' '
 }
 
 countdown() {
@@ -52,20 +57,12 @@ main() {
   log 'Checking dependencies...'
   check_dependency
 
-  log 'Bring the desired window to the foreground and position the mouse where you want clicks.'
+  log 'Position the mouse where you want clicks, then wait.'
   countdown 10
 
-  # Capture target window and mouse position
-  local target_win
-  target_win=$(xdotool getwindowfocus)
-
-  local win_geom
-  eval "$(xdotool getwindowgeometry --shell "$target_win")"
-  local win_x=$X win_y=$Y
-
-  eval "$(xdotool getmouselocation --shell)"
-  local rel_x=$(( X - win_x + 10 ))
-  local rel_y=$(( Y - win_y + 40 ))
+  # Capture the target mouse position
+  read -r target_x target_y < <(get_mouse_position)
+  log "Target position locked: (${target_x}, ${target_y})"
 
   printf 'Click interval in seconds: '
   read -r click_interval
@@ -75,27 +72,20 @@ main() {
     exit 1
   fi
 
-  log "Auto-clicking every ${click_interval}s. Press Ctrl+C to stop."
+  log "Auto-clicking at (${target_x}, ${target_y}) every ${click_interval}s. Press Ctrl+C to stop."
 
   while true; do
-    local prev_win prev_x prev_y
-    prev_win=$(xdotool getwindowfocus)
-    eval "$(xdotool getmouselocation --shell)"
-    prev_x=$X
-    prev_y=$Y
+    # Save current mouse position
+    read -r prev_x prev_y < <(get_mouse_position)
 
-    xdotool windowfocus --sync "$target_win"
-    xdotool windowraise "$target_win"
-    xdotool mousemove --sync --window "$target_win" "$rel_x" "$rel_y"
+    # Move to target, click, restore position
+    cliclick "m:${target_x},${target_y}"
     sleep 0.01
-    xdotool click 1
+    cliclick "c:${target_x},${target_y}"
 
-    eval "$(xdotool getmouselocation --shell)"
-    printf '\rClicked at (%d, %d)   ' "$X" "$Y"
+    printf '\rClicked at (%s, %s)   ' "$target_x" "$target_y"
 
-    xdotool windowfocus --sync "$prev_win"
-    xdotool windowraise "$prev_win"
-    xdotool mousemove "$prev_x" "$prev_y"
+    cliclick "m:${prev_x},${prev_y}"
 
     local count=$click_interval
     while (( count > 0 )); do
@@ -107,3 +97,4 @@ main() {
 }
 
 main "$@"
+
