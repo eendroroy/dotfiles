@@ -9,14 +9,32 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-_arguments \
-  '-h[Show help message]' \
-  '--help[Show help message]' \
-  '-l[Print ANSI colors in legacy format]' \
-  '--legacy[Print ANSI colors in legacy format]' \
-  '-t[Print ANSI color table]: :(( -c\:"Show table with color codes" --code\:"Show table with color codes" ))' \
-  '--table[Print ANSI color table]: :(( -c\:"Show table with color codes" --code\:"Show table with color codes" ))' \
-  '-tc[Print true color gradient]' \
-  '--true-color[Print true color gradient]' \
-  '-2[Print 256-color palette]: :(( -f\:"Show in foreground colors" --foreground\:"Show in foreground colors" -b\:"Show in background colors" --background\:"Show in background colors" ))' \
-  '--256[Print 256-color palette]: :(( -f\:"Show in foreground colors" --foreground\:"Show in foreground colors" -b\:"Show in background colors" --background\:"Show in background colors" ))'
+_arguments -C \
+  '1:command:((help\:"Show help message" h\:"Show help message" legacy\:"Print ANSI colors in legacy format" l\:"Print ANSI colors in legacy format" table\:"Print ANSI color table" t\:"Print ANSI color table" true-color\:"Print true color gradient" tc\:"Print true color gradient" 256\:"Print 256-color palette" 2\:"Print 256-color palette"))' \
+  '2:subcommand:->subcmd' \
+  '*:: :->none'
+
+case "$state" in
+  subcmd)
+    case "${words[2]}" in
+      table|t)
+        _values 'table subcommand' \
+          'code[Show table with color codes]' \
+          'c[Show table with color codes]'
+        ;;
+      256|2)
+        _values '256 subcommand' \
+          'foreground[Show in foreground colors]' \
+          'f[Show in foreground colors]' \
+          'background[Show in background colors]' \
+          'b[Show in background colors]'
+        ;;
+      *)
+        _message 'no subcommands'
+        ;;
+    esac
+    ;;
+  none)
+    _message 'no further arguments'
+    ;;
+esac

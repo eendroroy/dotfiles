@@ -24,224 +24,337 @@ values=(
   "154 155 156 157 158 159 190 191 192 193 194 195 226 227 228 229 230 231"
 )
 
-function __print_colors_legacy {
-  echo -e "|039| \033[39m  Default  \033[m |049| \033[49m  Default  \033[m |037| \033[37m  Light gray      \033[m |047| \033[47mLight gray     \033[m"
-  echo -e "|030| \033[30m  Black    \033[m |040| \033[40m  Black    \033[m |090| \033[90m  Dark gray       \033[m |100| \033[100mDark gray      \033[m"
-  echo -e "|031| \033[31m  Red      \033[m |041| \033[41m  Red      \033[m |091| \033[91m  Light red       \033[m |101| \033[101mLight red      \033[m"
-  echo -e "|032| \033[32m  Green    \033[m |042| \033[42m  Green    \033[m |092| \033[92m  Light green     \033[m |102| \033[102mLight green    \033[m"
-  echo -e "|033| \033[33m  Yellow   \033[m |043| \033[43m  Yellow   \033[m |093| \033[93m  Light yellow    \033[m |103| \033[103mLight yellow   \033[m"
-  echo -e "|034| \033[34m  Blue     \033[m |044| \033[44m  Blue     \033[m |094| \033[94m  Light blue      \033[m |104| \033[104mLight blue     \033[m"
-  echo -e "|035| \033[35m  Magenta  \033[m |045| \033[45m  Magenta  \033[m |095| \033[95m  Light magenta   \033[m |105| \033[105mLight magenta  \033[m"
-  echo -e "|036| \033[36m  Cyan     \033[m |046| \033[46m  Cyan     \033[m |096| \033[96m  Light cyan      \033[m |106| \033[106mLight cyan     \033[m"
+function __print_colors_legacy() {
+  local lines=(
+    "|039| \033[39m  Default  \033[m |049| \033[49m  Default  \033[m |037| \033[37m  Light gray      \033[m |047| \033[47mLight gray     \033[m"
+    "|030| \033[30m  Black    \033[m |040| \033[40m  Black    \033[m |090| \033[90m  Dark gray       \033[m |100| \033[100mDark gray      \033[m"
+    "|031| \033[31m  Red      \033[m |041| \033[41m  Red      \033[m |091| \033[91m  Light red       \033[m |101| \033[101mLight red      \033[m"
+    "|032| \033[32m  Green    \033[m |042| \033[42m  Green    \033[m |092| \033[92m  Light green     \033[m |102| \033[102mLight green    \033[m"
+    "|033| \033[33m  Yellow   \033[m |043| \033[43m  Yellow   \033[m |093| \033[93m  Light yellow    \033[m |103| \033[103mLight yellow   \033[m"
+    "|034| \033[34m  Blue     \033[m |044| \033[44m  Blue     \033[m |094| \033[94m  Light blue      \033[m |104| \033[104mLight blue     \033[m"
+    "|035| \033[35m  Magenta  \033[m |045| \033[45m  Magenta  \033[m |095| \033[95m  Light magenta   \033[m |105| \033[105mLight magenta  \033[m"
+    "|036| \033[36m  Cyan     \033[m |046| \033[46m  Cyan     \033[m |096| \033[96m  Light cyan      \033[m |106| \033[106mLight cyan     \033[m"
+    "|037| \033[37m  White    \033[m |047| \033[47m  White    \033[m |097| \033[97m  Bright white    \033[m |107| \033[107mBright white   \033[m"
+  )
+  local line
+  for line in "${lines[@]}"; do
+    printf '%b\n' "$line"
+  done
 }
 
-function __print_colors_true {
+function __resolve_term_cols() {
+  local cols=""
+
+  # COLUMNS is usually not exported, so prefer querying the real tty.
+  if [[ -r /dev/tty ]]; then
+    cols="$(stty size < /dev/tty 2>/dev/null | awk '{print $2}')"
+  fi
+
+  if ! [[ "$cols" =~ ^[0-9]+$ ]] || ((cols <= 0)); then
+    cols="${COLUMNS:-}"
+  fi
+
+  if ! [[ "$cols" =~ ^[0-9]+$ ]] || ((cols <= 0)); then
+    cols="$(tput cols < /dev/tty 2>/dev/null || tput cols 2>/dev/null || echo 80)"
+  fi
+
+  [[ "$cols" =~ ^[0-9]+$ ]] || cols=80
+  ((cols >= 20)) || cols=20
+  ((cols <= 240)) || cols=240
+  printf '%s\n' "$cols"
+}
+
+function __print_colors_true() {
+  local term_cols
+  term_cols="$(__resolve_term_cols)"
+
   echo
-  awk -v term_cols="${width:-$(tput cols || echo 80)}" 'BEGIN{
-    for (i=0; i<3; i++) {
-      for (colnum = 0; colnum<term_cols; colnum++) {
-        r = 255-(colnum*255/term_cols);
-        g = (colnum*510/term_cols);
-        b = (colnum*255/term_cols);
-        if (g>255) g = 510-g;
-        printf "\033[48;2;%d;%d;%dm", r,g,b;
-        printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
-        printf " \033[0m";
+  awk -v term_cols="$term_cols" 'BEGIN{
+    for (row = 0; row < 3; row++) {
+      for (col = 0; col < term_cols; col++) {
+        ratio = (term_cols > 1) ? col / (term_cols - 1) : 0;
+        r = int(255 * (1 - ratio));
+        g = int(510 * ratio);
+        b = int(255 * ratio);
+        if (g > 255) g = 510 - g;
+        printf "\033[48;2;%d;%d;%dm", r, g, b;
+        printf "\033[38;2;%d;%d;%dm ", 255 - r, 255 - g, 255 - b;
       }
-      printf "\n";
+      printf "\033[0m\n";
     }
   }'
   echo
 }
 
-function __print_colors_256 {
-  for i in {0..15} ; do
-    $FG && printf "\e[38;5;%sm%3d\e[0m " "$i" "$i"
-    $BG && printf "\e[48;5;%sm%3d\e[0m " "$i" "$i"
+function __print_256_cell() {
+  local mode="$1" value="$2" width="$3" sgr
+
+  case "$mode" in
+    fg) sgr=38 ;;
+    bg) sgr=48 ;;
+    *) return 1 ;;
+  esac
+
+  [[ "$value" =~ ^[0-9]+$ ]] || return 1
+  ((value >= 0 && value <= 255)) || return 1
+  [[ "$width" =~ ^[0-9]+$ ]] || width=3
+  ((width > 0)) || width=3
+
+  printf "\e[%s;5;%sm%*d\e[0m " "$sgr" "$value" "$width" "$value"
+}
+
+function __print_256_range() {
+  local mode="$1" start="$2" end="$3" width="$4" sgr i
+
+  case "$mode" in
+    fg) sgr=38 ;;
+    bg) sgr=48 ;;
+    *) return 1 ;;
+  esac
+
+  [[ "$start" =~ ^[0-9]+$ ]] || return 1
+  [[ "$end" =~ ^[0-9]+$ ]] || return 1
+  ((start >= 0 && end <= 255 && start <= end)) || return 1
+  [[ "$width" =~ ^[0-9]+$ ]] || width=3
+  ((width > 0)) || width=3
+
+  for ((i = start; i <= end; i++)); do
+    printf "\e[%s;5;%sm%*d\e[0m " "$sgr" "$i" "$width" "$i"
   done
-
   echo
+}
+
+function __print_colors_256() {
+  local mode="${1:-fg}" row col sgr
+
+  case "$mode" in
+    fg) sgr=38 ;;
+    bg) sgr=48 ;;
+    *) return 1 ;;
+  esac
+
+  __print_256_range "$mode" 0 15 3
   echo
 
-  for row in "${!values[@]}"; do
-    IFS=' ' read -r -a cols <<< "${values[$row]}"
+  for row in "${values[@]}"; do
+    read -r -a cols <<< "$row"
     for col in "${cols[@]}"; do
-      $FG && printf "\e[38;5;%sm%4d\e[0m" "$col" "$col"
-      $BG && printf "\e[48;5;%sm%4d\e[0m" "$col" "$col"
+      printf "\e[%s;5;%sm%4d\e[0m" "$sgr" "$col" "$col"
     done
     echo
   done
 
   echo
-  echo
-
-  for i in {232..243} ; do
-    $FG && printf "\e[38;5;%sm%3d\e[0m " "$i" "$i"
-    $BG && printf "\e[48;5;%sm%3d\e[0m " "$i" "$i"
-  done
-
-  echo
-
-  for i in {244..255} ; do
-    $FG && printf "\e[38;5;%sm%3d\e[0m " "$i" "$i"
-    $BG && printf "\e[48;5;%sm%3d\e[0m " "$i" "$i"
-  done
-
-  echo
+  __print_256_range "$mode" 232 243 3
+  __print_256_range "$mode" 244 255 3
 }
 
-__print_colors_table() {
-  local names=("Black" "Red" "Green" "Yellow" "Blue" "Magenta" "Cyan" "White")
+function __print_colors_table_row() {
+  local name="$1" fg="$2" bright_fg="$3" bg="$4" bright_bg="$5" show_code="$6" bold="$7"
+  local pfx weight dim_bg_fg bright_bg_fg
+  local w_color="${TABLE_W_COLOR}" w_wt="${TABLE_W_WT}"
+  local w_dim="${TABLE_W_DIM}" w_normal="${TABLE_W_NORMAL}" w_bright="${TABLE_W_BRIGHT}"
+  local w_dim_bg="${TABLE_W_DIM_BG}" w_bg="${TABLE_W_BG}" w_bright_bg="${TABLE_W_BRIGHT_BG}"
 
-  if [[ ${1} == 1 ]]; then
-    printf "\e[38;5;8m     ╭───────────────────────────────────────────────────────────────────────────────────────────╮\e[0m\n"
-    for i in {0..7}; do
-      local bright=$((i + 8))
-      printf "\e[38;5;8m%7s \e[0m" "${names[i]}"
-      printf "\e[2;38;5;%sm%-15s\e[0m" "$i" "\e[2;38;5;${i}m"
-      printf "\e[38;5;%sm%-13s\e[0m" "$i" "\e[38;5;${i}m"
-      printf "\e[38;5;%sm%-14s\e[0m" "$bright" "\e[38;5;${bright}m"
-      printf "\e[2;7;38;5;%sm%-16s\e[0m " "$i" "\e[2;7;38;5;${i}m"
-      printf "\e[7;38;5;%sm%-14s\e[0m " "$i" "\e[7;38;5;${i}m"
-      printf "\e[7;38;5;%sm%-15s\e[0m" "$bright" "\e[7;38;5;${bright}m"
-      printf "\e[38;5;8m│\e[0m\n"
+  pfx=""
+  weight="N"
+  if [[ "$bold" == "1" ]]; then
+    pfx="1;"
+    weight="B"
+  fi
 
-      printf "\e[1;38;5;8m%7s \e[0m" "${names[i]}"
-      printf "\e[1;2;38;5;%sm%-15s\e[0m" "$i" "\e[1;2;38;5;${i}m"
-      printf "\e[1;38;5;%sm%-13s\e[0m" "$i" "\e[1;38;5;${i}m"
-      printf "\e[1;38;5;%sm%-14s\e[0m" "$bright" "\e[1;38;5;${bright}m"
-      printf "\e[1;2;7;38;5;%sm%-16s\e[0m " "$i" "\e[1;2;7;38;5;${i}m"
-      printf "\e[1;7;38;5;%sm%-14s\e[0m " "$i" "\e[1;7;38;5;${i}m"
-      printf "\e[1;7;38;5;%sm%-15s\e[0m" "$bright" "\e[1;7;38;5;${bright}m"
-      printf "\e[1;38;5;8m│\e[0m\n"
-    done
-    printf "\e[38;5;8m     ╰───────────────────────────────────────────────────────────────────────────────────────────╯\e[0m\n"
+  dim_bg_fg=97
+  bright_bg_fg=97
+  [[ "$bg" == "47" ]] && dim_bg_fg=30
+  [[ "$bright_bg" == "107" ]] && bright_bg_fg=30
+
+  printf "│%-*s│%-*s│" "$w_color" "$name" "$w_wt" "$weight"
+  if [[ "$show_code" == "1" ]]; then
+    printf "\e[%s2;%sm%-*s\e[0m│" "$pfx" "$fg" "$w_dim" "ESC[${pfx}2;${fg}m"
+    printf "\e[%s%sm%-*s\e[0m│" "$pfx" "$fg" "$w_normal" "ESC[${pfx}${fg}m"
+    printf "\e[%s%sm%-*s\e[0m│" "$pfx" "$bright_fg" "$w_bright" "ESC[${pfx}${bright_fg}m"
+    printf "\e[%s%s;%sm%-*s\e[0m│" "$pfx" "$dim_bg_fg" "$bg" "$w_dim_bg" "ESC[${pfx}${dim_bg_fg};${bg}m"
+    printf "\e[%s7;%sm%-*s\e[0m│" "$pfx" "$fg" "$w_bg" "ESC[${pfx}7;${fg}m"
+    printf "\e[%s%s;%sm%-*s\e[0m│\n" "$pfx" "$bright_bg_fg" "$bright_bg" "$w_bright_bg" "ESC[${pfx}${bright_bg_fg};${bright_bg}m"
   else
-    printf "\e[38;5;8m     ╭──────────────────────────────────────╮\e[0m\n"
-    for i in {0..7}; do
-      local bright=$((i + 8))
-      printf "\e[38;5;8m%7s \e[0m" "${names[i]}"
-      printf "\e[2;38;5;%smDim\e[0m " "$i"
-      printf "\e[38;5;%smNormal\e[0m " "$i"
-      printf "\e[38;5;%smBright \e[0m" "$bright"
-      printf "\e[2;7;38;5;%smDim\e[0m " "$i"
-      printf "\e[7;38;5;%smNormal\e[0m " "$i"
-      printf "\e[7;38;5;%smBright\e[0m" "$bright"
-      printf "\e[38;5;8m │\e[0m\n"
-
-      printf "\e[1;38;5;8m%7s \e[0m" "${names[i]}"
-      printf "\e[1;2;38;5;%smDim\e[0m " "$i"
-      printf "\e[1;38;5;%smNormal\e[0m " "$i"
-      printf "\e[1;38;5;%smBright \e[0m" "$bright"
-      printf "\e[1;2;7;38;5;%smDim\e[0m " "$i"
-      printf "\e[1;7;38;5;%smNormal\e[0m " "$i"
-      printf "\e[1;7;38;5;%smBright\e[0m" "$bright"
-      printf "\e[1;38;5;8m │\e[0m\n"
-    done
-    printf "\e[38;5;8m     ╰──────────────────────────────────────╯\e[0m\n"
+    printf "\e[%s2;%sm%-*s\e[0m│" "$pfx" "$fg" "$w_dim" "Dim"
+    printf "\e[%s%sm%-*s\e[0m│" "$pfx" "$fg" "$w_normal" "Normal"
+    printf "\e[%s%sm%-*s\e[0m│" "$pfx" "$bright_fg" "$w_bright" "Bright"
+    printf "\e[%s%s;%sm%-*s\e[0m│" "$pfx" "$dim_bg_fg" "$bg" "$w_dim_bg" "Dim Bg"
+    printf "\e[%s7;%sm%-*s\e[0m│" "$pfx" "$fg" "$w_bg" "Bg"
+    printf "\e[%s%s;%sm%-*s\e[0m│\n" "$pfx" "$bright_bg_fg" "$bright_bg" "$w_bright_bg" "Bright Bg"
   fi
 }
 
+function __print_colors_table() {
+  local show_code="${1:-0}"
+  local names=("Black" "Red" "Green" "Yellow" "Blue" "Magenta" "Cyan" "White")
+  local fg_codes=(30 31 32 33 34 35 36 37)
+  local bright_codes=(90 91 92 93 94 95 96 97)
+  local bg_codes=(40 41 42 43 44 45 46 47)
+  local bright_bg_codes=(100 101 102 103 104 105 106 107)
+  local i
+  local s_color s_wt s_dim s_normal s_bright s_dim_bg s_bg s_bright_bg
+
+  TABLE_W_COLOR=7
+  TABLE_W_WT=1
+  TABLE_W_DIM=3
+  TABLE_W_NORMAL=6
+  TABLE_W_BRIGHT=6
+  TABLE_W_DIM_BG=6
+  TABLE_W_BG=2
+  TABLE_W_BRIGHT_BG=9
+
+  if [[ "$show_code" == "1" ]]; then
+    TABLE_W_DIM=11
+    TABLE_W_NORMAL=9
+    TABLE_W_BRIGHT=9
+    TABLE_W_DIM_BG=12
+    TABLE_W_BG=11
+    TABLE_W_BRIGHT_BG=13
+  fi
+
+  printf -v s_color '%*s' "$TABLE_W_COLOR" ''
+  printf -v s_wt '%*s' "$TABLE_W_WT" ''
+  printf -v s_dim '%*s' "$TABLE_W_DIM" ''
+  printf -v s_normal '%*s' "$TABLE_W_NORMAL" ''
+  printf -v s_bright '%*s' "$TABLE_W_BRIGHT" ''
+  printf -v s_dim_bg '%*s' "$TABLE_W_DIM_BG" ''
+  printf -v s_bg '%*s' "$TABLE_W_BG" ''
+  printf -v s_bright_bg '%*s' "$TABLE_W_BRIGHT_BG" ''
+
+  s_color=${s_color// /─}
+  s_wt=${s_wt// /─}
+  s_dim=${s_dim// /─}
+  s_normal=${s_normal// /─}
+  s_bright=${s_bright// /─}
+  s_dim_bg=${s_dim_bg// /─}
+  s_bg=${s_bg// /─}
+  s_bright_bg=${s_bright_bg// /─}
+
+  printf '╭%s┬%s┬%s┬%s┬%s┬%s┬%s┬%s╮\n' "$s_color" "$s_wt" "$s_dim" "$s_normal" "$s_bright" "$s_dim_bg" "$s_bg" "$s_bright_bg"
+  printf '│%-*s│%-*s│%-*s│%-*s│%-*s│%-*s│%-*s│%-*s│\n' \
+    "$TABLE_W_COLOR" "Color" "$TABLE_W_WT" "W" "$TABLE_W_DIM" "Dim" "$TABLE_W_NORMAL" "Normal" "$TABLE_W_BRIGHT" "Bright" "$TABLE_W_DIM_BG" "Dim Bg" "$TABLE_W_BG" "Bg" "$TABLE_W_BRIGHT_BG" "Bright Bg"
+  printf '├%s┼%s┼%s┼%s┼%s┼%s┼%s┼%s┤\n' "$s_color" "$s_wt" "$s_dim" "$s_normal" "$s_bright" "$s_dim_bg" "$s_bg" "$s_bright_bg"
+  for i in {0..7}; do
+    __print_colors_table_row "${names[i]}" "${fg_codes[i]}" "${bright_codes[i]}" "${bg_codes[i]}" "${bright_bg_codes[i]}" "$show_code" 0
+    __print_colors_table_row "${names[i]}" "${fg_codes[i]}" "${bright_codes[i]}" "${bg_codes[i]}" "${bright_bg_codes[i]}" "$show_code" 1
+  done
+  printf '╰%s┴%s┴%s┴%s┴%s┴%s┴%s┴%s╯\n' "$s_color" "$s_wt" "$s_dim" "$s_normal" "$s_bright" "$s_dim_bg" "$s_bg" "$s_bright_bg"
+}
+
 function __help() {
-echo
-echo -e "\e[1;36mUsage:\e[0m print_colors [OPTIONS]"
-echo
-echo -e "\e[1;33mOptions:\e[0m"
-echo -e "  \e[1;32m-h\e[0m, \e[1;32m--help\e[0m            Show this help message"
-echo -e "  \e[1;32m-l\e[0m, \e[1;32m--legacy\e[0m          Print ANSI colors in legacy format"
-echo -e "  \e[1;32m-t\e[0m, \e[1;32m--table\e[0m           Print ANSI color table"
-echo -e "      \e[1;32m-c\e[0m, \e[1;32m--code\e[0m        Show table with color codes"
-echo -e "  \e[1;32m-tc\e[0m, \e[1;32m--true-color\e[0m     Print true color gradient"
-echo -e "  \e[1;32m-2\e[0m, \e[1;32m--256\e[0m             Print 256-color palette"
-echo -e "      \e[1;32m-f\e[0m, \e[1;32m--foreground\e[0m  Show in foreground colors"
-echo -e "      \e[1;32m-b\e[0m, \e[1;32m--background\e[0m  Show in background colors"
-echo
+  local c_exe='\e[1;34m'
+  local c_hdr='\e[1;36m'
+  local c_sec='\e[1;33m'
+  local c_cmd='\e[1;32m'
+  local c_sub='\e[1;35m'
+  local c_dim='\e[2m'
+  local c_rst='\e[0m'
+
+  echo
+  printf '%b%s%b\n' "$c_hdr" "Usage:" "$c_rst"
+  printf '  %b%s%b %b%s%b %b%s%b\n\n' "$c_exe" 'print_colors' "$c_rst" "$c_cmd" '<command>' "$c_rst" "$c_sub" '[subcommand]' "$c_rst"
+
+  printf '%b%s%b\n' "$c_sec" "Commands:" "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_cmd" 'help       | h' "$c_rst" "$c_dim" 'Show this help menu' "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_cmd" 'legacy     | l' "$c_rst" "$c_dim" 'Print ANSI colors in legacy format' "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_cmd" 'table      | t' "$c_rst" "$c_dim" 'Print ANSI color table' "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_cmd" 'true-color | tc' "$c_rst" "$c_dim" 'Print true-color gradient' "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_cmd" '256        | 2' "$c_rst" "$c_dim" 'Print 256-color palette' "$c_rst"
+
+  printf '\n%b%s%b\n' "$c_sec" "Subcommands:" "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_sub" 'table | t -> code       | c' "$c_rst" "$c_dim" 'Show color-code strings in table cells' "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_sub" '256   | 2 -> foreground | f' "$c_rst" "$c_dim" 'Show 256 palette in foreground colors' "$c_rst"
+  printf '  %b%-36s%b %b%s%b\n' "$c_sub" '256   | 2 -> background | b' "$c_rst" "$c_dim" 'Show 256 palette in background colors' "$c_rst"
+
+  printf '\n%b%s%b\n' "$c_sec" "Examples:" "$c_rst"
+  printf '  %b%s%b %b%s%b\n' "$c_exe" 'print_colors' "$c_rst" "$c_cmd" 'table' "$c_rst"
+  printf '  %b%s%b %b%s%b %b%s%b\n' "$c_exe" 'print_colors' "$c_rst" "$c_cmd" 'table' "$c_rst" "$c_sub" 'code' "$c_rst"
+  printf '  %b%s%b %b%s%b %b%s%b\n' "$c_exe" 'print_colors' "$c_rst" "$c_cmd" '256' "$c_rst" "$c_sub" 'background' "$c_rst"
+  printf '  %b%s%b %b%s%b\n\n' "$c_exe" 'print_colors' "$c_rst" "$c_cmd" 'true-color' "$c_rst"
 }
 
-function __accept_no_arg() {
-  case $1 in
-    '')
-      ;;
-    *)
-      echo
-      echo -e "\e[1;31mUnknown argument:\e[0m $1"
-      echo
-      __help
-      exit 1
-      ;;
-  esac
+function __unknown_arg() {
+  echo
+  echo -e "\e[1;31mUnknown argument:\e[0m $1"
+  echo
+  __help
+  exit 1
 }
 
-_256=false
-FG=true
-BG=false
+ACTION=""
+SUB_ACTION=""
 
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    -h|--help)
-      shift
-      __accept_no_arg "${1}"
-      __help
-      exit 0
-      ;;
-    -2|--256)
-      _256=true
-      shift
-      case $1 in
-        -f|--foreground)
-          FG=true
-          BG=false
-          ;;
-        -b|--background)
-          FG=false
-          BG=true
-          ;;
-        '')
-          FG=true
-          BG=false
-          ;;
-        *)
-          echo
-          echo -e "\e[1;31mUnknown argument:\e[0m $1"
-          echo
-          __help
-          exit 1
-          ;;
-        esac
-      __print_colors_256
-      ;;
-    -tc|--true-color)
-      shift
-      __accept_no_arg "${1}"
-      __print_colors_true
-      exit ;;
-    -t|--table)
-      shift
-      case $1 in
-        -c|--code)
-          __print_colors_table 1
-          ;;
-        '')
-          __print_colors_table 0
-          ;;
-        *)
-          echo
-          echo -e "\e[1;31mUnknown argument:\e[0m $1"
-          echo
-          __help
-          exit 1
-          ;;
-      esac
-      exit ;;
-    -l|--legacy)
-      shift
-      __accept_no_arg "${1}"
-      __print_colors_legacy
-      exit ;;
-    *)
-      __help
-      exit 0
-      ;;
-  esac
+function __parse_args() {
+  local mode extra
+
+  mode="${1:-}"
+  if [[ -z "$mode" ]]; then
+    ACTION="help"
+    return 0
+  fi
   shift
-done
+
+  case "$mode" in
+    help|h) ACTION="help" ;;
+    legacy|l) ACTION="legacy" ;;
+    true-color|tc) ACTION="true" ;;
+    table|t) ACTION="table" ;;
+    256|2) ACTION="256" ;;
+    *) __unknown_arg "$mode" ;;
+  esac
+
+  case "$ACTION" in
+    help|legacy|true)
+      [[ $# -eq 0 ]] || __unknown_arg "$1"
+      ;;
+    table)
+      case "${1:-}" in
+        '') SUB_ACTION="plain" ;;
+        code|c)
+          SUB_ACTION="code"
+          shift
+          [[ $# -eq 0 ]] || __unknown_arg "$1"
+          ;;
+        *) __unknown_arg "$1" ;;
+      esac
+      ;;
+    256)
+      case "${1:-}" in
+        '') SUB_ACTION="fg" ;;
+        foreground|f)
+          SUB_ACTION="fg"
+          shift
+          [[ $# -eq 0 ]] || __unknown_arg "$1"
+          ;;
+        background|b)
+          SUB_ACTION="bg"
+          shift
+          [[ $# -eq 0 ]] || __unknown_arg "$1"
+          ;;
+        *) __unknown_arg "$1" ;;
+      esac
+      ;;
+  esac
+}
+
+function main() {
+  __parse_args "$@"
+
+  case "$ACTION" in
+    help) __help ;;
+    legacy) __print_colors_legacy ;;
+    true) __print_colors_true ;;
+    table)
+      if [[ "$SUB_ACTION" == "code" ]]; then
+        __print_colors_table 1
+      else
+        __print_colors_table 0
+      fi
+      ;;
+    256) __print_colors_256 "$SUB_ACTION" ;;
+  esac
+}
+
+main "$@"
