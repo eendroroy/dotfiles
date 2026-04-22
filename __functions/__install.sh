@@ -9,18 +9,20 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-function __source_all_from_directory() {
-  # shellcheck disable=SC1090
-  while IFS= read -r item; do
+function __run_all_from_directory() {
+  while IFS= read -r -d '' item; do
+    __m_primary "RUN: ${item}"
+    # shellcheck disable=SC1090
     source "${item}"
-   done < <(find "${1}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -type f)
+  done < <(find "${1}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
 }
 
 function __install() {
-  __source_all_from_directory "${__PREINSTALL_DIR}"
-  __source_all_from_directory "${__BEFORE_DIR}"
+  mkdir -p "$(dirname "${__INSTALLATION_CACHE_FILE}")"
+  __run_all_from_directory "${__PREINSTALL_DIR}"
+  __run_all_from_directory "${__BEFORE_DIR}"
   __install_links
-  __source_all_from_directory "${__AFTER_DIR}"
+  __run_all_from_directory "${__AFTER_DIR}"
 }
 
 export -f __install

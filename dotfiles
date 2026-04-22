@@ -9,17 +9,25 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
+# Note: intentionally NOT using 'set -e' because the ${__VAR} && cmd pattern
+# (used throughout for dry-run / verbose guards) returns exit 1 when __VAR=false,
+# which would kill the script under errexit. pipefail + nounset are safe here.
+set -uo pipefail
+
 SCRIPT_LOCATION="$( cd "$( dirname "$(realpath "${BASH_SOURCE[0]}")" )" >/dev/null 2>&1 && pwd )"
 
 # directories
-__FUNCTIONS_DIR="${SCRIPT_LOCATION}/__functions"
-__PREINSTALL_DIR="${SCRIPT_LOCATION}/___preinstall"
-__BEFORE_DIR="${SCRIPT_LOCATION}/__before_dots"
-__AFTER_DIR="${SCRIPT_LOCATION}/__dots_after"
-__DOTS_DIR="${SCRIPT_LOCATION}/__dots"
-__UNAME=$(uname)
+readonly __FUNCTIONS_DIR="${SCRIPT_LOCATION}/__functions"
+readonly __PREINSTALL_DIR="${SCRIPT_LOCATION}/___preinstall"
+readonly __BEFORE_DIR="${SCRIPT_LOCATION}/__before_dots"
+readonly __AFTER_DIR="${SCRIPT_LOCATION}/__dots_after"
+readonly __DOTS_DIR="${SCRIPT_LOCATION}/__dots"
+readonly __UNAME=$(uname)
 
-__INSTALLATION_CACHE_FILE="${SCRIPT_LOCATION}/.cache/installation"
+readonly __INSTALLATION_CACHE_FILE="${SCRIPT_LOCATION}/.cache/installation"
+
+# Ensure cache directory exists
+mkdir -p "$(dirname "${__INSTALLATION_CACHE_FILE}")"
 
 source "${__DOTS_DIR}/rel:.local/share/bash/lib/ansi_text_style.sh.generic.symlink"
 
@@ -28,7 +36,11 @@ for file in "${__FUNCTIONS_DIR}/"*.sh; do
   source "${file}"
 done
 
-__VERBOSE=false __FORCE=false __STATUS=false __DRY=false __USE_BREW=false
+__VERBOSE=false
+__FORCE=false
+__STATUS=false
+__DRY=false
+__USE_BREW=false
 
 __parse_common_args() {
   while [[ $# -gt 0 ]]; do
@@ -44,10 +56,14 @@ __parse_common_args() {
   done
 }
 
-case "$1" in
-  h|help     ) shift;                           __help     ; exit 0 ;;
-  l|list     ) shift; __parse_common_args "$@"; __list     ; exit 0 ;;
-  i|install  ) shift; __parse_common_args "$@"; __install  ; exit 0 ;;
-  u|uninstall) shift; __parse_common_args "$@"; __uninstall; exit 0 ;;
-  *          ) shift;                           __help     ; exit 0 ;;
+readonly COMMAND="${1:-help}"
+shift || true
+
+case "${COMMAND}" in
+  h|help     )                           __help     ;;
+  l|list     ) __parse_common_args "$@"; __list     ;;
+  i|install  ) __parse_common_args "$@"; __install  ;;
+  u|uninstall) __parse_common_args "$@"; __uninstall;;
+  up|update  ) __parse_common_args "$@"; __FORCE=true; __install ;;
+  *          )                           __help     ;;
 esac

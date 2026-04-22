@@ -9,16 +9,29 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
+# Usage: __install_from_git <user/repo> <relative-dest-path>
+# Example: __install_from_git zsh-users/zsh-autosuggestions .zsh/zsh-autosuggestions
 function __install_from_git() {
-  if [[ -e ${HOME}/${2} ]]; then
-    ${__VERBOSE} && __m_warning "Skipping : ${1} already installed"
-  else
-    __m_primary "Installing ${1}..."
-    ${__DRY} || mkdir -p "${HOME}/${2}"
-    ${__DRY} || git clone "https://github.com/${1}.git" "${HOME}/${2}"
-    ${__DRY} && ${__VERBOSE} && __m_success_c "(git clone https://github.com/${1}.git ${HOME}/${2})"
-    __m_secondary "${1} installed"
+  local repo="$1"
+  local dest="${HOME}/${2}"
+  local parent_dir
+  parent_dir="$(dirname "${dest}")"
+
+  if [[ -d "${dest}" ]]; then
+    [[ "${__VERBOSE}" == true ]] && __m_warning "Skipping: ${repo} already installed at ${dest}"
+    return 0
   fi
+
+  __m_primary "Installing ${repo} -> ${dest}..."
+
+  # Ensure parent directory exists (git creates the target dir itself)
+  ${__DRY} || mkdir -p "${parent_dir}"
+  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(mkdir -p ${parent_dir})"
+
+  ${__DRY} || git clone --depth 1 "https://github.com/${repo}.git" "${dest}"
+  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(git clone --depth 1 https://github.com/${repo}.git ${dest})"
+
+  __m_secondary "${repo} installed"
 }
 
 export -f __install_from_git

@@ -23,6 +23,7 @@ function __help() {
   printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "l, list     " "List managed dotfiles"
   printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "i, install  " "Install symlinks"
   printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "u, uninstall" "Remove symlinks"
+  printf "  ${SUB_COMMAND}%-13s${RESET} %s\n" "up, update  " "Re-install (force overwrite existing symlinks)"
   printf "\n"
   printf "%b\n" "Common options:"
   printf "  ${OPTIONS}%-13s${RESET} %s\n" "-s, --status " "Show status only"
