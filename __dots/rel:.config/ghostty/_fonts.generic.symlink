@@ -6,6 +6,6 @@ adjust-cell-height = 10%
 adjust-cell-width = -10%
 
 font-style = "Regular"
-font-style-bold = "Medium"
+font-style-bold = "Bold"
 font-style-italic = "Italic"
-font-style-bold-italic = "Medium Italic"
+font-style-bold-italic = "Bold Italic"
