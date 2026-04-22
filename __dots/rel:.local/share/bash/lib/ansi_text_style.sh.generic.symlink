@@ -65,7 +65,7 @@ function hidden { echo "\033[8m"; }
 function strikethrough { echo "\033[9m"; }
 
 function reset_all { echo "\033[0m"; }
-function reset_bold { echo "\033[21m"; }
+function reset_bold { echo "\033[22m"; }
 function reset_dim { echo "\033[22m"; }
 function reset_italic { echo "\033[23m"; }
 function reset_underline { echo "\033[24m"; }
@@ -91,7 +91,7 @@ function demonstrate() {
   print_sample() {
     local name="$1"
     local seq="$2"
-    local text="${3:-The quick brown fox jumpped over the lazy dog.}"
+    local text="${3:-The quick brown fox jumped over the lazy dog.}"
     printf "%-22s %b%s%b\n" "$name" "$seq" "$text" "$(reset_all)"
   }
 
@@ -105,7 +105,7 @@ function demonstrate() {
   echo "=== Background colors ==="
   for name in bg_black bg_red bg_green bg_yellow bg_blue bg_magenta bg_cyan bg_white bg_default \
               bg_bright_black bg_bright_red bg_bright_green bg_bright_yellow bg_bright_blue bg_bright_magenta bg_bright_cyan bg_bright_white; do
-    print_sample "$name" "$($name)" "Background"
+    print_sample "$name" "$($name)"
   done
 
   echo
@@ -135,14 +135,26 @@ function demonstrate() {
   echo
   echo "=== Text styles ==="
   for name in bold dim italic underline slow_blink rapid_blink inverse hidden strikethrough; do
-    print_sample "$name" "$($name)" "Styled text"
+    print_sample "$name" "$($name)"
   done
 
   echo
   echo "=== Reset helpers ==="
-  printf "%-22s %b%s%b\n" "reset_all" "$(reset_all)" "Reset applied" ""
-  printf "%-22s %b%s%b\n" "reset_bold" "$(reset_bold)" "Reset bold" "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_all"           "$(reset_all)"           "Reset all"           "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_bold"           "$(bold)$(reset_bold)"           "Reset bold"           "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_dim"            "$(dim)$(reset_dim)"             "Reset dim"            "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_italic"         "$(italic)$(reset_italic)"       "Reset italic"         "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_underline"      "$(underline)$(reset_underline)" "Reset underline"      "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_blink"          "$(slow_blink)$(reset_blink)"    "Reset blink"          "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_inverse"        "$(inverse)$(reset_inverse)"     "Reset inverse"        "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_hidden"         "$(hidden)$(reset_hidden)"       "Reset hidden"         "$(reset_all)"
+  printf "%-22s %b%s%b\n" "reset_strikethrough"  "$(strikethrough)$(reset_strikethrough)" "Reset strikethrough" "$(reset_all)"
 
   echo
   echo "Demo complete."
 }
+
+# Run demonstrate only when this script is executed directly (not sourced)
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  demonstrate
+fi
