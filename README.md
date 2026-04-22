@@ -9,21 +9,33 @@
   License, or (at your option) any later version.
 -->
 
+
 # dotfiles
- 
+
+Personal dotfiles and configuration management for macOS and Linux, designed for easy setup, portability, and reproducibility. This repository includes shell, editor, terminal, and tool configurations, plus automation scripts for streamlined environment setup.
+
+---
+
+## Features
+
+- One-command installation for new systems
+- Modular and portable dotfile management
+- Automated symlink creation and removal
+- Preconfigured settings for zsh, tmux, git, neovim, and more
+- Theme and color scheme utilities
+- Easily extensible for new tools
+
 ## Installation
 
-### Using the installer
+### Quick Install
 
-```shell
+```sh
 curl -s 'https://raw.githubusercontent.com/eendroroy/dotfiles/refs/heads/master/installer.sh' | bash
 ```
 
-### Manually
+### Manual Install
 
-Clone the repo:
-
-```bash
+```sh
 git clone https://github.com/eendroroy/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./dotfiles install
@@ -31,9 +43,11 @@ cd ~/.dotfiles
 
 ## Usage
 
-```shell
+```sh
 ./dotfiles help
 ```
+
+Example output:
 
 ```
 Usage: ./dotfiles [command] [options]
@@ -52,6 +66,10 @@ Common options:
 Script location: /Users/indrajit/.dotfiles
 ```
 
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for improvements, bug fixes, or new features. For major changes, open an issue first to discuss your ideas.
+
 ## License
 
-The project is available as open source under the terms of the [AGPL3 License](https://www.fsf.org/licensing/licenses/agpl.html).
+This project is licensed under the [AGPL3 License](https://www.fsf.org/licensing/licenses/agpl.html).
