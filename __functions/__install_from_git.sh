@@ -18,20 +18,20 @@ function __install_from_git() {
   parent_dir="$(dirname "${dest}")"
 
   if [[ -d "${dest}" ]]; then
-    [[ "${__VERBOSE}" == true ]] && __m_warning "Skipping: ${repo} already installed at ${dest}"
+    [[ "${__VERBOSE}" == true ]] && __warning "Skipping: ${repo} already installed at ${dest}\n"
     return 0
   fi
 
-  __m_primary "Installing ${repo} -> ${dest}..."
+  __message "Installing ${repo} -> ${dest}...\n"
 
   # Ensure parent directory exists (git creates the target dir itself)
   ${__DRY} || mkdir -p "${parent_dir}"
-  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(mkdir -p ${parent_dir})"
+  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(mkdir -p ${parent_dir})\n"
 
   ${__DRY} || git clone --depth 1 "https://github.com/${repo}.git" "${dest}"
-  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(git clone --depth 1 https://github.com/${repo}.git ${dest})"
+  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(git clone --depth 1 https://github.com/${repo}.git ${dest})\n"
 
-  __m_secondary "${repo} installed"
+  __info "${repo} installed\n"
 }
 
 export -f __install_from_git

@@ -11,7 +11,7 @@
 
 function __list() {
   while IFS= read -r -d '' item; do
-    __m_primary "RUN: ${item#"${__BEFORE_DIR}"/}"
+    __run " ${item#${__BEFORE_DIR}/}\n"
   done < <(find "${__BEFORE_DIR}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
 
   while IFS= read -r -d '' item; do
@@ -21,29 +21,31 @@ function __list() {
       continue
     fi
 
-    __m_primary "LNK: ${target}"
-    [[ ${__VERBOSE} == true ]] && __m_secondary_c "source=${source}"
+    __lnk " ${target}"
+    [[ ${__VERBOSE} == true ]] && __text " <- ${DIM_YELLOW}${source}${RESET}"
 
     if [[ ${__STATUS} == true ]]; then
       local __real_path
       __real_path="$(readlink "${target}" 2>/dev/null || true)"
 
       if [[ ! -e "${target}" ]]; then
-        __m_error_c "Not installed"
+        __error_nl " Not installed"
       elif [[ ! -L "${target}" ]]; then
-        __m_warning_c "Installed, but not a symlink"
+        __warning_nl " Installed, but not a symlink"
       elif [[ ! -e "${__real_path}" ]]; then
-        __m_error_c "Symlink broken"
+        __error_nl " Symlink broken"
       elif [[ "${__real_path}" != "${item}" ]]; then
-        __m_warning_c "Installed from a different source {${__real_path}}"
+        __warning_nl " Installed from a different source {${__real_path}}"
       else
-        __m_success_c "Installed"
+        __success_nl " Installed"
       fi
     fi
+
+    echo
   done < <(find "${__DOTS_DIR}/" \( -name "*.generic.symlink" -o -name "*.${__UNAME}.symlink" \) -print0 | sort -z)
 
   while IFS= read -r -d '' item; do
-    __m_primary "RUN: ${item#"${__AFTER_DIR}"/}"
+    __run " ${item#${__AFTER_DIR}/}\n"
   done < <(find "${__AFTER_DIR}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
 }
 

@@ -17,7 +17,7 @@ function __check_command() {
 __APT_UPDATED=false
 function __apt_update_once() {
   if [[ "${__APT_UPDATED}" == false ]]; then
-    __m_secondary "Updating apt package index..."
+    __info "Updating apt package index...\n"
     ${__DRY} || sudo apt-get update -qq
     __APT_UPDATED=true
   fi
@@ -30,20 +30,20 @@ function __install_by_apt() {
   local cmd="${2:-${pkg}}"
 
   if ! __check_command apt-get 2>/dev/null; then
-    __m_error "apt-get not available; skipping: ${pkg}" >&2
+    __error "apt-get not available; skipping: ${pkg}\n" >&2
     return 1
   fi
 
   if __check_command "${cmd}"; then
-    [[ "${__VERBOSE}" == true ]] && __m_warning "Skipping: ${pkg} already installed"
+    [[ "${__VERBOSE}" == true ]] && __warning "Skipping: ${pkg} already installed\n"
     return 0
   fi
 
   __apt_update_once
-  __m_primary "Installing ${pkg}..."
+  __message "Installing ${pkg}...\n"
   ${__DRY} || sudo apt-get install -y "${pkg}"
-  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(sudo apt-get install -y ${pkg})"
-  __m_secondary "${pkg} installed"
+  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(sudo apt-get install -y ${pkg})\n"
+  __info "${pkg} installed\n"
 }
 
 export -f __check_command

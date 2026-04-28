@@ -11,7 +11,7 @@
 
 function __run_all_from_directory() {
   while IFS= read -r -d '' item; do
-    __m_primary "RUN: ${item}"
+    __run "${item}\n"
     # shellcheck disable=SC1090
     source "${item}"
   done < <(find "${1}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
@@ -21,7 +21,7 @@ function __install() {
   mkdir -p "$(dirname "${__INSTALLATION_CACHE_FILE}")"
   __run_all_from_directory "${__PREINSTALL_DIR}"
   __run_all_from_directory "${__BEFORE_DIR}"
-  __install_links
+#  __install_links
   __run_all_from_directory "${__AFTER_DIR}"
 }
 

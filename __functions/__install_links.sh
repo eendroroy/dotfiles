@@ -22,48 +22,48 @@ function __install_links() {
     # Handle already-existing target
     if [[ -e "${target}" || -L "${target}" ]]; then
       if [[ "${__FORCE}" == true ]]; then
-        __m_warning "Force removing existing: ${target}"
+        __warning "Force removing existing: ${target}\n"
         if [[ -w "${target%/*}" ]]; then
           ${__DRY} || rm -rf "${target}"
-          ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(rm -rf ${target})"
+          ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(rm -rf ${target})"
         else
-          __m_warning_c "[${target%/*}] is not writable. using sudo...."
+          __warning "[${target%/*}] is not writable. using sudo...."
           ${__DRY} || sudo rm -rf "${target}"
-          ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(sudo rm -rf ${target})"
+          ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(sudo rm -rf ${target})"
         fi
       else
-        [[ "${__VERBOSE}" == true ]] && __m_warning "Skipping: ${target}"
+        [[ "${__VERBOSE}" == true ]] && __warning "Skipping: ${target}\n"
         continue
       fi
     fi
 
-    __m_primary "[${src} -> ${target}]"
+    __message "[${src} -> ${target}]"
 
     target_dir="$(dirname "${target}")"
 
     if [[ ! -d "${target_dir}" ]]; then
-      __m_secondary_c "Creating directory: ${target_dir}"
+      __info "Creating directory: ${target_dir}"
       if [[ -w "$(dirname "${target_dir}")" ]]; then
         ${__DRY} || mkdir -p "${target_dir}"
-        ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(mkdir -p ${target_dir})"
+        ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(mkdir -p ${target_dir})"
       else
-        __m_warning_c "[$(dirname "${target_dir}")] is not writable. using sudo...."
+        __warning "[$(dirname "${target_dir}")] is not writable. using sudo...."
         ${__DRY} || sudo mkdir -p "${target_dir}"
-        ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(sudo mkdir -p ${target_dir})"
+        ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(sudo mkdir -p ${target_dir})"
       fi
     fi
 
     if [[ -w "${target_dir}" ]]; then
       ${__DRY} || ln -s "${src}" "${target}"
-      ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(ln -s ${src} ${target})"
+      ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(ln -s ${src} ${target})"
     else
-      __m_warning_c "[${target_dir}] is not writable. using sudo...."
+      __warning "[${target_dir}] is not writable. using sudo...."
       ${__DRY} || sudo ln -s "${src}" "${target}"
-      ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(sudo ln -s ${src} ${target})"
+      ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(sudo ln -s ${src} ${target})"
     fi
 
     ${__DRY} || echo "${target}" >> "${__INSTALLATION_CACHE_FILE}"
-    ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_secondary_c "(${target} >> ${__INSTALLATION_CACHE_FILE})"
+    ${__DRY} && [[ "${__VERBOSE}" == true ]] && __info "(${target} >> ${__INSTALLATION_CACHE_FILE})"
 
   done < <(find "${__DOTS_DIR}/" \( -name "*.${__UNAME}.symlink" -o -name "*.generic.symlink" \) -print0 | sort -z)
 }

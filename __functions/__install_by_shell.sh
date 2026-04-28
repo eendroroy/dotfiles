@@ -18,14 +18,14 @@ function __install_by_shell() {
   local install_cmd="$3"
 
   if [[ -e "${check_path}" ]]; then
-    [[ "${__VERBOSE}" == true ]] && __m_warning "Skipping: ${name} already installed at ${check_path}"
+    [[ "${__VERBOSE}" == true ]] && __warning "Skipping: ${name} already installed at ${check_path}\n"
     return 0
   fi
 
-  __m_primary "Installing ${name}..."
+  __message "Installing ${name}..."
   ${__DRY} || eval "${install_cmd}"
-  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __m_success_c "(eval: ${install_cmd})"
-  __m_secondary "${name} installed"
+  ${__DRY} && [[ "${__VERBOSE}" == true ]] && __success "(eval: ${install_cmd})\n"
+  __info "${name} installed\n"
 }
 
 export -f __install_by_shell

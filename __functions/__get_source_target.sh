@@ -20,7 +20,7 @@ function __get_source_target() {
     rel:) printf '%s %s\n' "${item}" "${HOME}/${target_name:4}" ;;
     abs:) printf '%s %s\n' "${item}" "/${target_name:4}" ;;
     *)
-      __m_error "Unknown prefix '${prefix}', ignoring [${target_name} <- ${item}]" >&2
+      __error "Unknown prefix '${prefix}', ignoring [${target_name} <- ${item}]" >&2
       return 1
       ;;
   esac

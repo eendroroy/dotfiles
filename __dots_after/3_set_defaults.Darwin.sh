@@ -10,22 +10,22 @@
 # License, or (at your option) any later version.
 
 if [[ $(defaults read org.alacritty AppleFontSmoothing) != "0" ]]; then
-  __m_primary "disabling font smoothing for Alacritty"
+  __message "disabling font smoothing for Alacritty\n"
   defaults write org.alacritty AppleFontSmoothing -int 0
 else
-  ${__VERBOSE} && __m_warning "Skipping : font smoothing already disabled for Alacritty [$(defaults read org.alacritty AppleFontSmoothing)]"
+  ${__VERBOSE} && __warning "Skipping : font smoothing already disabled for Alacritty [$(defaults read org.alacritty AppleFontSmoothing)]\n"
 fi
 
 if [[ $(defaults read com.apple.desktopservices DSDontWriteNetworkStores) != "1" ]]; then
-  __m_primary "disabling creation of .DS_Store files on network volumes"
+  __message "disabling creation of .DS_Store files on network volumes\n"
   defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 else
-  ${__VERBOSE} && __m_warning "Skipping : .DS_Store creation already disabled on network volumes [$(defaults read com.apple.desktopservices DSDontWriteNetworkStores)]"
+  ${__VERBOSE} && __warning "Skipping : .DS_Store creation already disabled on network volumes [$(defaults read com.apple.desktopservices DSDontWriteNetworkStores)]\n"
 fi
 
 if [[ $(defaults read com.apple.desktopservices DSDontWriteUSBStores) != "1" ]]; then
-  __m_primary "disabling creation of .DS_Store files on USB volumes"
+  __message "disabling creation of .DS_Store files on USB volumes\n"
   defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 else
-  ${__VERBOSE} && __m_warning "Skipping : .DS_Store creation already disabled on USB volumes [$(defaults read com.apple.desktopservices DSDontWriteUSBStores)]"
+  ${__VERBOSE} && __warning "Skipping : .DS_Store creation already disabled on USB volumes [$(defaults read com.apple.desktopservices DSDontWriteUSBStores)]\n"
 fi
