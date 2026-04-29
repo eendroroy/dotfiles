@@ -24,13 +24,13 @@ BOLD='\033[1m'; UNDERLINE='\033[4m'; RESET='\033[0m'
 
 # Label variables for messaging (with dimmer colors)
 LBL_TITLE="        "
-LBL____OK="${GREEN}✔    OK ${RESET}"
-LBL___MSG="${BLUE}      → ${RESET}"
-LBL__WARN="${YELLOW}⚠︎  WARN ${RESET}"
-LBL___ERR="${RED}✖ ERROR ${RESET}"
-LBL__INFO="${CYAN}ℹ  INFO ${RESET}"
-LBL___RUN="${GREEN}⚙︎  (sh) ${RESET}"
-LBL__LINK="${MAGENTA}∞  (ln) ${RESET}"
+LBL____OK="${DIM_GREEN}✔    OK ${RESET}"
+LBL___MSG="${DIM_BLUE}      → ${RESET}"
+LBL__WARN="${DIM_YELLOW}⚠︎  WARN ${RESET}"
+LBL___ERR="${DIM_RED}✖ ERROR ${RESET}"
+LBL__INFO="${DIM_CYAN}ℹ  INFO ${RESET}"
+LBL___RUN="${DIM_GREEN}⚙︎  (sh) ${RESET}"
+LBL__LINK="${DIM_MAGENTA}∞  (ln) ${RESET}"
 
 # Label functions for use in scripts
 __lnk() { echo -ne "${LBL__LINK}$1"; }

@@ -23,13 +23,16 @@ readonly __BEFORE_DIR="${SCRIPT_LOCATION}/__before_dots"
 readonly __AFTER_DIR="${SCRIPT_LOCATION}/__dots_after"
 readonly __DOTS_DIR="${SCRIPT_LOCATION}/__dots"
 readonly __UNAME=$(uname)
+readonly RELATIVE_PREFIX="__rel__"
+readonly ABSOLUTE_PREFIX="__abs__"
+readonly PREFIS_LENGTH=${#RELATIVE_PREFIX}
 
 readonly __INSTALLATION_CACHE_FILE="${SCRIPT_LOCATION}/.cache/installation"
 
 # Ensure cache directory exists
 mkdir -p "$(dirname "${__INSTALLATION_CACHE_FILE}")"
 
-source "${__DOTS_DIR}/rel:.local/share/bash/lib/ansi_text_style.sh.generic.symlink"
+source "${__DOTS_DIR}/${RELATIVE_PREFIX}.local/share/bash/lib/ansi_text_style.sh.generic.symlink"
 
 for file in "${__FUNCTIONS_DIR}/"*.sh; do
   # shellcheck source=__functions/*.sh

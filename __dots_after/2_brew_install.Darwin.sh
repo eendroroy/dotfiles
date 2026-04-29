@@ -11,7 +11,7 @@
 
 [[ "${__USE_BREW}" == "true" ]] && {
   brew update
-  brew bundle --cleanup --file="${__DOTS_DIR}/rel:Brewfile.Darwin.symlink"
+  brew bundle --cleanup --file="${__DOTS_DIR}/${RELATIVE_PREFIX}Brewfile.Darwin.symlink"
   brew upgrade --greedy
   brew cleanup --prune=all -v
 }

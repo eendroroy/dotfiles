@@ -14,11 +14,11 @@ function __get_source_target() {
   local target_name="${item#"${__DOTS_DIR}"/}"
   target_name="${target_name%."${__UNAME}".symlink}"
   target_name="${target_name%.generic.symlink}"
-  local prefix="${target_name:0:4}"
+  local prefix="${target_name:0:${PREFIS_LENGTH}}"
 
   case "${prefix}" in
-    rel:) printf '%s %s\n' "${item}" "${HOME}/${target_name:4}" ;;
-    abs:) printf '%s %s\n' "${item}" "/${target_name:4}" ;;
+    "${RELATIVE_PREFIX}") printf '%s %s\n' "${item}" "${HOME}/${target_name:${PREFIS_LENGTH}}" ;;
+    "${ABSOLUTE_PREFIX}") printf '%s %s\n' "${item}" "/${target_name:${PREFIS_LENGTH}}" ;;
     *)
       __error "Unknown prefix '${prefix}', ignoring [${target_name} <- ${item}]" >&2
       return 1

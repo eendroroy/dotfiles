@@ -21,7 +21,7 @@ function __install() {
   mkdir -p "$(dirname "${__INSTALLATION_CACHE_FILE}")"
   __run_all_from_directory "${__PREINSTALL_DIR}"
   __run_all_from_directory "${__BEFORE_DIR}"
-#  __install_links
+  __install_links
   __run_all_from_directory "${__AFTER_DIR}"
 }
 

@@ -21,8 +21,8 @@ function __list() {
       continue
     fi
 
-    __lnk " ${target}"
-    [[ ${__VERBOSE} == true ]] && __text " <- ${DIM_YELLOW}${source}${RESET}"
+    __lnk " ${target#"${HOME}/"}"
+    [[ ${__VERBOSE} == true ]] && __text " ${DIM_RED}<-${RESET} ${DIM_GREEN}${source#"${SCRIPT_LOCATION}/"}${RESET}"
 
     if [[ ${__STATUS} == true ]]; then
       local __real_path
