@@ -15,7 +15,9 @@
     user = eendroroy
 [core]
     excludesfile = ~/.gitignore_global
-    pager = diff-so-fancy | less --tabs=4 -RF
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
 [http]
     sslVerify = true
 [init]
@@ -31,12 +33,19 @@
 [commit]
     template = ~/.stCommitMsg
     gpgsign = true
+[merge]
+    conflictStyle = zdiff3
 [rerere]
     enabled = true
 [credential]
     helper = store
 [help]
     autoCorrect = prompt
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    line-numbers-left-format = ""
+    line-numbers-right-format = "│ "
 [alias]
     lg = log --graph --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr%C(reset) - %C(yellow)%cd)%C(reset)' --abbrev-commit
     ls = log --pretty=format:'%C(red)%h%C(reset) %C(bold blue)%an%C(reset) [%ae] - %C(white)%s%C(reset) - %C(reset) %C(yellow)%d%C(reset) %C(green)(%cr%C(reset) - %C(yellow)%cd)%C(reset)' --abbrev-commit
