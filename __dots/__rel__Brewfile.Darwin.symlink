@@ -10,6 +10,7 @@
 # TAPS
 # tap "filosottile/musl-cross"
 tap "gromgit/fuse"
+tap "microsoft/mssql-release", "https://github.com/microsoft/homebrew-mssql-release"
 tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu"
 tap "sergiobenitez/osxct"
 
@@ -54,6 +55,7 @@ brew "findutils"
 brew "moreutils"
 brew "mtools"
 cask "openvpn-connect"
+brew "pastel"
 brew "tree"
 brew "watch"
 brew "wget"
@@ -135,8 +137,10 @@ cask "visualvm"
 # DATABASE TOOLS
 # cask "azure-data-studio"
 cask "dbeaver-community"
+brew "mssql-tools18"
 brew "pgcli"
 #brew "postgresql@17", restart_service: :changed
+brew "unixodbc"
 
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
 # brew "ansible"
