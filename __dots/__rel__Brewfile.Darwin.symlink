@@ -115,13 +115,14 @@ cask "google-chrome"
 # cask "tor-browser"
 
 # DEVELOPMENT TOOLS
-brew "asdf"
+# brew "asdf"
 cask "bruno"
 # cask "hoppscotch"
 cask "jetbrains-toolbox"
 brew "k6"
 brew "loc"
 brew "make"
+brew "mise"
 brew "nasm"
 brew "openjdk"
 # cask "postman"
@@ -137,6 +138,7 @@ cask "visualvm"
 # DATABASE TOOLS
 # cask "azure-data-studio"
 cask "dbeaver-community"
+brew "msodbcsql18"
 brew "mssql-tools18"
 brew "pgcli"
 #brew "postgresql@17", restart_service: :changed

@@ -53,15 +53,18 @@ Example output:
 Usage: ./dotfiles [command] [options]
 
 Commands:
-  h, help       Show this help
-  l, list       List managed dotfiles
-  i, install    Install symlinks
-  u, uninstall  Remove symlinks
+  help      h   Show this help
+  list      l   List managed dotfiles
+  install   i   Install symlinks
+  uninstall u   Remove symlinks
+  update    up  Re-install (force overwrite existing symlinks)
 
 Common options:
   -s, --status  Show status only
   -v, --verbose Increase verbosity
   -f, --force   Force overwrite
+  -n, --dry-run Simulate actions
+  -b, --brew    Install/Update Homebrew packages (Darwin only)
 
 Script location: /Users/indrajit/.dotfiles
 ```
