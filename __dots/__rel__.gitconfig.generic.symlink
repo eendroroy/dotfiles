@@ -10,7 +10,8 @@
 [user]
     name = indrajit
     email = eendroroy@gmail.com
-    signingkey = 7D65308546343630
+    # signingkey = 7D65308546343630 # revoked
+    signingkey = 57FADA081DE48E94
 [github]
     user = eendroroy
 [core]
