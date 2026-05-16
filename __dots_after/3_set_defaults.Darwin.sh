@@ -29,3 +29,17 @@ if [[ $(defaults read com.apple.desktopservices DSDontWriteUSBStores) != "1" ]];
 else
   ${__VERBOSE} && __warning "Skipping : .DS_Store creation already disabled on USB volumes [$(defaults read com.apple.desktopservices DSDontWriteUSBStores)]\n"
 fi
+
+if [[ $(defaults read -g KeyRepeat) != "3" ]]; then
+  __message "setting key repeat rate to 3 (fast)\n"
+  defaults write -g KeyRepeat -int 3
+else
+  ${__VERBOSE} && __warning "Skipping : key repeat rate already set to 3 [$(defaults read -g KeyRepeat)]\n"
+fi
+
+if [[ $(defaults read -g InitialKeyRepeat) != "15" ]]; then
+  __message "setting initial key repeat delay to 15 (short)\n"
+  defaults write -g InitialKeyRepeat -float 15
+else
+  ${__VERBOSE} && __warning "Skipping : initial key repeat delay already set to 15 [$(defaults read -g InitialKeyRepeat)]\n"
+fi
