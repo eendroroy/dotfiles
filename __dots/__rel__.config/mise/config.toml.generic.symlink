@@ -1,4 +1,4 @@
 [tools]
 maven = ["3.9"]
 gradle = ["9", "8.5"]
-java = ["temurin-25", "temurin-21", "temurin-17", "temurin-8"]
+java = ["temurin-25", "temurin-21", "temurin-17", "corretto-8"]
