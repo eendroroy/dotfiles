@@ -7,6 +7,15 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
+# functions
+def silicon?
+  RUBY_PLATFORM.include?("arm64")
+end
+
+def intel?
+  RUBY_PLATFORM.include?("x86_64")
+end
+
 # TAPS
 # tap "filosottile/musl-cross"
 tap "gromgit/fuse"
@@ -157,13 +166,16 @@ brew "qemu"
 cask "vagrant"
 brew "virt-manager"
 cask "virtualbox"
-cask "virtualbox-extension-pack"
+cask "virtualbox-extension-pack" if intel?
 
 # FONTS
 cask "font-blex-mono-nerd-font"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
+
+# LANGUAGE
+cask "arahim3/lekho/lekho" if silicon?
 
 # SECURITY
 cask "gpg-suite"
@@ -172,4 +184,4 @@ cask "veracrypt"
 # OTHERS
 cask "galaxybudsclient"
 cask "vlc"
-cask "whatsapp"
+# cask "whatsapp"
