@@ -9,7 +9,10 @@
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+
+# Homebrew first (highest priority)
 export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 if [ -d ~/bin ]; then
   export PATH="$HOME/bin:$PATH"
