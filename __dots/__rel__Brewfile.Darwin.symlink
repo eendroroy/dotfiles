@@ -165,6 +165,7 @@ brew "unixodbc"
 brew "colima" # Colima is a container runtime for macOS that provides a Linux environment for running containers
 brew "docker"
 brew "docker-compose"
+brew "docker-credential-helper"
 brew "lima" # Lima is a tool for running Linux virtual machines on macOS with minimal setup
 brew "qemu"
 # brew "quickemu"
