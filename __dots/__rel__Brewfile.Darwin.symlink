@@ -44,7 +44,7 @@ brew "zsh"
 brew "delta"
 brew "git"
 brew "git-crypt"
-brew "git-extras"
+# brew "git-extras"
 brew "git-sizer"
 # brew "git-lfs"
 brew "gitleaks"
@@ -82,6 +82,7 @@ brew "htop"
 cask "macfuse"
 cask "mounty"
 brew "ncdu"
+brew "procs" # Modern, colored replacement for 'ps'
 brew "usbutils"
 
 # UTILITY TOOLS
@@ -102,7 +103,7 @@ brew "pv"
 brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
 cask "sf-symbols"
 cask "stats"
-brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
+# brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
 brew "yank" # yank is a simple clipboard manager for the terminal
 brew "yq"
 brew "zoxide"
@@ -156,17 +157,24 @@ brew "unixodbc"
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
 # brew "ansible"
 # brew "k3d"
-brew "kind"
-brew "podman"
-cask "podman-desktop"
+# brew "kind"
+# brew "podman"
+# cask "podman-desktop"
 # brew "helm"
 # brew "minikube"
+brew "colima" # Colima is a container runtime for macOS that provides a Linux environment for running containers
+brew "docker"
+brew "docker-compose"
+brew "lima" # Lima is a tool for running Linux virtual machines on macOS with minimal setup
 brew "qemu"
 # brew "quickemu"
-cask "vagrant"
-brew "virt-manager"
-cask "virtualbox"
-cask "virtualbox-extension-pack" if intel?
+cask "utm" if silicon? # UTM is a virtual machine host for Apple Silicon Macs, based on QEMU
+if intel?
+  cask "vagrant"
+  brew "virt-manager"
+  cask "virtualbox"
+  cask "virtualbox-extension-pack"
+end
 
 # FONTS
 cask "font-blex-mono-nerd-font"
@@ -185,3 +193,12 @@ cask "veracrypt"
 cask "galaxybudsclient"
 cask "vlc"
 # cask "whatsapp"
+
+# Mac App Store
+brew "mas"
+### MICROSOFT 365
+mas "Microsoft Word", id: 462054704
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft PowerPoint", id: 462062816
+mas "Microsoft Outlook", id: 985367838
+mas "OneDrive", id: 823766827
