@@ -43,3 +43,17 @@ if [[ $(defaults read -g InitialKeyRepeat) != "15" ]]; then
 else
   ${__VERBOSE} && __warning "Skipping : initial key repeat delay already set to 15 [$(defaults read -g InitialKeyRepeat)]\n"
 fi
+
+if [[ $(defaults read -g NSStatusItemSelectionPadding) != "8" ]]; then
+  __message "setting status item selection padding to 8 (default is 16)\n"
+  defaults write -g NSStatusItemSelectionPadding -int 8
+else
+  ${__VERBOSE} && __warning "Skipping : status item selection padding already set to 8 [$(defaults read -g NSStatusItemSelectionPadding)]\n"
+fi
+
+if [[ $(defaults read -g NSStatusItemSpacing) != "10" ]]; then
+  __message "setting status item spacing to 10 (default is 16)\n"
+  defaults write -g NSStatusItemSpacing -int 10
+else
+  ${__VERBOSE} && __warning "Skipping : status item spacing already set to 10 [$(defaults read -g NSStatusItemSpacing)]\n"
+fi
