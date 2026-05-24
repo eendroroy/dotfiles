@@ -16,6 +16,10 @@ def intel?
   RUBY_PLATFORM.include?("x86_64")
 end
 
+def mas?
+  ENV.key?("MAS")
+end
+
 # TAPS
 # tap "filosottile/musl-cross"
 tap "gromgit/fuse"
@@ -191,6 +195,7 @@ cask "gpg-suite"
 cask "veracrypt"
 
 # OTHERS
+brew "ffmpeg"
 cask "galaxybudsclient"
 cask "vlc"
 # cask "whatsapp"
@@ -198,8 +203,10 @@ cask "vlc"
 # Mac App Store
 brew "mas"
 ### MICROSOFT 365
-mas "Microsoft Word", id: 462054704
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Outlook", id: 985367838
-mas "OneDrive", id: 823766827
+if mas?
+  mas "Microsoft Word", id: 462054704
+  mas "Microsoft Excel", id: 462058435
+  mas "Microsoft PowerPoint", id: 462062816
+  mas "Microsoft Outlook", id: 985367838
+  mas "OneDrive", id: 823766827
+end
