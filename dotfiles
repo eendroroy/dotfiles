@@ -62,10 +62,9 @@ readonly COMMAND="${1:-help}"
 shift || true
 
 case "${COMMAND}" in
-  h|help     )                                         __help      ;;
-  l|list     ) __parse_common_args "$@";               __list      ;;
-  i|install  ) __parse_common_args "$@";               __install   ;;
-  u|uninstall) __parse_common_args "$@";               __uninstall ;;
-  up|update  ) __parse_common_args "$@"; __FORCE=true; __install   ;;
-  *          )                                         __help      ;;
+  h|help     )                           __help      ;;
+  l|list     ) __parse_common_args "$@"; __list      ;;
+  i|install  ) __parse_common_args "$@"; __install   ;;
+  u|uninstall) __parse_common_args "$@"; __uninstall ;;
+  *          )                           __help      ;;
 esac
