@@ -55,7 +55,7 @@ function __uninstall() {
       else
         [[ "${__VERBOSE}" == true ]] && __warning "Not found, skipping: ${target}\n"
       fi
-    done < <(find "${__DOTS_DIR}/" \( -name "*.${__UNAME}.symlink" -o -name "*.generic.symlink" \) -print0 | sort -z)
+    done < <(find "${__DOT_FILES}/" \( -name "*.${__UNAME}.symlink" -o -name "*.generic.symlink" \) -print0 | sort -z)
   fi
 }
 

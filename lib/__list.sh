@@ -11,8 +11,8 @@
 
 function __list() {
   while IFS= read -r -d '' item; do
-    __run " ${item#${__BEFORE_DIR}/}\n"
-  done < <(find "${__BEFORE_DIR}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
+    __run " ${item#${__PRE_HOOK}/}\n"
+  done < <(find "${__PRE_HOOK}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
 
   while IFS= read -r -d '' item; do
     read -r source target <<< "$(__get_source_target "${item}")"
@@ -42,11 +42,11 @@ function __list() {
     fi
 
     echo
-  done < <(find "${__DOTS_DIR}/" \( -name "*.generic.symlink" -o -name "*.${__UNAME}.symlink" \) -print0 | sort -z)
+  done < <(find "${__DOT_FILES}/" \( -name "*.generic.symlink" -o -name "*.${__UNAME}.symlink" \) -print0 | sort -z)
 
   while IFS= read -r -d '' item; do
-    __run " ${item#${__AFTER_DIR}/}\n"
-  done < <(find "${__AFTER_DIR}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
+    __run " ${item#${__POST_HOOK}/}\n"
+  done < <(find "${__POST_HOOK}/" \( -name "*.generic.sh" -o -name "*.${__UNAME}.sh" \) -print0 | sort -z)
 }
 
 export -f __list

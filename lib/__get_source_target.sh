@@ -11,7 +11,7 @@
 
 function __get_source_target() {
   local item="$1"
-  local target_name="${item#"${__DOTS_DIR}"/}"
+  local target_name="${item#"${__DOT_FILES}"/}"
   target_name="${target_name%."${__UNAME}".symlink}"
   target_name="${target_name%.generic.symlink}"
   local prefix="${target_name:0:${PREFIS_LENGTH}}"

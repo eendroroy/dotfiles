@@ -65,7 +65,7 @@ function __install_links() {
     ${__DRY} || echo "${target}" >> "${__INSTALLATION_CACHE_FILE}"
     ${__DRY} && [[ "${__VERBOSE}" == true ]] && __info "(${target} >> ${__INSTALLATION_CACHE_FILE})\n"
 
-  done < <(find "${__DOTS_DIR}/" \( -name "*.${__UNAME}.symlink" -o -name "*.generic.symlink" \) -print0 | sort -z)
+  done < <(find "${__DOT_FILES}/" \( -name "*.${__UNAME}.symlink" -o -name "*.generic.symlink" \) -print0 | sort -z)
 }
 
 export -f __install_links

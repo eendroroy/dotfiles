@@ -19,10 +19,9 @@ function __run_all_from_directory() {
 
 function __install() {
   mkdir -p "$(dirname "${__INSTALLATION_CACHE_FILE}")"
-  __run_all_from_directory "${__PREINSTALL_DIR}"
-  __run_all_from_directory "${__BEFORE_DIR}"
+  __run_all_from_directory "${__PRE_HOOK}"
   __install_links
-  __run_all_from_directory "${__AFTER_DIR}"
+  __run_all_from_directory "${__POST_HOOK}"
 }
 
 export -f __install
