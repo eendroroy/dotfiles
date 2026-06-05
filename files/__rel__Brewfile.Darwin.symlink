@@ -153,9 +153,10 @@ cask "visualvm"
 # DATABASE TOOLS
 # cask "azure-data-studio"
 cask "dbeaver-community"
+brew "libpq", link: :force
 brew "msodbcsql18"
 brew "mssql-tools18"
-brew "pgcli"
+# brew "pgcli"
 #brew "postgresql@17", restart_service: :changed
 brew "unixodbc"
 
