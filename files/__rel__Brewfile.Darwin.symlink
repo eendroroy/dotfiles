@@ -22,10 +22,10 @@ end
 
 # TAPS
 # tap "filosottile/musl-cross"
-tap "gromgit/fuse"
-tap "microsoft/mssql-release", "https://github.com/microsoft/homebrew-mssql-release"
-tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu"
-tap "sergiobenitez/osxct"
+tap "gromgit/fuse", trust: true
+tap "microsoft/mssql-release", "https://github.com/microsoft/homebrew-mssql-release", trust: true
+tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu", trust: true
+# tap "sergiobenitez/osxct", trust: true
 
 # SHELLS
 cask "alacritty"
@@ -162,16 +162,20 @@ brew "unixodbc"
 
 # CONTAINERS, VIRTUALIZATION & ORCHESTRATION
 # brew "ansible"
+if silicon?
+  cask "orbstack"
+else
+  # brew "colima" # Colima is a container runtime for macOS that provides a Linux environment for running containers
+  # brew "docker"
+  # brew "docker-compose"
+  # brew "docker-credential-helper"  
+end
 # brew "k3d"
 # brew "kind"
 # brew "podman"
 # cask "podman-desktop"
 # brew "helm"
 # brew "minikube"
-brew "colima" # Colima is a container runtime for macOS that provides a Linux environment for running containers
-brew "docker"
-brew "docker-compose"
-brew "docker-credential-helper"
 brew "lima" # Lima is a tool for running Linux virtual machines on macOS with minimal setup
 brew "qemu"
 # brew "quickemu"
