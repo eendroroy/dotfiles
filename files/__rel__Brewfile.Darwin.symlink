@@ -26,6 +26,7 @@ tap "gromgit/fuse", trust: true
 tap "microsoft/mssql-release", "https://github.com/microsoft/homebrew-mssql-release", trust: true
 tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu", trust: true
 # tap "sergiobenitez/osxct", trust: true
+tap "eendroroy/tools", trust: true
 
 # SHELLS
 cask "alacritty"
@@ -36,6 +37,7 @@ brew "bash-completion@2"
 brew "fish"
 cask "ghostty"
 brew "gitmux"
+brew "gitter-rs"
 # cask "iterm2"
 brew "nushell"
 brew "shellcheck"
