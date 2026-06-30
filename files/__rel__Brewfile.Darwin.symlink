@@ -24,7 +24,7 @@ end
 # tap "filosottile/musl-cross"
 tap "gromgit/fuse", trust: true
 tap "microsoft/mssql-release", "https://github.com/microsoft/homebrew-mssql-release", trust: true
-tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu", trust: true
+# tap "quickemu-project/quickemu", trust: true
 # tap "sergiobenitez/osxct", trust: true
 tap "eendroroy/tools", trust: true
 
