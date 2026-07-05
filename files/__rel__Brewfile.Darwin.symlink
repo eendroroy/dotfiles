@@ -208,7 +208,7 @@ cask "veracrypt"
 brew "ffmpeg"
 cask "galaxybudsclient"
 cask "vlc"
-# cask "whatsapp"
+cask "whatsapp"
 
 # Mac App Store
 brew "mas"
