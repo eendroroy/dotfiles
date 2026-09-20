@@ -19,7 +19,7 @@ fi
 [[ -f ~/.zsh_alias.local ]] && source ~/.zsh_alias.local
 
 # aliases
-if which youtube-dl > /dev/null; then
+if command -v youtube-dl > /dev/null; then
   alias ydl='youtube-dl'
   alias ymp3='youtube-dl --extract-audio --audio-format mp3'
 fi
@@ -31,10 +31,10 @@ alias pa='cd && dirs -c'
 alias ..='popd'
 alias ...='cd ..'
 
-if which ccat > /dev/null; then
+if command -v ccat > /dev/null; then
   alias cat='ccat'
 else
-  which pygmentize > /dev/null && alias cat='pygmentize -g'
+  command -v pygmentize > /dev/null && alias cat='pygmentize -g'
 fi
 
 alias zshrc='$EDITOR ~/.zshrc'
@@ -42,9 +42,9 @@ alias ds='dirs -v'
 for c in cp rm chmod chown rename; do
   alias $c="$c -v"
 done
-which python > /dev/null && alias prettyjson='python -m json.tool'
+command -v python > /dev/null && alias prettyjson='python -m json.tool'
 
-if which k > /dev/null; then
+if command -v k > /dev/null; then
   alias k='k -h'
   alias ka='k -Ah'
   alias kk='k -ah'
@@ -54,21 +54,27 @@ if which k > /dev/null; then
   alias kan='k -anh'
 fi
 
-if which eza > /dev/null; then
+if command -v eza > /dev/null; then
   alias ls='eza'
   alias ll='eza -la --git --color-scale --color-scale-mode=fixed'
   alias l='eza -l --git --color-scale --color-scale-mode=fixed'
   alias lt='eza -lT --git --color-scale --color-scale-mode=fixed'
 fi
 
-if which tmuxinator > /dev/null; then
+if command -v tmuxinator > /dev/null; then
   alias txo='tmuxinator open'
   alias txs='tmuxinator start'
   alias txc='tmuxinator stop'
   alias txl='tmuxinator list'
 fi
 
-if which nvim > /dev/null; then
+if command -v nvim > /dev/null 2>&1; then
   alias vi='nvim'
   alias vim='nvim'
+  export EDITOR=nvim
+  export VISUAL=nvim
+fi
+
+if command -v kubectl > /dev/null 2>&1; then
+  alias k='kubectl'
 fi

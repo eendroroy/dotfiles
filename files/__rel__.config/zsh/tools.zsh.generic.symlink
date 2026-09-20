@@ -7,8 +7,6 @@
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 
-which nvim > /dev/null && export EDITOR='nvim'
-
 # sdkman
 # export SDKMAN_DIR="$HOME/.sdkman"
 # [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -22,7 +20,7 @@ export FZF_CTRL_T_OPTS='--height=40% --reverse --preview="head {}" --preview-win
 # gitter bash
 # export PATH="$HOME/.gitter/bin:$PATH"
 # gitter-rs
-# which gitter > /dev/null && eval "$(gitter completion --zsh)"
+# command -v gitter > /dev/null && eval "$(gitter completion --zsh)"
 
 #asdf
 #export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
@@ -34,9 +32,9 @@ eval "$(mise activate zsh)"
 export GOPATH="$HOME/gopath"
 export PATH="$GOPATH/bin:$PATH"
 
-which fasd > /dev/null && eval "$(fasd --init auto)"
-which thefuck > /dev/null && eval $(thefuck --alias)
-which zoxide > /dev/null && eval "$(zoxide init zsh)"
+command -v fasd > /dev/null && eval "$(fasd --init auto)"
+command -v thefuck > /dev/null && eval $(thefuck --alias)
+command -v zoxide > /dev/null && eval "$(zoxide init zsh)"
 
 # psql
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
