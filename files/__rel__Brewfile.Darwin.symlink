@@ -102,6 +102,7 @@ brew "direnv"
 brew "eza"
 brew "f3" # f3 is a tool to test the real capacity of USB flash drives
 brew "fzf"
+brew "go-task"
 brew "jq"
 cask "keka"
 brew "libgit2"
@@ -110,6 +111,7 @@ brew "multitail"
 brew "numbat"
 brew "pv"
 brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
+brew "scrcpy"
 cask "sf-symbols"
 cask "stats"
 # brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
@@ -164,25 +166,30 @@ brew "mssql-tools18"
 #brew "postgresql@17", restart_service: :changed
 brew "unixodbc"
 
-# CONTAINERS, VIRTUALIZATION & ORCHESTRATION
-# brew "ansible"
+# CONTAINERS, K8S
 if silicon?
   cask "orbstack"
 else
   # brew "colima" # Colima is a container runtime for macOS that provides a Linux environment for running containers
   # brew "docker"
   # brew "docker-compose"
-  # brew "docker-credential-helper"  
+  # brew "docker-credential-helper"
 end
 # brew "k3d"
-# brew "kind"
+brew "k9s"
+brew "kind"
+# brew "kubectl"
+brew "helm"
+# brew "minikube"
+
+# CONTAINERS, VIRTUALIZATION & ORCHESTRATION
+# brew "ansible"
 # brew "podman"
 # cask "podman-desktop"
-# brew "helm"
-# brew "minikube"
 brew "lima" # Lima is a tool for running Linux virtual machines on macOS with minimal setup
 brew "qemu"
 # brew "quickemu"
+brew "trivy"
 cask "utm" if silicon? # UTM is a virtual machine host for Apple Silicon Macs, based on QEMU
 if intel?
   cask "vagrant"
@@ -206,9 +213,13 @@ cask "veracrypt"
 
 # OTHERS
 brew "ffmpeg"
+cask "flox"
 cask "galaxybudsclient"
 cask "vlc"
 cask "whatsapp"
+
+# AI
+brew "ollama"
 
 # Mac App Store
 brew "mas"
