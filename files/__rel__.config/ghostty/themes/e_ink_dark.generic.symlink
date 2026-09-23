@@ -32,8 +32,9 @@ cursor-text = cell-background
 selection-background = cell-foreground
 selection-foreground = cell-background
 
-background-image=themes/e_ink_dark_bg.png
-background-image-fit=none
-background-image-repeat=true
+background-image = themes/e_ink_dark_bg.png
+background-image-fit = none
+background-image-repeat = true
+background-image-position = top-left
 
-#custom-shader=themes/e_ink_dark.glsl
+#custom-shader = themes/e_ink_dark.glsl
