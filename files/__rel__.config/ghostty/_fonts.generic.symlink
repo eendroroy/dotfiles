@@ -4,14 +4,14 @@ font-size = 18
 adjust-cell-height = 10%
 adjust-cell-width = -10%
 
-# font-family = "JetBrainsMono Nerd Font Mono"
-# font-style = "Regular"
-# font-style-bold = "Bold"
-# font-style-italic = "Italic"
-# font-style-bold-italic = "Bold Italic"
-
-font-family = "GoogleSansCode NFM"
+font-family = "JetBrainsMono Nerd Font Mono"
 font-style = "Regular"
-font-style-bold = "Medium"
+font-style-bold = "Bold"
 font-style-italic = "Italic"
-font-style-bold-italic = "Medium Italic"
+font-style-bold-italic = "Bold Italic"
+
+# font-family = "GoogleSansCode NFM"
+# font-style = "Regular"
+# font-style-bold = "Medium"
+# font-style-italic = "Italic"
+# font-style-bold-italic = "Medium Italic"
