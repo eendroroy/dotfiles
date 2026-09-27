@@ -200,6 +200,7 @@ end
 
 # FONTS
 cask "font-blex-mono-nerd-font"
+cask "font-googlesanscode-nerd-font"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-meslo-lg-nerd-font"
