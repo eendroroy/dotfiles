@@ -47,11 +47,12 @@
   "document_layout": "dock",
   "document_ratio": 0.5,
   "scm_graph_expanded": false,
+  "scm_changes_tree": false,
   "editor_soft_wrap": false,
   "editor_markdown_preview": false,
-  "sidebar_grouping": "repo",
-  "sidebar_collapsed_groups": [],
-  "sidebar_diff_preview": true,
+  "editor_lsp": true,
+  "editor_git_gutter": true,
+  "sidebar_auto_grouping": true,
   "notify_on_command_finish": "unfocused",
   "check_for_updates": true,
   "update_channel": "stable",
@@ -66,6 +67,7 @@
   "tab_completion": true,
   "history_search": true,
   "cursor_style": "block",
+  "prompt_cursor_style": "follow",
   "macos_option_as_alt": false,
   "mouse_hide_while_typing": true,
   "focus_follows_mouse": false,
@@ -85,15 +87,19 @@
     "path": ""
   },
   "env": {},
-  "per_pane_history": false,
   "verify_host_keys": true,
   "ssh_warn_on_close": false,
-  "restore_agent_sessions": true,
+  "shell_frecency": {},
   "command_frecency": {
     "restart-daemon": {
       "count": 1,
       "last_used": 1790619935
     }
   },
-  "agent_commands": {}
+  "agent_commands": {},
+  "agent_launch": {},
+  "agent_frecency": {},
+  "hidden_agent_sessions": [],
+  "restore_agent_sessions": true,
+  "per_pane_history": false
 }
