@@ -1,0 +1,7 @@
+name: "E Ink Dark"
+background: "#000000"
+foreground: "#bfbfbf"
+accent: "#78a8f5"
+ansi:
+  normal: ["#595959", "#cc9090", "#90cc90", "#cccc90", "#919ccc", "#cc90cc", "#90cccc", "#cccccc"]
+  bright: ["#808080", "#e6b9b9", "#b9e6b9", "#e6e6b9", "#b9c6e6", "#e6b9e6", "#b9e6e6", "#e6e6e6"]
