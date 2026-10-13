@@ -114,8 +114,9 @@ brew "pv"
 brew "ripgrep" # ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern
 brew "scrcpy"
 cask "sf-symbols"
-cask "stats"
+# cask "stats"
 # brew "the_silver_searcher" # The Silver Searcher is a code-searching tool similar to ack, but faster
+cask "vorssaint"
 brew "yank" # yank is a simple clipboard manager for the terminal
 brew "yq"
 brew "zoxide"
@@ -216,7 +217,7 @@ cask "veracrypt"
 
 # OTHERS
 brew "ffmpeg"
-cask "flox"
+# cask "flox"
 cask "galaxybudsclient"
 brew "imagemagick"
 cask "vlc"
@@ -224,6 +225,7 @@ cask "whatsapp"
 
 # AI
 brew "ollama"
+cask "deepseek-harness"
 
 # Mac App Store
 brew "mas"
