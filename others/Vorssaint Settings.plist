@@ -22,6 +22,8 @@
 		<dict/>
 		<key>audioPriorityDeviceNames</key>
 		<dict>
+			<key>06B3D822-0000-0000-1521-010380301A78</key>
+			<string>ASUS VZ22EHE</string>
 			<key>AppleUSBAudioEngine:UC02:UC02:UC02:2,1</key>
 			<string>UC02</string>
 			<key>BuiltInHeadphoneInputDevice</key>
@@ -48,6 +50,7 @@
 			<string>BuiltInHeadphoneOutputDevice</string>
 			<string>BuiltInSpeakerDevice</string>
 			<string>AppleUSBAudioEngine:UC02:UC02:UC02:2,1</string>
+			<string>06B3D822-0000-0000-1521-010380301A78</string>
 		</array>
 		<key>autoCheckUpdates</key>
 		<false/>
@@ -575,7 +578,7 @@
 		<key>menuBarNetwork</key>
 		<true/>
 		<key>menuBarNetworkUploadFirst</key>
-		<false/>
+		<true/>
 		<key>menuBarPeripheralBattery</key>
 		<false/>
 		<key>menuBarPower</key>
@@ -911,11 +914,11 @@
 		<key>notchMascotReactions</key>
 		<true/>
 		<key>notchMascotShape</key>
-		<string>ball</string>
+		<string>pill</string>
 		<key>notchMascotSide</key>
 		<string>left</string>
 		<key>notchMascotStyle</key>
-		<string>robot</string>
+		<string>minimal</string>
 		<key>notchMascotVisitFrequency</key>
 		<string>normal</string>
 		<key>notchMascotVisits</key>
@@ -1372,7 +1375,7 @@
 		<key>screenshotWatermarkPresets</key>
 		<string>[]</string>
 		<key>screenshotWatermarkStyle</key>
-		<string>{"anchor":"bottomTrailing","rotation":0,"text":"","size":0.3,"opacity":0.4,"kind":"none","color":"white"}</string>
+		<string>{"text":"","opacity":0.4,"kind":"none","anchor":"bottomTrailing","size":0.3,"color":"white","rotation":0}</string>
 		<key>scrollHorizontalEnabled</key>
 		<false/>
 		<key>scrollHorizontalModifier</key>
