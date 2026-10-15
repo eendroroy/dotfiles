@@ -95,6 +95,7 @@ brew "procs" # Modern, colored replacement for 'ps'
 brew "usbutils"
 
 # UTILITY TOOLS
+cask "android-commandlinetools"
 cask "android-platform-tools"
 brew "asciinema"
 brew "direnv"
@@ -216,6 +217,7 @@ cask "gpg-suite"
 cask "veracrypt"
 
 # OTHERS
+cask "drawio"
 brew "ffmpeg"
 # cask "flox"
 cask "galaxybudsclient"
