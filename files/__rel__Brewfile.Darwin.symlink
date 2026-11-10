@@ -29,7 +29,8 @@ tap "microsoft/mssql-release", "https://github.com/microsoft/homebrew-mssql-rele
 tap "eendroroy/tools", trust: true
 
 # SHELLS
-cask "alacritty"
+# cask "alacritty"
+cask "ylluminate/attic/alacritty"
 brew "bash"
 #brew "bash-completion"
 brew "bash-completion@2"
@@ -223,7 +224,8 @@ cask "veracrypt"
 cask "drawio"
 brew "ffmpeg"
 # cask "flox"
-cask "galaxybudsclient"
+# cask "galaxybudsclient"
+cask "ylluminate/attic/galaxybudsclient"
 brew "imagemagick"
 cask "vlc"
 cask "whatsapp"
