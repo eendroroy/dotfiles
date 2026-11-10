@@ -6,7 +6,7 @@ shell-integration-features = true
 
 selection-clear-on-typing = true
 selection-clear-on-copy = true
-scrollback-limit = 10000000
+scrollback-limit-bytes = 10000000
 
 window-vsync = true
 window-save-state = always
