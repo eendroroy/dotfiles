@@ -54,6 +54,8 @@
 		</array>
 		<key>autoCheckUpdates</key>
 		<false/>
+		<key>autoQuitDockApps</key>
+		<array/>
 		<key>autoQuitExceptions</key>
 		<array>
 			<string>com.apple.finder</string>
@@ -107,6 +109,8 @@
 		<false/>
 		<key>clipboardHistoryEnabled</key>
 		<false/>
+		<key>clipboardHistoryFilterSensitiveText</key>
+		<false/>
 		<key>clipboardHistoryIgnoredApps</key>
 		<array/>
 		<key>clipboardHistoryIncludeImagesFiles</key>
@@ -121,12 +125,14 @@
 		<integer>20</integer>
 		<key>clipboardHistoryQuickPreview</key>
 		<false/>
+		<key>clipboardHistoryRetentionDays</key>
+		<integer>0</integer>
 		<key>clipboardHistoryShortcut</key>
 		<string>control+option+command:9</string>
 		<key>clipboardHistoryShortcutEnabled</key>
 		<true/>
-		<key>clipboardHistorySkipSensitive</key>
-		<true/>
+		<key>clipboardHistoryShowSourceAppIcons</key>
+		<false/>
 		<key>colorPickerBareHex</key>
 		<false/>
 		<key>colorPickerFormat</key>
@@ -323,6 +329,8 @@
 		<false/>
 		<key>featureAvailable.quickToggles</key>
 		<false/>
+		<key>featureAvailable.quitApps</key>
+		<false/>
 		<key>featureAvailable.quitWindowProtection</key>
 		<false/>
 		<key>featureAvailable.radialMenu</key>
@@ -338,6 +346,8 @@
 		<key>featureAvailable.scrollHorizontal</key>
 		<false/>
 		<key>featureAvailable.scrollInverter</key>
+		<false/>
+		<key>featureAvailable.scrollZoom</key>
 		<false/>
 		<key>featureAvailable.shelf</key>
 		<false/>
@@ -444,7 +454,7 @@
 		<key>killProcessSortBy</key>
 		<string>cpu</string>
 		<key>lastUpdateIntroVersion</key>
-		<string>3.4.1</string>
+		<string>3.4.3</string>
 		<key>launchAtLoginWanted</key>
 		<true/>
 		<key>linearScrollEnabled</key>
@@ -556,7 +566,7 @@
 		<key>menuBarFanSpeed</key>
 		<false/>
 		<key>menuBarGPU</key>
-		<true/>
+		<false/>
 		<key>menuBarGPUTemperature</key>
 		<false/>
 		<key>menuBarHideIconWithMetrics</key>
@@ -566,7 +576,7 @@
 		<key>menuBarLabelStyle</key>
 		<string>compact</string>
 		<key>menuBarMemory</key>
-		<true/>
+		<false/>
 		<key>menuBarMemoryStyle</key>
 		<string>both</string>
 		<key>menuBarMetricAppearance</key>
@@ -613,6 +623,8 @@
 		<false/>
 		<key>mixerAppArrangement</key>
 		<string></string>
+		<key>mixerHeadphonesDisconnectSilenceAllowed</key>
+		<true/>
 		<key>mixerHeadphonesDisconnectVolumePercent</key>
 		<integer>25</integer>
 		<key>mixerHideInactiveApps</key>
@@ -691,6 +703,8 @@
 		<true/>
 		<key>monitorPwrHealth</key>
 		<true/>
+		<key>monitorPwrPeripherals</key>
+		<false/>
 		<key>monitorPwrSystem</key>
 		<true/>
 		<key>monitorPwrTemperature</key>
@@ -797,8 +811,12 @@
 		<true/>
 		<key>notchBrightness</key>
 		<true/>
+		<key>notchBrowserCovers</key>
+		<false/>
 		<key>notchCalendarCountdown</key>
 		<false/>
+		<key>notchCalendarCountdownLead</key>
+		<integer>60</integer>
 		<key>notchCalendarEnabled</key>
 		<true/>
 		<key>notchCalendarExcluded</key>
@@ -821,6 +839,8 @@
 		<true/>
 		<key>notchClipboard</key>
 		<true/>
+		<key>notchClipboardCardSize</key>
+		<string>comfortable</string>
 		<key>notchClipboardWindow</key>
 		<true/>
 		<key>notchCloseDelay</key>
@@ -855,6 +875,8 @@
 		<string>commandBar,panel,scratchpad,screenshot</string>
 		<key>notchHiddenModules</key>
 		<string>timer</string>
+		<key>notchHiddenShowsActivity</key>
+		<false/>
 		<key>notchHideInCaptures</key>
 		<false/>
 		<key>notchHideInFullscreen</key>
@@ -873,9 +895,13 @@
 		<real>0.25</real>
 		<key>notchHoverExpands</key>
 		<true/>
+		<key>notchHoverInFullscreen</key>
+		<false/>
 		<key>notchIdleContent</key>
 		<string>music</string>
 		<key>notchIncludeOtherPlayers</key>
+		<true/>
+		<key>notchInputSource</key>
 		<true/>
 		<key>notchKeepAwakeActivity</key>
 		<false/>
@@ -929,6 +955,8 @@
 		<string></string>
 		<key>notchMusicActivity</key>
 		<false/>
+		<key>notchMusicShowVolume</key>
+		<false/>
 		<key>notchNotificationsEnabled</key>
 		<true/>
 		<key>notchOpenOnHover</key>
@@ -979,6 +1007,10 @@
 		<true/>
 		<key>notchShelf</key>
 		<true/>
+		<key>notchShortcut</key>
+		<string>control+option+command:34</string>
+		<key>notchShortcutEnabled</key>
+		<false/>
 		<key>notchShowInCaptures</key>
 		<true/>
 		<key>notchShowPlayingMusic</key>
@@ -1097,6 +1129,8 @@
 		<true/>
 		<key>panelToggleLockScreen</key>
 		<true/>
+		<key>panelToggleQuitAllApps</key>
+		<true/>
 		<key>panelToggleScreenSaver</key>
 		<true/>
 		<key>panelUtilityAppUpdates</key>
@@ -1141,6 +1175,10 @@
 		<false/>
 		<key>pastePlainShortcut</key>
 		<string>option+shift+command:9</string>
+		<key>pinchZoomEnabled</key>
+		<false/>
+		<key>pinchZoomModifier</key>
+		<string>control</string>
 		<key>pointerDisplayEnabled</key>
 		<false/>
 		<key>pointerDisplayShortcut</key>
@@ -1155,6 +1193,19 @@
 		<string>control+command:9</string>
 		<key>quickLauncherShortcutEnabled</key>
 		<true/>
+		<key>quitAppsExceptFrontShortcut</key>
+		<string>control+option+command:31</string>
+		<key>quitAppsExceptFrontShortcutEnabled</key>
+		<false/>
+		<key>quitAppsKeptApps</key>
+		<array>
+			<string>com.apple.finder</string>
+			<string>com.apple.mobilephone</string>
+		</array>
+		<key>quitAppsShortcut</key>
+		<string>control+option+command:12</string>
+		<key>quitAppsShortcutEnabled</key>
+		<false/>
 		<key>quitProtectionCloseDoubleIntervalMs</key>
 		<real>600</real>
 		<key>quitProtectionCloseEnabled</key>
@@ -1282,6 +1333,8 @@
 		<string>control+option+command:35</string>
 		<key>screenshotClipboardShortcutEnabled</key>
 		<false/>
+		<key>screenshotCopyImageOnly</key>
+		<false/>
 		<key>screenshotCopyToClipboard</key>
 		<false/>
 		<key>screenshotDefaultAction</key>
@@ -1360,6 +1413,8 @@
 		<true/>
 		<key>screenshotShowLastRegion</key>
 		<true/>
+		<key>screenshotSpotlightDim</key>
+		<real>0.5</real>
 		<key>screenshotToolOrder</key>
 		<string>select,arrow,pixelate,crop,text,sticker,rect,highlight,freehand,line,ellipse,counter,redact</string>
 		<key>screenshotToolShortcuts</key>
@@ -1375,7 +1430,7 @@
 		<key>screenshotWatermarkPresets</key>
 		<string>[]</string>
 		<key>screenshotWatermarkStyle</key>
-		<string>{"text":"","opacity":0.4,"kind":"none","anchor":"bottomTrailing","size":0.3,"color":"white","rotation":0}</string>
+		<string>{"kind":"none","opacity":0.4,"text":"","anchor":"bottomTrailing","rotation":0,"color":"white","size":0.3}</string>
 		<key>scrollHorizontalEnabled</key>
 		<false/>
 		<key>scrollHorizontalModifier</key>
@@ -1410,6 +1465,8 @@
 		<true/>
 		<key>showCountdownInMenuBar</key>
 		<false/>
+		<key>showReleaseNotesBeforeUpdate</key>
+		<true/>
 		<key>smoothScrollCoast</key>
 		<integer>0</integer>
 		<key>smoothScrollEnabled</key>
@@ -1445,7 +1502,11 @@
 		<key>superKeySource</key>
 		<string>capsLock</string>
 		<key>supportUpdateIntroVersion</key>
-		<string>3.4.1-support</string>
+		<string>3.4.3-support</string>
+		<key>switcherAllWindowsShortcut</key>
+		<string>option:48</string>
+		<key>switcherAllWindowsShortcutEnabled</key>
+		<false/>
 		<key>switcherAppRules</key>
 		<dict/>
 		<key>switcherAppearanceDelay</key>
@@ -1460,6 +1521,8 @@
 		<true/>
 		<key>switcherInstantSelection</key>
 		<false/>
+		<key>switcherMaxColumns</key>
+		<integer>0</integer>
 		<key>switcherMergeTabs</key>
 		<false/>
 		<key>switcherMinimizedPlacement</key>
@@ -1652,9 +1715,11 @@
 		<array/>
 		<key>windowPreviewExcludedApps</key>
 		<array/>
+		<key>windowReserveStageManagerSpace</key>
+		<false/>
 	</dict>
 	<key>vorssaintBackupAppVersion</key>
-	<string>3.4.1</string>
+	<string>3.4.3</string>
 	<key>vorssaintBackupVersion</key>
 	<integer>1</integer>
 </dict>
